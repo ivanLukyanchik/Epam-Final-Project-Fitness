@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css?family=Lato|Raleway');
+
+body {
+    font-family: "Lato", serif;
+    font-weight: 300;
+    font-size: 16px;
+    color: #555;
+
+    -webkit-font-smoothing: antialiased;
+    -webkit-overflow-scrolling: touch;
+
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Raleway", serif;
+    font-weight: 400;
+}
+h1 {
+    font-size: 96px;
+}
+.container {
+    padding-top: 30px;
+    text-align: center;
+}
+img {
+    height: 310px;width: 570px;
+}
