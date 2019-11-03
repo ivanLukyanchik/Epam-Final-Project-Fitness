@@ -1,13 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<fmt:setLocale value="${sessionScope.local}"/>
+<fmt:setBundle basename="locale.pagecontent" var="locale"/>
+
+<fmt:message bundle="${locale}" key="lang.text.english" var="en"/>
+<fmt:message bundle="${locale}" key="lang.text.russian" var="ru"/>
+<fmt:message bundle="${locale}" key="lang.text.belorussian" var="be"/>
+
 <html>
 <head>
-    <fmt:setLocale value="${sessionScope.local}"/>
-    <fmt:setBundle basename="locale.pagecontent" var="locale"/>
-
-    <fmt:message bundle="${locale}" key="lang.text.english" var="en"/>
-    <fmt:message bundle="${locale}" key="lang.text.russian" var="ru"/>
-    <fmt:message bundle="${locale}" key="lang.text.belorussian" var="be"/>
     <title>Title</title>
 </head>
 <body>

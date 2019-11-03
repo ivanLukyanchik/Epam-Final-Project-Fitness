@@ -7,9 +7,14 @@ public class JspConst {
     public static final String LANGUAGE = "lang";
     public static final String PARAM_LOGIN = "login";
     public static final String PARAM_PASSWORD = "password";
+    public static final String PARAM_NAME = "name";
+    public static final String PARAM_SURNAME = "surname";
+    public static final String PARAM_HASH = "hash";
+    public static final String PARAM_CONFIRMED_PASSWORD = "confirmPassword";
     public static final String PARAM_EMAIL = "email";
     public static final String PARAM_KEY_1 = "key1";
     public static final String PARAM_KEY_2 = "key2";
+    public static final String PARAM_KEY_3 = "key3";
     public static final String PARAM_USER = "user";
     public static final String CURRENT_PAGE = "currentPage";
     public static final String WELCOME_PAGE = "welcome";
@@ -17,6 +22,7 @@ public class JspConst {
     public static final String REGISTER_PAGE = "register";
     public static final String PASSWORD_RESTORE_PAGE = "passwordRestore";
     public static final String RESTORE_PAGE = "restore";
+    public static final String CLIENT_PROFILE_PAGE = "clientProfile";
 
     private JspConst() {
     }

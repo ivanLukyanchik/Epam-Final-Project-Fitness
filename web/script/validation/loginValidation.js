@@ -10,25 +10,15 @@ function checkLogin() {
 
 function checkPassword() {
     var inputPassword = document.getElementById("password");
-    if(inputPassword.value===""|| (!/[\w\d-_.]{3,19}/.test(inputPassword.value))) {
+    if (inputPassword.value==="" || (!/[\w\d-_.]{3,20}/.test(inputPassword.value))) {
         var passwordErrorText = inputPassword.getAttribute("title");
         inputPassword.setCustomValidity(passwordErrorText);
-    }else{
+    }else {
         inputPassword.setCustomValidity('');
     }
 }
 
 function checkForLoginAnyData() {
-    var inputLogin = document.getElementById("login");
-    if(inputLogin.value===""){
-        var placeholderErrorText= inputLogin.getAttribute("title");
-        inputLogin.setCustomValidity(placeholderErrorText);
-    }
-    var inputPassword = document.getElementById("password");
-    if(inputPassword.value===""){
-        var passwordErrorText = inputPassword.getAttribute("title");
-        inputPassword.setCustomValidity(passwordErrorText);
-    }else{
-        inputPassword.setCustomValidity('');
-    }
+    checkLogin();
+    checkPassword();
 }

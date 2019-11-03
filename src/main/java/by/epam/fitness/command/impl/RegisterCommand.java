@@ -6,6 +6,7 @@ import by.epam.fitness.mail.SendingEmail;
 import by.epam.fitness.service.ServiceException;
 import by.epam.fitness.service.UserService;
 import by.epam.fitness.service.impl.UserServiceImpl;
+import by.epam.fitness.util.page.Page;
 import by.epam.fitness.util.validation.DataValidator;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.logging.log4j.LogManager;
@@ -25,31 +26,44 @@ public class RegisterCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
         String page = null;
+        String name = request.getParameter(PARAM_NAME);
+        if (name==null || !dataValidator.isNameValid(name)) {
+            log.info("invalid name format was received:" + name);
+            request.setAttribute("invalidName", "Wrong name");
+            return Page.REGISTER_PAGE;
+        }
+        String surname = request.getParameter(PARAM_SURNAME);
+        if (surname==null || !dataValidator.isSurnameValid(surname)) {
+            log.info("invalid name format was received:" + surname);
+            request.setAttribute("invalidSurname", "Wrong surname");
+            return Page.REGISTER_PAGE;
+        }
         String login = request.getParameter(PARAM_LOGIN);
         if (login==null || !dataValidator.isLoginValid(login)) {
             log.info("invalid login format was received:" + login);
             request.setAttribute("invalidLogin", "Wrong login");
-            return "/register";
+            return Page.REGISTER_PAGE;
         }
         String email = request.getParameter(PARAM_EMAIL);
         if (email==null || !dataValidator.isEmailValid(email)){
             log.info("invalid email format was received:" + email);
             request.setAttribute("invalidEmail", "Wrong email");
-            return "/register";
+            return Page.REGISTER_PAGE;
         }
         String password = request.getParameter(PARAM_PASSWORD);
         if (password==null || !dataValidator.isPasswordValid(password)){
             log.info("invalid password format was received:" + password);
             request.setAttribute("invalidPassword", "Wrong password");
-            return "/register";
+            return Page.REGISTER_PAGE;
         }
         String newPassword = DigestUtils.sha512Hex(password);
 
         Random random = new SecureRandom();
         String userHash = DigestUtils.sha512Hex("" + random.nextInt(999999));
 
-        //pattern builder should be here
         User user = new User();
+        user.setName(name);
+        user.setSurname(surname);
         user.setLogin(login);
         user.setEmail(email);
         user.setPassword(newPassword);
@@ -58,14 +72,14 @@ public class RegisterCommand implements ActionCommand {
         try {
             if (userService.registerUser1(user)) {
                 SendingEmail.verify(email, userHash);
-                page = "/verify";
+                page = Page.VERIFY_PAGE;
             } else {
                 request.setAttribute("wrongData", "User with this login already exists");
-                page = "/register";
+                page = Page.REGISTER_PAGE;
             }
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
-            page = "/register";
+            page = Page.REGISTER_PAGE;
         }
         return page;
     }

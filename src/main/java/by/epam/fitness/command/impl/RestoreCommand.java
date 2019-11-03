@@ -6,11 +6,15 @@ import by.epam.fitness.service.ServiceException;
 import by.epam.fitness.service.UserService;
 import by.epam.fitness.service.impl.UserServiceImpl;
 import by.epam.fitness.util.JspConst;
+import by.epam.fitness.util.page.Page;
 import by.epam.fitness.util.validation.DataValidator;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.SecureRandom;
+import java.util.Random;
 
 public class RestoreCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(RestoreCommand.class);
@@ -24,25 +28,28 @@ public class RestoreCommand implements ActionCommand {
         if (email==null || !dataValidator.isEmailValid(email)){
             log.info("invalid email format was received:" + email);
             request.setAttribute("invalidEmail", "Wrong email");
-            return "/restore";
+            return Page.RESTORE_PAGE;
         }
         String login = request.getParameter(JspConst.PARAM_LOGIN);
         if (login==null || !dataValidator.isLoginValid(login)) {
             log.info("invalid login format was received:" + login);
             request.setAttribute("invalidLogin", "Wrong login");
-            return "/restore";
+            return Page.RESTORE_PAGE;
         }
+        Random random = new SecureRandom();
+        String userHash = DigestUtils.sha512Hex("" + random.nextInt(999999));
         try {
-            if (userService.restoreUser1(login, email)) {
-                SendingEmail.restorePassword(login, email);
-                page = "/finalRestore";
+            if (userService.restoreUser1(login, email, userHash)) {
+                SendingEmail.restorePassword(login, email, userHash);
+                page = Page.FINAL_RESTORE_PAGE;
             } else {
-                request.setAttribute("wrongData", "There is no such email");
-                page = "/restore";
+                log.info("invalid email format was received:" + email);
+                request.setAttribute("wrongData", "There is no such login or email");
+                page = Page.RESTORE_PAGE;
             }
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
-            page = "/restore";
+            page = Page.RESTORE_PAGE;
         }
         return page;
     }

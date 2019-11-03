@@ -71,6 +71,15 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>Profile</servlet-name>
+        <jsp-file>/jsp/client/clientProfile.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Profile</servlet-name>
+        <url-pattern>/clientProfile</url-pattern>
+    </servlet-mapping>
+
     <error-page>
         <error-code>404</error-code>
         <location>/WEB-INF/error/errorPage.jsp</location>
@@ -80,4 +89,13 @@
         <location>/WEB-INF/error/errorPage.jsp</location>
     </error-page>
 
+    <filter>
+        <filter-name>CommandTypeFilter</filter-name>
+        <filter-class>by.epam.fitness.filter.CommandTypeFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CommandTypeFilter</filter-name>
+        <url-pattern>/controller</url-pattern>
+    </filter-mapping>
+    
 </web-app>

@@ -1,7 +1,7 @@
 package by.epam.fitness.pool;
 
 
-import by.epam.fitness.util.DataBaseInfo;
+import by.epam.fitness.util.database.DataBaseInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

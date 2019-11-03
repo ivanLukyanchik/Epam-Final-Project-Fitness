@@ -1,6 +1,7 @@
 package by.epam.fitness.command.impl;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.util.page.Page;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,6 +14,6 @@ public class LogoutCommand implements ActionCommand {
         HttpSession session = request.getSession();
         session.removeAttribute(PARAM_USER);
         session.invalidate();
-        return "/login";
+        return Page.LOGIN_PAGE;
     }
 }

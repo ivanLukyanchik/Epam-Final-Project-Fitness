@@ -1,9 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <%
     pageContext.setAttribute("currentPage", "restore");
 %>
+
 <fmt:setLocale value="${sessionScope.local}"/>
 <fmt:setBundle basename="locale.pagecontent" var="locale"/>
 
@@ -17,6 +19,7 @@
 <fmt:message bundle="${locale}" key="lang.text.english" var="en"/>
 <fmt:message bundle="${locale}" key="lang.text.russian" var="ru"/>
 <fmt:message bundle="${locale}" key="lang.text.belorussian" var="be"/>
+
 <html>
 <head>
     <script src="${pageContext.request.contextPath}/script/validation/registerValidation.js"></script>

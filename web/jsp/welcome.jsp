@@ -1,31 +1,59 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <%
     pageContext.setAttribute("currentPage", "welcome");
 %>
+
+<fmt:setLocale value="${sessionScope.local}" scope="session"/>
+<fmt:setBundle basename="locale.pagecontent" var="locale"/>
+
+<fmt:message bundle="${locale}" key="label.title" var="title"/>
+<fmt:message bundle="${locale}" key="button.logout" var="logout"/>
+<fmt:message bundle="${locale}" key="label.welcome" var="welcome"/>
+<fmt:message bundle="${locale}" key="slogan" var="slogan"/>
+<fmt:message bundle="${locale}" key="characteristic" var="characteristic"/>
+<fmt:message bundle="${locale}" key="reasons" var="reasons"/>
+<fmt:message bundle="${locale}" key="first_reason" var="first_reason"/>
+<fmt:message bundle="${locale}" key="second_reason" var="second_reason"/>
+<fmt:message bundle="${locale}" key="third_reason" var="third_reason"/>
+<fmt:message bundle="${locale}" key="fourth_reason" var="fourth_reason"/>
+<fmt:message bundle="${locale}" key="fifth_reason" var="fifth_reason"/>
+<fmt:message bundle="${locale}" key="new_style" var="new_style"/>
+<fmt:message bundle="${locale}" key="trainers_study" var="trainers_study"/>
+<fmt:message bundle="${locale}" key="about_us" var="about_us"/>
+<fmt:message bundle="${locale}" key="you_trained_by" var="you_trained_by"/>
+<fmt:message bundle="${locale}" key="where" var="where"/>
+<fmt:message bundle="${locale}" key="footer.copyright" var="footer" />
+
 <html>
 <head>
-    <fmt:setLocale value="${sessionScope.local}" scope="session"/>
-    <fmt:setBundle basename="locale.pagecontent" var="locale"/>
-
-    <title><fmt:message bundle="${locale}" key="label.title" /></title>
+    <title>${title}</title>
 </head>
-<header><jsp:include page="/jsp/header.jsp"/></header>
-    <%
-        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-        if (session.getAttribute("user") == null) {
-            response.sendRedirect("login");
-        }
-    %>
-    <fmt:message bundle="${locale}" key="label.welcome" /> ${user}!
-    <a href="${pageContext.request.contextPath}/jsp/videos.jsp">Videos here...</a>
-    <form method="post" action="controller">
-        <input type="hidden" name="command" value="logout">
-        <input type="submit" value="Logout">
-    </form>
-    <br/>
+<body>
+<jsp:include page="/jsp/menu.jsp">
+    <jsp:param name="pageTopic" value="about_us"/>
+    <jsp:param name="currentPage" value="welcome"/>
+</jsp:include>
+<h2>${user}, ${welcome}</h2>
+<h2>${slogan}</h2>
+<h2>${characteristic}</h2>
+<p>${reasons}</p>
+<ul>
+    <li>${first_reason}</li>
+    <li>${second_reason}</li>
+    <li>${third_reason}</li>
+    <li>${fourth_reason}</li>
+    <li>${fifth_reason}</li>
+</ul>
+<h2>${new_style}</h2>
+<p>${trainers_study}</p>
+<p>${you_trained_by}</p>
+<%--перечисление с фото--%>
     <footer>
-        <fmt:message bundle="${locale}" key="footer.copyright" />
+        ${where}
+<%--  вставить карту      --%>
+        ${footer}
     </footer>
 </body>
 </html>
