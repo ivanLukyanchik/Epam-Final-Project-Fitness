@@ -78,4 +78,7 @@
     <li>
         <a href="${pageContext.servletContext.contextPath}/controller?command=client_profile">${profile}</a>
     </li>
+    <li>
+        <a href="${pageContext.servletContext.contextPath}/controller?command=gym_photos">Photos</a>
+    </li>
 </nav>

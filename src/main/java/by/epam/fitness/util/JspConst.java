@@ -23,6 +23,7 @@ public class JspConst {
     public static final String PASSWORD_RESTORE_PAGE = "passwordRestore";
     public static final String RESTORE_PAGE = "restore";
     public static final String CLIENT_PROFILE_PAGE = "clientProfile";
+    public static final String GYM_PHOTOS_PAGE = "gymPhotos";
 
     private JspConst() {
     }

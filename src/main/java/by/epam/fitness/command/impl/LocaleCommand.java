@@ -32,6 +32,8 @@ public class LocaleCommand implements ActionCommand {
             return Page.RESTORE_PAGE;
         } else if (page.equals(JspConst.CLIENT_PROFILE_PAGE)) {
             return Page.CLIENT_PROFILE_PAGE;
+        } else if (page.equals(JspConst.GYM_PHOTOS_PAGE)) {
+            return Page.GYM_PHOTOS_PAGE;
         }
         return Page.LOGIN_PAGE;
     }

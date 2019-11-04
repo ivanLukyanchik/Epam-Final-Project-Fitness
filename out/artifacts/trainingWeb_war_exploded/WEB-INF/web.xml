@@ -97,5 +97,12 @@
         <filter-name>CommandTypeFilter</filter-name>
         <url-pattern>/controller</url-pattern>
     </filter-mapping>
+
+    <jsp-config>
+        <taglib>
+            <taglib-uri>fitnessTag</taglib-uri>
+            <taglib-location>/WEB-INF/tld/membershipPrices.tld</taglib-location>
+        </taglib>
+    </jsp-config>
     
 </web-app>

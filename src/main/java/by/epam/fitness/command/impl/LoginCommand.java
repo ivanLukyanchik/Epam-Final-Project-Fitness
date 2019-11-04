@@ -1,10 +1,13 @@
 package by.epam.fitness.command.impl;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.entity.Coach;
 import by.epam.fitness.entity.User;
 import by.epam.fitness.entity.UserRole;
+import by.epam.fitness.service.CoachService;
 import by.epam.fitness.service.ServiceException;
 import by.epam.fitness.service.UserService;
+import by.epam.fitness.service.impl.CoachServiceImpl;
 import by.epam.fitness.service.impl.UserServiceImpl;
 import by.epam.fitness.util.SessionAttributes;
 import by.epam.fitness.util.page.Page;
@@ -14,17 +17,20 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static by.epam.fitness.util.JspConst.*;
+import static by.epam.fitness.util.JspConst.PARAM_LOGIN;
+import static by.epam.fitness.util.JspConst.PARAM_PASSWORD;
 
 public class LoginCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(LoginCommand.class);
     private static DataValidator dataValidator = new DataValidator();
     private static UserService userService = new UserServiceImpl();
+    private static CoachService coachService = new CoachServiceImpl();
 
     @Override
     public String execute(HttpServletRequest request) {
         String page = null;
         User user = null;
+        Coach coach = null;
         String login = request.getParameter(PARAM_LOGIN);
         if (login==null || !dataValidator.isLoginValid(login)) {
             log.info("invalid login format was received:" + login);
@@ -39,12 +45,16 @@ public class LoginCommand implements ActionCommand {
         }
         try {
             if (userService.checkUserByLoginPassword(login, password).isPresent()) {
-                //create separate method
                 user = userService.checkUserByLoginPassword(login, password).get();
                 request.getSession().setAttribute(SessionAttributes.CLIENT, user);
                 request.getSession().setAttribute(SessionAttributes.USER, login);
                 request.getSession().setAttribute(SessionAttributes.ROLE, UserRole.CLIENT);
-                request.setAttribute(SessionAttributes.USER, login);
+                page = Page.WELCOME_PAGE;
+            } else if (coachService.checkCoachByLoginPassword(login, password).isPresent()) {
+                coach = coachService.checkCoachByLoginPassword(login, password).get();
+                request.getSession().setAttribute(SessionAttributes.COACH, coach);
+                request.getSession().setAttribute(SessionAttributes.USER, login);
+                request.getSession().setAttribute(SessionAttributes.ROLE, UserRole.COACH);
                 page = Page.WELCOME_PAGE;
             } else {
                 request.setAttribute("wrongData", "Wrong login or password");

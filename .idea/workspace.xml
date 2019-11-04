@@ -63,9 +63,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="JavaScript File" />
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Jsp File" />
         <option value="Class" />
       </list>
@@ -91,23 +91,24 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="findjar.last.used.dir" value="$PROJECT_DIR$/web/WEB-INF/lib" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../MyFirstTask" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\css" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\gym" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\jsp" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources\locale" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\css" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -246,10 +247,23 @@
       <workItem from="1572636656260" duration="8502000" />
       <workItem from="1572683856778" duration="18079000" />
       <workItem from="1572768769572" duration="25481000" />
+      <workItem from="1572815520700" duration="305000" />
+      <workItem from="1572861562604" duration="25082000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/tag/PricesTag.java</url>
+          <line>16</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

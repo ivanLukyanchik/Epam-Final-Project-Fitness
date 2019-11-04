@@ -48,6 +48,7 @@ public class CommandAccess {
         commandTypes.add(CommandEnum.ACTIVATE.getCommand());
         commandTypes.add(CommandEnum.LOGOUT.getCommand());
         commandTypes.add(CommandEnum.HOME_PAGE.getCommand());
+        commandTypes.add(CommandEnum.GYM_PHOTOS.getCommand());
         return commandTypes;
     }
 
@@ -65,6 +66,7 @@ public class CommandAccess {
         commandTypes.add(CommandEnum.PASSWORD_RESTORE.getCommand());
         commandTypes.add(CommandEnum.RESTORE.getCommand());
         commandTypes.add(CommandEnum.NO_ACCESS.getCommand());
+        commandTypes.add(CommandEnum.GYM_PHOTOS.getCommand());
         return commandTypes;
     }
 }

@@ -1,5 +1,7 @@
 package by.epam.fitness.entity;
 
+import java.util.Objects;
+
 public class User extends Entity {
     private String name;
     private String surname;
@@ -82,5 +84,25 @@ public class User extends Entity {
 
     public void setUserHash(String userHash) {
         this.userHash = userHash;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(name, user.name) &&
+                Objects.equals(surname, user.surname) &&
+                Objects.equals(login, user.login) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(userHash, user.userHash) &&
+                Objects.equals(membershipNumber, user.membershipNumber) &&
+                Objects.equals(personalDiscount, user.personalDiscount);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, surname, login, password, email, userHash, membershipNumber, personalDiscount);
     }
 }

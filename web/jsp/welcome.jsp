@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%
@@ -24,6 +25,8 @@
 <fmt:message bundle="${locale}" key="about_us" var="about_us"/>
 <fmt:message bundle="${locale}" key="you_trained_by" var="you_trained_by"/>
 <fmt:message bundle="${locale}" key="where" var="where"/>
+<fmt:message bundle="${locale}" key="client" var="client" />
+<fmt:message bundle="${locale}" key="coach" var="coach" />
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer" />
 
 <html>
@@ -35,7 +38,16 @@
     <jsp:param name="pageTopic" value="about_us"/>
     <jsp:param name="currentPage" value="welcome"/>
 </jsp:include>
-<h2>${user}, ${welcome}</h2>
+
+<c:choose>
+    <c:when test="${not empty sessionScope.client}">
+        <h2>${client} ${user}, ${welcome}</h2>
+    </c:when>
+    <c:when test="${not empty sessionScope.coach}">
+        <h2>${coach} ${user}, ${welcome}</h2>
+    </c:when>
+</c:choose>
+
 <h2>${slogan}</h2>
 <h2>${characteristic}</h2>
 <p>${reasons}</p>

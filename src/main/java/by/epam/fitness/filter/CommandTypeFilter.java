@@ -41,7 +41,6 @@ public class CommandTypeFilter implements Filter {
         if (commandTypes.contains(currentCommand)) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
-            ((HttpServletRequest) servletRequest).getSession().invalidate();
             RequestDispatcher requestDispatcher = servletRequest.getRequestDispatcher(Page.NO_ACCESS_PAGE);
             requestDispatcher.forward(servletRequest, servletResponse);
         }

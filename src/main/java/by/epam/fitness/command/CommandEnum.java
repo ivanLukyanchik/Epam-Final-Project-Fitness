@@ -15,7 +15,8 @@ public enum CommandEnum {
     HOME_PAGE(new HomePageCommand()),
     CLIENT_PROFILE(new ClientProfileCommand()),
     NO_ACCESS(new NoAccessCommand()),
-    MODIFY_PROFILE(new ModifyProfileCommand());
+    MODIFY_PROFILE(new ModifyProfileCommand()),
+    GYM_PHOTOS(new GymPhotosCommand());
 
     private ActionCommand command;
 
