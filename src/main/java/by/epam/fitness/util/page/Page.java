@@ -13,4 +13,5 @@ public class Page {
     public static final String NO_ACCESS_PAGE = "/jsp/noAccess.jsp";
     public static final String ERROR_PAGE = "/WEB-INF/error/errorPage.jsp";
     public static final String GYM_PHOTOS_PAGE = "/jsp/photos.jsp";
+    public static final String ORDER_PAGE = "/jsp/client/orderPage.jsp";
 }

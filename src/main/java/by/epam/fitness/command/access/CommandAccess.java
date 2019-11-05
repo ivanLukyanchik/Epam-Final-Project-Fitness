@@ -37,6 +37,8 @@ public class CommandAccess {
         commandTypes.add(CommandEnum.CLIENT_PROFILE.getCommand());
         commandTypes.add(CommandEnum.NO_ACCESS.getCommand());
         commandTypes.add(CommandEnum.MODIFY_PROFILE.getCommand());
+        commandTypes.add(CommandEnum.UPDATE_GYM_MEMBERSHIP.getCommand());
+        commandTypes.add(CommandEnum.SHOW_ORDER_PAGE.getCommand());
         return commandTypes;
     }
 

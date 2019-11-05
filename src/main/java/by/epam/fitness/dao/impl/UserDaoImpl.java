@@ -1,29 +1,28 @@
 package by.epam.fitness.dao.impl;
 
 import by.epam.fitness.builder.ClientBuilder;
-import by.epam.fitness.dao.exception.DaoException;
 import by.epam.fitness.dao.UserDao;
+import by.epam.fitness.dao.exception.DaoException;
 import by.epam.fitness.entity.User;
 import by.epam.fitness.pool.ConnectionPool;
 import by.epam.fitness.service.ServiceException;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {
-    private static final String SQL_CHECK_USER_BY_LOGIN_PASSWORD = "SELECT name, surname, login, password, email FROM users_table WHERE login=? AND password=? AND active='1'";
-    private static final String SQL_INSERT_USER = "INSERT INTO users_table (name, surname, login, password, email, hash) values (?,?,?,?,?,?)";
-    private static final String SQL_FIND_USER = "SELECT email, hash, active FROM users_table WHERE email=? AND hash=? AND active='0'";
-    private static final String SQL_ACTIVATE_USER = "UPDATE users_table SET active='1' WHERE email=? AND hash=?";
-    private static final String SQL_IS_LOGIN_UNIQUE = "SELECT login FROM users_table WHERE login=?";
-    private static final String SQL_RESTORE_USER1 = "SELECT hash FROM users_table WHERE email=? AND login=? AND active='1'";
-    private static final String SQL_DEACTIVATE_AND_HASH = "UPDATE users_table SET active='0', hash=? WHERE email=? AND login=?";
-    private static final String SQL_RESTORE_USER2 = "UPDATE users_table SET password=?, active='1' WHERE email=? AND login=? AND hash=? AND active='0'";
-    private static final String SQL_UPDATE_USER = "UPDATE users_table SET name=?, surname=?, email=?, login=? WHERE login=?";
+    private static final String SQL_CHECK_USER_BY_LOGIN_PASSWORD = "SELECT * FROM client WHERE login=? AND password=? AND active='1'";
+    private static final String SQL_INSERT_USER = "INSERT INTO client (name, surname, login, password, email, hash) values (?,?,?,?,?,?)";
+    private static final String SQL_FIND_USER = "SELECT email, hash, active FROM client WHERE email=? AND hash=? AND active='0'";
+    private static final String SQL_ACTIVATE_USER = "UPDATE client SET active='1' WHERE email=? AND hash=?";
+    private static final String SQL_IS_LOGIN_UNIQUE = "SELECT login FROM client WHERE login=?";
+    private static final String SQL_RESTORE_USER1 = "SELECT hash FROM client WHERE email=? AND login=? AND active='1'";
+    private static final String SQL_DEACTIVATE_AND_HASH = "UPDATE client SET active='0', hash=? WHERE email=? AND login=?";
+    private static final String SQL_RESTORE_USER2 = "UPDATE client SET password=?, active='1' WHERE email=? AND login=? AND hash=? AND active='0'";
+    private static final String SQL_UPDATE_USER = "UPDATE client SET name=?, surname=?, email=?, login=? WHERE login=?";
+    private static final String SQL_FIND_BY_ID = "SELECT * FROM client WHERE id_client=?";
+
 
     @Override
     public Optional<User> checkUserByLoginPassword(String login, String newPassword) throws DaoException {
@@ -204,6 +203,31 @@ public class UserDaoImpl implements UserDao {
             close(connection);
         }
         return result != 0;
+    }
+
+    @Override
+    public Optional<User> findById(Long id) throws DaoException {
+        boolean result = false;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        User user = null;
+        try{
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                ClientBuilder builder = new ClientBuilder();
+                user = builder.build(resultSet);
+                result = true;
+            }
+        } catch (SQLException | ServiceException e) {
+            throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
+        }
+        return result ? Optional.of(user) : Optional.empty();
     }
 
     @Override

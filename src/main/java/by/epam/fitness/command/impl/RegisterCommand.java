@@ -1,12 +1,19 @@
 package by.epam.fitness.command.impl;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.entity.Nutrition;
+import by.epam.fitness.entity.Program;
 import by.epam.fitness.entity.User;
 import by.epam.fitness.mail.SendingEmail;
+import by.epam.fitness.service.NutritionService;
+import by.epam.fitness.service.ProgramService;
 import by.epam.fitness.service.ServiceException;
 import by.epam.fitness.service.UserService;
+import by.epam.fitness.service.impl.NutritionServiceImpl;
+import by.epam.fitness.service.impl.ProgramServiceImpl;
 import by.epam.fitness.service.impl.UserServiceImpl;
 import by.epam.fitness.util.page.Page;
+import by.epam.fitness.util.sale.SaleSystem;
 import by.epam.fitness.util.validation.DataValidator;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.logging.log4j.LogManager;
@@ -22,6 +29,11 @@ public class RegisterCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(RegisterCommand.class);
     private static DataValidator dataValidator = new DataValidator();
     private UserService userService = new UserServiceImpl();
+    private NutritionService nutritionService = new NutritionServiceImpl();
+    private ProgramService programService = new ProgramServiceImpl();
+    private final static SaleSystem SALE_SYSTEM = SaleSystem.getInstance();
+    private final static Integer START_VISIT_NUMBER = 0;
+    private final static Integer STANDARD_TRAINS_PER_WEEK = 3;
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -56,18 +68,17 @@ public class RegisterCommand implements ActionCommand {
             request.setAttribute("invalidPassword", "Wrong password");
             return Page.REGISTER_PAGE;
         }
-        String newPassword = DigestUtils.sha512Hex(password);
 
         Random random = new SecureRandom();
         String userHash = DigestUtils.sha512Hex("" + random.nextInt(999999));
+        User user = null;
 
-        User user = new User();
-        user.setName(name);
-        user.setSurname(surname);
-        user.setLogin(login);
-        user.setEmail(email);
-        user.setPassword(newPassword);
-        user.setUserHash(userHash);
+        try {
+            user = buildUser(request, userHash);
+        } catch (ServiceException e) {
+            log.error("Service exception occurred while trying to get build user", e);
+            return Page.REGISTER_PAGE;
+        }
 
         try {
             if (userService.registerUser1(user)) {
@@ -82,5 +93,35 @@ public class RegisterCommand implements ActionCommand {
             page = Page.REGISTER_PAGE;
         }
         return page;
+    }
+
+    private User buildUser(HttpServletRequest request, String userHash) throws ServiceException {
+        String name = request.getParameter(PARAM_NAME);
+        String surname = request.getParameter(PARAM_SURNAME);
+        String login = request.getParameter(PARAM_LOGIN);
+        String email = request.getParameter(PARAM_EMAIL);
+        String password = request.getParameter(PARAM_PASSWORD);
+        String newPassword = DigestUtils.sha512Hex(password);
+        float personalDiscount = SALE_SYSTEM.getSaleByVisitNumber(START_VISIT_NUMBER);
+        Program program = buildProgram();
+        return new User(null, null, name, surname, login, newPassword, email, userHash, START_VISIT_NUMBER,
+                personalDiscount, program.getId());
+    }
+
+    private Program buildProgram() throws ServiceException {
+        Program program = new Program();
+        Nutrition nutrition = buildNutrition();
+        program.setNutritionId(nutrition.getId());
+        program.setTrainsPerWeek(STANDARD_TRAINS_PER_WEEK);
+        Long programId = programService.save(program);
+        program.setId(programId);
+        return program;
+    }
+
+    private Nutrition buildNutrition() throws ServiceException {
+        Nutrition nutrition = new Nutrition();
+        Long nutritionId  = nutritionService.save(nutrition);
+        nutrition.setId(nutritionId);
+        return nutrition;
     }
 }

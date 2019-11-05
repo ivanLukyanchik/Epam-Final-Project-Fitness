@@ -13,6 +13,8 @@
 <fmt:message bundle="${locale}" key="lang.text.belorussian" var="be"/>
 <fmt:message bundle="${locale}" key="profile_topic" var="profile_topic"/>
 <fmt:message bundle="${locale}" key="profile" var="profile"/>
+<fmt:message bundle="${locale}" key="gym_membership" var="gym_membership"/>
+<fmt:message bundle="${locale}" key="gym_photos" var="gym_photos"/>
 
 <nav>
     <ul class="top-menu">
@@ -37,16 +39,24 @@
         <h1>${about_us}</h1>
     </c:when>
 
+    <c:when test="${param.pageTopic eq 'gym_photos'}">
+        <h1>${gym_photos}</h1>
+    </c:when>
+
+    <c:when test="${param.pageTopic eq 'gym_membership'}">
+        <h1>${gym_membership}</h1>
+    </c:when>
+
+    <c:when test="${param.pageTopic eq 'profile'}">
+        <h1>${profile_topic}</h1>
+    </c:when>
+
     <c:when test="${param.pageTopic eq 'coaches'}">
         <h1>${coaches}</h1>
     </c:when>
 
     <c:when test="${param.pageTopic eq 'coach_clients'}">
         <h1>${coach_clients}</h1>
-    </c:when>
-
-    <c:when test="${param.pageTopic eq 'profile'}">
-        <h1>${profile_topic}</h1>
     </c:when>
 
     <c:when test="${param.pageTopic eq 'nutrition'}">
@@ -57,16 +67,8 @@
         <h1>${exercises}</h1>
     </c:when>
 
-    <c:when test="${param.pageTopic eq 'buy_gym_membership'}">
-        <h1>${buy_gym_membership}</h1>
-    </c:when>
-
     <c:when test="${param.pageTopic eq 'show_comments'}">
         <h1>${comments_about_me}</h1>
-    </c:when>
-
-    <c:when test="${param.pageTopic eq 'gym_photos'}">
-        <h1>${gym_photos}</h1>
     </c:when>
 
     <c:when test="${param.pageTopic eq 'orders'}">
@@ -80,5 +82,8 @@
     </li>
     <li>
         <a href="${pageContext.servletContext.contextPath}/controller?command=gym_photos">Photos</a>
+    </li>
+    <li>
+        <a href="${pageContext.servletContext.contextPath}/controller?command=show_order_page">Gym membership</a>
     </li>
 </nav>

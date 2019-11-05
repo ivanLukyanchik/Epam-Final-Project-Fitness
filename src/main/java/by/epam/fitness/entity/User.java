@@ -3,6 +3,8 @@ package by.epam.fitness.entity;
 import java.util.Objects;
 
 public class User extends Entity {
+    private Long id;
+    private Long coachId;
     private String name;
     private String surname;
     private String login;
@@ -11,15 +13,23 @@ public class User extends Entity {
     private String userHash;
     private Integer membershipNumber;
     private Float personalDiscount;
+    private Long programId;
 
     public User() {}
 
-    public User(String name, String surname, String login, String password, String email) {
+    public User(Long id, Long coachId, String name, String surname, String login, String password, String email,
+                String userHash, Integer membershipNumber, Float personalDiscount, Long programId) {
+        this.id = id;
+        this.coachId = coachId;
         this.name = name;
         this.surname = surname;
         this.login = login;
         this.password = password;
         this.email = email;
+        this.userHash = userHash;
+        this.membershipNumber = membershipNumber;
+        this.personalDiscount = personalDiscount;
+        this.programId = programId;
     }
 
     public String getName() {
@@ -86,23 +96,51 @@ public class User extends Entity {
         this.userHash = userHash;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getCoachId() {
+        return coachId;
+    }
+
+    public void setCoachId(Long coachId) {
+        this.coachId = coachId;
+    }
+
+    public Long getProgramId() {
+        return programId;
+    }
+
+    public void setProgramId(Long programId) {
+        this.programId = programId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(name, user.name) &&
+        return Objects.equals(id, user.id) &&
+                Objects.equals(coachId, user.coachId) &&
+                Objects.equals(name, user.name) &&
                 Objects.equals(surname, user.surname) &&
                 Objects.equals(login, user.login) &&
                 Objects.equals(password, user.password) &&
                 Objects.equals(email, user.email) &&
                 Objects.equals(userHash, user.userHash) &&
                 Objects.equals(membershipNumber, user.membershipNumber) &&
-                Objects.equals(personalDiscount, user.personalDiscount);
+                Objects.equals(personalDiscount, user.personalDiscount) &&
+                Objects.equals(programId, user.programId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname, login, password, email, userHash, membershipNumber, personalDiscount);
+        return Objects.hash(id, coachId, name, surname, login, password, email, userHash, membershipNumber,
+                personalDiscount, programId);
     }
 }

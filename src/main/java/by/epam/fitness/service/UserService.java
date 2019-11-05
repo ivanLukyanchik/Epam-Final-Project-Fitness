@@ -12,4 +12,5 @@ public interface UserService {
     boolean restoreUser1(String login, String userEmail, String userHash) throws ServiceException;
     boolean restoreUser2(String email, String newPassword, String login, String userHash) throws ServiceException;
     boolean updateUser(User user, String oldLogin) throws ServiceException;
+    Optional<User> findById(Long id) throws ServiceException;
 }

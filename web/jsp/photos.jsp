@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="fitnessTag" prefix="fitnesss" %>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="css/gymPhotos.css">
@@ -44,10 +43,6 @@
             <label for="switch5"></label>
         </div>
     </article>
-    <br/>
-    <select id="period_cost" name="period">
-        <fitnesss:prices/>
-    </select>
     <br/>
 </div>
 </body>

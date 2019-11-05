@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<jsp:useBean id="client" type="by.epam.fitness.entity.User" scope="session"/>
 
 <fmt:setLocale value="${sessionScope.local}" scope="session"/>
 <fmt:setBundle basename="locale.pagecontent" var="locale"/>
@@ -36,7 +37,6 @@
         response.sendRedirect("login");
     }
 %>
-<jsp:useBean id="client" type="by.epam.fitness.entity.User" scope="session"/>
 <form method="post" action="${pageContext.servletContext.contextPath}/controller?command=modify_profile">
     <div class="col-1">
         <label for="name">${name}</label>

@@ -63,10 +63,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
-        <option value="Interface" />
         <option value="Enum" />
         <option value="Jsp File" />
+        <option value="JavaScript File" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -248,22 +248,13 @@
       <workItem from="1572683856778" duration="18079000" />
       <workItem from="1572768769572" duration="25481000" />
       <workItem from="1572815520700" duration="305000" />
-      <workItem from="1572861562604" duration="25082000" />
+      <workItem from="1572861562604" duration="27298000" />
+      <workItem from="1572949357439" duration="14961000" />
+      <workItem from="1572965298208" duration="15345000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/tag/PricesTag.java</url>
-          <line>16</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

@@ -6,6 +6,9 @@ public class JspConst {
     public static final String CHANGED_LOCALE = "changedLocale";
     public static final String LANGUAGE = "lang";
     public static final String PARAM_LOGIN = "login";
+    public static final String CARD_NUMBER = "cardNumber";
+    public static final String PERIOD = "period";
+    public static final String COST = "cost";;
     public static final String PARAM_PASSWORD = "password";
     public static final String PARAM_NAME = "name";
     public static final String PARAM_SURNAME = "surname";
@@ -24,6 +27,7 @@ public class JspConst {
     public static final String RESTORE_PAGE = "restore";
     public static final String CLIENT_PROFILE_PAGE = "clientProfile";
     public static final String GYM_PHOTOS_PAGE = "gymPhotos";
+    public static final String ORDER_PAGE = "orderPage";
 
     private JspConst() {
     }

@@ -1,6 +1,6 @@
 package by.epam.fitness.tag;
 
-import by.epam.fitness.util.MembershipPriceReader;
+import by.epam.fitness.util.price.MembershipPriceReader;
 import by.epam.fitness.util.UtilException;
 
 import javax.servlet.jsp.JspException;
