@@ -61,18 +61,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updateUser(User user, String oldLogin) throws ServiceException {
+    public Optional<User> findById(Long id) throws ServiceException {
         try {
-            return userDao.updateUser(user, oldLogin);
+            return userDao.findById(id);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
 
     @Override
-    public Optional<User> findById(Long id) throws ServiceException {
+    public boolean save(User user) throws ServiceException {
         try {
-            return userDao.findById(id);
+            return userDao.save(user);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

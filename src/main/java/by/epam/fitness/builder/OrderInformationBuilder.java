@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.Date;
+import java.sql.Date;
 
 public class OrderInformationBuilder implements Builder<OrderInformation> {
     @Override

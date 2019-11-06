@@ -11,6 +11,6 @@ public interface UserDao extends BaseDao<Long, User> {
     boolean registerUser2(String userEmail, String userHash) throws DaoException;
     boolean restoreUser1(String login, String userEmail, String userHash) throws DaoException;
     boolean restoreUser2(String email, String newPassword, String login, String userHash) throws DaoException;
-    boolean updateUser(User user, String oldLogin) throws DaoException;
     Optional<User> findById(Long id) throws DaoException;
+    boolean save(User user) throws DaoException;
 }

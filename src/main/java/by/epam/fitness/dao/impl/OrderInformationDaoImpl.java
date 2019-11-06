@@ -4,19 +4,19 @@ import by.epam.fitness.builder.OrderInformationBuilder;
 import by.epam.fitness.dao.OrderInformationDao;
 import by.epam.fitness.dao.exception.DaoException;
 import by.epam.fitness.entity.OrderInformation;
-import by.epam.fitness.entity.User;
 import by.epam.fitness.pool.ConnectionPool;
 import by.epam.fitness.service.ServiceException;
 
 import java.math.BigDecimal;
 import java.sql.*;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
 public class OrderInformationDaoImpl implements OrderInformationDao {
-    private static final String SQL_SAVE_TABLE = "INSERT INTO order_information (cost, payment_data, membership_end_date, client_id, card_number) VALUES (?,?,?,?,?)";
+    private static final String SQL_CREATE_TABLE = "INSERT INTO order_information (cost, payment_data, membership_end_date, client_id, card_number) VALUES (?,?,?,?,?)";
     private static final String SQL_FIND_BY_ID = "SELECT * FROM order_information WHERE client_id=?";
+    private static final String SQL_UPDATE_TABLE = "UPDATE order_information SET cost=?, payment_data=?, membership_end_date=?, client_id=?, card_number=? WHERE client_id=?";
 
     @Override
     public Long save(OrderInformation orderInformation) throws DaoException {
@@ -30,7 +30,12 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
         Long generatedId = null;
         try {
             connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_SAVE_TABLE, Statement.RETURN_GENERATED_KEYS);
+            if (orderInformation.getClientId() != null) {
+                preparedStatement = connection.prepareStatement(SQL_UPDATE_TABLE, Statement.RETURN_GENERATED_KEYS);
+                preparedStatement.setLong(6, orderInformation.getClientId());
+            } else {
+                preparedStatement = connection.prepareStatement(SQL_CREATE_TABLE, Statement.RETURN_GENERATED_KEYS);
+            }
             preparedStatement.setBigDecimal(1, cost);
             preparedStatement.setTimestamp(2, paymentData);
             preparedStatement.setDate(3, membershipEndDate);

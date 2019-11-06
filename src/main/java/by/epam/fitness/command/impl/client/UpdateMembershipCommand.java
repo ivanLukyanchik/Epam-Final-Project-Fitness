@@ -39,10 +39,11 @@ public class UpdateMembershipCommand implements ActionCommand {
         String page = null;
         String cardNumber = request.getParameter(CARD_NUMBER);
         if (cardNumber==null || !dataValidator.isCardNumberValid(cardNumber)) {
-            log.info("incorrect card number:" + cardNumber + " was input");//attribute about fail
+            log.info("incorrect card number:" + cardNumber + " was input");
+            request.setAttribute("wrongCard", "wrongCard");
             return Page.ORDER_PAGE;
         }
-        String periodExtension = request.getParameter(PERIOD);
+//        String periodExtension = request.getParameter(PERIOD);
         String costString = request.getParameter(COST);
         BigDecimal cost = new BigDecimal(costString);
         HttpSession session = request.getSession();
@@ -52,8 +53,10 @@ public class UpdateMembershipCommand implements ActionCommand {
             newEndMembershipDate = defineNewEndMembershipEndDate(request,clientID);
             OrderInformation newOrderInformation = new OrderInformation(null, cost, new Timestamp(new Date().getTime()), newEndMembershipDate, clientID,cardNumber);
             orderInformationService.save(newOrderInformation);
-            increaseClientVisitNumber(clientID);
-            page = Page.ORDER_PAGE;//attribute about success, CHANGE ALL TABLES IN DB
+            increaseClientVisitNumber(request, clientID);
+            request.setAttribute("paymentSuccess", "paymentSuccess");
+            request.setAttribute("end_date_of_trains", newEndMembershipDate);
+            page = Page.CLIENT_PROFILE_PAGE;
         } catch (ServiceException e) {
             log.error("Exception occurred while defining NewEndMembershipEndDate");
             return Page.ORDER_PAGE;
@@ -62,7 +65,7 @@ public class UpdateMembershipCommand implements ActionCommand {
         return page;
     }
 
-    private java.sql.Date defineNewEndMembershipEndDate(HttpServletRequest request, Long clientID) throws ServiceException {
+    private java.sql.Date defineNewEndMembershipEndDate(HttpServletRequest request, long clientID) throws ServiceException {
         String periodExtension = request.getParameter(PERIOD);
         periodExtension = periodExtension.replaceAll(PERIOD_PATTERN,"");
         Integer periodExtensionInteger = Integer.valueOf(periodExtension);
@@ -75,16 +78,18 @@ public class UpdateMembershipCommand implements ActionCommand {
         return new java.sql.Date(newMembershipEndDate.getTime());
     }
 
-    private void increaseClientVisitNumber(long clientId) throws ServiceException {
+    private void increaseClientVisitNumber(HttpServletRequest request, long clientId) throws ServiceException {
         Optional<User> clientOptional = userService.findById(clientId);
         if (clientOptional.isPresent()) {
             User user = clientOptional.get();
-            int currentVisitNumber = user.getMembershipNumber();
-            user.setMembershipNumber(++currentVisitNumber);
+            int currentVisitNumber = user.getMembershipNumber() + 1;
+            user.setMembershipNumber(currentVisitNumber);
             Float newPersonalDiscount = SALE_SYSTEM.getSaleByVisitNumber(currentVisitNumber);
             user.setPersonalDiscount(newPersonalDiscount);
             userService.save(user);
+            User user1 = (User) request.getSession().getAttribute(SessionAttributes.CLIENT);
+            user1.setPersonalDiscount(newPersonalDiscount);
+            user1.setMembershipNumber(currentVisitNumber);
         }
-
     }
 }

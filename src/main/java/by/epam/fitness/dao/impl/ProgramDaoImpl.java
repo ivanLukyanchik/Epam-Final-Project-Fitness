@@ -9,7 +9,8 @@ import java.sql.*;
 import java.util.List;
 
 public class ProgramDaoImpl implements ProgramDao {
-    private static final String SQL_SAVE_TABLE = "INSERT INTO program_table (nutrition_id, trains_per_week) VALUES (?,?)";
+    private static final String SQL_CREATE_TABLE = "INSERT INTO program (nutrition_id, trains_per_week) VALUES (?,?)";
+    private static final String SQL_UPDATE_TABLE = "UPDATE program SET nutrition_id=?, trains_per_week=? WHERE nutrition_id=?";
 
     @Override
     public Long save(Program program) throws DaoException {
@@ -20,7 +21,12 @@ public class ProgramDaoImpl implements ProgramDao {
         Long generatedId = null;
         try {
             connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_SAVE_TABLE, Statement.RETURN_GENERATED_KEYS);
+            if (program.getNutritionId() != null) {
+                preparedStatement = connection.prepareStatement(SQL_UPDATE_TABLE, Statement.RETURN_GENERATED_KEYS);
+                preparedStatement.setLong(3, program.getNutritionId());
+            } else {
+                preparedStatement = connection.prepareStatement(SQL_CREATE_TABLE, Statement.RETURN_GENERATED_KEYS);
+            }
             preparedStatement.setLong(1, nutrition_id);
             preparedStatement.setInt(2, trains_per_week);
             preparedStatement.executeUpdate();

@@ -27,6 +27,7 @@
 <fmt:message bundle="${locale}" key="where" var="where"/>
 <fmt:message bundle="${locale}" key="client" var="client" />
 <fmt:message bundle="${locale}" key="coach" var="coach" />
+<fmt:message bundle="${locale}" key="stranger" var="stranger" />
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer" />
 
 <html>
@@ -46,6 +47,9 @@
     <c:when test="${not empty sessionScope.coach}">
         <h2>${coach} ${user}, ${welcome}</h2>
     </c:when>
+    <c:otherwise>
+        <h2>${stranger}, ${welcome}</h2>
+    </c:otherwise>
 </c:choose>
 
 <h2>${slogan}</h2>

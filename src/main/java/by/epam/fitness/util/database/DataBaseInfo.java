@@ -1,7 +1,7 @@
 package by.epam.fitness.util.database;
 
 public class DataBaseInfo {
-    public static final String URL = "jdbc:mysql://localhost:3306/users" +
+    public static final String URL = "jdbc:mysql://localhost:3306/fitness" +
             "?" +
             "autoReconnect=true&" +
             "useSSL=false&" +

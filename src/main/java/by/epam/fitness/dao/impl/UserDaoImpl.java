@@ -13,16 +13,15 @@ import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {
     private static final String SQL_CHECK_USER_BY_LOGIN_PASSWORD = "SELECT * FROM client WHERE login=? AND password=? AND active='1'";
-    private static final String SQL_INSERT_USER = "INSERT INTO client (name, surname, login, password, email, hash) values (?,?,?,?,?,?)";
     private static final String SQL_FIND_USER = "SELECT email, hash, active FROM client WHERE email=? AND hash=? AND active='0'";
     private static final String SQL_ACTIVATE_USER = "UPDATE client SET active='1' WHERE email=? AND hash=?";
     private static final String SQL_IS_LOGIN_UNIQUE = "SELECT login FROM client WHERE login=?";
     private static final String SQL_RESTORE_USER1 = "SELECT hash FROM client WHERE email=? AND login=? AND active='1'";
     private static final String SQL_DEACTIVATE_AND_HASH = "UPDATE client SET active='0', hash=? WHERE email=? AND login=?";
     private static final String SQL_RESTORE_USER2 = "UPDATE client SET password=?, active='1' WHERE email=? AND login=? AND hash=? AND active='0'";
-    private static final String SQL_UPDATE_USER = "UPDATE client SET name=?, surname=?, email=?, login=? WHERE login=?";
+    private static final String SQL_UPDATE_USER = "UPDATE client SET coach_id=?, name=?, surname=?, login=?, password=?, email=?, hash=?, membership_purchased_number=?, personal_discount=?, program_id=? WHERE id_client=?";
     private static final String SQL_FIND_BY_ID = "SELECT * FROM client WHERE id_client=?";
-
+    private static final String SQL_CREATE_USER = "INSERT INTO client (coach_id, name, surname, login, password, email, hash, membership_purchased_number, personal_discount, program_id) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
     @Override
     public Optional<User> checkUserByLoginPassword(String login, String newPassword) throws DaoException {
@@ -76,32 +75,7 @@ public class UserDaoImpl implements UserDao {
         if (!isLoginUnique(user.getLogin())) {
             return false;
         }
-        int result;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        String name = user.getName();
-        String surname = user.getSurname();
-        String login = user.getLogin();
-        String password = user.getPassword();
-        String email = user.getEmail();
-        String userHash = user.getUserHash();
-        try {
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_INSERT_USER);
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, surname);
-            preparedStatement.setString(3, login);
-            preparedStatement.setString(4, password);
-            preparedStatement.setString(5, email);
-            preparedStatement.setString(6, userHash);
-            result = preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        } finally {
-        close(preparedStatement);
-        close(connection);
-    }
-        return result != 0;
+        return save(user);
     }
 
     @Override
@@ -179,33 +153,6 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean updateUser(User user, String oldLogin) throws DaoException {
-        int result = 0;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        String name = user.getName();
-        String surname = user.getSurname();
-        String login = user.getLogin();
-        String email = user.getEmail();
-        try {
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_UPDATE_USER);
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, surname);
-            preparedStatement.setString(3, email);
-            preparedStatement.setString(4, login);
-            preparedStatement.setString(5, oldLogin);
-            result = preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
-        }
-        return result != 0;
-    }
-
-    @Override
     public Optional<User> findById(Long id) throws DaoException {
         boolean result = false;
         Connection connection = null;
@@ -228,6 +175,49 @@ public class UserDaoImpl implements UserDao {
             close(connection);
         }
         return result ? Optional.of(user) : Optional.empty();
+    }
+
+    @Override
+    public boolean save(User user) throws DaoException {
+        int result = 0;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        Long coachId = user.getCoachId();
+        String name = user.getName();
+        String surname = user.getSurname();
+        String login = user.getLogin();
+        String password = user.getPassword();
+        String email = user.getEmail();
+        String userHash = user.getUserHash();
+        Integer membershipNumber = user.getMembershipNumber();
+        Float personalDiscount = user.getPersonalDiscount();
+        Long programId = user.getProgramId();
+        try {
+            connection = ConnectionPool.INSTANCE.getConnection();
+            if (user.getId() != null) {
+                preparedStatement = connection.prepareStatement(SQL_UPDATE_USER);
+                preparedStatement.setLong(11, user.getId());
+            } else {
+                preparedStatement = connection.prepareStatement(SQL_CREATE_USER);
+            }
+            preparedStatement.setObject(1, coachId);
+            preparedStatement.setString(2, name);
+            preparedStatement.setString(3, surname);
+            preparedStatement.setString(4, login);
+            preparedStatement.setString(5, password);
+            preparedStatement.setString(6, email);
+            preparedStatement.setString(7, userHash);
+            preparedStatement.setInt(8, membershipNumber);
+            preparedStatement.setFloat(9, personalDiscount);
+            preparedStatement.setLong(10, programId);
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
+        }
+        return result != 0;
     }
 
     @Override

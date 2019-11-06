@@ -5,6 +5,7 @@ function setCost(){
     if(document.getElementById('period_cost').selectedIndex===0){
         document.getElementById("cost").value = '0.0$';
         document.getElementById("final_cost").value = '0.0$';
+        document.getElementById("finalCostModalWindow").value = '0.0$';
         return;
     }
     document.getElementById("period").value = option.text;

@@ -40,7 +40,7 @@
     </div>
 
     <div class="col-1">
-        <label for="personal_discount">discount</label>
+        <label for="personal_discount">discount (%)</label>
     </div>
     <div class="col-2">
         <input type="text" id="personal_discount" name="personal_discount" value="${client.personalDiscount}" readonly>
@@ -54,13 +54,18 @@
     </div>
     <br/>
 
-    <form name="form" action="${pageContext.servletContext.contextPath}/controller?command=buy_gym_membership" method="post">
+    <form name="form" action="${pageContext.servletContext.contextPath}/controller?command=update_gym_membership" method="post">
         <input type="hidden" id="period" name="period">
         <label for="cardNumber">credit card</label>
         <input onchange="checkCardNumber()" type="text" id="cardNumber" name="cardNumber" placeholder="${card_placeholder}" title="${card_pattern_error}">
         <label for="finalCostModalWindow">final cost (2)</label>
         <input id="finalCostModalWindow" name="cost" type="text" readonly>
-        <input class="button" type="submit" value="buy">
+        <c:choose>
+            <c:when test="${not empty requestScope.wrongCard}">
+                ${card_pattern_error}
+            </c:when>
+        </c:choose>
+        <input onclick="checkOffer()" class="button" type="submit" value="buy">
     </form>
 
 </body>

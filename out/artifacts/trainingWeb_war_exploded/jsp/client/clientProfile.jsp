@@ -1,3 +1,4 @@
+<%@ page import="java.sql.Date" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -21,9 +22,11 @@
 <fmt:message bundle="${locale}" key="email.pattern.error" var="email_pattern_error"/>
 <fmt:message bundle="${locale}" key="success_modify" var="success"/>
 <fmt:message bundle="${locale}" key="modify" var="modify"/>
-
+<fmt:message bundle="${locale}" key="paymentSuccess" var="paymentSuccess"/>
+<% Date end_date_of_trains = (Date) request.getAttribute("end_date_of_trains");%>
 <html>
 <head>
+    <script src="${pageContext.request.contextPath}/script/validation/registerValidation.js"></script>
     <title>«Olympia» Fitness Centre</title>
 </head>
 <body>
@@ -43,25 +46,25 @@
     </div>
     <div class="col-2">
     <%--    <jsp:setProperty name="client" property="name" value="My name"/>--%>
-        <input type="text" id="name" name="name" value="${client.name}">
+        <input type="text" id="name" name="name" value="${client.name}" required title="${registration_pattern_error}">
     </div>
     <div class="col-1">
         <label for="surname">${surname}</label>
     </div>
     <div class="col-2">
-        <input type="text" id="surname" name="surname" value="${client.surname}">
+        <input type="text" id="surname" name="surname" value="${client.surname}" required title="${registration_pattern_error}">
     </div>
     <div class="col-1">
         <label for="login">${login}</label>
     </div>
     <div class="col-2">
-        <input type="text" id="login" name="login" value="${client.login}">
+        <input type="text" id="login" name="login" value="${client.login}" required title="${username_pattern_error}">
     </div>
     <div class="col-1">
         <label for="email">Email:</label>
     </div>
     <div class="col-2">
-        <input type="text" id="email" name="email" value="${client.email}">
+        <input type="text" id="email" name="email" value="${client.email}" required title="${email_pattern_error}">
     </div>
     <br/>
     <c:choose>
@@ -86,8 +89,11 @@
         <c:when test="${not empty requestScope.success}">
             ${success}
         </c:when>
+        <c:when test="${not empty requestScope.paymentSuccess}">
+            ${paymentSuccess}
+        </c:when>
     </c:choose>
-    <input type="submit" value="${modify}">
+    <input onclick="checkForChangingAnyData()" type="submit" value="${modify}">
 </form>
 <br/>
 <div class="col-1">
@@ -123,7 +129,7 @@
 </div>
 <c:choose>
 
-    <c:when test="${end_date_of_trains == null}">
+    <c:when test="${empty requestScope.end_date_of_trains}">
         <div class="2">
             <input type="text" id="end_date_of_trains" name="end_date_of_trains"  value="${no_membership}" readonly>
         </div>
@@ -133,12 +139,12 @@
         <c:choose>
             <c:when test="${sessionScope.language eq 'EN'}">
                 <div class="col-1">
-                    <input type="text" id="end_date_of_trains" name="end_date_of_trains"  value="<fmt:formatDate value="${end_date_of_trains}" pattern="dd-MM-YYYY" />" readonly>
+                    <input type="text" id="end_date_of_trains" name="end_date_of_trains"  value="<fmt:formatDate value="<%=end_date_of_trains%>" pattern="dd-MM-YYYY" />" readonly>
                 </div>
             </c:when>
             <c:otherwise>
                 <div class="col-1">
-                    <input type="text" id="end_date_of_trains" name="end_date_of_trains"  value="<fmt:formatDate value="${end_date_of_trains}" pattern="dd.MM.YYYY" />" readonly>
+                    <input type="text" id="end_date_of_trains" name="end_date_of_trains"  value="<fmt:formatDate value="<%=end_date_of_trains%>" pattern="dd.MM.YYYY" />" readonly>
                 </div>
             </c:otherwise>
         </c:choose>

@@ -1,6 +1,6 @@
 package by.epam.fitness.util.database;
 
-public class OrderInformationTableConst {
+public enum  OrderInformationTableConst {
     ID("id_order_information"),
 
     COST("cost"),

@@ -75,12 +75,6 @@ public class RegisterCommand implements ActionCommand {
 
         try {
             user = buildUser(request, userHash);
-        } catch (ServiceException e) {
-            log.error("Service exception occurred while trying to get build user", e);
-            return Page.REGISTER_PAGE;
-        }
-
-        try {
             if (userService.registerUser1(user)) {
                 SendingEmail.verify(email, userHash);
                 page = Page.VERIFY_PAGE;

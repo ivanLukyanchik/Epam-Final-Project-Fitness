@@ -9,7 +9,7 @@ import java.sql.*;
 import java.util.List;
 
 public class NutritionDaoImpl implements NutritionDao {
-    private static final String SQL_SAVE_TABLE = "INSERT INTO nutrition_table (name, morning_nutrition, dinner_nutrition, lunch_nutrition) VALUES (?,?,?,?)";
+    private static final String SQL_SAVE_TABLE = "INSERT INTO nutrition (name, morning_nutrition, dinner_nutrition, lunch_nutrition) VALUES (?,?,?,?)";
 
     @Override
     public Long save(Nutrition nutrition) throws DaoException {

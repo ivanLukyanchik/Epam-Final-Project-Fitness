@@ -13,9 +13,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 import static by.epam.fitness.util.JspConst.*;
-import static by.epam.fitness.util.JspConst.PARAM_EMAIL;
 
 public class ModifyProfileCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(RegisterCommand.class);
@@ -49,20 +49,28 @@ public class ModifyProfileCommand implements ActionCommand {
             request.setAttribute("invalidEmail", "Wrong email");
             return Page.CLIENT_PROFILE_PAGE;
         }
-        User user = (User) request.getSession().getAttribute(SessionAttributes.CLIENT);
-        String oldLogin = user.getLogin();
-        user.setName(name);
-        user.setSurname(surname);
-        user.setLogin(login);
-        user.setEmail(email);
         try {
-            if (userService.updateUser(user, oldLogin)) {
-                log.info("User info was successfully changed");
-                request.setAttribute("success", "success");
-                page = Page.CLIENT_PROFILE_PAGE;
-            } else {
-                request.setAttribute("wrongData", "User with this login already exists");
-                page = Page.CLIENT_PROFILE_PAGE;
+            Long clientID = (Long) request.getSession().getAttribute(SessionAttributes.ID);
+            Optional<User> clientOptional = userService.findById(clientID);
+            if (clientOptional.isPresent()) {
+                User user = clientOptional.get();
+                user.setName(name);
+                user.setSurname(surname);
+                user.setLogin(login);
+                user.setEmail(email);
+                User user1 = (User) request.getSession().getAttribute(SessionAttributes.CLIENT);
+                user1.setName(name);
+                user1.setSurname(surname);
+                user1.setLogin(login);
+                user1.setEmail(email);
+                if (userService.save(user)) {
+                    log.info("User info was successfully changed");
+                    request.setAttribute("success", "success");
+                    page = Page.CLIENT_PROFILE_PAGE;
+                } else {
+                    request.setAttribute("wrongData", "User with this login already exists");
+                    page = Page.CLIENT_PROFILE_PAGE;
+                }
             }
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);

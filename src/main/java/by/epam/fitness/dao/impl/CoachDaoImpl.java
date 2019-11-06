@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class CoachDaoImpl implements CoachDao {
-    private static final String SQL_CHECK_COACH_BY_LOGIN_PASSWORD = "SELECT * FROM coaches_table WHERE login=? AND password=?";
+    private static final String SQL_CHECK_COACH_BY_LOGIN_PASSWORD = "SELECT * FROM coach WHERE login=? AND password=?";
 
     @Override
     public Optional<Coach> checkCoachByLoginPassword(String login, String password) throws DaoException {

@@ -52,6 +52,6 @@ public class GoogleMailThread extends Thread {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-        System.out.println("ok thread");
+        System.out.println("mail thread worked");
     }
 }

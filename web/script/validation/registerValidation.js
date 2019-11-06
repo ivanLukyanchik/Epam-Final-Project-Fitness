@@ -1,6 +1,11 @@
 function checkForRegistrationAnyData() {
     checkRegisterPassword();
     checkRegisterLoginEmail();
+    checkName();
+    checkSurname()
+}
+
+function checkName() {
     var nameRegisterInput = document.getElementById("name");
     if (nameRegisterInput.value==="" || (!/^[a-zA-Zа-яА-Я]{3,20}$/.test(nameRegisterInput.value))) {
         var nameRegisterTitle = nameRegisterInput.getAttribute("title");
@@ -8,7 +13,9 @@ function checkForRegistrationAnyData() {
     } else {
         nameRegisterInput.setCustomValidity('');
     }
+}
 
+function checkSurname() {
     var surnameRegisterInput = document.getElementById("surname");
     if (surnameRegisterInput.value==="" || (!/^[a-zA-Zа-яА-Я]{3,20}$/.test(surnameRegisterInput.value))) {
         var surnameRegisterTitle = surnameRegisterInput.getAttribute("title");
@@ -52,4 +59,10 @@ function checkRegisterLoginEmail() {
     } else {
         emailRegisterInput.setCustomValidity('');
     }
+}
+
+function checkForChangingAnyData() {
+    checkRegisterLoginEmail();
+    checkName();
+    checkSurname();
 }

@@ -2,7 +2,7 @@ package by.epam.fitness.entity;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Objects;
 
 public class OrderInformation extends Entity {
