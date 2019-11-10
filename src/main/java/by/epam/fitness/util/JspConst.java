@@ -18,6 +18,7 @@ public class JspConst {
     public static final String PARAM_KEY_1 = "key1";
     public static final String PARAM_KEY_2 = "key2";
     public static final String PARAM_KEY_3 = "key3";
+    public static final String ORDERS = "orders";
     public static final String PARAM_USER = "user";
     public static final String CURRENT_PAGE = "currentPage";
     public static final String WELCOME_PAGE = "welcome";
@@ -28,6 +29,7 @@ public class JspConst {
     public static final String CLIENT_PROFILE_PAGE = "clientProfile";
     public static final String GYM_PHOTOS_PAGE = "gymPhotos";
     public static final String ORDER_PAGE = "orderPage";
+    public static final String CLIENT_ORDERS = "clientOrders";
 
     private JspConst() {
     }

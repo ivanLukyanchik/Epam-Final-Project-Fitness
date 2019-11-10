@@ -7,6 +7,7 @@ import by.epam.fitness.entity.OrderInformation;
 import by.epam.fitness.service.OrderInformationService;
 import by.epam.fitness.service.ServiceException;
 
+import java.util.List;
 import java.util.Optional;
 
 public class OrderInformationServiceImpl implements OrderInformationService {
@@ -25,6 +26,15 @@ public class OrderInformationServiceImpl implements OrderInformationService {
     public Optional<OrderInformation> findByClientId(Long id) throws ServiceException {
         try {
             return orderInformationDao.findByClientId(id);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<OrderInformation> findOrdersByClientId(Long id) throws ServiceException {
+        try {
+            return orderInformationDao.findOrdersByClientId(id);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

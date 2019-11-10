@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public class ClientProfileCommand implements ActionCommand {
-    private static Logger log = LogManager.getLogger(ClientProfileCommand.class);
+public class ClientOrdersCommand implements ActionCommand {
+    private static Logger log = LogManager.getLogger(ClientOrdersCommand.class);
     private OrderInformationService orderInformationService = new OrderInformationServiceImpl();
 
     @Override
@@ -27,10 +27,10 @@ public class ClientProfileCommand implements ActionCommand {
         try {
             List<OrderInformation> ordersList = orderInformationService.findOrdersByClientId(clientId);
             session.setAttribute(JspConst.ORDERS, ordersList);
-            page = Page.CLIENT_PROFILE_PAGE;
+            page = Page.CLIENT_ORDERS;
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
-            page = Page.CLIENT_PROFILE_PAGE;
+            page = Page.WELCOME_PAGE;
         }
         return page;
     }

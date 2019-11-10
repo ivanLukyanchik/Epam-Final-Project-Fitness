@@ -43,7 +43,6 @@ public class UpdateMembershipCommand implements ActionCommand {
             request.setAttribute("wrongCard", "wrongCard");
             return Page.ORDER_PAGE;
         }
-//        String periodExtension = request.getParameter(PERIOD);
         String costString = request.getParameter(COST);
         BigDecimal cost = new BigDecimal(costString);
         HttpSession session = request.getSession();
@@ -55,7 +54,6 @@ public class UpdateMembershipCommand implements ActionCommand {
             orderInformationService.save(newOrderInformation);
             increaseClientVisitNumber(request, clientID);
             request.setAttribute("paymentSuccess", "paymentSuccess");
-            request.setAttribute("end_date_of_trains", newEndMembershipDate);
             page = Page.CLIENT_PROFILE_PAGE;
         } catch (ServiceException e) {
             log.error("Exception occurred while defining NewEndMembershipEndDate");

@@ -36,6 +36,8 @@ public class LocaleCommand implements ActionCommand {
             return Page.GYM_PHOTOS_PAGE;
         } else if (page.equals(JspConst.ORDER_PAGE)) {
             return Page.ORDER_PAGE;
+        } else if (page.equals(JspConst.CLIENT_ORDERS)) {
+            return Page.CLIENT_ORDERS;
         }
         return Page.LOGIN_PAGE;
     }

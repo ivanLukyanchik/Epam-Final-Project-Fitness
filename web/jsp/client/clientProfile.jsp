@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:useBean id="client" type="by.epam.fitness.entity.User" scope="session"/>
 
 <fmt:setLocale value="${sessionScope.local}" scope="session"/>
@@ -129,7 +130,7 @@
 </div>
 <c:choose>
 
-    <c:when test="${empty requestScope.end_date_of_trains}">
+    <c:when test="${fn:length(orders) eq 0}">
         <div class="2">
             <input type="text" id="end_date_of_trains" name="end_date_of_trains"  value="${no_membership}" readonly>
         </div>
@@ -137,14 +138,14 @@
 
     <c:otherwise>
         <c:choose>
-            <c:when test="${sessionScope.language eq 'EN'}">
+            <c:when test="${sessionScope.local eq 'en_US'}">
                 <div class="col-1">
-                    <input type="text" id="end_date_of_trains" name="end_date_of_trains"  value="<fmt:formatDate value="<%=end_date_of_trains%>" pattern="dd-MM-YYYY" />" readonly>
+                    <input type="text" id="end_date_of_trains" name="end_date_of_trains"  value="<fmt:formatDate value="${orders[fn:length(orders)-1].membershipEndDate}" pattern="dd-MM-YYYY" />" readonly>
                 </div>
             </c:when>
             <c:otherwise>
                 <div class="col-1">
-                    <input type="text" id="end_date_of_trains" name="end_date_of_trains"  value="<fmt:formatDate value="<%=end_date_of_trains%>" pattern="dd.MM.YYYY" />" readonly>
+                    <input type="text" id="end_date_of_trains" name="end_date_of_trains"  value="<fmt:formatDate value="${orders[fn:length(orders)-1].membershipEndDate}" pattern="dd.MM.YYYY" />" readonly>
                 </div>
             </c:otherwise>
         </c:choose>

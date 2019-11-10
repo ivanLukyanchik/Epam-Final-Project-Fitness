@@ -10,14 +10,15 @@ import by.epam.fitness.service.ServiceException;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class OrderInformationDaoImpl implements OrderInformationDao {
     private static final String SQL_CREATE_TABLE = "INSERT INTO order_information (cost, payment_data, membership_end_date, client_id, card_number) VALUES (?,?,?,?,?)";
     private static final String SQL_FIND_BY_ID = "SELECT * FROM order_information WHERE client_id=?";
-    private static final String SQL_UPDATE_TABLE = "UPDATE order_information SET cost=?, payment_data=?, membership_end_date=?, client_id=?, card_number=? WHERE client_id=?";
-
+    private static final String SQL_UPDATE_TABLE = "UPDATE order_information SET cost=?, payment_data=?, membership_end_date=?, client_id=?, card_number=? WHERE id_order_information=?";
+    private OrderInformationBuilder builder = new OrderInformationBuilder();
     @Override
     public Long save(OrderInformation orderInformation) throws DaoException {
         Connection connection = null;
@@ -30,9 +31,9 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
         Long generatedId = null;
         try {
             connection = ConnectionPool.INSTANCE.getConnection();
-            if (orderInformation.getClientId() != null) {
+            if (orderInformation.getId() != null) {
                 preparedStatement = connection.prepareStatement(SQL_UPDATE_TABLE, Statement.RETURN_GENERATED_KEYS);
-                preparedStatement.setLong(6, orderInformation.getClientId());
+                preparedStatement.setLong(6, orderInformation.getId());
             } else {
                 preparedStatement = connection.prepareStatement(SQL_CREATE_TABLE, Statement.RETURN_GENERATED_KEYS);
             }
@@ -66,8 +67,7 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
             preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                OrderInformationBuilder builder = new OrderInformationBuilder();
+            while (resultSet.next()) {
                 orderInformation = builder.build(resultSet);
                 result = true;
             }
@@ -78,6 +78,30 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
             close(connection);
         }
         return result ? Optional.of(orderInformation) : Optional.empty();
+    }
+
+    @Override
+    public List<OrderInformation> findOrdersByClientId(Long id) throws DaoException {
+        List<OrderInformation> ordersList = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        OrderInformation orderInformation = null;
+        try{
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                orderInformation = builder.build(resultSet);
+                ordersList.add(orderInformation);
+            }
+        } catch (SQLException | ServiceException e) {
+            throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
+        }
+        return ordersList;
     }
 
     @Override
