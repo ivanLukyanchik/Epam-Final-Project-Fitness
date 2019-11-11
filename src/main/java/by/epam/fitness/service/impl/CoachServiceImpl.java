@@ -7,6 +7,7 @@ import by.epam.fitness.entity.Coach;
 import by.epam.fitness.service.CoachService;
 import by.epam.fitness.service.ServiceException;
 
+import java.util.List;
 import java.util.Optional;
 
 public class CoachServiceImpl implements CoachService {
@@ -16,6 +17,33 @@ public class CoachServiceImpl implements CoachService {
     public Optional<Coach> checkCoachByLoginPassword(String login, String password) throws ServiceException {
         try {
             return coachDao.checkCoachByLoginPassword(login, password);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public Optional<Coach> findByClientId(long clientId) throws ServiceException {
+        try {
+            return coachDao.findByClientId(clientId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public Optional<Coach> findById(long id) throws ServiceException {
+        try {
+            return coachDao.findById(id);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<Coach> findAll() throws ServiceException {
+        try {
+            return coachDao.findAll();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

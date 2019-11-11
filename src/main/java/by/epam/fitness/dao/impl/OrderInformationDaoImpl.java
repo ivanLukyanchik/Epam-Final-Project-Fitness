@@ -19,6 +19,7 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
     private static final String SQL_FIND_BY_ID = "SELECT * FROM order_information WHERE client_id=?";
     private static final String SQL_UPDATE_TABLE = "UPDATE order_information SET cost=?, payment_data=?, membership_end_date=?, client_id=?, card_number=? WHERE id_order_information=?";
     private OrderInformationBuilder builder = new OrderInformationBuilder();
+
     @Override
     public Long save(OrderInformation orderInformation) throws DaoException {
         Connection connection = null;

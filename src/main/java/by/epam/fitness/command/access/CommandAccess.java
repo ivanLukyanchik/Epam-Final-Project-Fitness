@@ -40,6 +40,10 @@ public class CommandAccess {
         commandTypes.add(CommandEnum.UPDATE_GYM_MEMBERSHIP.getCommand());
         commandTypes.add(CommandEnum.SHOW_ORDER_PAGE.getCommand());
         commandTypes.add(CommandEnum.CLIENT_ORDERS.getCommand());
+        commandTypes.add(CommandEnum.FIND_COACHES.getCommand());
+        commandTypes.add(CommandEnum.CHOOSE_COACH.getCommand());
+        commandTypes.add(CommandEnum.ADD_COMMENT.getCommand());
+        commandTypes.add(CommandEnum.REJECT_COACH.getCommand());
         return commandTypes;
     }
 

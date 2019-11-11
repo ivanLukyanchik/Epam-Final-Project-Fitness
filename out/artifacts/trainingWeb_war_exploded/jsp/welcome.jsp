@@ -28,6 +28,9 @@
 <fmt:message bundle="${locale}" key="client" var="client" />
 <fmt:message bundle="${locale}" key="coach" var="coach" />
 <fmt:message bundle="${locale}" key="stranger" var="stranger" />
+<fmt:message bundle="${locale}" key="coach_chosen" var="coach_chosen" />
+<fmt:message bundle="${locale}" key="comment_saved" var="comment_saved" />
+<fmt:message bundle="${locale}" key="coach_rejected" var="coach_rejected" />
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer" />
 
 <html>
@@ -51,6 +54,16 @@
         <h2>${stranger}, ${welcome}</h2>
     </c:otherwise>
 </c:choose>
+
+<c:if test="${coachChosen eq true}">
+    <h3>${coach_chosen}</h3>
+</c:if>
+<c:if test="${commentSaved eq true}">
+    <h3>${comment_saved}</h3>
+</c:if>
+<c:if test="${coachRejected eq true}">
+    <h3>${coach_rejected}</h3>
+</c:if>
 
 <h2>${slogan}</h2>
 <h2>${characteristic}</h2>

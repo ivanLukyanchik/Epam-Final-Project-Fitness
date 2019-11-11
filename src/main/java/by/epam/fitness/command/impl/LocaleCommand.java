@@ -38,6 +38,8 @@ public class LocaleCommand implements ActionCommand {
             return Page.ORDER_PAGE;
         } else if (page.equals(JspConst.CLIENT_ORDERS)) {
             return Page.CLIENT_ORDERS;
+        } else if (page.equals(JspConst.ALL_COACHES)) {
+            return Page.ALL_COACHES;
         }
         return Page.LOGIN_PAGE;
     }

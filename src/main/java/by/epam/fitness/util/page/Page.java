@@ -15,4 +15,5 @@ public class Page {
     public static final String GYM_PHOTOS_PAGE = "/jsp/photos.jsp";
     public static final String ORDER_PAGE = "/jsp/client/orderPage.jsp";
     public static final String CLIENT_ORDERS = "/jsp/client/clientOrders.jsp";
+    public static final String ALL_COACHES = "/jsp/client/allCoaches.jsp";
 }

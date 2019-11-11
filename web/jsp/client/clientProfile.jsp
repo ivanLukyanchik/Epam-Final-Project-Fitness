@@ -24,7 +24,8 @@
 <fmt:message bundle="${locale}" key="success_modify" var="success"/>
 <fmt:message bundle="${locale}" key="modify" var="modify"/>
 <fmt:message bundle="${locale}" key="paymentSuccess" var="paymentSuccess"/>
-<% Date end_date_of_trains = (Date) request.getAttribute("end_date_of_trains");%>
+<fmt:message bundle="${locale}" key="not_valid_membership" var="not_valid_membership"/>
+
 <html>
 <head>
     <script src="${pageContext.request.contextPath}/script/validation/registerValidation.js"></script>
@@ -133,6 +134,12 @@
     <c:when test="${fn:length(orders) eq 0}">
         <div class="2">
             <input type="text" id="end_date_of_trains" name="end_date_of_trains"  value="${no_membership}" readonly>
+        </div>
+    </c:when>
+
+    <c:when test="${empty membership_valid}">
+        <div class="2">
+            <input type="text" id="end_date_of_trains" name="end_date_of_trains"  value="${not_valid_membership}" readonly>
         </div>
     </c:when>
 
