@@ -20,8 +20,8 @@ public class OrderInformationBuilder implements Builder<OrderInformation> {
             Date membership_end_date = resultSet.getDate(OrderInformationTableConst.MEMBERSHIP_END_DATE.getFieldName());
             Long clientId = resultSet.getLong(OrderInformationTableConst.CLIENT_ID.getFieldName());
             String cardNumber = resultSet.getString(OrderInformationTableConst.CARD_NUMBER.getFieldName());
-            return new OrderInformation(orderID,cost,paymentData,membership_end_date,clientId,cardNumber) ;
-        }catch (SQLException e){
+            return new OrderInformation(orderID, cost, paymentData, membership_end_date, clientId, cardNumber) ;
+        } catch (SQLException e) {
             throw new ServiceException(e.getMessage(), e);
         }
     }

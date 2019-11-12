@@ -22,6 +22,7 @@ public class JspConst {
     public static final String PARAM_KEY_3 = "key3";
     public static final String ORDERS = "orders";
     public static final String MEMBERSHIP_VALID = "membership_valid";
+    public static final String PROGRAM = "program";
     public static final String COACHES = "coaches";
     public static final String MAX_NUMBER_SYMBOLS_ATTRIBUTE = "max_number_symbols_attribute";
     public static final Integer MAX_NUMBER_SYMBOLS_VALUE = 300;
@@ -38,6 +39,7 @@ public class JspConst {
     public static final String ORDER_PAGE = "orderPage";
     public static final String CLIENT_ORDERS = "clientOrders";
     public static final String ALL_COACHES = "allCoaches";
+    public static final String EXERCISES = "exercises";
 
     private JspConst() {
     }

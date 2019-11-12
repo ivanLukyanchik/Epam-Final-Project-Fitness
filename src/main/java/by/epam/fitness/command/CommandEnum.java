@@ -3,6 +3,10 @@ package by.epam.fitness.command;
 import by.epam.fitness.command.impl.*;
 import by.epam.fitness.command.impl.client.*;
 import by.epam.fitness.command.impl.comment.AddCommentCommand;
+import by.epam.fitness.command.impl.exercise.AddExerciseCommand;
+import by.epam.fitness.command.impl.exercise.DeleteExerciseCommand;
+import by.epam.fitness.command.impl.exercise.ShowClientExercisesCommand;
+import by.epam.fitness.command.impl.exercise.UpdateExerciseCommand;
 
 public enum CommandEnum {
     LOCALE(new LocaleCommand()),
@@ -23,7 +27,11 @@ public enum CommandEnum {
     FIND_COACHES(new FindCoachesCommand()),
     CHOOSE_COACH(new ChooseCoachCommand()),
     ADD_COMMENT(new AddCommentCommand()),
-    REJECT_COACH(new RejectCoachCommand());
+    REJECT_COACH(new RejectCoachCommand()),
+    ADD_EXERCISE(new AddExerciseCommand()),
+    DELETE_EXERCISE(new DeleteExerciseCommand()),
+    SHOW_CLIENT_EXERCISES(new ShowClientExercisesCommand()),
+    UPDATE_EXERCISE(new UpdateExerciseCommand());
 
     private ActionCommand command;
 

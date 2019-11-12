@@ -7,7 +7,7 @@ import by.epam.fitness.util.database.ClientTableConst;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ClientBuilder implements Builder<User>{
+public class ClientBuilder implements Builder<User> {
 
     @Override
     public User build(ResultSet resultSet) throws ServiceException {

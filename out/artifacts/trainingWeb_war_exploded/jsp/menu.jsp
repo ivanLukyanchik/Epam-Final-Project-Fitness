@@ -17,6 +17,7 @@
 <fmt:message bundle="${locale}" key="gym_photos" var="gym_photos"/>
 <fmt:message bundle="${locale}" key="my_orders" var="my_orders"/>
 <fmt:message bundle="${locale}" key="coaches" var="coaches"/>
+<fmt:message bundle="${locale}" key="exercises" var="exercises"/>
 
 <nav>
     <ul class="top-menu">
@@ -61,16 +62,16 @@
         <h1>${coaches}</h1>
     </c:when>
 
+    <c:when test="${param.pageTopic eq 'exercises'}">
+        <h1>${exercises}</h1>
+    </c:when>
+
     <c:when test="${param.pageTopic eq 'coach_clients'}">
         <h1>${coach_clients}</h1>
     </c:when>
 
     <c:when test="${param.pageTopic eq 'nutrition'}">
         <h1>${nutrition}</h1>
-    </c:when>
-
-    <c:when test="${param.pageTopic eq 'exercises'}">
-        <h1>${exercises}</h1>
     </c:when>
 
     <c:when test="${param.pageTopic eq 'show_comments'}">
@@ -94,5 +95,8 @@
     </li>
     <li>
         <a href="${pageContext.servletContext.contextPath}/controller?command=find_coaches">All coaches</a>
+    </li>
+    <li>
+        <a href="${pageContext.servletContext.contextPath}/controller?command=show_client_exercises">My exercises</a>
     </li>
 </nav>
