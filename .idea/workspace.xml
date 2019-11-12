@@ -65,8 +65,8 @@
       <list>
         <option value="JavaScript File" />
         <option value="Enum" />
-        <option value="Interface" />
         <option value="Jsp File" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -255,7 +255,7 @@
       <workItem from="1573401277492" duration="11946000" />
       <workItem from="1573473945619" duration="26722000" />
       <workItem from="1573511685951" duration="20000" />
-      <workItem from="1573548981643" duration="10901000" />
+      <workItem from="1573548981643" duration="26917000" />
     </task>
     <servers />
   </component>

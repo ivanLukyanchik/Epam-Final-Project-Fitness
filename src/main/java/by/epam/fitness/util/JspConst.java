@@ -22,8 +22,18 @@ public class JspConst {
     public static final String PARAM_KEY_3 = "key3";
     public static final String ORDERS = "orders";
     public static final String MEMBERSHIP_VALID = "membership_valid";
+    public static final String EXERCISE_DTO_ID = "exerciseDtoId";
+    public final static String INVALID_EXERCISE_ID_FORMAT = "invalid_exercise_id_format";
+    public final static String NOT_EXIST_EXERCISE_ID = "not_exist_exercise_id";
+    public static final String REPEATS = "repeats";
+    public static final String SET_NUMBER = "set_number";
+    public static final String TRAIN_DAY = "trainDay";
+    public static final String PROGRAM_ID = "programId";
+    public static final String EXERCISE_ID = "exerciseId";
+    public final static String INCORRECT_INPUT_DATA_ERROR = "incorrect_input_data_error";
     public static final String PROGRAM = "program";
     public static final String COACHES = "coaches";
+    public static final String EXERCISES = "exercises";
     public static final String MAX_NUMBER_SYMBOLS_ATTRIBUTE = "max_number_symbols_attribute";
     public static final Integer MAX_NUMBER_SYMBOLS_VALUE = 300;
     public static final String ID_OF_CLIENT_COACH = "coach_client_id";
@@ -39,7 +49,6 @@ public class JspConst {
     public static final String ORDER_PAGE = "orderPage";
     public static final String CLIENT_ORDERS = "clientOrders";
     public static final String ALL_COACHES = "allCoaches";
-    public static final String EXERCISES = "exercises";
 
     private JspConst() {
     }

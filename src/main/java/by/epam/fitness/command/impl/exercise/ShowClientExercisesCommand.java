@@ -1,12 +1,15 @@
 package by.epam.fitness.command.impl.exercise;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.entity.ExerciseProgram;
 import by.epam.fitness.entity.Program;
 import by.epam.fitness.entity.User;
 import by.epam.fitness.entity.UserRole;
+import by.epam.fitness.service.ExerciseProgramService;
 import by.epam.fitness.service.ProgramService;
 import by.epam.fitness.service.ServiceException;
 import by.epam.fitness.service.UserService;
+import by.epam.fitness.service.impl.ExerciseProgramServiceImpl;
 import by.epam.fitness.service.impl.ProgramServiceImpl;
 import by.epam.fitness.service.impl.UserServiceImpl;
 import by.epam.fitness.util.JspConst;
@@ -18,6 +21,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Optional;
 
 import static by.epam.fitness.util.JspConst.PROGRAM;
@@ -26,6 +30,7 @@ public class ShowClientExercisesCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(ShowClientExercisesCommand.class);
     private UserService userService = new UserServiceImpl();
     private ProgramService programService = new ProgramServiceImpl();
+    private ExerciseProgramService exerciseProgramService = new ExerciseProgramServiceImpl();
     private MembershipValidChecker membershipValidChecker = new MembershipValidChecker();
 
     @Override
@@ -52,6 +57,9 @@ public class ShowClientExercisesCommand implements ActionCommand {
                 Long programId = user.get().getProgramId();
                 Optional<Program> program = programService.findProgramById(programId);
                 request.setAttribute(PROGRAM, program.get());
+                List<ExerciseProgram> exercises = exerciseProgramService.findExercisesByProgramId(programId);
+                request.setAttribute(JspConst.EXERCISES, exercises);
+                page = Page.EXERCISES;
             }
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);

@@ -4,7 +4,10 @@ import by.epam.fitness.dao.exception.DaoException;
 import by.epam.fitness.entity.ExerciseProgram;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ExerciseProgramDao extends BaseDao<Long, ExerciseProgram> {
     List<ExerciseProgram> findExercisesByProgramId(Long programId) throws DaoException;
+    Optional<ExerciseProgram> findById(long id) throws DaoException;
+    int deleteExercise(long exerciseProgramId) throws DaoException;
 }
