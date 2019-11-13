@@ -48,7 +48,7 @@ public class UpdateExerciseCommand implements ActionCommand {
         }
         Long exerciseDtoId = Long.valueOf(exerciseDtoIdString);
         try {
-            if (!dataValidator.isExerciseExist(exerciseDtoId)) {
+            if (!isExerciseExist(exerciseDtoId)) {
                 log.info("exercise with id = " + exerciseDtoId + " doesn't exist");
                 request.setAttribute(NOT_EXIST_EXERCISE_ID, true);
                 return Page.EXERCISES;
@@ -58,14 +58,20 @@ public class UpdateExerciseCommand implements ActionCommand {
                 ExerciseProgram exerciseProgram = exerciseProgramOptional.get();
                 exerciseProgram.setSetNumber(setNumber);
                 exerciseProgram.setRepeatNumber(repeats);
-                exerciseProgram.save(exerciseProgram);
+//                exerciseProgram.save(exerciseProgram);
             }
             log.info("exercise with id = " + exerciseDtoId + " has been changed");
-            page = Page.EXERCISES;
+            page = Page.WELCOME_PAGE;
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
             page = Page.EXERCISES;
         }
         return page;
+    }
+
+    private boolean isExerciseExist(Long exerciseId) throws ServiceException {
+        ExerciseProgramService exerciseProgramService = new ExerciseProgramServiceImpl();
+        Optional<ExerciseProgram> exerciseProgram = exerciseProgramService.findById(exerciseId);
+        return exerciseProgram.isPresent();
     }
 }

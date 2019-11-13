@@ -1,7 +1,6 @@
 package by.epam.fitness.command.impl.comment;
 
 import by.epam.fitness.command.ActionCommand;
-import by.epam.fitness.command.impl.client.ChooseCoachCommand;
 import by.epam.fitness.entity.Coach;
 import by.epam.fitness.entity.Comment;
 import by.epam.fitness.service.CoachService;
@@ -22,7 +21,7 @@ import java.util.Optional;
 import static by.epam.fitness.util.JspConst.*;
 
 public class AddCommentCommand implements ActionCommand {
-    private static Logger log = LogManager.getLogger(ChooseCoachCommand.class);
+    private static Logger log = LogManager.getLogger(AddCommentCommand.class);
     private static DataValidator dataValidator = new DataValidator();
     private CommentService commentService = new CommentServiceImpl();
 

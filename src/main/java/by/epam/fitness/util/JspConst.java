@@ -15,6 +15,7 @@ public class JspConst {
     public static final String PARAM_HASH = "hash";
     public static final String COACH_ID = "coachId";
     public static final String COMMENT_CONTENT = "commentContent";
+    public static final String COMMENTS = "comments";
     public static final String PARAM_CONFIRMED_PASSWORD = "confirmPassword";
     public static final String PARAM_EMAIL = "email";
     public static final String PARAM_KEY_1 = "key1";
@@ -22,6 +23,9 @@ public class JspConst {
     public static final String PARAM_KEY_3 = "key3";
     public static final String ORDERS = "orders";
     public static final String MEMBERSHIP_VALID = "membership_valid";
+    public final static String ALL_CLIENTS = "all_clients";
+    public static final String COACH_CLIENTS = "coachClients";
+    public static final String COACH_COMMENTS = "coachComments";
     public static final String EXERCISE_DTO_ID = "exerciseDtoId";
     public final static String INVALID_EXERCISE_ID_FORMAT = "invalid_exercise_id_format";
     public final static String NOT_EXIST_EXERCISE_ID = "not_exist_exercise_id";
@@ -33,7 +37,18 @@ public class JspConst {
     public final static String INCORRECT_INPUT_DATA_ERROR = "incorrect_input_data_error";
     public static final String PROGRAM = "program";
     public static final String COACHES = "coaches";
+    public final static String COACH_CLIENT_ID = "coach_client_id";
     public static final String EXERCISES = "exercises";
+    public static final String NUTRITION = "nutrition";
+    public static final String NO_NUTRITION = "no_nutrition";
+    public final static String NUTRITION_DESCRIPTION = "nutrition_description";
+    public final static String NUTRITION_ID = "nutrition_id";
+    public final static String NOT_EXIST_NUTRITION_ID = "not_exist_nutrition_id";
+    public final static String NUTRITION_TIME = "nutrition_time";
+    public final static String INCORRECT_INPUT_NUTRITION_DATA_ERROR = "incorrect_input_nutrition_data_error";
+    public final static String MORNING = "morning";
+    public final static String LUNCH = "lunch";
+    public final static String DINNER = "dinner";
     public static final String MAX_NUMBER_SYMBOLS_ATTRIBUTE = "max_number_symbols_attribute";
     public static final Integer MAX_NUMBER_SYMBOLS_VALUE = 300;
     public static final String ID_OF_CLIENT_COACH = "coach_client_id";

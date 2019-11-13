@@ -1,17 +1,21 @@
 package by.epam.fitness.dao.impl;
 
+import by.epam.fitness.builder.CommentBuilder;
 import by.epam.fitness.dao.CommentDao;
 import by.epam.fitness.dao.exception.DaoException;
 import by.epam.fitness.entity.Comment;
 import by.epam.fitness.pool.ConnectionPool;
+import by.epam.fitness.service.ServiceException;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommentDaoImpl implements CommentDao {
     private static final String SQL_CREATE_TABLE = "INSERT INTO comment (coach_id, client_id, comment_content) VALUES (?,?,?)";
     private static final String SQL_UPDATE_TABLE = "UPDATE comment SET coach_id=?, client_id=?, comment_content=? WHERE id_comment=?";
-
+    private static final String SQL_FIND_BY_COACH_ID = "SELECT * FROM comment WHERE coach_id=?";
+    private CommentBuilder builder = new CommentBuilder();
 
     @Override
     public Long save(Comment comment) throws DaoException {
@@ -44,6 +48,30 @@ public class CommentDaoImpl implements CommentDao {
             close(connection);
         }
         return generatedId;
+    }
+
+    @Override
+    public List<Comment> findByCoachId(long coachId) throws DaoException {
+        List<Comment> comments = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        Comment comment = null;
+        try{
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_FIND_BY_COACH_ID);
+            preparedStatement.setLong(1, coachId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                comment = builder.build(resultSet);
+                comments.add(comment);
+            }
+        } catch (SQLException | ServiceException e) {
+            throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
+        }
+        return comments;
     }
 
     @Override

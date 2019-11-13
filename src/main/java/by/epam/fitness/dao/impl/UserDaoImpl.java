@@ -8,6 +8,7 @@ import by.epam.fitness.pool.ConnectionPool;
 import by.epam.fitness.service.ServiceException;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,8 @@ public class UserDaoImpl implements UserDao {
     private static final String SQL_UPDATE_USER = "UPDATE client SET coach_id=?, name=?, surname=?, login=?, password=?, email=?, hash=?, membership_purchased_number=?, personal_discount=?, program_id=? WHERE id_client=?";
     private static final String SQL_FIND_BY_ID = "SELECT * FROM client WHERE id_client=?";
     private static final String SQL_CREATE_USER = "INSERT INTO client (coach_id, name, surname, login, password, email, hash, membership_purchased_number, personal_discount, program_id) VALUES (?,?,?,?,?,?,?,?,?,?)";
+    private static final String SQL_FIND_BY_COACH_ID = "SELECT * FROM client WHERE coach_id=?";
+    private ClientBuilder builder = new ClientBuilder();
 
     @Override
     public Optional<User> checkUserByLoginPassword(String login, String newPassword) throws DaoException {
@@ -36,7 +39,6 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(2, newPassword);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                ClientBuilder builder = new ClientBuilder();
                 user = builder.build(resultSet);
                 result = true;
             }
@@ -154,7 +156,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Optional<User> findById(Long id) throws DaoException {
-        boolean result = false;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         User user = null;
@@ -164,9 +165,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                ClientBuilder builder = new ClientBuilder();
                 user = builder.build(resultSet);
-                result = true;
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
@@ -174,7 +173,7 @@ public class UserDaoImpl implements UserDao {
             close(preparedStatement);
             close(connection);
         }
-        return result ? Optional.of(user) : Optional.empty();
+        return Optional.ofNullable(user);
     }
 
     @Override
@@ -218,6 +217,30 @@ public class UserDaoImpl implements UserDao {
             close(connection);
         }
         return result != 0;
+    }
+
+    @Override
+    public List<User> findByCoachId(long coachId) throws DaoException {
+        List<User> users = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        User user;
+        try {
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_FIND_BY_COACH_ID);
+            preparedStatement.setLong(1, coachId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                user = builder.build(resultSet);
+                users.add(user);
+            }
+        } catch (SQLException | ServiceException e) {
+            throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
+        }
+        return users;
     }
 
     @Override

@@ -3,6 +3,7 @@ package by.epam.fitness.dao;
 import by.epam.fitness.dao.exception.DaoException;
 import by.epam.fitness.entity.User;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserDao extends BaseDao<Long, User> {
@@ -13,4 +14,5 @@ public interface UserDao extends BaseDao<Long, User> {
     boolean restoreUser2(String email, String newPassword, String login, String userHash) throws DaoException;
     Optional<User> findById(Long id) throws DaoException;
     boolean save(User user) throws DaoException;
+    List<User> findByCoachId(long coachId) throws DaoException;
 }

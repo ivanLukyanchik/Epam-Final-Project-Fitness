@@ -1,7 +1,6 @@
 package by.epam.fitness.command.impl.exercise;
 
 import by.epam.fitness.command.ActionCommand;
-import by.epam.fitness.entity.Exercise;
 import by.epam.fitness.entity.ExerciseProgram;
 import by.epam.fitness.service.ExerciseProgramService;
 import by.epam.fitness.service.ServiceException;
@@ -13,7 +12,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
 
 public class AddExerciseCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(AddExerciseCommand.class);
@@ -39,7 +37,7 @@ public class AddExerciseCommand implements ActionCommand {
         Integer setNumber = Integer.valueOf(setNumberString);
         try {
             ExerciseProgram exerciseProgram = makeExercise(request, repeats, setNumber);
-            exerciseProgramService.save(exerciseProgram);
+//            exerciseProgramService.save(exerciseProgram);
             log.info("exercise with id = " + exerciseProgram.getId() + " has been added");
             page = Page.EXERCISES;
         } catch (ServiceException e) {
@@ -50,11 +48,12 @@ public class AddExerciseCommand implements ActionCommand {
     }
 
     private ExerciseProgram makeExercise(HttpServletRequest request, Integer repeats, Integer setNumber) throws ServiceException {
-        ExerciseService service = new ExerciseService();
+//        ExerciseService service = new ExerciseService();
         long exerciseId = Long.parseLong(request.getParameter(JspConst.EXERCISE_ID));
-        Optional<Exercise> exercise = service.findById(exerciseId);
+//        Optional<Exercise> exercise = service.findById(exerciseId);
         int trainDay = Integer.parseInt(request.getParameter(JspConst.TRAIN_DAY));
         long programId = Long.parseLong(request.getParameter(JspConst.PROGRAM_ID));
-        return new ExerciseProgram(null, exercise.get(), repeats, setNumber, programId, trainDay);
+//        return new ExerciseProgram(null, exercise.get(), repeats, setNumber, programId, trainDay);
+        return null;
     }
 }

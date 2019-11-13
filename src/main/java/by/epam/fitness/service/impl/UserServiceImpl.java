@@ -8,6 +8,7 @@ import by.epam.fitness.service.ServiceException;
 import by.epam.fitness.service.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
 
+import java.util.List;
 import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
@@ -73,6 +74,15 @@ public class UserServiceImpl implements UserService {
     public boolean save(User user) throws ServiceException {
         try {
             return userDao.save(user);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<User> findByCoachId(long coachId) throws ServiceException {
+        try {
+            return userDao.findByCoachId(coachId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

@@ -70,7 +70,6 @@ public class CoachDaoImpl implements CoachDao {
 
     @Override
     public Optional<Coach> findById(long id) throws DaoException {
-        boolean result = false;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         Coach coach = null;
@@ -81,7 +80,6 @@ public class CoachDaoImpl implements CoachDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 coach = builder.build(resultSet);
-                result = true;
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
@@ -89,7 +87,7 @@ public class CoachDaoImpl implements CoachDao {
             close(preparedStatement);
             close(connection);
         }
-        return result ? Optional.of(coach) : Optional.empty();
+        return Optional.ofNullable(coach);
     }
 
     @Override

@@ -4,13 +4,15 @@ import java.util.Objects;
 
 public class Nutrition extends Entity {
     private Long id;
+    private boolean active;
     private String name;
     private String morningNutrition;
     private String lunchNutrition;
     private String dinnerNutrition;
 
-    public Nutrition(Long id, String name, String morningNutrition, String lunchNutrition, String dinnerNutrition){
+    public Nutrition(Long id, boolean active, String name, String morningNutrition, String lunchNutrition, String dinnerNutrition){
         this.id = id;
+        this.active = active;
         this.name = name;
         this.morningNutrition = morningNutrition;
         this.lunchNutrition = lunchNutrition;
@@ -25,6 +27,14 @@ public class Nutrition extends Entity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public String getName() {

@@ -1,11 +1,5 @@
 package by.epam.fitness.util.validation;
 
-import by.epam.fitness.entity.ExerciseProgram;
-import by.epam.fitness.service.ExerciseProgramService;
-import by.epam.fitness.service.ServiceException;
-import by.epam.fitness.service.impl.ExerciseProgramServiceImpl;
-
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -72,11 +66,5 @@ public class DataValidator {
     public boolean isSetNumberValid(String setNumber) {
         Matcher matcher = SET_NUMBER_PATTERN.matcher(setNumber);
         return matcher.matches();
-    }
-
-    public boolean isExerciseExist(Long exerciseId) throws ServiceException {
-        ExerciseProgramService exerciseProgramService = new ExerciseProgramServiceImpl();
-        Optional<ExerciseProgram> exerciseProgram = exerciseProgramService.findById(exerciseId);
-        return exerciseProgram.isPresent();
     }
 }

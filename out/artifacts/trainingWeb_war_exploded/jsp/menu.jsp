@@ -18,6 +18,10 @@
 <fmt:message bundle="${locale}" key="my_orders" var="my_orders"/>
 <fmt:message bundle="${locale}" key="coaches" var="coaches"/>
 <fmt:message bundle="${locale}" key="exercises" var="exercises"/>
+<fmt:message bundle="${locale}" key="nutrition" var="nutrition"/>
+<fmt:message bundle="${locale}" key="coach_clients" var="coach_clients"/>
+<fmt:message bundle="${locale}" key="comments_about_me" var="comments_about_me"/>
+
 
 <nav>
     <ul class="top-menu">
@@ -66,37 +70,50 @@
         <h1>${exercises}</h1>
     </c:when>
 
-    <c:when test="${param.pageTopic eq 'coach_clients'}">
-        <h1>${coach_clients}</h1>
-    </c:when>
-
     <c:when test="${param.pageTopic eq 'nutrition'}">
         <h1>${nutrition}</h1>
     </c:when>
 
-    <c:when test="${param.pageTopic eq 'show_comments'}">
+    <c:when test="${param.pageTopic eq 'coachClients'}">
+        <h1>${coach_clients}</h1>
+    </c:when>
+
+    <c:when test="${param.pageTopic eq 'coachComments'}">
         <h1>${comments_about_me}</h1>
     </c:when>
 
-</c:choose>>
+</c:choose>
 </div>
 <nav>
-    <li>
-        <a href="${pageContext.servletContext.contextPath}/controller?command=client_profile">${profile}</a>
-    </li>
-    <li>
-        <a href="${pageContext.servletContext.contextPath}/controller?command=gym_photos">Photos</a>
-    </li>
-    <li>
-        <a href="${pageContext.servletContext.contextPath}/controller?command=show_order_page">Gym membership</a>
-    </li>
-    <li>
-        <a href="${pageContext.servletContext.contextPath}/controller?command=client_orders">My orders</a>
-    </li>
-    <li>
-        <a href="${pageContext.servletContext.contextPath}/controller?command=find_coaches">All coaches</a>
-    </li>
-    <li>
-        <a href="${pageContext.servletContext.contextPath}/controller?command=show_client_exercises">My exercises</a>
-    </li>
+    <c:if test="${not empty sessionScope.client}">
+        <li>
+            <a href="${pageContext.servletContext.contextPath}/controller?command=client_profile">${profile}</a>
+        </li>
+        <li>
+            <a href="${pageContext.servletContext.contextPath}/controller?command=gym_photos">Photos</a>
+        </li>
+        <li>
+            <a href="${pageContext.servletContext.contextPath}/controller?command=show_order_page">Gym membership</a>
+        </li>
+        <li>
+            <a href="${pageContext.servletContext.contextPath}/controller?command=client_orders">My orders</a>
+        </li>
+        <li>
+            <a href="${pageContext.servletContext.contextPath}/controller?command=find_coaches">All coaches</a>
+        </li>
+        <li>
+            <a href="${pageContext.servletContext.contextPath}/controller?command=show_client_exercises">My exercises</a>
+        </li>
+        <li>
+            <a href="${pageContext.servletContext.contextPath}/controller?command=show_client_nutrition">My nutrition</a>
+        </li>
+    </c:if>
+    <c:if test="${not empty sessionScope.coach}">
+        <li>
+            <a href="${pageContext.servletContext.contextPath}/controller?command=coach_clients">My clients</a>
+        </li>
+        <li>
+            <a href="${pageContext.servletContext.contextPath}/controller?command=coach_comments">Comments about me</a>
+        </li>
+    </c:if>
 </nav>

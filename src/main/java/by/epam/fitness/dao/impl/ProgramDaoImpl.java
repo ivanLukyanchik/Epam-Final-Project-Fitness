@@ -15,6 +15,7 @@ public class ProgramDaoImpl implements ProgramDao {
     private static final String SQL_CREATE_TABLE = "INSERT INTO program (nutrition_id, trains_per_week) VALUES (?,?)";
     private static final String SQL_UPDATE_TABLE = "UPDATE program SET nutrition_id=?, trains_per_week=? WHERE id_program=?";
     private static final String SQL_FIND_BY_ID = "SELECT * FROM program WHERE id_program=?";
+    private ProgramBuilder builder = new ProgramBuilder();
 
     @Override
     public Long save(Program program) throws DaoException {
@@ -49,7 +50,6 @@ public class ProgramDaoImpl implements ProgramDao {
 
     @Override
     public Optional<Program> findProgramById(Long programId) throws DaoException {
-        boolean result = false;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         Program program = null;
@@ -59,9 +59,7 @@ public class ProgramDaoImpl implements ProgramDao {
             preparedStatement.setLong(1, programId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                ProgramBuilder builder = new ProgramBuilder();
                 program = builder.build(resultSet);
-                result = true;
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
@@ -69,7 +67,7 @@ public class ProgramDaoImpl implements ProgramDao {
             close(preparedStatement);
             close(connection);
         }
-        return result ? Optional.of(program) : Optional.empty();
+        return Optional.ofNullable(program);
     }
 
     @Override

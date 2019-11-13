@@ -1,6 +1,7 @@
 package by.epam.fitness.command.impl.exercise;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.entity.ExerciseProgram;
 import by.epam.fitness.entity.UserRole;
 import by.epam.fitness.service.ExerciseProgramService;
 import by.epam.fitness.service.ServiceException;
@@ -14,6 +15,8 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import java.util.Optional;
 
 import static by.epam.fitness.util.JspConst.EXERCISE_DTO_ID;
 
@@ -37,7 +40,7 @@ public class DeleteExerciseCommand implements ActionCommand {
         }
         Long exerciseDtoId = Long.valueOf(exerciseDtoIdString);
         try {
-            if (!dataValidator.isExerciseExist(exerciseDtoId)) {
+            if (!isExerciseExist(exerciseDtoId)) {
                 log.info("exercise with id = " + exerciseDtoId + " doesn't exist");
                 request.setAttribute(JspConst.NOT_EXIST_EXERCISE_ID, true);
                 return Page.EXERCISES;
@@ -51,5 +54,11 @@ public class DeleteExerciseCommand implements ActionCommand {
             page = Page.EXERCISES;
         }
         return page;
+    }
+
+    private boolean isExerciseExist(Long exerciseId) throws ServiceException {
+        ExerciseProgramService exerciseProgramService = new ExerciseProgramServiceImpl();
+        Optional<ExerciseProgram> exerciseProgram = exerciseProgramService.findById(exerciseId);
+        return exerciseProgram.isPresent();
     }
 }

@@ -42,6 +42,12 @@ public class LocaleCommand implements ActionCommand {
             return Page.ALL_COACHES;
         } else if (page.equals(JspConst.EXERCISES)) {
             return Page.EXERCISES;
+        } else if (page.equals(JspConst.NUTRITION)) {
+            return Page.NUTRITION;
+        } else if (page.equals(JspConst.COACH_CLIENTS)) {
+            return Page.COACH_CLIENTS;
+        } else if (page.equals(JspConst.COACH_COMMENTS)) {
+            return Page.COACH_COMMENTS;
         }
         return Page.LOGIN_PAGE;
     }

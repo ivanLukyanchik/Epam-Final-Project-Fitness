@@ -7,6 +7,8 @@ import by.epam.fitness.entity.Comment;
 import by.epam.fitness.service.CommentService;
 import by.epam.fitness.service.ServiceException;
 
+import java.util.List;
+
 public class CommentServiceImpl implements CommentService {
     private CommentDao commentDao = new CommentDaoImpl();
 
@@ -14,6 +16,15 @@ public class CommentServiceImpl implements CommentService {
     public Long save(Comment comment) throws ServiceException {
         try {
             return commentDao.save(comment);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<Comment> findByCoachId(long coachId) throws ServiceException {
+        try {
+            return commentDao.findByCoachId(coachId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

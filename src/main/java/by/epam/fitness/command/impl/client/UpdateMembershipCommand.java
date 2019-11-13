@@ -56,7 +56,7 @@ public class UpdateMembershipCommand implements ActionCommand {
             request.setAttribute("paymentSuccess", "paymentSuccess");
             page = Page.CLIENT_PROFILE_PAGE;
         } catch (ServiceException e) {
-            log.error("Exception occurred while defining NewEndMembershipEndDate");
+            log.error("Exception occurred while defining NewEndMembershipEndDate", e);
             return Page.ORDER_PAGE;
         }
         log.info("Gym membership has been updated");

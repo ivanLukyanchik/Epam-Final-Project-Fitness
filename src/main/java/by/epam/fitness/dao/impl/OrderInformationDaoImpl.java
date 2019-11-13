@@ -59,7 +59,6 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
 
     @Override
     public Optional<OrderInformation> findByClientId(Long id) throws DaoException {
-        boolean result = false;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         OrderInformation orderInformation = null;
@@ -70,7 +69,6 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 orderInformation = builder.build(resultSet);
-                result = true;
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
@@ -78,7 +76,7 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
             close(preparedStatement);
             close(connection);
         }
-        return result ? Optional.of(orderInformation) : Optional.empty();
+        return Optional.ofNullable(orderInformation);
     }
 
     @Override

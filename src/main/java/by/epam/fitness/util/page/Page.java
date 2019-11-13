@@ -17,4 +17,7 @@ public class Page {
     public static final String CLIENT_ORDERS = "/jsp/client/clientOrders.jsp";
     public static final String ALL_COACHES = "/jsp/client/allCoaches.jsp";
     public static final String EXERCISES = "/jsp/client/clientExercise.jsp";
+    public static final String NUTRITION = "/jsp/client/clientNutrition.jsp";
+    public static final String COACH_CLIENTS = "/jsp/coach/coachClients.jsp";
+    public static final String COACH_COMMENTS = "/jsp/coach/coachComments.jsp";
 }
