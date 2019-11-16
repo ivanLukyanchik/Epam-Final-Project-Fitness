@@ -22,13 +22,13 @@ public class AddNutritionCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
         String page = null;
-        Long nutritionId = Long.parseLong(request.getParameter(NUTRITION_ID));
+        long nutritionId = Long.parseLong(request.getParameter(NUTRITION_ID));
         try {
             Optional<Nutrition> nutritionOptional = nutritionService.findById(nutritionId);
             if (nutritionOptional.isPresent()) {
                 nutritionOptional.get().setActive(true);
                 nutritionService.save(nutritionOptional.get());
-                page = "/controller?command=coach_clients";
+                page = "/controller?command=show_client_nutrition";
             }
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);

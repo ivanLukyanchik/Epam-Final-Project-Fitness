@@ -38,8 +38,8 @@ public class UpdateExerciseCommand implements ActionCommand {
             request.setAttribute(JspConst.INCORRECT_INPUT_DATA_ERROR, true);
             return Page.EXERCISES;
         }
-        Integer repeats = Integer.valueOf(repeatsString);
-        Integer setNumber = Integer.valueOf(setNumberString);
+        int repeats = Integer.parseInt(repeatsString);
+        int setNumber = Integer.parseInt(setNumberString);
         String exerciseDtoIdString = request.getParameter(JspConst.EXERCISE_DTO_ID);
         if (!dataValidator.isIdentifiableIdValid(exerciseDtoIdString)) {
             log.info("incorrect exercise id was received:" + exerciseDtoIdString);
@@ -58,7 +58,7 @@ public class UpdateExerciseCommand implements ActionCommand {
                 ExerciseProgram exerciseProgram = exerciseProgramOptional.get();
                 exerciseProgram.setSetNumber(setNumber);
                 exerciseProgram.setRepeatNumber(repeats);
-//                exerciseProgram.save(exerciseProgram);
+                exerciseProgramService.save(exerciseProgram);
             }
             log.info("exercise with id = " + exerciseDtoId + " has been changed");
             page = Page.WELCOME_PAGE;
@@ -70,7 +70,6 @@ public class UpdateExerciseCommand implements ActionCommand {
     }
 
     private boolean isExerciseExist(Long exerciseId) throws ServiceException {
-        ExerciseProgramService exerciseProgramService = new ExerciseProgramServiceImpl();
         Optional<ExerciseProgram> exerciseProgram = exerciseProgramService.findById(exerciseId);
         return exerciseProgram.isPresent();
     }

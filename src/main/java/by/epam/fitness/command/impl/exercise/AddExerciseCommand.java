@@ -1,10 +1,13 @@
 package by.epam.fitness.command.impl.exercise;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.entity.Exercise;
 import by.epam.fitness.entity.ExerciseProgram;
 import by.epam.fitness.service.ExerciseProgramService;
+import by.epam.fitness.service.ExerciseService;
 import by.epam.fitness.service.ServiceException;
 import by.epam.fitness.service.impl.ExerciseProgramServiceImpl;
+import by.epam.fitness.service.impl.ExerciseServiceImpl;
 import by.epam.fitness.util.JspConst;
 import by.epam.fitness.util.page.Page;
 import by.epam.fitness.util.validation.DataValidator;
@@ -12,10 +15,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 public class AddExerciseCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(AddExerciseCommand.class);
     private ExerciseProgramService exerciseProgramService = new ExerciseProgramServiceImpl();
+    private ExerciseService exerciseService = new ExerciseServiceImpl();
     private DataValidator dataValidator = new DataValidator();
 
     @Override
@@ -37,7 +42,7 @@ public class AddExerciseCommand implements ActionCommand {
         Integer setNumber = Integer.valueOf(setNumberString);
         try {
             ExerciseProgram exerciseProgram = makeExercise(request, repeats, setNumber);
-//            exerciseProgramService.save(exerciseProgram);
+            exerciseProgramService.save(exerciseProgram);
             log.info("exercise with id = " + exerciseProgram.getId() + " has been added");
             page = Page.EXERCISES;
         } catch (ServiceException e) {
@@ -48,12 +53,11 @@ public class AddExerciseCommand implements ActionCommand {
     }
 
     private ExerciseProgram makeExercise(HttpServletRequest request, Integer repeats, Integer setNumber) throws ServiceException {
-//        ExerciseService service = new ExerciseService();
         long exerciseId = Long.parseLong(request.getParameter(JspConst.EXERCISE_ID));
-//        Optional<Exercise> exercise = service.findById(exerciseId);
         int trainDay = Integer.parseInt(request.getParameter(JspConst.TRAIN_DAY));
         long programId = Long.parseLong(request.getParameter(JspConst.PROGRAM_ID));
-//        return new ExerciseProgram(null, exercise.get(), repeats, setNumber, programId, trainDay);
-        return null;
+        Optional<Exercise> exerciseOptional = exerciseService.findById(exerciseId);
+        Exercise exercise = exerciseOptional.orElseThrow(ServiceException::new);
+        return new ExerciseProgram(null, exercise, repeats, setNumber, programId, trainDay);
     }
 }

@@ -24,6 +24,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
+import static by.epam.fitness.util.JspConst.COACH_CLIENT_ID;
 import static by.epam.fitness.util.JspConst.PROGRAM;
 
 public class ShowClientExercisesCommand implements ActionCommand {
@@ -41,7 +42,7 @@ public class ShowClientExercisesCommand implements ActionCommand {
         Long userId = null;
         try {
             if (role.equals(UserRole.COACH)) {
-                // FIXME: 12.11.2019 continue for coach
+                userId = getClientIdForAppropriateCoach(session,request);
             } else {
                 userId = (Long) session.getAttribute(SessionAttributes.ID);
                 if (!membershipValidChecker.isCurrentMembershipValid(userId)) {
@@ -51,7 +52,6 @@ public class ShowClientExercisesCommand implements ActionCommand {
                     request.setAttribute(JspConst.MEMBERSHIP_VALID, true);
                 }
             }
-
             Optional<User> user = userService.findById(userId);
             if (user.isPresent()) {
                 Long programId = user.get().getProgramId();
@@ -66,5 +66,17 @@ public class ShowClientExercisesCommand implements ActionCommand {
             page = Page.EXERCISES;
         }
         return page;
+    }
+
+    private Long getClientIdForAppropriateCoach(HttpSession session, HttpServletRequest request) {
+        String clientIdString = request.getParameter(COACH_CLIENT_ID);
+        Long clientId;
+        if (clientIdString == null) {
+            clientId = (Long) session.getAttribute(COACH_CLIENT_ID);
+        } else {
+            clientId = Long.valueOf(request.getParameter(COACH_CLIENT_ID));
+            session.setAttribute(COACH_CLIENT_ID,clientId);
+        }
+        return clientId;
     }
 }

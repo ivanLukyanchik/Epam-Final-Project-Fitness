@@ -42,7 +42,7 @@
             <ul>
                 <c:forEach items="${exercises}" var="exercise">
                     <c:if test="${exercise.numberTrainDay==i}">
-                        <c:out value="${exercise.exercise.name}(${exercise.setNumber},${exercise.repeatNumber})"/>
+                        <c:out value="${exercise.name}(${exercise.setNumber},${exercise.repeatNumber})"/>
                         <input type="checkbox" id="modal${exercise.id}"/>
                         <h2>${edit}</h2>
                         <form action="${pageContext.request.contextPath}/controller?command=update_exercise" method="post">

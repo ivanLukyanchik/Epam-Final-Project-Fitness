@@ -14,6 +14,15 @@ public class ExerciseProgramServiceImpl implements ExerciseProgramService {
     private ExerciseProgramDao exerciseProgramDao = new ExerciseProgramDaoImpl();
 
     @Override
+    public Long save(ExerciseProgram exerciseProgram) throws ServiceException {
+        try {
+            return exerciseProgramDao.save(exerciseProgram);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public List<ExerciseProgram> findExercisesByProgramId(Long programId) throws ServiceException {
         try {
             return exerciseProgramDao.findExercisesByProgramId(programId);

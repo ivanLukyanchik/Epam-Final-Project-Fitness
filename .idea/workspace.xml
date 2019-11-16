@@ -217,6 +217,9 @@
       </serviceView>
     </option>
   </component>
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value=",ALPHA_COMPARATOR" />
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -256,7 +259,13 @@
       <workItem from="1573473945619" duration="26722000" />
       <workItem from="1573511685951" duration="20000" />
       <workItem from="1573548981643" duration="27245000" />
-      <workItem from="1573630456762" duration="34008000" />
+      <workItem from="1573630456762" duration="34613000" />
+      <workItem from="1573721295249" duration="817000" />
+      <workItem from="1573737770003" duration="2191000" />
+      <workItem from="1573762549355" duration="1576000" />
+      <workItem from="1573798273499" duration="2864000" />
+      <workItem from="1573843206282" duration="1259000" />
+      <workItem from="1573889568602" duration="5853000" />
     </task>
     <servers />
   </component>

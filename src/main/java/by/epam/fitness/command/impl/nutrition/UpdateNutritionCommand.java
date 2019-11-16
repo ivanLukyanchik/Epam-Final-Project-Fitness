@@ -40,10 +40,10 @@ public class UpdateNutritionCommand implements ActionCommand {
             String nutritionTime = request.getParameter(NUTRITION_TIME);
             setNewNutrition(nutritionId, nutritionTime, newNutritionDescription);
             log.info("nutrition with id = " + nutritionIdString + " has been changed");
-            page = Page.NUTRITION;
+            page = "/controller?command=show_client_nutrition";
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
-            page = Page.WELCOME_PAGE;
+            page = Page.NUTRITION;
         }
         return page;
     }

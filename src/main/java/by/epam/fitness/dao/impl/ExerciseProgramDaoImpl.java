@@ -13,10 +13,49 @@ import java.util.List;
 import java.util.Optional;
 
 public class ExerciseProgramDaoImpl implements ExerciseProgramDao {
+    private static final String SQL_CREATE_TABLE = "INSERT INTO exercise_program (program_id, exercise_id, repeat_number, set_number, number_train_day) VALUES (?,?,?,?,?)";
+    private static final String SQL_UPDATE_TABLE = "UPDATE exercise_program SET program_id=?, exercise_id=?, repeat_number=?, set_number=?, number_train_day=? WHERE id_exercise_program=?";
     private static final String SQL_FIND_BY_PROGRAM_ID = "SELECT * FROM exercise LEFT JOIN exercise_program ON exercise.id_exercise = exercise_program.exercise_id WHERE program_id=?";
     private static final String SQL_FIND_BY_ID = "SELECT * FROM exercise RIGHT JOIN exercise_program ON exercise.id_exercise = exercise_program.exercise_id WHERE exercise_program.id_exercise_program=?";
     private static final String SQL_DELETE = "DELETE FROM exercise_program WHERE id_exercise_program=?";
     private ExerciseProgramBuilder builder = new ExerciseProgramBuilder();
+
+    @Override
+    public Long save(ExerciseProgram exerciseProgram) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        Long programId = exerciseProgram.getProgramId();
+        Long exerciseId = exerciseProgram.getExercise().getId();
+        int repeatNumber = exerciseProgram.getRepeatNumber();
+        int setNumber = exerciseProgram.getSetNumber();
+        int numberTrainDay = exerciseProgram.getNumberTrainDay();
+        Long generatedId = null;
+        try {
+            connection = ConnectionPool.INSTANCE.getConnection();
+            if (exerciseProgram.getId() != null) {
+                preparedStatement = connection.prepareStatement(SQL_UPDATE_TABLE, Statement.RETURN_GENERATED_KEYS);
+                preparedStatement.setLong(6, exerciseProgram.getId());
+            } else {
+                preparedStatement = connection.prepareStatement(SQL_CREATE_TABLE, Statement.RETURN_GENERATED_KEYS);
+            }
+            preparedStatement.setLong(1, programId);
+            preparedStatement.setLong(2, exerciseId);
+            preparedStatement.setInt(3, repeatNumber);
+            preparedStatement.setInt(4, setNumber);
+            preparedStatement.setInt(5, numberTrainDay);
+            preparedStatement.executeUpdate();
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                generatedId = resultSet.getLong(1);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
+        }
+        return generatedId;
+    }
 
     @Override
     public List<ExerciseProgram> findExercisesByProgramId(Long programId) throws DaoException {

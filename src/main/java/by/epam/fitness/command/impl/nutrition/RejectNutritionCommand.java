@@ -31,7 +31,7 @@ public class RejectNutritionCommand implements ActionCommand {
             }
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
-            page = Page.COACH_CLIENTS;
+            page = Page.NUTRITION;
         }
         return page;
     }
