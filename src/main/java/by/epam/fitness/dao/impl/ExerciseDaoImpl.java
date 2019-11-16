@@ -44,7 +44,12 @@ public class ExerciseDaoImpl implements ExerciseDao {
     }
 
     @Override
-    public Optional<Exercise> findById(long id) throws DaoException {
+    public Long save(Exercise exercise) throws DaoException {
+        return null;
+    }
+
+    @Override
+    public Optional<Exercise> findById(Long id) throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         Exercise exercise = null;
@@ -64,25 +69,4 @@ public class ExerciseDaoImpl implements ExerciseDao {
         }
         return Optional.ofNullable(exercise);
     }
-
-    @Override
-    public List<Exercise> findEntityById(Long id) {
-        return null;
-    }
-
-    @Override
-    public boolean delete(Exercise exercise) {
-        return false;
-    }
-
-    @Override
-    public boolean delete(Long id) {
-        return false;
-    }
-
-    @Override
-    public Exercise update(Exercise exercise) {
-        return null;
-    }
-
 }

@@ -58,6 +58,11 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
     }
 
     @Override
+    public Optional<OrderInformation> findById(Long id) throws DaoException {
+        return Optional.empty();
+    }
+
+    @Override
     public Optional<OrderInformation> findByClientId(Long id) throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -101,30 +106,5 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
             close(connection);
         }
         return ordersList;
-    }
-
-    @Override
-    public List<OrderInformation> findAll() {
-        return null;
-    }
-
-    @Override
-    public List<OrderInformation> findEntityById(Long id) {
-        return null;
-    }
-
-    @Override
-    public boolean delete(OrderInformation orderInformation) {
-        return false;
-    }
-
-    @Override
-    public boolean delete(Long id) {
-        return false;
-    }
-
-    @Override
-    public OrderInformation update(OrderInformation orderInformation) {
-        return null;
     }
 }

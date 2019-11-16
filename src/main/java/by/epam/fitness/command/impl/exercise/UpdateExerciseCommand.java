@@ -60,6 +60,7 @@ public class UpdateExerciseCommand implements ActionCommand {
                 exerciseProgram.setRepeatNumber(repeats);
                 exerciseProgramService.save(exerciseProgram);
             }
+            request.setAttribute(JspConst.EXERCISE_UPDATED, true);
             log.info("exercise program with id = " + exerciseProgramId + " has been updated");
             page = "/controller?command=show_client_exercises";
         } catch (ServiceException e) {

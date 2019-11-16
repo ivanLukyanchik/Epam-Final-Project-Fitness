@@ -20,6 +20,9 @@
 <fmt:message bundle="${locale}" key="reject_exercise" var="reject_exercise"/>
 <fmt:message bundle="${locale}" key="all_exercises" var="all_exercises"/>
 <fmt:message bundle="${locale}" key="exercise_already_exists" var="exercise_already_exists"/>
+<fmt:message bundle="${locale}" key="added_exercise" var="added_exercise"/>
+<fmt:message bundle="${locale}" key="updated_exercise" var="updated_exercise"/>
+<fmt:message bundle="${locale}" key="rejected_exercise" var="rejected_exercise"/>
 
 <html>
 <head>
@@ -42,9 +45,20 @@
     <c:otherwise>
         <jsp:useBean id="program" type="by.epam.fitness.entity.Program" scope="session"/>
 
-        <c:if test="${not empty exerciseAlreadyExists}">
-            ${exercise_already_exists}
-        </c:if>
+        <c:choose>
+            <c:when test="${exerciseAdded eq true}">
+                ${added_exercise}
+            </c:when>
+            <c:when test="${exerciseUpdated eq true}">
+                ${updated_exercise}
+            </c:when>
+            <c:when test="${exerciseRejected eq true}">
+                ${rejected_exercise}
+            </c:when>
+            <c:when test="${exerciseAlreadyExists eq true}">
+                ${exercise_already_exists}
+            </c:when>
+        </c:choose>
 
         <c:forEach var = "i" begin = "1" end = "${program.trainsPerWeek}">
             <ol>

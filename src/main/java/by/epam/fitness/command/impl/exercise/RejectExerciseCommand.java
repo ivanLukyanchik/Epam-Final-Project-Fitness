@@ -4,6 +4,7 @@ import by.epam.fitness.command.ActionCommand;
 import by.epam.fitness.service.ExerciseProgramService;
 import by.epam.fitness.service.ServiceException;
 import by.epam.fitness.service.impl.ExerciseProgramServiceImpl;
+import by.epam.fitness.util.JspConst;
 import by.epam.fitness.util.page.Page;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,7 +25,7 @@ public class RejectExerciseCommand implements ActionCommand {
         try {
             exerciseProgramService.deleteExercise(exerciseId);
             log.info("exercise with id = " + exerciseId + " has been rejected");
-            //attribute should be added
+            request.setAttribute(JspConst.EXERCISE_REJECTED, true);
             page = "/controller?command=show_client_exercises";
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);

@@ -8,7 +8,6 @@ import by.epam.fitness.pool.ConnectionPool;
 import by.epam.fitness.service.ServiceException;
 
 import java.sql.*;
-import java.util.List;
 import java.util.Optional;
 
 public class ProgramDaoImpl implements ProgramDao {
@@ -49,6 +48,11 @@ public class ProgramDaoImpl implements ProgramDao {
     }
 
     @Override
+    public Optional<Program> findById(Long id) throws DaoException {
+        return Optional.empty();
+    }
+
+    @Override
     public Optional<Program> findProgramById(Long programId) throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -68,30 +72,5 @@ public class ProgramDaoImpl implements ProgramDao {
             close(connection);
         }
         return Optional.ofNullable(program);
-    }
-
-    @Override
-    public List<Program> findAll() {
-        return null;
-    }
-
-    @Override
-    public List<Program> findEntityById(Long id) {
-        return null;
-    }
-
-    @Override
-    public boolean delete(Program program) {
-        return false;
-    }
-
-    @Override
-    public boolean delete(Long id) {
-        return false;
-    }
-
-    @Override
-    public Program update(Program program) {
-        return null;
     }
 }

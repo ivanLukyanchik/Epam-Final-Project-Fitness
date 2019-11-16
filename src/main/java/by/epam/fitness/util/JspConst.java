@@ -76,6 +76,12 @@ public class JspConst {
     public static final String LOGIN_PAGE = "login";
     public static final String REGISTER_PAGE = "register";
     public static final String PASSWORD_RESTORE_PAGE = "passwordRestore";
+    public static final String NUTRITION_ADDED = "nutritionAdded";
+    public static final String NUTRITION_UPDATED = "nutritionUpdated";
+    public static final String NUTRITION_REJECTED = "nutritionRejected";
+    public static final String EXERCISE_REJECTED = "exerciseRejected";
+    public static final String EXERCISE_UPDATED = "exerciseUpdated";
+    public static final String EXERCISE_ADDED = "exerciseAdded";
     public static final String PASSWORD_CHANGED = "passwordChanged";
     public static final String PASSWORDS_NOT_MATCH = "passwordsNotMatch";
     public static final String RESTORE_PAGE = "restore";

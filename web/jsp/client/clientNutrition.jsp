@@ -17,6 +17,9 @@
 <fmt:message bundle="${locale}" key="cant_nutrition" var="cant_nutrition"/>
 <fmt:message bundle="${locale}" key="reject_nutrition" var="reject_nutrition"/>
 <fmt:message bundle="${locale}" key="activate_nutrition" var="activate_nutrition"/>
+<fmt:message bundle="${locale}" key="added_nutrition" var="added_nutrition"/>
+<fmt:message bundle="${locale}" key="updated_nutrition" var="updated_nutrition"/>
+<fmt:message bundle="${locale}" key="rejected_nutrition" var="rejected_nutrition"/>
 
 <html>
 <head>
@@ -53,7 +56,18 @@
         </c:when>
 
         <c:otherwise>
-            <hr/>
+
+            <c:choose>
+                <c:when test="${nutritionAdded eq true}">
+                    ${added_nutrition}
+                </c:when>
+                <c:when test="${nutritionUpdated eq true}">
+                    ${updated_nutrition}
+                </c:when>
+                <c:when test="${nutritionRejected eq true}">
+                    ${rejected_nutrition}
+                </c:when>
+            </c:choose>
 
             <form action="${pageContext.servletContext.contextPath}/controller?command=reject_nutrition" method="post">
                 <input type="hidden" id="nutrition_id" name="nutrition_id" value="${nutrition.id}"/>

@@ -8,7 +8,6 @@ import by.epam.fitness.pool.ConnectionPool;
 import by.epam.fitness.service.ServiceException;
 
 import java.sql.*;
-import java.util.List;
 import java.util.Optional;
 
 public class NutritionDaoImpl implements NutritionDao {
@@ -77,7 +76,7 @@ public class NutritionDaoImpl implements NutritionDao {
     }
 
     @Override
-    public Optional<Nutrition> findById(long id) throws DaoException {
+    public Optional<Nutrition> findById(Long id) throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         Nutrition nutrition = null;
@@ -96,30 +95,5 @@ public class NutritionDaoImpl implements NutritionDao {
             close(connection);
         }
         return Optional.ofNullable(nutrition);
-    }
-
-    @Override
-    public List<Nutrition> findAll() {
-        return null;
-    }
-
-    @Override
-    public List<Nutrition> findEntityById(Long id) {
-        return null;
-    }
-
-    @Override
-    public boolean delete(Nutrition nutrition) {
-        return false;
-    }
-
-    @Override
-    public boolean delete(Long id) {
-        return false;
-    }
-
-    @Override
-    public Nutrition update(Nutrition nutrition) {
-        return null;
     }
 }

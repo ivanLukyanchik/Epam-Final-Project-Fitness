@@ -5,6 +5,7 @@ import by.epam.fitness.entity.Nutrition;
 import by.epam.fitness.service.NutritionService;
 import by.epam.fitness.service.ServiceException;
 import by.epam.fitness.service.impl.NutritionServiceImpl;
+import by.epam.fitness.util.JspConst;
 import by.epam.fitness.util.page.Page;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,6 +28,7 @@ public class RejectNutritionCommand implements ActionCommand {
             if (nutritionOptional.isPresent()) {
                 nutritionOptional.get().setActive(false);
                 nutritionService.save(nutritionOptional.get());
+                request.setAttribute(JspConst.NUTRITION_REJECTED, true);
                 log.info("nutrition with id = " + nutritionId + " has been rejected");
                 page = Page.WELCOME_PAGE;
             }

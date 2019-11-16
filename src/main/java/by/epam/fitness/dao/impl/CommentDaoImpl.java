@@ -10,6 +10,7 @@ import by.epam.fitness.service.ServiceException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class CommentDaoImpl implements CommentDao {
     private static final String SQL_CREATE_TABLE = "INSERT INTO comment (coach_id, client_id, comment_content) VALUES (?,?,?)";
@@ -51,6 +52,11 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
+    public Optional<Comment> findById(Long id) throws DaoException {
+        return Optional.empty();
+    }
+
+    @Override
     public List<Comment> findByCoachId(long coachId) throws DaoException {
         List<Comment> comments = new ArrayList<>();
         Connection connection = null;
@@ -72,30 +78,5 @@ public class CommentDaoImpl implements CommentDao {
             close(connection);
         }
         return comments;
-    }
-
-    @Override
-    public List<Comment> findAll() throws DaoException {
-        return null;
-    }
-
-    @Override
-    public List<Comment> findEntityById(Long id) {
-        return null;
-    }
-
-    @Override
-    public boolean delete(Comment comment) {
-        return false;
-    }
-
-    @Override
-    public boolean delete(Long id) {
-        return false;
-    }
-
-    @Override
-    public Comment update(Comment comment) {
-        return null;
     }
 }

@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface ExerciseDao extends BaseDao<Long, Exercise> {
     List<Exercise> findAll() throws DaoException;
-    Optional<Exercise> findById(long id) throws DaoException;
+    Optional<Exercise> findById(Long id) throws DaoException;
 }

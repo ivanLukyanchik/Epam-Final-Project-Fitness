@@ -77,7 +77,8 @@ public class UserDaoImpl implements UserDao {
         if (!isLoginUnique(user.getLogin())) {
             return false;
         }
-        return save(user);
+        Long generatedId = save(user);
+        return generatedId != null;
     }
 
     @Override
@@ -177,8 +178,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean save(User user) throws DaoException {
-        int result = 0;
+    public Long save(User user) throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         Long coachId = user.getCoachId();
@@ -191,13 +191,14 @@ public class UserDaoImpl implements UserDao {
         Integer membershipNumber = user.getMembershipNumber();
         Float personalDiscount = user.getPersonalDiscount();
         Long programId = user.getProgramId();
+        Long generatedId = null;
         try {
             connection = ConnectionPool.INSTANCE.getConnection();
             if (user.getId() != null) {
-                preparedStatement = connection.prepareStatement(SQL_UPDATE_USER);
+                preparedStatement = connection.prepareStatement(SQL_UPDATE_USER, Statement.RETURN_GENERATED_KEYS);
                 preparedStatement.setLong(11, user.getId());
             } else {
-                preparedStatement = connection.prepareStatement(SQL_CREATE_USER);
+                preparedStatement = connection.prepareStatement(SQL_CREATE_USER, Statement.RETURN_GENERATED_KEYS);
             }
             preparedStatement.setObject(1, coachId);
             preparedStatement.setString(2, name);
@@ -209,14 +210,18 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setInt(8, membershipNumber);
             preparedStatement.setFloat(9, personalDiscount);
             preparedStatement.setLong(10, programId);
-            result = preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                generatedId = resultSet.getLong(1);
+            }
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
             close(preparedStatement);
             close(connection);
         }
-        return result != 0;
+        return generatedId;
     }
 
     @Override
@@ -241,30 +246,5 @@ public class UserDaoImpl implements UserDao {
             close(connection);
         }
         return users;
-    }
-
-    @Override
-    public List<User> findAll() {
-        return null;
-    }
-
-    @Override
-    public List<User> findEntityById(Long id) {
-        return null;
-    }
-
-    @Override
-    public boolean delete(User user) {
-        return false;
-    }
-
-    @Override
-    public boolean delete(Long id) {
-        return false;
-    }
-
-    @Override
-    public User update(User user) {
-        return null;
     }
 }

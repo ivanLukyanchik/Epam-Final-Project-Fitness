@@ -5,6 +5,7 @@ import by.epam.fitness.entity.Nutrition;
 import by.epam.fitness.service.NutritionService;
 import by.epam.fitness.service.ServiceException;
 import by.epam.fitness.service.impl.NutritionServiceImpl;
+import by.epam.fitness.util.JspConst;
 import by.epam.fitness.util.page.Page;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,8 +29,9 @@ public class AddNutritionCommand implements ActionCommand {
             if (nutritionOptional.isPresent()) {
                 nutritionOptional.get().setActive(true);
                 nutritionService.save(nutritionOptional.get());
-                page = "/controller?command=show_client_nutrition";
+                request.setAttribute(JspConst.NUTRITION_ADDED, true);
                 log.info("nutrition with id = " + nutritionId + " has been added");
+                page = "/controller?command=show_client_nutrition";
             }
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);

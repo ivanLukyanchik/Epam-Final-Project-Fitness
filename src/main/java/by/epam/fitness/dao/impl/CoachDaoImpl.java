@@ -69,11 +69,16 @@ public class CoachDaoImpl implements CoachDao {
     }
 
     @Override
-    public Optional<Coach> findById(long id) throws DaoException {
+    public Long save(Coach coach) throws DaoException {
+        return null;
+    }
+
+    @Override
+    public Optional<Coach> findById(Long id) throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         Coach coach = null;
-        try{
+        try {
             connection = ConnectionPool.INSTANCE.getConnection();
             preparedStatement = connection.prepareStatement(SQL_FIND_BY_COACH_ID);
             preparedStatement.setLong(1, id);
@@ -111,25 +116,5 @@ public class CoachDaoImpl implements CoachDao {
             close(connection);
         }
         return coachesList;
-    }
-
-    @Override
-    public List<Coach> findEntityById(Long id) {
-        return null;
-    }
-
-    @Override
-    public boolean delete(Coach coach) {
-        return false;
-    }
-
-    @Override
-    public boolean delete(Long id) {
-        return false;
-    }
-
-    @Override
-    public Coach update(Coach coach) {
-        return null;
     }
 }

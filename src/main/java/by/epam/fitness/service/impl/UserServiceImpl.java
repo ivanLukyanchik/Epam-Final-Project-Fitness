@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean save(User user) throws ServiceException {
+    public Long save(User user) throws ServiceException {
         try {
             return userDao.save(user);
         } catch (DaoException e) {

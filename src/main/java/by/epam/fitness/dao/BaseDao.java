@@ -9,16 +9,13 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
+import java.util.Optional;
 
 public interface BaseDao <K, T extends Entity> {
     Logger log = LogManager.getLogger(BaseDao.class);
 
-    List<T> findAll() throws DaoException;
-    List<T> findEntityById(K id);
-    boolean delete(T t);
-    boolean delete(K id);
-    T update(T t);
+    K save(T t) throws DaoException;
+    Optional<T> findById(K id) throws DaoException;
 
     default void close(Statement statement) {
         if (statement  != null) {

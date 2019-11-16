@@ -63,7 +63,7 @@ public class ModifyProfileCommand implements ActionCommand {
                 user1.setSurname(surname);
                 user1.setLogin(login);
                 user1.setEmail(email);
-                if (userService.save(user)) {
+                if (userService.save(user) != null) {
                     log.info("client with id = "+ clientID + " successfully changed his profile info");
                     request.setAttribute(SUCCESS, true);
                     page = Page.CLIENT_PROFILE_PAGE;

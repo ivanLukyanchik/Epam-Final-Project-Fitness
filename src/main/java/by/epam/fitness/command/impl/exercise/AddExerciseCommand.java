@@ -48,6 +48,7 @@ public class AddExerciseCommand implements ActionCommand {
                 request.setAttribute(JspConst.EXERCISE_ALREADY_EXISTS, true);
                 return "/controller?command=show_client_exercises";
             }
+            request.setAttribute(JspConst.EXERCISE_ADDED, true);
             log.info("exercise with id = " + exerciseProgram.getExercise().getId() + " has been added");
             page = "/controller?command=show_client_exercises";
         } catch (ServiceException e) {

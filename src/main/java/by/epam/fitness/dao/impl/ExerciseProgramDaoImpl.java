@@ -83,7 +83,7 @@ public class ExerciseProgramDaoImpl implements ExerciseProgramDao {
     }
 
     @Override
-    public Optional<ExerciseProgram> findById(long id) throws DaoException {
+    public Optional<ExerciseProgram> findById(Long id) throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ExerciseProgram exerciseProgram = null;
@@ -144,30 +144,4 @@ public class ExerciseProgramDaoImpl implements ExerciseProgramDao {
         }
         return result;
     }
-
-    @Override
-    public List<ExerciseProgram> findAll() throws DaoException {
-        return null;
-    }
-
-    @Override
-    public List<ExerciseProgram> findEntityById(Long id) {
-        return null;
-    }
-
-    @Override
-    public boolean delete(ExerciseProgram exerciseProgram) {
-        return false;
-    }
-
-    @Override
-    public boolean delete(Long id) {
-        return false;
-    }
-
-    @Override
-    public ExerciseProgram update(ExerciseProgram exerciseProgram) {
-        return null;
-    }
-
 }
