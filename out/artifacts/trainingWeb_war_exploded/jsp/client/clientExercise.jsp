@@ -16,6 +16,10 @@
 <fmt:message bundle="${locale}" key="add" var="add"/>
 <fmt:message bundle="${locale}" key="cant_choose" var="cant_choose"/>
 <fmt:message bundle="${locale}" key="buy" var="buy"/>
+<fmt:message bundle="${locale}" key="save" var="save"/>
+<fmt:message bundle="${locale}" key="reject_exercise" var="reject_exercise"/>
+<fmt:message bundle="${locale}" key="all_exercises" var="all_exercises"/>
+<fmt:message bundle="${locale}" key="exercise_already_exists" var="exercise_already_exists"/>
 
 <html>
 <head>
@@ -36,62 +40,79 @@
     </c:when>
 
     <c:otherwise>
-        <jsp:useBean id="program" type="by.epam.fitness.entity.Program" scope="request"/>
-        <input type="hidden" id="programIdBlock" value="${program.id}"/>
+        <jsp:useBean id="program" type="by.epam.fitness.entity.Program" scope="session"/>
+
+        <c:if test="${not empty exerciseAlreadyExists}">
+            ${exercise_already_exists}
+        </c:if>
+
         <c:forEach var = "i" begin = "1" end = "${program.trainsPerWeek}">
-            <ul>
-                <c:forEach items="${exercises}" var="exercise">
-                    <c:if test="${exercise.numberTrainDay==i}">
-                        <c:out value="${exercise.name}(${exercise.setNumber},${exercise.repeatNumber})"/>
-                        <input type="checkbox" id="modal${exercise.id}"/>
+            <ol>
+                <c:forEach items="${clientExercises}" var="exerciseProgram">
+                    <c:if test="${exerciseProgram.numberTrainDay==i}">
+                        <li><h2>${exerciseProgram.exercise.name}</h2></li>
+                        <h3>${exerciseProgram.exercise.description}</h3>
+                        <c:out value="(${exerciseProgram.setNumber} * ${exerciseProgram.repeatNumber})"/>
                         <h2>${edit}</h2>
                         <form action="${pageContext.request.contextPath}/controller?command=update_exercise" method="post">
+                            <input type="hidden" id="exerciseProgramId" name="exerciseProgramId" value="${exerciseProgram.id}">
                             <div class="col-1">
-                                <label for="set_number">${sets}</label>
+                                <label for="set_update">${sets}</label>
                             </div>
                             <div class="col-2">
-                                <input type="text" id="set_number" title="${title}" name="set_number">
+                                <input type="text" id="set_update" value="${exerciseProgram.setNumber}" title="${title}" name="set_number">
                             </div>
                             <div class="col-1">
                                 <label for="repeatsUpdate">${repeats}</label>
                             </div>
                             <div class="col-2">
-                                <input type="text" id="repeatsUpdate" title="${title}"  name="repeats">
+                                <input type="text" id="repeatsUpdate" value="${exerciseProgram.repeatNumber}" title="${title}"  name="repeats">
                             </div>
-                            <input type="hidden" id="exerciseDtoId" name="exerciseDtoId" value="${exercise.id}">
-                            <input type="submit" onclick="checkUpdateExerciseData()" value="${update}" id="update">
+                            <input type="submit" value="${update}" id="update">
                         </form>
                         <br/>
-                        <form action="${pageContext.request.contextPath}/controller?command=delete_exercise" method="post">
-                            <input id="exerciseDtoId" name="exerciseDtoId" value="${exercise.id}">
-                            <input type="submit" value="Удалить">
+                        <form action="${pageContext.request.contextPath}/controller?command=reject_exercise" method="post">
+                            <input type="hidden" name="exerciseId" value="${exerciseProgram.exercise.id}">
+                            <input type="submit" value="${reject_exercise}">
                         </form>
                     </c:if>
                 </c:forEach>
-            </ul>
+            </ol>
         </c:forEach>
 
-        <input type="search"  oninput="makeRequest()" placeholder="${exercise_name}" name="searchType" id="searchType">
-        <hr style="margin-left: -20px;width: 110%;">
-        <form name="form" class="beatForm" action="${pageContext.request.contextPath}/controller?command=add_exercise" method="post">
-            <input type="hidden" id="trainDay" name="trainDay" value="${program.trainsPerWeek}">
-            <h2 id="exerciseName"></h2>
-            <h2>${exercise_description}</h2><%--            добавить input сюда--%>
-            <h2>${add_exercise}</h2>
-            <div class="col-1">
-                <label for="setNumber{exercise.id}">${sets}</label>
-            </div>
-            <div class="col-2">
-                <input type="text" id="setNumber{exercise.id}" title="${title}"/>
-            </div>
-            <div class="col-1">
-                <label for="repeats{exercise.id}">${repeats}</label>
-            </div>
-            <div class="col-2">
-                <input type="text" id="repeats{exercise.id}" title="${title}"/>
-            </div>
-            <input type="submit" onclick="setExerciseProgram('{exercise.id}',${program.id})" title="1-2 number" value="${add}">
-        </form>
+        <hr/>
+
+        <h1>${all_exercises}</h1>
+        <c:forEach items="${allExercises}" var="exercise">
+            <ul>
+                <form action="${pageContext.request.contextPath}/controller?command=add_exercise" method="post">
+                    <input type="hidden" name="exerciseId" value="${exercise.id}">
+                    <input type="hidden" name="trainDay" value="${program.trainsPerWeek}">
+                    <input type="hidden" name="programId" value="${program.id}">
+                    <li><h2>${exercise.name}</h2></li>
+                    ${exercise_description} : ${exercise.description}
+                    <br/>
+
+                    <div class="col-1">
+                        <label for="set_number">${sets}</label>
+                    </div>
+
+                    <div class="col-2">
+                        <input type="text" id="set_number" name="set_number" required title="${title}">
+                    </div>
+
+                    <div class="col-1">
+                        <label for="repeats">${repeats}</label>
+                    </div>
+
+                    <div class="col-2">
+                    <input type="text" id="repeats" name="repeats" required title="${title}">
+                    </div>
+
+                    <input type="submit" value="${add_exercise}">
+                </form>
+            </ul>
+        </c:forEach>
     </c:otherwise>
 </c:choose>
 </body>

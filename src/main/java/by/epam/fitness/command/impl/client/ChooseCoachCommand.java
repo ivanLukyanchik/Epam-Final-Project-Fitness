@@ -8,6 +8,7 @@ import by.epam.fitness.service.ServiceException;
 import by.epam.fitness.service.UserService;
 import by.epam.fitness.service.impl.CoachServiceImpl;
 import by.epam.fitness.service.impl.UserServiceImpl;
+import by.epam.fitness.util.JspConst;
 import by.epam.fitness.util.SessionAttributes;
 import by.epam.fitness.util.page.Page;
 import by.epam.fitness.util.validation.DataValidator;
@@ -31,14 +32,14 @@ public class ChooseCoachCommand implements ActionCommand {
         String coachIdString = request.getParameter(COACH_ID);
         if (coachIdString == null || !dataValidator.isIdentifiableIdValid(coachIdString)){
             log.info("invalid coach id format: coach_id:" + coachIdString);
-            request.setAttribute("invalidCoachId", true);
+            request.setAttribute(JspConst.INVALID_COACH, true);
             return Page.ALL_COACHES;
         }
         Long coachId = Long.valueOf(coachIdString);
         try {
             if (!isCoachIdExist(coachId)) {
                 log.info("coach with id = " + coachId + " doesn't exist");
-                request.setAttribute("notExistId", true);
+                request.setAttribute(JspConst.NOT_EXIST_ID, true);
                 return Page.ALL_COACHES;
             }
             HttpSession session = request.getSession();
@@ -49,7 +50,7 @@ public class ChooseCoachCommand implements ActionCommand {
                 userService.save(user.get());
             }
             log.info("coach with id  = " + coachId + " was chosen");
-            request.setAttribute("coachChosen", true);
+            request.setAttribute(JspConst.COACH_CHOSEN, true);
             page = Page.WELCOME_PAGE;
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);

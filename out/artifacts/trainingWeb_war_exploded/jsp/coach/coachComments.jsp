@@ -26,7 +26,7 @@
     <c:otherwise>
         <c:forEach items="${comments}" var="comment">
             <hr/>
-            <h3><c:out value="${comment.value.name} ${comment.value.surname}"/></h3>
+            <h3><c:out value="${comment.value.name} ${comment.value.surname} (login : ${comment.value.login})"/></h3>
             <br>
             <h5><c:out value="${comment.key.commentContent}"/></h5>
             <hr/>

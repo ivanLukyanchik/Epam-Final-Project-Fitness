@@ -10,6 +10,7 @@
 <fmt:message bundle="${locale}" key="save" var="save"/>
 <fmt:message bundle="${locale}" key="max_symbols" var="max_symbols"/>
 <fmt:message bundle="${locale}" key="choose_coach" var="choose_coach"/>
+<fmt:message bundle="${locale}" key="choose_this_coach" var="choose_this_coach"/>
 <fmt:message bundle="${locale}" key="cant_choose" var="cant_choose"/>
 <fmt:message bundle="${locale}" key="buy" var="buy"/>
 <fmt:message bundle="${locale}" key="invalid_coach_id" var="invalid_coach_id"/>
@@ -65,7 +66,7 @@
                         <li class="coach"><c:out value="${coach.name} ${coach.surname}"/></li>
                         <form action="${pageContext.servletContext.contextPath}/controller?command=choose_coach" method="post">
                             <input type="hidden" id="coachId" name="coachId" value="${coach.id}"/>
-                            <input type="submit" value="Choose coach"/>
+                            <input type="submit" value="${choose_this_coach}"/>
                         </form>
                     </c:forEach>
                 </c:otherwise>

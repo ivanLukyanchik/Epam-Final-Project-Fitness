@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <title>Error!</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../resources/css/errorPage.css">
+    <link rel="stylesheet" href="../../css/errorPage.css">
 </head>
 <body>
 <div class="container">
     <h1>Oops!</h1>
     <div class="container">
-        <img src="../../resources/imgs/error_im.jpg" alt="errorLogo">
         <h2 th:text="'Error message: ' + ${errorMsg}"></h2>
         <a class="btn btn-lg btn-warning" href="login">Return to login page</a>
     </div>

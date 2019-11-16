@@ -21,12 +21,13 @@ public class RejectNutritionCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
         String page = null;
-        Long nutritionId = Long.parseLong(request.getParameter(NUTRITION_ID));
+        long nutritionId = Long.parseLong(request.getParameter(NUTRITION_ID));
         try {
             Optional<Nutrition> nutritionOptional = nutritionService.findById(nutritionId);
             if (nutritionOptional.isPresent()) {
                 nutritionOptional.get().setActive(false);
                 nutritionService.save(nutritionOptional.get());
+                log.info("nutrition with id = " + nutritionId + " has been rejected");
                 page = Page.WELCOME_PAGE;
             }
         } catch (ServiceException e) {

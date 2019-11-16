@@ -39,7 +39,7 @@ public class AddCommentCommand implements ActionCommand {
         try {
             if (coachIdString==null || !isCoachExist(coachIdString)){
                 log.info("coach with id = " + coachIdString + " doesn't exist");
-                request.setAttribute("notExistId", true);
+                request.setAttribute(NOT_EXIST_ID, true);
                 return Page.ALL_COACHES;
             }
             Long coachId = Long.valueOf(coachIdString);
@@ -48,7 +48,7 @@ public class AddCommentCommand implements ActionCommand {
             Comment comment = new Comment(null, clientId, coachId, commentContent);
             commentService.save(comment);
             log.info("comment of client with id = " + clientId + " was successfully saved");
-            request.setAttribute("commentSaved", true);
+            request.setAttribute(COMMENT_SAVED, true);
             page = Page.WELCOME_PAGE;
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);

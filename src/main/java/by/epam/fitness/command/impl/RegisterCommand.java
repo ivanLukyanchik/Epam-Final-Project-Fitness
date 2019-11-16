@@ -41,31 +41,31 @@ public class RegisterCommand implements ActionCommand {
         String name = request.getParameter(PARAM_NAME);
         if (name==null || !dataValidator.isNameValid(name)) {
             log.info("invalid name format was received:" + name);
-            request.setAttribute("invalidName", "Wrong name");
+            request.setAttribute(INVALID_NAME, true);
             return Page.REGISTER_PAGE;
         }
         String surname = request.getParameter(PARAM_SURNAME);
         if (surname==null || !dataValidator.isSurnameValid(surname)) {
             log.info("invalid name format was received:" + surname);
-            request.setAttribute("invalidSurname", "Wrong surname");
+            request.setAttribute(INVALID_SURNAME, true);
             return Page.REGISTER_PAGE;
         }
         String login = request.getParameter(PARAM_LOGIN);
         if (login==null || !dataValidator.isLoginValid(login)) {
             log.info("invalid login format was received:" + login);
-            request.setAttribute("invalidLogin", "Wrong login");
+            request.setAttribute(INVALID_LOGIN, true);
             return Page.REGISTER_PAGE;
         }
         String email = request.getParameter(PARAM_EMAIL);
         if (email==null || !dataValidator.isEmailValid(email)){
             log.info("invalid email format was received:" + email);
-            request.setAttribute("invalidEmail", "Wrong email");
+            request.setAttribute(INVALID_EMAIL, true);
             return Page.REGISTER_PAGE;
         }
         String password = request.getParameter(PARAM_PASSWORD);
         if (password==null || !dataValidator.isPasswordValid(password)){
             log.info("invalid password format was received:" + password);
-            request.setAttribute("invalidPassword", "Wrong password");
+            request.setAttribute(INVALID_PASSWORD, true);
             return Page.REGISTER_PAGE;
         }
 
@@ -77,9 +77,10 @@ public class RegisterCommand implements ActionCommand {
             user = buildUser(request, userHash);
             if (userService.registerUser1(user)) {
                 SendingEmail.verify(email, userHash);
+                log.info("client with login = " + login + " was registered");
                 page = Page.VERIFY_PAGE;
             } else {
-                request.setAttribute("wrongData", "User with this login already exists");
+                request.setAttribute(WRONG_DATA, true);
                 page = Page.REGISTER_PAGE;
             }
         } catch (ServiceException e) {

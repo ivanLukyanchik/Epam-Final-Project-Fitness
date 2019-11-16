@@ -41,9 +41,18 @@ public class ExerciseProgramServiceImpl implements ExerciseProgramService {
     }
 
     @Override
-    public int deleteExercise(long exerciseProgramId) throws ServiceException {
+    public boolean findByExerciseId(long exerciseId) throws ServiceException {
         try {
-            return exerciseProgramDao.deleteExercise(exerciseProgramId);
+            return exerciseProgramDao.findByExerciseId(exerciseId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public int deleteExercise(long exerciseId) throws ServiceException {
+        try {
+            return exerciseProgramDao.deleteExercise(exerciseId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

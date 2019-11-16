@@ -27,13 +27,13 @@ public class AddExerciseCommand implements ActionCommand {
     public String execute(HttpServletRequest request) {
         String page = null;
         String repeatsString = request.getParameter(JspConst.REPEATS);
-        if (!dataValidator.isSetNumberValid(repeatsString)) {
+        if (repeatsString == null || !dataValidator.isSetNumberValid(repeatsString)) {
             log.info("format number of repeats is not correct");
             request.setAttribute(JspConst.INCORRECT_INPUT_DATA_ERROR, true);
             return Page.EXERCISES;
         }
         String setNumberString = request.getParameter(JspConst.SET_NUMBER);
-        if (!dataValidator.isSetNumberValid(setNumberString)) {
+        if (setNumberString == null || !dataValidator.isSetNumberValid(setNumberString)) {
             log.info("format number of set number is not correct");
             request.setAttribute(JspConst.INCORRECT_INPUT_DATA_ERROR, true);
             return Page.EXERCISES;
@@ -42,9 +42,14 @@ public class AddExerciseCommand implements ActionCommand {
         Integer setNumber = Integer.valueOf(setNumberString);
         try {
             ExerciseProgram exerciseProgram = makeExercise(request, repeats, setNumber);
-            exerciseProgramService.save(exerciseProgram);
-            log.info("exercise with id = " + exerciseProgram.getId() + " has been added");
-            page = Page.EXERCISES;
+            if (!isExerciseExist(exerciseProgram.getExercise().getId())) {
+                exerciseProgramService.save(exerciseProgram);
+            } else {
+                request.setAttribute(JspConst.EXERCISE_ALREADY_EXISTS, true);
+                return "/controller?command=show_client_exercises";
+            }
+            log.info("exercise with id = " + exerciseProgram.getExercise().getId() + " has been added");
+            page = "/controller?command=show_client_exercises";
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
             page = Page.EXERCISES;
@@ -59,5 +64,9 @@ public class AddExerciseCommand implements ActionCommand {
         Optional<Exercise> exerciseOptional = exerciseService.findById(exerciseId);
         Exercise exercise = exerciseOptional.orElseThrow(ServiceException::new);
         return new ExerciseProgram(null, exercise, repeats, setNumber, programId, trainDay);
+    }
+
+    private boolean isExerciseExist(Long exerciseId) throws ServiceException {
+        return exerciseProgramService.findByExerciseId(exerciseId);
     }
 }

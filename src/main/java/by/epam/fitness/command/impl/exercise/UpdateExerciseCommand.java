@@ -27,41 +27,41 @@ public class UpdateExerciseCommand implements ActionCommand {
     public String execute(HttpServletRequest request) {
         String page = null;
         String repeatsString = request.getParameter(JspConst.REPEATS);
-        if (!dataValidator.isSetNumberValid(repeatsString)) { // FIXME: 13.11.2019 везде проверка на null вместе с validation
+        if (repeatsString==null || !dataValidator.isSetNumberValid(repeatsString)) {
             log.info("format number of repeats is not correct");
             request.setAttribute(JspConst.INCORRECT_INPUT_DATA_ERROR, true);
             return Page.EXERCISES;
         }
         String setNumberString = request.getParameter(JspConst.SET_NUMBER);
-        if (!dataValidator.isSetNumberValid(setNumberString)) {
+        if (setNumberString==null ||!dataValidator.isSetNumberValid(setNumberString)) {
             log.info("format number of set number is not correct");
             request.setAttribute(JspConst.INCORRECT_INPUT_DATA_ERROR, true);
             return Page.EXERCISES;
         }
         int repeats = Integer.parseInt(repeatsString);
         int setNumber = Integer.parseInt(setNumberString);
-        String exerciseDtoIdString = request.getParameter(JspConst.EXERCISE_DTO_ID);
-        if (!dataValidator.isIdentifiableIdValid(exerciseDtoIdString)) {
-            log.info("incorrect exercise id was received:" + exerciseDtoIdString);
+        String exerciseProgramIdString = request.getParameter(JspConst.EXERCISE_PROGRAM_ID);
+        if (exerciseProgramIdString==null || !dataValidator.isIdentifiableIdValid(exerciseProgramIdString)) {
+            log.info("incorrect exercise id was received:" + exerciseProgramIdString);
             request.setAttribute(INVALID_EXERCISE_ID_FORMAT, true);
             return Page.EXERCISES;
         }
-        Long exerciseDtoId = Long.valueOf(exerciseDtoIdString);
+        Long exerciseProgramId = Long.valueOf(exerciseProgramIdString);
         try {
-            if (!isExerciseExist(exerciseDtoId)) {
-                log.info("exercise with id = " + exerciseDtoId + " doesn't exist");
+            if (!isExerciseExist(exerciseProgramId)) {
+                log.info("exercise with id = " + exerciseProgramId + " doesn't exist");
                 request.setAttribute(NOT_EXIST_EXERCISE_ID, true);
                 return Page.EXERCISES;
             }
-            Optional<ExerciseProgram> exerciseProgramOptional = exerciseProgramService.findById(exerciseDtoId);
+            Optional<ExerciseProgram> exerciseProgramOptional = exerciseProgramService.findById(exerciseProgramId);
             if (exerciseProgramOptional.isPresent()) {
                 ExerciseProgram exerciseProgram = exerciseProgramOptional.get();
                 exerciseProgram.setSetNumber(setNumber);
                 exerciseProgram.setRepeatNumber(repeats);
                 exerciseProgramService.save(exerciseProgram);
             }
-            log.info("exercise with id = " + exerciseDtoId + " has been changed");
-            page = Page.WELCOME_PAGE;
+            log.info("exercise program with id = " + exerciseProgramId + " has been updated");
+            page = "/controller?command=show_client_exercises";
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
             page = Page.EXERCISES;
@@ -69,8 +69,8 @@ public class UpdateExerciseCommand implements ActionCommand {
         return page;
     }
 
-    private boolean isExerciseExist(Long exerciseId) throws ServiceException {
-        Optional<ExerciseProgram> exerciseProgram = exerciseProgramService.findById(exerciseId);
+    private boolean isExerciseExist(Long id) throws ServiceException {
+        Optional<ExerciseProgram> exerciseProgram = exerciseProgramService.findById(id);
         return exerciseProgram.isPresent();
     }
 }

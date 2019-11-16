@@ -1,11 +1,14 @@
 package by.epam.fitness.command.impl.client;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.entity.Coach;
 import by.epam.fitness.entity.OrderInformation;
 import by.epam.fitness.entity.User;
+import by.epam.fitness.service.CoachService;
 import by.epam.fitness.service.OrderInformationService;
 import by.epam.fitness.service.ServiceException;
 import by.epam.fitness.service.UserService;
+import by.epam.fitness.service.impl.CoachServiceImpl;
 import by.epam.fitness.service.impl.OrderInformationServiceImpl;
 import by.epam.fitness.service.impl.UserServiceImpl;
 import by.epam.fitness.util.JspConst;
@@ -24,6 +27,7 @@ public class ClientProfileCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(ClientProfileCommand.class);
     private OrderInformationService orderInformationService = new OrderInformationServiceImpl();
     private UserService userService = new UserServiceImpl();
+    private CoachService coachService = new CoachServiceImpl();
     private MembershipValidChecker membershipValidChecker = new MembershipValidChecker();
 
     @Override
@@ -41,6 +45,12 @@ public class ClientProfileCommand implements ActionCommand {
                 if (orderInformation.isPresent()) {
                     session.setAttribute(JspConst.MEMBERSHIP_VALID, membershipValidChecker.isCurrentMembershipValid(user.getId()));
                 }
+                Long coachId = user.getCoachId();
+                Optional<Coach> coach = coachService.findById(coachId);
+                coach.ifPresent(aCoach -> {
+                    request.setAttribute(JspConst.COACH_NAME, aCoach.getName());
+                    request.setAttribute(JspConst.COACH_SURNAME, aCoach.getSurname());
+                });
             }
             page = Page.CLIENT_PROFILE_PAGE;
         } catch (ServiceException e) {

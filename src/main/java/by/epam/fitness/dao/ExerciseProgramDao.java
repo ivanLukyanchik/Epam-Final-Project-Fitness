@@ -10,5 +10,6 @@ public interface ExerciseProgramDao extends BaseDao<Long, ExerciseProgram> {
     Long save(ExerciseProgram exerciseProgram) throws DaoException;
     List<ExerciseProgram> findExercisesByProgramId(Long programId) throws DaoException;
     Optional<ExerciseProgram> findById(long id) throws DaoException;
-    int deleteExercise(long exerciseProgramId) throws DaoException;
+    boolean findByExerciseId(long exerciseId) throws DaoException;
+    int deleteExercise(long exerciseId) throws DaoException;
 }

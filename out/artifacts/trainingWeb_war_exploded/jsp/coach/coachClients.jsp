@@ -7,6 +7,8 @@
 <fmt:setBundle basename="locale.pagecontent" var="locale"/>
 
 <fmt:message bundle="${locale}" key="no_clients" var="no_clients"/>
+<fmt:message bundle="${locale}" key="nutrition_button" var="nutrition_button"/>
+<fmt:message bundle="${locale}" key="exercises_button" var="exercises_button"/>
 
 <html>
 <head>
@@ -29,11 +31,11 @@
             <c:out value="${client.name} ${client.surname} (login : ${client.login})"/>
             <form action="${pageContext.request.contextPath}/controller?command=show_client_exercises" method="post">
                 <input type="hidden" id="coach_client_id" name="coach_client_id" value="${client.id}">
-                <input type="submit" value="exercises"/>
+                <input type="submit" value="${exercises_button}"/>
             </form>
             <form action="${pageContext.request.contextPath}/controller?command=show_client_nutrition" method="post">
                 <input type="hidden" id="coach_client_id" name="coach_client_id" value="${client.id}"/>
-                <input type="submit" value="nutrition"/>
+                <input type="submit" value="${nutrition_button}"/>
             </form>
             <br/>
             <hr/>

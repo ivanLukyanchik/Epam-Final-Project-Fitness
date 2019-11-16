@@ -10,6 +10,12 @@
 
 <fmt:message bundle="${locale}" key="card_pattern_error" var="card_pattern_error"/>
 <fmt:message bundle="${locale}" key="card_placeholder" var="card_placeholder"/>
+<fmt:message bundle="${locale}" key="how_long" var="how_long"/>
+<fmt:message bundle="${locale}" key="amount" var="amount"/>
+<fmt:message bundle="${locale}" key="discount" var="discount"/>
+<fmt:message bundle="${locale}" key="final_amount" var="final_amount"/>
+<fmt:message bundle="${locale}" key="order.credit_card" var="credit_card"/>
+<fmt:message bundle="${locale}" key="pay" var="pay"/>
 
 <html>
 <head>
@@ -24,7 +30,7 @@
 </jsp:include>
 
     <div class="col-1">
-        <label for="period_cost">how long</label>
+        <label for="period_cost">${how_long}</label>
     </div>
     <div class="col-2">
         <select id="period_cost" onchange="setCost()" name="period">
@@ -33,21 +39,21 @@
     </div>
 
     <div class="col-1">
-        <label for="cost">money</label>
+        <label for="cost">${amount}</label>
     </div>
     <div class="col-2">
         <input type="text" id="cost" name="cost" value="0$" readonly>
     </div>
 
     <div class="col-1">
-        <label for="personal_discount">discount (%)</label>
+        <label for="personal_discount">${discount}</label>
     </div>
     <div class="col-2">
         <input type="text" id="personal_discount" name="personal_discount" value="${client.personalDiscount}" readonly>
     </div>
 
     <div class="col-1">
-        <label for="final_cost">final cost</label>
+        <label for="final_cost">${final_amount}</label>
     </div>
     <div class="col-2">
         <input type="text" id="final_cost" name="final_cost" value="0.0$" readonly>
@@ -56,16 +62,16 @@
 
     <form name="form" action="${pageContext.servletContext.contextPath}/controller?command=update_gym_membership" method="post">
         <input type="hidden" id="period" name="period">
-        <label for="cardNumber">credit card</label>
+        <label for="cardNumber">${credit_card}</label>
         <input onchange="checkCardNumber()" type="text" id="cardNumber" name="cardNumber" placeholder="${card_placeholder}" title="${card_pattern_error}">
-        <label for="finalCostModalWindow">final cost (2)</label>
+        <label for="finalCostModalWindow">${final_amount}</label>
         <input id="finalCostModalWindow" name="cost" type="text" readonly>
         <c:choose>
             <c:when test="${not empty requestScope.wrongCard}">
                 ${card_pattern_error}
             </c:when>
         </c:choose>
-        <input onclick="checkOffer()" class="button" type="submit" value="buy">
+        <input onclick="checkOffer()" class="button" type="submit" value="${pay}">
     </form>
 
 </body>

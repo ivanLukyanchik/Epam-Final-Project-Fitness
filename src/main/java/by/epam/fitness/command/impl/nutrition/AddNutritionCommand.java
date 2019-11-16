@@ -29,6 +29,7 @@ public class AddNutritionCommand implements ActionCommand {
                 nutritionOptional.get().setActive(true);
                 nutritionService.save(nutritionOptional.get());
                 page = "/controller?command=show_client_nutrition";
+                log.info("nutrition with id = " + nutritionId + " has been added");
             }
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);

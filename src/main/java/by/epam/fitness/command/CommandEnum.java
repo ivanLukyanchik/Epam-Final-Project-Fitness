@@ -5,10 +5,7 @@ import by.epam.fitness.command.impl.client.*;
 import by.epam.fitness.command.impl.coach.CoachClientsCommand;
 import by.epam.fitness.command.impl.comment.AddCommentCommand;
 import by.epam.fitness.command.impl.coach.ShowCommentsCommand;
-import by.epam.fitness.command.impl.exercise.AddExerciseCommand;
-import by.epam.fitness.command.impl.exercise.DeleteExerciseCommand;
-import by.epam.fitness.command.impl.exercise.ShowClientExercisesCommand;
-import by.epam.fitness.command.impl.exercise.UpdateExerciseCommand;
+import by.epam.fitness.command.impl.exercise.*;
 import by.epam.fitness.command.impl.nutrition.AddNutritionCommand;
 import by.epam.fitness.command.impl.nutrition.RejectNutritionCommand;
 import by.epam.fitness.command.impl.nutrition.ShowClientNutritionCommand;
@@ -35,7 +32,7 @@ public enum CommandEnum {
     ADD_COMMENT(new AddCommentCommand()),
     REJECT_COACH(new RejectCoachCommand()),
     ADD_EXERCISE(new AddExerciseCommand()),
-    DELETE_EXERCISE(new DeleteExerciseCommand()),
+    REJECT_EXERCISE(new RejectExerciseCommand()),
     SHOW_CLIENT_EXERCISES(new ShowClientExercisesCommand()),
     UPDATE_EXERCISE(new UpdateExerciseCommand()),
     SHOW_CLIENT_NUTRITION(new ShowClientNutritionCommand()),

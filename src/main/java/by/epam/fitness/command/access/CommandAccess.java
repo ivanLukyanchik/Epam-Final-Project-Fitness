@@ -56,12 +56,13 @@ public class CommandAccess {
         commandTypes.add(CommandEnum.LOGOUT.getCommand());
         commandTypes.add(CommandEnum.HOME_PAGE.getCommand());
         commandTypes.add(CommandEnum.GYM_PHOTOS.getCommand());
-        commandTypes.add(CommandEnum.DELETE_EXERCISE.getCommand());
+        commandTypes.add(CommandEnum.REJECT_EXERCISE.getCommand());
         commandTypes.add(CommandEnum.SHOW_CLIENT_EXERCISES.getCommand());
         commandTypes.add(CommandEnum.UPDATE_EXERCISE.getCommand());
         commandTypes.add(CommandEnum.SHOW_CLIENT_NUTRITION.getCommand());
         commandTypes.add(CommandEnum.UPDATE_NUTRITION.getCommand());
         commandTypes.add(CommandEnum.REJECT_NUTRITION.getCommand());
+        commandTypes.add(CommandEnum.ADD_EXERCISE.getCommand());
         return commandTypes;
     }
 

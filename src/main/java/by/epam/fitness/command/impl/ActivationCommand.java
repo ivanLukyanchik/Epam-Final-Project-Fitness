@@ -4,6 +4,7 @@ import by.epam.fitness.command.ActionCommand;
 import by.epam.fitness.service.ServiceException;
 import by.epam.fitness.service.UserService;
 import by.epam.fitness.service.impl.UserServiceImpl;
+import by.epam.fitness.util.JspConst;
 import by.epam.fitness.util.validation.DataValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,13 +27,13 @@ public class ActivationCommand implements ActionCommand {
         String email = request.getParameter(PARAM_KEY_1);
         if (email==null || !dataValidator.isEmailValid(email)){
             log.info("invalid email format was received, link was modified:" + email);
-            request.setAttribute("incorrectData", "incorrectData");
+            request.setAttribute(JspConst.INCORRECT_DATA, true);
             return REGISTER_PAGE;
         }
         String userHash = request.getParameter(PARAM_KEY_2);
         if (userHash==null || !dataValidator.isHashValid(userHash)) {
             log.info("invalid hash format was received, link was modified:" + userHash);
-            request.setAttribute("incorrectData", "incorrectData");
+            request.setAttribute(JspConst.INCORRECT_DATA, true);
             return REGISTER_PAGE;
         }
         try {

@@ -23,10 +23,27 @@ public class JspConst {
     public static final String PARAM_KEY_3 = "key3";
     public static final String ORDERS = "orders";
     public static final String MEMBERSHIP_VALID = "membership_valid";
+    public static final String INVALID_COACH = "invalidCoachId";
+    public static final String NOT_EXIST_ID = "notExistId";
+    public static final String COMMENT_SAVED = "commentSaved";
+    public static final String INCORRECT_DATA = "incorrectData";
+    public static final String COACH_CHOSEN = "coachChosen";
+    public static final String SUCCESS = "success";
+    public static final String WRONG_DATA = "wrongData";
+    public static final String INVALID_NAME = "invalidName";
+    public static final String INVALID_SURNAME = "invalidSurname";
+    public static final String INVALID_LOGIN = "invalidLogin";
+    public static final String INVALID_EMAIL = "invalidEmail";
+    public static final String INVALID_PASSWORD = "invalidPassword";
+    public static final String COACH_REJECTED = "coachRejected";
+    public static final String PAYMENT_SUCCESS = "paymentSuccess";
+    public static final String WRONG_CARD = "wrongCard";
     public final static String ALL_CLIENTS = "all_clients";
     public static final String COACH_CLIENTS = "coachClients";
     public static final String COACH_COMMENTS = "coachComments";
-    public static final String EXERCISE_DTO_ID = "exerciseDtoId";
+    public static final String EXERCISE_PROGRAM_ID = "exerciseProgramId";
+    public static final String COACH_NAME = "coach_name";
+    public static final String COACH_SURNAME = "coach_surname";
     public final static String INVALID_EXERCISE_ID_FORMAT = "invalid_exercise_id_format";
     public final static String NOT_EXIST_EXERCISE_ID = "not_exist_exercise_id";
     public static final String REPEATS = "repeats";
@@ -38,7 +55,9 @@ public class JspConst {
     public static final String PROGRAM = "program";
     public static final String COACHES = "coaches";
     public final static String COACH_CLIENT_ID = "coach_client_id";
+    public static final String CLIENT_EXERCISES = "clientExercises";
     public static final String EXERCISES = "exercises";
+    public static final String All_EXERCISES = "allExercises";
     public static final String NUTRITION = "nutrition";
     public static final String NO_NUTRITION = "no_nutrition";
     public final static String NUTRITION_DESCRIPTION = "nutrition_description";
@@ -52,18 +71,20 @@ public class JspConst {
     public static final String MAX_NUMBER_SYMBOLS_ATTRIBUTE = "max_number_symbols_attribute";
     public static final Integer MAX_NUMBER_SYMBOLS_VALUE = 300;
     public static final String ID_OF_CLIENT_COACH = "coach_client_id";
-    public static final String PARAM_USER = "user";
     public static final String CURRENT_PAGE = "currentPage";
     public static final String WELCOME_PAGE = "welcome";
     public static final String LOGIN_PAGE = "login";
     public static final String REGISTER_PAGE = "register";
     public static final String PASSWORD_RESTORE_PAGE = "passwordRestore";
+    public static final String PASSWORD_CHANGED = "passwordChanged";
+    public static final String PASSWORDS_NOT_MATCH = "passwordsNotMatch";
     public static final String RESTORE_PAGE = "restore";
     public static final String CLIENT_PROFILE_PAGE = "clientProfile";
     public static final String GYM_PHOTOS_PAGE = "gymPhotos";
     public static final String ORDER_PAGE = "orderPage";
     public static final String CLIENT_ORDERS = "clientOrders";
     public static final String ALL_COACHES = "allCoaches";
+    public static final String EXERCISE_ALREADY_EXISTS = "exerciseAlreadyExists";
 
     private JspConst() {
     }

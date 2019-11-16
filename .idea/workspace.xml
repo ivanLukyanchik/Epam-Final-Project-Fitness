@@ -99,16 +99,16 @@
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\css" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\gym" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\jsp" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources\locale" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\css" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -265,7 +265,7 @@
       <workItem from="1573762549355" duration="1576000" />
       <workItem from="1573798273499" duration="2864000" />
       <workItem from="1573843206282" duration="1259000" />
-      <workItem from="1573889568602" duration="5853000" />
+      <workItem from="1573889568602" duration="31564000" />
     </task>
     <servers />
   </component>

@@ -27,13 +27,13 @@ public class RestoreCommand implements ActionCommand {
         String email = request.getParameter(JspConst.PARAM_EMAIL);
         if (email==null || !dataValidator.isEmailValid(email)){
             log.info("invalid email format was received:" + email);
-            request.setAttribute("invalidEmail", "Wrong email");
+            request.setAttribute(JspConst.INVALID_EMAIL, true);
             return Page.RESTORE_PAGE;
         }
         String login = request.getParameter(JspConst.PARAM_LOGIN);
         if (login==null || !dataValidator.isLoginValid(login)) {
             log.info("invalid login format was received:" + login);
-            request.setAttribute("invalidLogin", "Wrong login");
+            request.setAttribute(JspConst.INVALID_LOGIN, true);
             return Page.RESTORE_PAGE;
         }
         Random random = new SecureRandom();
@@ -41,10 +41,11 @@ public class RestoreCommand implements ActionCommand {
         try {
             if (userService.restoreUser1(login, email, userHash)) {
                 SendingEmail.restorePassword(login, email, userHash);
+                log.info("client with login = " + login + " restored his password");
                 page = Page.FINAL_RESTORE_PAGE;
             } else {
-                log.info("invalid email format was received:" + email);
-                request.setAttribute("wrongData", "There is no such login or email");
+                log.info("there is no client with such login " + login + " or email " + email);
+                request.setAttribute(JspConst.WRONG_DATA, true);
                 page = Page.RESTORE_PAGE;
             }
         } catch (ServiceException e) {

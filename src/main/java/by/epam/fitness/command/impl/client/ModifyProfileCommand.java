@@ -64,11 +64,11 @@ public class ModifyProfileCommand implements ActionCommand {
                 user1.setLogin(login);
                 user1.setEmail(email);
                 if (userService.save(user)) {
-                    log.info("User info was successfully changed");
-                    request.setAttribute("success", "success");
+                    log.info("client with id = "+ clientID + " successfully changed his profile info");
+                    request.setAttribute(SUCCESS, true);
                     page = Page.CLIENT_PROFILE_PAGE;
                 } else {
-                    request.setAttribute("wrongData", "User with this login already exists");
+                    request.setAttribute(WRONG_DATA, true);
                     page = Page.CLIENT_PROFILE_PAGE;
                 }
             }

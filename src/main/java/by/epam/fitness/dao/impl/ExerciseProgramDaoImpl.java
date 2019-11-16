@@ -15,9 +15,10 @@ import java.util.Optional;
 public class ExerciseProgramDaoImpl implements ExerciseProgramDao {
     private static final String SQL_CREATE_TABLE = "INSERT INTO exercise_program (program_id, exercise_id, repeat_number, set_number, number_train_day) VALUES (?,?,?,?,?)";
     private static final String SQL_UPDATE_TABLE = "UPDATE exercise_program SET program_id=?, exercise_id=?, repeat_number=?, set_number=?, number_train_day=? WHERE id_exercise_program=?";
-    private static final String SQL_FIND_BY_PROGRAM_ID = "SELECT * FROM exercise LEFT JOIN exercise_program ON exercise.id_exercise = exercise_program.exercise_id WHERE program_id=?";
+    private static final String SQL_FIND_BY_PROGRAM_ID = "SELECT * FROM exercise LEFT JOIN exercise_program ON exercise.id_exercise = exercise_program.exercise_id WHERE exercise_program.program_id=?";
     private static final String SQL_FIND_BY_ID = "SELECT * FROM exercise RIGHT JOIN exercise_program ON exercise.id_exercise = exercise_program.exercise_id WHERE exercise_program.id_exercise_program=?";
-    private static final String SQL_DELETE = "DELETE FROM exercise_program WHERE id_exercise_program=?";
+    private static final String SQL_FIND_BY_EXERCISE_ID = "SELECT * FROM exercise_program WHERE exercise_id=?";
+    private static final String SQL_DELETE = "DELETE FROM exercise_program WHERE exercise_id=?";
     private ExerciseProgramBuilder builder = new ExerciseProgramBuilder();
 
     @Override
@@ -61,12 +62,13 @@ public class ExerciseProgramDaoImpl implements ExerciseProgramDao {
     public List<ExerciseProgram> findExercisesByProgramId(Long programId) throws DaoException {
         List<ExerciseProgram> exercisesList = new ArrayList<>();
         Connection connection = null;
-        Statement statement = null;
+        PreparedStatement preparedStatement = null;
         ExerciseProgram exerciseProgram;
         try{
             connection = ConnectionPool.INSTANCE.getConnection();
-            statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(SQL_FIND_BY_PROGRAM_ID);
+            preparedStatement = connection.prepareStatement(SQL_FIND_BY_PROGRAM_ID);
+            preparedStatement.setLong(1, programId);
+            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 exerciseProgram = builder.build(resultSet);
                 exercisesList.add(exerciseProgram);
@@ -74,7 +76,7 @@ public class ExerciseProgramDaoImpl implements ExerciseProgramDao {
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
         } finally {
-            close(statement);
+            close(preparedStatement);
             close(connection);
         }
         return exercisesList;
@@ -85,7 +87,7 @@ public class ExerciseProgramDaoImpl implements ExerciseProgramDao {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ExerciseProgram exerciseProgram = null;
-        try{
+        try {
             connection = ConnectionPool.INSTANCE.getConnection();
             preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
             preparedStatement.setLong(1, id);
@@ -103,14 +105,36 @@ public class ExerciseProgramDaoImpl implements ExerciseProgramDao {
     }
 
     @Override
-    public int deleteExercise(long exerciseProgramId) throws DaoException {
+    public boolean findByExerciseId(long exerciseId) throws DaoException {
+        boolean result = false;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_FIND_BY_EXERCISE_ID);
+            preparedStatement.setLong(1, exerciseId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                result = true;
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
+        }
+        return result;
+    }
+
+    @Override
+    public int deleteExercise(long exerciseId) throws DaoException {
         int result = 0;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try{
             connection = ConnectionPool.INSTANCE.getConnection();
             preparedStatement = connection.prepareStatement(SQL_DELETE);
-            preparedStatement.setLong(1, exerciseProgramId);
+            preparedStatement.setLong(1, exerciseId);
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException(e);

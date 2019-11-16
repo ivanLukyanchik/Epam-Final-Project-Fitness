@@ -46,7 +46,6 @@
         <label for="name">${name}</label>
     </div>
     <div class="col-2">
-    <%--    <jsp:setProperty name="client" property="name" value="My name"/>--%>
         <input type="text" id="name" name="name" value="${client.name}" required title="${registration_pattern_error}">
     </div>
     <div class="col-1">

@@ -40,7 +40,7 @@ public class UpdateMembershipCommand implements ActionCommand {
         String cardNumber = request.getParameter(CARD_NUMBER);
         if (cardNumber==null || !dataValidator.isCardNumberValid(cardNumber)) {
             log.info("incorrect card number:" + cardNumber + " was input");
-            request.setAttribute("wrongCard", "wrongCard");
+            request.setAttribute(WRONG_CARD, true);
             return Page.ORDER_PAGE;
         }
         String costString = request.getParameter(COST);
@@ -53,13 +53,13 @@ public class UpdateMembershipCommand implements ActionCommand {
             OrderInformation newOrderInformation = new OrderInformation(null, cost, new Timestamp(new Date().getTime()), newEndMembershipDate, clientID,cardNumber);
             orderInformationService.save(newOrderInformation);
             increaseClientVisitNumber(request, clientID);
-            request.setAttribute("paymentSuccess", "paymentSuccess");
+            request.setAttribute(PAYMENT_SUCCESS, true);
             page = Page.CLIENT_PROFILE_PAGE;
         } catch (ServiceException e) {
             log.error("Exception occurred while defining NewEndMembershipEndDate", e);
             return Page.ORDER_PAGE;
         }
-        log.info("Gym membership has been updated");
+        log.info("Gym membership of client with id = " + clientID + " has been updated");
         return page;
     }
 

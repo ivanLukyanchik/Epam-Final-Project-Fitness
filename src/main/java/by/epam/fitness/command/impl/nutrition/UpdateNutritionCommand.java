@@ -39,7 +39,7 @@ public class UpdateNutritionCommand implements ActionCommand {
             Long nutritionId = Long.parseLong(request.getParameter(NUTRITION_ID));
             String nutritionTime = request.getParameter(NUTRITION_TIME);
             setNewNutrition(nutritionId, nutritionTime, newNutritionDescription);
-            log.info("nutrition with id = " + nutritionIdString + " has been changed");
+            log.info("nutrition with id = " + nutritionIdString + " has been updated");
             page = "/controller?command=show_client_nutrition";
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
