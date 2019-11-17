@@ -7,6 +7,7 @@ import by.epam.fitness.entity.User;
 import by.epam.fitness.pool.ConnectionPool;
 import by.epam.fitness.service.ServiceException;
 
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +21,9 @@ public class UserDaoImpl implements UserDao {
     private static final String SQL_RESTORE_USER1 = "SELECT hash FROM client WHERE email=? AND login=? AND active='1'";
     private static final String SQL_DEACTIVATE_AND_HASH = "UPDATE client SET active='0', hash=? WHERE email=? AND login=?";
     private static final String SQL_RESTORE_USER2 = "UPDATE client SET password=?, active='1' WHERE email=? AND login=? AND hash=? AND active='0'";
-    private static final String SQL_UPDATE_USER = "UPDATE client SET coach_id=?, name=?, surname=?, login=?, password=?, email=?, hash=?, membership_purchased_number=?, personal_discount=?, program_id=? WHERE id_client=?";
+    private static final String SQL_UPDATE_USER = "UPDATE client SET coach_id=?, name=?, surname=?, login=?, password=?, email=?, hash=?, membership_purchased_number=?, personal_discount=?, program_id=?, image=? WHERE id_client=?";
     private static final String SQL_FIND_BY_ID = "SELECT * FROM client WHERE id_client=?";
-    private static final String SQL_CREATE_USER = "INSERT INTO client (coach_id, name, surname, login, password, email, hash, membership_purchased_number, personal_discount, program_id) VALUES (?,?,?,?,?,?,?,?,?,?)";
+    private static final String SQL_CREATE_USER = "INSERT INTO client (coach_id, name, surname, login, password, email, hash, membership_purchased_number, personal_discount, program_id, image) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
     private static final String SQL_FIND_BY_COACH_ID = "SELECT * FROM client WHERE coach_id=?";
     private ClientBuilder builder = new ClientBuilder();
 
@@ -191,12 +192,13 @@ public class UserDaoImpl implements UserDao {
         Integer membershipNumber = user.getMembershipNumber();
         Float personalDiscount = user.getPersonalDiscount();
         Long programId = user.getProgramId();
+        InputStream is = user.getIs();
         Long generatedId = null;
         try {
             connection = ConnectionPool.INSTANCE.getConnection();
             if (user.getId() != null) {
                 preparedStatement = connection.prepareStatement(SQL_UPDATE_USER, Statement.RETURN_GENERATED_KEYS);
-                preparedStatement.setLong(11, user.getId());
+                preparedStatement.setLong(12, user.getId());
             } else {
                 preparedStatement = connection.prepareStatement(SQL_CREATE_USER, Statement.RETURN_GENERATED_KEYS);
             }
@@ -210,6 +212,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setInt(8, membershipNumber);
             preparedStatement.setFloat(9, personalDiscount);
             preparedStatement.setLong(10, programId);
+            preparedStatement.setBlob(11, is);
             preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
@@ -222,6 +225,51 @@ public class UserDaoImpl implements UserDao {
             close(connection);
         }
         return generatedId;
+    }
+
+    @Override
+    public boolean save1(User user) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        Long coachId = user.getCoachId();
+        String name = user.getName();
+        String surname = user.getSurname();
+        String login = user.getLogin();
+        String password = user.getPassword();
+        String email = user.getEmail();
+        String userHash = user.getUserHash();
+        Integer membershipNumber = user.getMembershipNumber();
+        Float personalDiscount = user.getPersonalDiscount();
+        Long programId = user.getProgramId();
+        InputStream is = user.getIs();
+        int result;
+        try {
+            connection = ConnectionPool.INSTANCE.getConnection();
+            if (user.getId() != null) {
+                preparedStatement = connection.prepareStatement(SQL_UPDATE_USER, Statement.RETURN_GENERATED_KEYS);
+                preparedStatement.setLong(12, user.getId());
+            } else {
+                preparedStatement = connection.prepareStatement(SQL_CREATE_USER, Statement.RETURN_GENERATED_KEYS);
+            }
+            preparedStatement.setObject(1, coachId);
+            preparedStatement.setString(2, name);
+            preparedStatement.setString(3, surname);
+            preparedStatement.setString(4, login);
+            preparedStatement.setString(5, password);
+            preparedStatement.setString(6, email);
+            preparedStatement.setString(7, userHash);
+            preparedStatement.setInt(8, membershipNumber);
+            preparedStatement.setFloat(9, personalDiscount);
+            preparedStatement.setLong(10, programId);
+            preparedStatement.setBlob(11, is);
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
+        }
+        return result != 0;
     }
 
     @Override

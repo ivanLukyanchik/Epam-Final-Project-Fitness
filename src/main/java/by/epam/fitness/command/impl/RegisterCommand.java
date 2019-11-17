@@ -100,7 +100,7 @@ public class RegisterCommand implements ActionCommand {
         float personalDiscount = SALE_SYSTEM.getSaleByVisitNumber(START_VISIT_NUMBER);
         Program program = buildProgram();
         return new User(null, null, name, surname, login, newPassword, email, userHash, START_VISIT_NUMBER,
-                personalDiscount, program.getId());
+                personalDiscount, program.getId(), null);
     }
 
     private Program buildProgram() throws ServiceException {

@@ -82,6 +82,7 @@ public class JspConst {
     public static final String EXERCISE_REJECTED = "exerciseRejected";
     public static final String EXERCISE_UPDATED = "exerciseUpdated";
     public static final String EXERCISE_ADDED = "exerciseAdded";
+    public static final String REMEMBER_ME = "rememberMe";
     public static final String PASSWORD_CHANGED = "passwordChanged";
     public static final String PASSWORDS_NOT_MATCH = "passwordsNotMatch";
     public static final String RESTORE_PAGE = "restore";

@@ -51,7 +51,7 @@ public class CommandTypeFilter implements Filter {
         Optional<String> roleOptional;
         if (session == null) {
             roleOptional = Optional.empty();
-        } else {
+        } else { //проверка на куки = null , выставить empty. Log out переделать
             String role = (String)session.getAttribute(SessionAttributes.ROLE);
             roleOptional = Optional.ofNullable(role);
         }

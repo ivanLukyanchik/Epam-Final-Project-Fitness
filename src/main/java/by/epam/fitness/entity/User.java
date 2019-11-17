@@ -1,5 +1,6 @@
 package by.epam.fitness.entity;
 
+import java.io.InputStream;
 import java.util.Objects;
 
 public class User extends Entity {
@@ -14,11 +15,13 @@ public class User extends Entity {
     private Integer membershipNumber;
     private Float personalDiscount;
     private Long programId;
+    private String image;
+    private InputStream is;
 
     public User() {}
 
     public User(Long id, Long coachId, String name, String surname, String login, String password, String email,
-                String userHash, Integer membershipNumber, Float personalDiscount, Long programId) {
+                String userHash, Integer membershipNumber, Float personalDiscount, Long programId, String image) {
         this.id = id;
         this.coachId = coachId;
         this.name = name;
@@ -30,6 +33,7 @@ public class User extends Entity {
         this.membershipNumber = membershipNumber;
         this.personalDiscount = personalDiscount;
         this.programId = programId;
+        this.image = image;
     }
 
     public String getName() {
@@ -120,6 +124,22 @@ public class User extends Entity {
         this.programId = programId;
     }
 
+    public InputStream getIs() {
+        return is;
+    }
+
+    public void setIs(InputStream is) {
+        this.is = is;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -135,12 +155,13 @@ public class User extends Entity {
                 Objects.equals(userHash, user.userHash) &&
                 Objects.equals(membershipNumber, user.membershipNumber) &&
                 Objects.equals(personalDiscount, user.personalDiscount) &&
-                Objects.equals(programId, user.programId);
+                Objects.equals(programId, user.programId) &&
+                Objects.equals(image, user.image);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, coachId, name, surname, login, password, email, userHash, membershipNumber,
-                personalDiscount, programId);
+                personalDiscount, programId, image);
     }
 }

@@ -80,6 +80,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean save1(User user) throws ServiceException { // FIXME: 18.11.2019 delete me!
+        try {
+            return userDao.save1(user);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public List<User> findByCoachId(long coachId) throws ServiceException {
         try {
             return userDao.findByCoachId(coachId);

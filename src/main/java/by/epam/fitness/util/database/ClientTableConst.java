@@ -23,7 +23,9 @@ public enum  ClientTableConst {
 
     PERSONAL_DISCOUNT("personal_discount"),
 
-    PROGRAM_ID("program_id");
+    PROGRAM_ID("program_id"),
+
+    IMAGE("image");
 
     private String fieldName;
 

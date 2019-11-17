@@ -21,6 +21,7 @@
 <fmt:message bundle="${locale}" key="message.wrongCredentials" var="wrongCredentials"/>
 <fmt:message bundle="${locale}" key="forgot_password" var="forgot_password"/>
 <fmt:message bundle="${locale}" key="restore.password.changed" var="passwordChanged"/>
+<fmt:message bundle="${locale}" key="remember_me" var="remember_me"/>
 
 <html>
 <head>
@@ -66,6 +67,9 @@
     <a href="${pageContext.request.contextPath}/register">${no_account}</a>
     <br/><br/>
     <input onclick="checkForLoginAnyData()" type="submit" value="${submit}"/>
+    <br/><br/>
+    <input type="checkbox" id="rememberMe" name="rememberMe" value="true"/>
+    <label for="rememberMe">${remember_me}</label>
 </form>
 </body>
 </html>

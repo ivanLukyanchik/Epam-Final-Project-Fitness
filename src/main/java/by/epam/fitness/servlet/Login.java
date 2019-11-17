@@ -1,4 +1,4 @@
-package by.epam.fitness.command.impl;
+package by.epam.fitness.servlet;
 
 import by.epam.fitness.command.ActionCommand;
 import by.epam.fitness.entity.Coach;
@@ -16,19 +16,34 @@ import by.epam.fitness.util.validation.DataValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 import static by.epam.fitness.util.JspConst.PARAM_LOGIN;
 import static by.epam.fitness.util.JspConst.PARAM_PASSWORD;
 
-public class LoginCommand implements ActionCommand {
-    private static Logger log = LogManager.getLogger(LoginCommand.class);
+public class Login extends HttpServlet implements ActionCommand {
+    private static Logger log = LogManager.getLogger(Login.class);
     private static DataValidator dataValidator = new DataValidator();
     private static UserService userService = new UserServiceImpl();
     private static CoachService coachService = new CoachServiceImpl();
+    private static final int expiry = 60 * 60 * 24 * 30;
 
     @Override
-    public String execute(HttpServletRequest request) {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String page = executeLogin(request, response);
+        if (page != null) {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+            dispatcher.forward(request, response);
+        }
+    }
+
+    public String executeLogin(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         User user = null;
         Coach coach = null;
@@ -45,9 +60,6 @@ public class LoginCommand implements ActionCommand {
             return Page.LOGIN_PAGE;
         }
         boolean rememberMe = Boolean.parseBoolean(request.getParameter(JspConst.REMEMBER_ME));
-        if (rememberMe) {
-            // FIXME: 17.11.2019 addCoockies
-        }
         try {
             if (userService.checkUserByLoginPassword(login, password).isPresent()) {
                 user = userService.checkUserByLoginPassword(login, password).get();
@@ -55,7 +67,15 @@ public class LoginCommand implements ActionCommand {
                 request.getSession().setAttribute(SessionAttributes.USER, login);
                 request.getSession().setAttribute(SessionAttributes.ROLE, UserRole.CLIENT);
                 request.getSession().setAttribute(SessionAttributes.ID, user.getId());
-                log.info("client with id = " + user.getId() + " log in");
+                if (rememberMe) {
+                    Cookie cookieLogin = new Cookie("login", login);
+                    cookieLogin.setMaxAge(expiry);
+                    response.addCookie(cookieLogin);
+                    Cookie cookieToken = new Cookie("token", user.getUserHash());
+                    cookieToken.setMaxAge(expiry);
+                    response.addCookie(cookieToken);
+                }
+                log.info("client with id = " + user.getId() + " log in. RememberMe = " + rememberMe);
                 page = Page.WELCOME_PAGE;
             } else if (coachService.checkCoachByLoginPassword(login, password).isPresent()) {
                 coach = coachService.checkCoachByLoginPassword(login, password).get();
@@ -74,5 +94,10 @@ public class LoginCommand implements ActionCommand {
             page = Page.LOGIN_PAGE;
         }
         return page;
+    }
+
+    @Override
+    public String execute(HttpServletRequest request) {
+        return "";
     }
 }

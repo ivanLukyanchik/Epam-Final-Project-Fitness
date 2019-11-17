@@ -14,5 +14,6 @@ public interface UserService {
     boolean restoreUser2(String email, String newPassword, String login, String userHash) throws ServiceException;
     Optional<User> findById(Long id) throws ServiceException;
     Long save(User user) throws ServiceException;
+    boolean save1(User user) throws ServiceException;
     List<User> findByCoachId(long coachId) throws ServiceException;
 }

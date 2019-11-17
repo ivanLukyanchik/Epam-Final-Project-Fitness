@@ -41,7 +41,7 @@
         response.sendRedirect("login");
     }
 %>
-<form method="post" action="${pageContext.servletContext.contextPath}/controller?command=modify_profile">
+<form method="post" action="modifyProfile" enctype="multipart/form-data">
     <div class="col-1">
         <label for="name">${name}</label>
     </div>
@@ -66,6 +66,9 @@
     <div class="col-2">
         <input type="text" id="email" name="email" value="${client.email}" required title="${email_pattern_error}">
     </div>
+    <p><img src="data:image/jpg;base64,${client.image}" alt="You haven't got image yet. Upload it." width="100" height="100" style="border-radius: 25px"/></p>
+    <label for="photo">Upload profile photo</label>
+    <input type="file" id="photo" name="photo"/>
     <br/>
     <c:choose>
         <c:when test="${not empty requestScope.wrongData}">
