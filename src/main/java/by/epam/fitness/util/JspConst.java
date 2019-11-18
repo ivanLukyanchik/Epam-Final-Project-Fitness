@@ -68,6 +68,8 @@ public class JspConst {
     public final static String MORNING = "morning";
     public final static String LUNCH = "lunch";
     public final static String DINNER = "dinner";
+    public final static String NOT_IMAGE = "notImage";
+    public static final String CLIENT = "client";
     public static final String MAX_NUMBER_SYMBOLS_ATTRIBUTE = "max_number_symbols_attribute";
     public static final Integer MAX_NUMBER_SYMBOLS_VALUE = 300;
     public static final String ID_OF_CLIENT_COACH = "coach_client_id";

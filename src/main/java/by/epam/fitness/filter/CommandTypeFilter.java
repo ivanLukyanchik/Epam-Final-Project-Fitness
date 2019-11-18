@@ -3,12 +3,18 @@ package by.epam.fitness.filter;
 import by.epam.fitness.command.ActionCommand;
 import by.epam.fitness.command.CommandEnum;
 import by.epam.fitness.command.access.CommandAccess;
+import by.epam.fitness.entity.User;
+import by.epam.fitness.entity.UserRole;
+import by.epam.fitness.service.ServiceException;
+import by.epam.fitness.service.UserService;
+import by.epam.fitness.service.impl.UserServiceImpl;
 import by.epam.fitness.util.SessionAttributes;
 import by.epam.fitness.util.page.Page;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.*;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -18,6 +24,7 @@ import java.util.Optional;
 public class CommandTypeFilter implements Filter {
     private static Logger log = LogManager.getLogger(CommandTypeFilter.class);
     private static final String COMMAND = "command";
+    private UserService userService = new UserServiceImpl();
 
     @Override
     public void init(FilterConfig filterConfig) {}
@@ -32,7 +39,7 @@ public class CommandTypeFilter implements Filter {
         ActionCommand currentCommand;
         try {
             currentCommand= CommandEnum.getCurrentCommand(action);
-        } catch (IllegalArgumentException exception){
+        } catch (IllegalArgumentException exception) {
             log.warn("Action with incorrect command:" + action);
             RequestDispatcher requestDispatcher = servletRequest.getRequestDispatcher(Page.ERROR_PAGE);
             requestDispatcher.forward(servletRequest, servletResponse);
@@ -48,14 +55,45 @@ public class CommandTypeFilter implements Filter {
 
     private Optional<String> getUserRoleByRequest(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        Optional<String> roleOptional;
-        if (session == null) {
-            roleOptional = Optional.empty();
-        } else { //проверка на куки = null , выставить empty. Log out переделать
+        Optional<String> roleOptional = Optional.empty();
+        if (session != null) {
             String role = (String)session.getAttribute(SessionAttributes.ROLE);
             roleOptional = Optional.ofNullable(role);
+            if (role == null) {
+                try {
+                    if (getClientByCookie(request).isPresent()) {
+                        User user = getClientByCookie(request).get();
+                        request.getSession().setAttribute(SessionAttributes.CLIENT, user);
+                        request.getSession().setAttribute(SessionAttributes.USER, user.getLogin());
+                        request.getSession().setAttribute(SessionAttributes.ROLE, UserRole.CLIENT);
+                        request.getSession().setAttribute(SessionAttributes.ID, user.getId());
+                        roleOptional = Optional.of(UserRole.CLIENT);
+                    }
+                } catch (ServiceException e) {
+                    log.error("Service exception occurred here", e);
+                }
+            }
         }
         return roleOptional;
+    }
+
+    private Optional<User> getClientByCookie(HttpServletRequest request) throws ServiceException {
+        String login = null;
+        String hash = null;
+        Optional<User> user = Optional.empty();
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("clientLogin")) {
+                login = cookie.getValue();
+            }
+            if (cookie.getName().equals("token")) {
+                hash = cookie.getValue();
+            }
+        }
+        if (login != null && hash != null) {
+            user = userService.getUserByCookieData(login, hash);
+        }
+        return user;
     }
 
     @Override

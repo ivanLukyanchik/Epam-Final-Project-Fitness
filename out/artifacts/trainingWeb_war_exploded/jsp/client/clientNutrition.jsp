@@ -20,6 +20,7 @@
 <fmt:message bundle="${locale}" key="added_nutrition" var="added_nutrition"/>
 <fmt:message bundle="${locale}" key="updated_nutrition" var="updated_nutrition"/>
 <fmt:message bundle="${locale}" key="rejected_nutrition" var="rejected_nutrition"/>
+<fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
 <head>
@@ -111,5 +112,8 @@
 <c:if test="${incorrect_input_nutrition_data_error eq true}">
     ${invalid_nutrition}
 </c:if>
+<footer>
+    ${footer}
+</footer>
 </body>
 </html>

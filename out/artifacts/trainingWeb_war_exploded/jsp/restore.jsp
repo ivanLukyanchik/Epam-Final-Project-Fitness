@@ -19,6 +19,7 @@
 <fmt:message bundle="${locale}" key="lang.text.english" var="en"/>
 <fmt:message bundle="${locale}" key="lang.text.russian" var="ru"/>
 <fmt:message bundle="${locale}" key="lang.text.belorussian" var="be"/>
+<fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
 <head>
@@ -60,5 +61,9 @@
     <input onclick="checkRegisterLoginEmail()" type="submit" value="OK">
     <br/>
 </form>
+
+<footer>
+    ${footer}
+</footer>
 </body>
 </html>

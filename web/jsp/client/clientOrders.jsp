@@ -11,6 +11,7 @@
 <fmt:message bundle="${locale}" key="order.payment_data" var="payment_data"/>
 <fmt:message bundle="${locale}" key="no_orders" var="no_orders"/>
 <fmt:message bundle="${locale}" key="end_date" var="end_date"/>
+<fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
 <head>
@@ -70,5 +71,8 @@
             </table>
         </c:otherwise>
     </c:choose>
+<footer>
+    ${footer}
+</footer>
 </body>
 </html>

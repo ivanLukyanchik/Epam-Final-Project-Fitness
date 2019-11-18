@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 import static by.epam.fitness.util.JspConst.*;
@@ -71,28 +70,31 @@ public class ModifyProfile extends HttpServlet implements ActionCommand {
         InputStream inputStream = null;
             try {
                 Part filePart = request.getPart("photo");
-                String image = null;
-                if (filePart != null) {
+                if (!filePart.getSubmittedFileName().equals("")) {
                     inputStream = filePart.getInputStream();
                 }
-                Long clientID = (Long) request.getSession().getAttribute(SessionAttributes.ID);
-                Optional<User> clientOptional = userService.findById(clientID);
+                Long clientId = (Long) request.getSession().getAttribute(SessionAttributes.ID);
+                Optional<User> clientOptional = userService.findById(clientId);
                 if (clientOptional.isPresent()) {
                     User user = clientOptional.get();
                     user.setName(name);
                     user.setSurname(surname);
                     user.setLogin(login);
                     user.setEmail(email);
-                    User user1 = (User) request.getSession().getAttribute(SessionAttributes.CLIENT);
-                    user1.setName(name);
-                    user1.setSurname(surname);
-                    user1.setLogin(login);
-                    user1.setEmail(email);
                     if (inputStream != null) {
                         user.setIs(inputStream);
+//                        try {
+//                            ImageIO.read(inputStream).toString();
+//                            user.setIs(inputStream);
+//                            // It's an image (only BMP, GIF, JPG and PNG are recognized).
+//                        } catch (Exception e) {
+//                            // It's not an image.
+//                            request.setAttribute(NOT_IMAGE, true);
+//                            log.info("incorrect image format was received from user with id = " + user.getId());
+//                        }
                     }
                     if (userService.save1(user)) {
-                        log.info("client with id = "+ clientID + " successfully changed his profile data");
+                        log.info("client with id = "+ clientId + " successfully changed his profile data");
                         request.setAttribute(SUCCESS, true);
                         page = "/controller?command=client_profile";
                     } else {
@@ -101,14 +103,9 @@ public class ModifyProfile extends HttpServlet implements ActionCommand {
                     }
                 }
             } catch (ServiceException | IOException | ServletException e) {
-            log.error("Problem with service occurred!", e);
-            page = Page.CLIENT_PROFILE_PAGE;
+                log.error("Problem with service occurred!", e);
+                page = Page.CLIENT_PROFILE_PAGE;
             }
         return page;
-    }
-
-    private  String convertStreamToString(java.io.InputStream is) {
-        java.util.Scanner s = new java.util.Scanner(is, StandardCharsets.UTF_8).useDelimiter("\\A");
-        return s.hasNext() ? s.next() : "";
     }
 }

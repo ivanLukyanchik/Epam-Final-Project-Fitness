@@ -9,6 +9,8 @@
 <fmt:message bundle="${locale}" key="no_clients" var="no_clients"/>
 <fmt:message bundle="${locale}" key="nutrition_button" var="nutrition_button"/>
 <fmt:message bundle="${locale}" key="exercises_button" var="exercises_button"/>
+<fmt:message bundle="${locale}" key="client_no_image" var="client_no_image"/>
+<fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
 <head>
@@ -28,6 +30,8 @@
     <c:otherwise>
         <c:forEach items="${all_clients}" var="client">
             <hr/>
+            <br/>
+            <img src="data:image/jpg;base64,${client.image}" alt="${client_no_image}" width="60" height="60" style="border-radius: 25px"/>
             <c:out value="${client.name} ${client.surname} (login : ${client.login})"/>
             <form action="${pageContext.request.contextPath}/controller?command=show_client_exercises" method="post">
                 <input type="hidden" id="coach_client_id" name="coach_client_id" value="${client.id}">
@@ -42,5 +46,9 @@
         </c:forEach>
     </c:otherwise>
 </c:choose>
+
+<footer>
+    ${footer}
+</footer>
 </body>
 </html>

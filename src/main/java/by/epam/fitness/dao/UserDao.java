@@ -16,4 +16,5 @@ public interface UserDao extends BaseDao<Long, User> {
     Long save(User user) throws DaoException;
     boolean save1(User user) throws DaoException;
     List<User> findByCoachId(long coachId) throws DaoException;
+    Optional<User> getUserByCookieData(String login, String hash) throws DaoException;
 }

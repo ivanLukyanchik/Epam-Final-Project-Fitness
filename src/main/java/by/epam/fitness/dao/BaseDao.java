@@ -22,8 +22,7 @@ public interface BaseDao <K, T extends Entity> {
             try {
                 statement.close();
             } catch (SQLException e) {
-                e.printStackTrace();
-                log.error("SQL exception occurred here");
+                log.error("SQL exception occurred here", e);
             }
         }
     }

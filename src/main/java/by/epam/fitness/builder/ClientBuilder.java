@@ -32,19 +32,24 @@ public class ClientBuilder implements Builder<User> {
             String base64Image = null;
             Blob blob = resultSet.getBlob(ClientTableConst.IMAGE.getFieldName());
             if (blob != null) {
-                InputStream inputStream = blob.getBinaryStream();
-                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                byte[] buffer = new byte[4096];
-                int bytesRead = -1;
-                while ((bytesRead = inputStream.read(buffer)) != -1) {
-                    outputStream.write(buffer, 0, bytesRead);
-                }
-                byte[] imageBytes = outputStream.toByteArray();
-                base64Image = Base64.getEncoder().encodeToString(imageBytes);
-                inputStream.close();
-                outputStream.close();
+                base64Image = getBase64Image(blob);
             }
             return new User(id, coach_id, name, surname, login, password, email, userHash, membershipPurchasedNumber, personalDiscount, programId, base64Image);
+        } catch (SQLException  e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+    }
+
+    private String getBase64Image(Blob blob) throws ServiceException {
+        try (InputStream inputStream = blob.getBinaryStream();
+             ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            byte[] buffer = new byte[4096];
+            int bytesRead = -1;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+            byte[] imageBytes = outputStream.toByteArray();
+            return Base64.getEncoder().encodeToString(imageBytes);
         } catch (SQLException | IOException e) {
             throw new ServiceException(e.getMessage(), e);
         }

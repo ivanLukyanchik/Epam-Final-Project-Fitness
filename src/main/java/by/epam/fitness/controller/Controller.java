@@ -27,6 +27,7 @@ public class Controller extends HttpServlet {
         page = command.execute(request);
         if (page != null) {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
             dispatcher.forward(request, response);
         } else {
             page = "/login";

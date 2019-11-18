@@ -29,6 +29,7 @@
 <fmt:message bundle="${locale}" key="label.surname" var="surname"/>
 <fmt:message bundle="${locale}" key="login.surname.placeholder" var="surname_placeholder"/>
 <fmt:message bundle="${locale}" key="login.name.placeholder" var="name_placeholder"/>
+<fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
 <head>
@@ -36,6 +37,11 @@
     <title>Registration</title>
 </head>
 <body>
+<c:choose>
+    <c:when test="${not empty sessionScope.user}">
+        <jsp:forward page="/welcome"/>
+    </c:when>
+</c:choose>
 <form action="controller">
     <input type="hidden" name="command" value="locale"/>
     <input type="hidden" name="currentPage" value="${currentPage}"/>
@@ -102,5 +108,9 @@
     <br/><br/>
     <input onclick="checkForRegistrationAnyData()" type="submit" value="${submit}"/>
 </form>
+
+<footer>
+    ${footer}
+</footer>
 </body>
 </html>

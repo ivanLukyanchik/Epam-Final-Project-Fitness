@@ -44,6 +44,7 @@ public class CommandAccess {
         commandTypes.add(CommandEnum.CHOOSE_COACH.getCommand());
         commandTypes.add(CommandEnum.ADD_COMMENT.getCommand());
         commandTypes.add(CommandEnum.REJECT_COACH.getCommand());
+        commandTypes.add(CommandEnum.DELETE_ACCOUNT.getCommand());
         commandTypes.add(CommandEnum.MODIFY_PROFILE_DATA.getCommand());
         return commandTypes;
     }
@@ -65,6 +66,7 @@ public class CommandAccess {
         commandTypes.add(CommandEnum.REJECT_NUTRITION.getCommand());
         commandTypes.add(CommandEnum.ADD_EXERCISE.getCommand());
         commandTypes.add(CommandEnum.LOGIN_USER.getCommand());
+        commandTypes.add(CommandEnum.LOGOUT_USER.getCommand());
         return commandTypes;
     }
 

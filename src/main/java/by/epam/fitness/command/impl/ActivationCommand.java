@@ -1,15 +1,19 @@
 package by.epam.fitness.command.impl;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.entity.User;
 import by.epam.fitness.service.ServiceException;
 import by.epam.fitness.service.UserService;
 import by.epam.fitness.service.impl.UserServiceImpl;
 import by.epam.fitness.util.JspConst;
+import by.epam.fitness.util.SessionAttributes;
 import by.epam.fitness.util.validation.DataValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+
+import java.util.Optional;
 
 import static by.epam.fitness.util.JspConst.PARAM_KEY_1;
 import static by.epam.fitness.util.JspConst.PARAM_KEY_2;
@@ -37,6 +41,14 @@ public class ActivationCommand implements ActionCommand {
             return REGISTER_PAGE;
         }
         try {
+            Long clientId = (Long) request.getSession().getAttribute(SessionAttributes.ID);
+            Optional<User> clientOptional = userService.findById(clientId);
+            if (clientOptional.isPresent()) {
+                User user = clientOptional.get();
+                user.setActive(true);
+                userService.save(user);
+                log.info("client with id = " + clientId + " activated his profile");
+            }
             if (userService.registerUser2(email, userHash)) {
                 page = LOGIN_PAGE;
             } else {

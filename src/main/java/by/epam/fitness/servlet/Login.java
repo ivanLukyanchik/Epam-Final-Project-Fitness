@@ -18,6 +18,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,12 +28,13 @@ import java.io.IOException;
 import static by.epam.fitness.util.JspConst.PARAM_LOGIN;
 import static by.epam.fitness.util.JspConst.PARAM_PASSWORD;
 
+@WebServlet("/loginUser")
 public class Login extends HttpServlet implements ActionCommand {
     private static Logger log = LogManager.getLogger(Login.class);
     private static DataValidator dataValidator = new DataValidator();
     private static UserService userService = new UserServiceImpl();
     private static CoachService coachService = new CoachServiceImpl();
-    private static final int expiry = 60 * 60 * 24 * 30;
+    private static final int expiry = 60 * 60 * 24 * 30; // valid for 30 days
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,7 +45,7 @@ public class Login extends HttpServlet implements ActionCommand {
         }
     }
 
-    public String executeLogin(HttpServletRequest request, HttpServletResponse response) {
+    private String executeLogin(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         User user = null;
         Coach coach = null;
@@ -68,11 +70,13 @@ public class Login extends HttpServlet implements ActionCommand {
                 request.getSession().setAttribute(SessionAttributes.ROLE, UserRole.CLIENT);
                 request.getSession().setAttribute(SessionAttributes.ID, user.getId());
                 if (rememberMe) {
-                    Cookie cookieLogin = new Cookie("login", login);
+                    Cookie cookieLogin = new Cookie("clientLogin", login);
                     cookieLogin.setMaxAge(expiry);
+                    cookieLogin.setPath("/");
                     response.addCookie(cookieLogin);
                     Cookie cookieToken = new Cookie("token", user.getUserHash());
                     cookieToken.setMaxAge(expiry);
+                    cookieToken.setPath("/");
                     response.addCookie(cookieToken);
                 }
                 log.info("client with id = " + user.getId() + " log in. RememberMe = " + rememberMe);
@@ -98,6 +102,6 @@ public class Login extends HttpServlet implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request) {
-        return "";
+        return null;
     }
 }

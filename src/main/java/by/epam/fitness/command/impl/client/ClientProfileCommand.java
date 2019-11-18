@@ -41,6 +41,7 @@ public class ClientProfileCommand implements ActionCommand {
             Optional<User> userOptional = userService.findById(clientId);
             if (userOptional.isPresent()) {
                 User user = userOptional.get();
+                request.setAttribute(JspConst.CLIENT, user);
                 Optional<OrderInformation> orderInformation = orderInformationService.findByClientId(clientId);
                 if (orderInformation.isPresent()) {
                     session.setAttribute(JspConst.MEMBERSHIP_VALID, membershipValidChecker.isCurrentMembershipValid(user.getId()));

@@ -58,8 +58,8 @@ public class ModifyProfileCommand implements ActionCommand {
             if (filePart != null) {
                 inputStream = filePart.getInputStream();
             }
-            Long clientID = (Long) request.getSession().getAttribute(SessionAttributes.ID);
-            Optional<User> clientOptional = userService.findById(clientID);
+            Long clientId = (Long) request.getSession().getAttribute(SessionAttributes.ID);
+            Optional<User> clientOptional = userService.findById(clientId);
             if (clientOptional.isPresent()) {
                 User user = clientOptional.get();
                 user.setName(name);
@@ -76,7 +76,7 @@ public class ModifyProfileCommand implements ActionCommand {
                     user1.setImage(convertStreamToString(inputStream));
                 }
                 if (userService.save(user) != null) {
-                    log.info("client with id = "+ clientID + " successfully changed his profile info");
+                    log.info("client with id = "+ clientId + " successfully changed his profile info");
                     request.setAttribute(SUCCESS, true);
                     page = Page.CLIENT_PROFILE_PAGE;
                 } else {

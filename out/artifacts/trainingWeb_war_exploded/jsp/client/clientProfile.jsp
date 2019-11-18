@@ -1,8 +1,8 @@
+<jsp:useBean id="client" type="by.epam.fitness.entity.User" scope="request"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<jsp:useBean id="client" type="by.epam.fitness.entity.User" scope="session"/>
 
 <fmt:setLocale value="${sessionScope.local}" scope="session"/>
 <fmt:setBundle basename="locale.pagecontent" var="locale"/>
@@ -24,6 +24,10 @@
 <fmt:message bundle="${locale}" key="modify" var="modify"/>
 <fmt:message bundle="${locale}" key="paymentSuccess" var="paymentSuccess"/>
 <fmt:message bundle="${locale}" key="not_valid_membership" var="not_valid_membership"/>
+<fmt:message bundle="${locale}" key="not_image" var="not_image"/>
+<fmt:message bundle="${locale}" key="have_no_image" var="have_no_image"/>
+<fmt:message bundle="${locale}" key="upload_photo" var="upload_photo"/>
+<fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
 <head>
@@ -35,12 +39,7 @@
     <jsp:param name="pageTopic" value="profile"/>
     <jsp:param name="currentPage" value="clientProfile"/>
 </jsp:include>
-<%
-    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-    if (session.getAttribute("user") == null) {
-        response.sendRedirect("login");
-    }
-%>
+
 <form method="post" action="modifyProfile" enctype="multipart/form-data">
     <div class="col-1">
         <label for="name">${name}</label>
@@ -66,13 +65,16 @@
     <div class="col-2">
         <input type="text" id="email" name="email" value="${client.email}" required title="${email_pattern_error}">
     </div>
-    <p><img src="data:image/jpg;base64,${client.image}" alt="You haven't got image yet. Upload it." width="100" height="100" style="border-radius: 25px"/></p>
-    <label for="photo">Upload profile photo</label>
+    <p><img src="data:image/jpg;base64,${client.image}" alt="${have_no_image}" width="100" height="100" style="border-radius: 25px"/></p>
+    <label for="photo">${upload_photo}</label>
     <input type="file" id="photo" name="photo"/>
     <br/>
     <c:choose>
         <c:when test="${not empty requestScope.wrongData}">
             ${wrongLogin}
+        </c:when>
+        <c:when test="${not empty requestScope.notImage}">
+            ${not_image}
         </c:when>
         <c:when test="${not empty requestScope.invalidPassword}">
             ${registration_pattern_error}
@@ -96,6 +98,7 @@
             ${paymentSuccess}
         </c:when>
     </c:choose>
+    <br/>
     <input onclick="checkForChangingAnyData()" type="submit" value="${modify}">
 </form>
 <br/>
@@ -159,5 +162,14 @@
         </c:choose>
     </c:otherwise>
 </c:choose>
+
+<br/>
+<form action="${pageContext.servletContext.contextPath}/controller?command=delete_account" method="post">
+    <input type="submit" value="Delete my account" style="color: darkred">
+</form>
+
+<footer>
+    ${footer}
+</footer>
 </body>
 </html>

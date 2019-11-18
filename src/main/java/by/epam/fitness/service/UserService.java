@@ -16,4 +16,5 @@ public interface UserService {
     Long save(User user) throws ServiceException;
     boolean save1(User user) throws ServiceException;
     List<User> findByCoachId(long coachId) throws ServiceException;
+    Optional<User> getUserByCookieData(String login, String hash) throws ServiceException;
 }

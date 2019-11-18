@@ -17,6 +17,7 @@
 <fmt:message bundle="${locale}" key="not_exist_id" var="not_exist_id"/>
 <fmt:message bundle="${locale}" key="invalid_comment" var="invalid_comment"/>
 <fmt:message bundle="${locale}" key="reject" var="reject_coach"/>
+<fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
 <head>
@@ -94,5 +95,8 @@
         ${invalid_comment}
     </c:when>
 </c:choose>
+<footer>
+    ${footer}
+</footer>
 </body>
 </html>

@@ -12,6 +12,7 @@ public class User extends Entity {
     private String password;
     private String email;
     private String userHash;
+    private boolean active = false;
     private Integer membershipNumber;
     private Float personalDiscount;
     private Long programId;
@@ -98,6 +99,14 @@ public class User extends Entity {
 
     public void setUserHash(String userHash) {
         this.userHash = userHash;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public Long getId() {

@@ -21,10 +21,11 @@ public class UserDaoImpl implements UserDao {
     private static final String SQL_RESTORE_USER1 = "SELECT hash FROM client WHERE email=? AND login=? AND active='1'";
     private static final String SQL_DEACTIVATE_AND_HASH = "UPDATE client SET active='0', hash=? WHERE email=? AND login=?";
     private static final String SQL_RESTORE_USER2 = "UPDATE client SET password=?, active='1' WHERE email=? AND login=? AND hash=? AND active='0'";
-    private static final String SQL_UPDATE_USER = "UPDATE client SET coach_id=?, name=?, surname=?, login=?, password=?, email=?, hash=?, membership_purchased_number=?, personal_discount=?, program_id=?, image=? WHERE id_client=?";
+    private static final String SQL_UPDATE_USER = "UPDATE client SET coach_id=?, name=?, surname=?, login=?, password=?, email=?, hash=?, membership_purchased_number=?, personal_discount=?, program_id=?, image=?, active=? WHERE id_client=?";
     private static final String SQL_FIND_BY_ID = "SELECT * FROM client WHERE id_client=?";
     private static final String SQL_CREATE_USER = "INSERT INTO client (coach_id, name, surname, login, password, email, hash, membership_purchased_number, personal_discount, program_id, image) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
     private static final String SQL_FIND_BY_COACH_ID = "SELECT * FROM client WHERE coach_id=?";
+    private static final String SQL_FIND_USER_BY_COOKIE = "SELECT * FROM client WHERE login=? AND hash=?";
     private ClientBuilder builder = new ClientBuilder();
 
     @Override
@@ -188,6 +189,7 @@ public class UserDaoImpl implements UserDao {
         String login = user.getLogin();
         String password = user.getPassword();
         String email = user.getEmail();
+        boolean active = user.isActive();
         String userHash = user.getUserHash();
         Integer membershipNumber = user.getMembershipNumber();
         Float personalDiscount = user.getPersonalDiscount();
@@ -198,7 +200,8 @@ public class UserDaoImpl implements UserDao {
             connection = ConnectionPool.INSTANCE.getConnection();
             if (user.getId() != null) {
                 preparedStatement = connection.prepareStatement(SQL_UPDATE_USER, Statement.RETURN_GENERATED_KEYS);
-                preparedStatement.setLong(12, user.getId());
+                preparedStatement.setBoolean(12, active);
+                preparedStatement.setLong(13, user.getId());
             } else {
                 preparedStatement = connection.prepareStatement(SQL_CREATE_USER, Statement.RETURN_GENERATED_KEYS);
             }
@@ -237,6 +240,7 @@ public class UserDaoImpl implements UserDao {
         String login = user.getLogin();
         String password = user.getPassword();
         String email = user.getEmail();
+        boolean active = user.isActive();
         String userHash = user.getUserHash();
         Integer membershipNumber = user.getMembershipNumber();
         Float personalDiscount = user.getPersonalDiscount();
@@ -247,7 +251,8 @@ public class UserDaoImpl implements UserDao {
             connection = ConnectionPool.INSTANCE.getConnection();
             if (user.getId() != null) {
                 preparedStatement = connection.prepareStatement(SQL_UPDATE_USER, Statement.RETURN_GENERATED_KEYS);
-                preparedStatement.setLong(12, user.getId());
+                preparedStatement.setBoolean(12, active);
+                preparedStatement.setLong(13, user.getId());
             } else {
                 preparedStatement = connection.prepareStatement(SQL_CREATE_USER, Statement.RETURN_GENERATED_KEYS);
             }
@@ -294,5 +299,28 @@ public class UserDaoImpl implements UserDao {
             close(connection);
         }
         return users;
+    }
+
+    @Override
+    public Optional<User> getUserByCookieData(String login, String hash) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        User user = null;
+        try{
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_FIND_USER_BY_COOKIE);
+            preparedStatement.setString(1, login);
+            preparedStatement.setString(2, hash);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                user = builder.build(resultSet);
+            }
+        } catch (SQLException | ServiceException e) {
+            throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
+        }
+        return Optional.ofNullable(user);
     }
 }

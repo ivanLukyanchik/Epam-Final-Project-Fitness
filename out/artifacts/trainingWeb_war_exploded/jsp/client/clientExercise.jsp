@@ -23,6 +23,7 @@
 <fmt:message bundle="${locale}" key="added_exercise" var="added_exercise"/>
 <fmt:message bundle="${locale}" key="updated_exercise" var="updated_exercise"/>
 <fmt:message bundle="${locale}" key="rejected_exercise" var="rejected_exercise"/>
+<fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
 <head>
@@ -65,6 +66,7 @@
                 <c:forEach items="${clientExercises}" var="exerciseProgram">
                     <c:if test="${exerciseProgram.numberTrainDay==i}">
                         <li><h2>${exerciseProgram.exercise.name}</h2></li>
+                        <p><img src="data:image/jpg;base64,${exerciseProgram.exercise.image}" alt="No image yet" width="200" height="200" style="border-radius: 25px"/></p>
                         <h3>${exerciseProgram.exercise.description}</h3>
                         <c:out value="(${exerciseProgram.setNumber} * ${exerciseProgram.repeatNumber})"/>
                         <h2>${edit}</h2>
@@ -84,7 +86,6 @@
                             </div>
                             <input type="submit" value="${update}" id="update">
                         </form>
-                        <br/>
                         <form action="${pageContext.request.contextPath}/controller?command=reject_exercise" method="post">
                             <input type="hidden" name="exerciseId" value="${exerciseProgram.exercise.id}">
                             <input type="submit" value="${reject_exercise}">
@@ -104,6 +105,7 @@
                     <input type="hidden" name="trainDay" value="${program.trainsPerWeek}">
                     <input type="hidden" name="programId" value="${program.id}">
                     <li><h2>${exercise.name}</h2></li>
+                    <p><img src="data:image/jpg;base64,${exercise.image}" alt="No image yet" width="200" height="200" style="border-radius: 25px"/></p>
                     ${exercise_description} : ${exercise.description}
                     <br/>
 
@@ -129,5 +131,8 @@
         </c:forEach>
     </c:otherwise>
 </c:choose>
+<footer>
+    ${footer}
+</footer>
 </body>
 </html>

@@ -96,4 +96,13 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public Optional<User> getUserByCookieData(String login, String hash) throws ServiceException {
+        try {
+            return userDao.getUserByCookieData(login, hash);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 }

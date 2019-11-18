@@ -22,6 +22,8 @@
 <fmt:message bundle="${locale}" key="forgot_password" var="forgot_password"/>
 <fmt:message bundle="${locale}" key="restore.password.changed" var="passwordChanged"/>
 <fmt:message bundle="${locale}" key="remember_me" var="remember_me"/>
+<fmt:message bundle="${locale}" key="success_delete" var="success_delete"/>
+<fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
 <head>
@@ -35,8 +37,8 @@
     </c:when>
 </c:choose>
 <header><jsp:include page="/jsp/header.jsp"/></header>
-<form method="POST" action="controller">
-    <input type="hidden" name="command" value="login"/>
+<form method="POST" action="loginUser">
+<%--    <input type="hidden" name="command" value="login"/>--%>
     <div class="group">
     <label for="login">${login}</label>
     <input id="login" oninput="checkLogin()" type="text" name="login" required placeholder="${username_placeholder}" title="${username_pattern_error}"/>
@@ -62,6 +64,9 @@
         <c:when test="${not empty requestScope.invalidLogin}">
             ${username_pattern_error}
         </c:when>
+        <c:when test="${not empty requestScope.success}">
+            ${success_delete}
+        </c:when>
     </c:choose>
     <br/>
     <a href="${pageContext.request.contextPath}/register">${no_account}</a>
@@ -71,5 +76,9 @@
     <input type="checkbox" id="rememberMe" name="rememberMe" value="true"/>
     <label for="rememberMe">${remember_me}</label>
 </form>
+
+<footer>
+    ${footer}
+</footer>
 </body>
 </html>

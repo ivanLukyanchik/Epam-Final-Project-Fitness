@@ -30,12 +30,14 @@
 <fmt:message bundle="${locale}" key="comments_me_topic" var="comments_me_topic"/>
 <fmt:message bundle="${locale}" key="photos" var="photos"/>
 <fmt:message bundle="${locale}" key="my_clients" var="my_clients"/>
+<fmt:message bundle="${locale}" key="my_client's_nutrition" var="my_clients_nutrition"/>
+<fmt:message bundle="${locale}" key="my_client's_exercises" var="my_clients_exercises"/>
 
 
 <nav>
     <ul class="top-menu">
         <li id="home"><a href="${pageContext.servletContext.contextPath}/controller?command=home_page" >${home}</a></li>
-        <li id="signOut"><a href="${pageContext.servletContext.contextPath}/controller?command=logout">${logout}</a></li>
+        <li id="signOut"><a href="${pageContext.servletContext.contextPath}/logoutUser">${logout}</a></li>
         <li id="language">
             <form action="controller">
                 <input type="hidden" name="command" value="locale"/>
@@ -76,11 +78,21 @@
     </c:when>
 
     <c:when test="${param.pageTopic eq 'exercises'}">
-        <h1>${exercises}</h1>
+        <c:if test="${not empty sessionScope.client}">
+            <h1>${exercises}</h1>
+        </c:if>
+        <c:if test="${not empty sessionScope.coach}">
+            <h1>${my_clients_exercises}</h1>
+        </c:if>
     </c:when>
 
     <c:when test="${param.pageTopic eq 'nutrition'}">
-        <h1>${nutrition}</h1>
+        <c:if test="${not empty sessionScope.client}">
+            <h1>${nutrition}</h1>
+        </c:if>
+        <c:if test="${not empty sessionScope.coach}">
+            <h1>${my_clients_nutrition}</h1>
+        </c:if>
     </c:when>
 
     <c:when test="${param.pageTopic eq 'coachClients'}">

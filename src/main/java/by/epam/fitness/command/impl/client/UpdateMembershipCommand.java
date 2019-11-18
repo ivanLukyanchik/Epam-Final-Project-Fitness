@@ -46,20 +46,20 @@ public class UpdateMembershipCommand implements ActionCommand {
         String costString = request.getParameter(COST);
         BigDecimal cost = new BigDecimal(costString);
         HttpSession session = request.getSession();
-        Long clientID = (Long) session.getAttribute(SessionAttributes.ID);
+        Long clientId = (Long) session.getAttribute(SessionAttributes.ID);
         java.sql.Date newEndMembershipDate = null;
         try {
-            newEndMembershipDate = defineNewEndMembershipEndDate(request,clientID);
-            OrderInformation newOrderInformation = new OrderInformation(null, cost, new Timestamp(new Date().getTime()), newEndMembershipDate, clientID,cardNumber);
+            newEndMembershipDate = defineNewEndMembershipEndDate(request,clientId);
+            OrderInformation newOrderInformation = new OrderInformation(null, cost, new Timestamp(new Date().getTime()), newEndMembershipDate, clientId,cardNumber);
             orderInformationService.save(newOrderInformation);
-            increaseClientVisitNumber(request, clientID);
+            increaseClientVisitNumber(request, clientId);
             request.setAttribute(PAYMENT_SUCCESS, true);
-            page = Page.CLIENT_PROFILE_PAGE;
+            log.info("Gym membership of client with id = " + clientId + " has been updated");
+            page = "/controller?command=client_profile";;
         } catch (ServiceException e) {
             log.error("Exception occurred while defining NewEndMembershipEndDate", e);
             return Page.ORDER_PAGE;
         }
-        log.info("Gym membership of client with id = " + clientID + " has been updated");
         return page;
     }
 
@@ -85,9 +85,7 @@ public class UpdateMembershipCommand implements ActionCommand {
             Float newPersonalDiscount = SALE_SYSTEM.getSaleByVisitNumber(currentVisitNumber);
             user.setPersonalDiscount(newPersonalDiscount);
             userService.save(user);
-            User user1 = (User) request.getSession().getAttribute(SessionAttributes.CLIENT);
-            user1.setPersonalDiscount(newPersonalDiscount);
-            user1.setMembershipNumber(currentVisitNumber);
+
         }
     }
 }

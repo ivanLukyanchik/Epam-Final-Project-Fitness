@@ -17,6 +17,7 @@ public class CoachDaoImpl implements CoachDao {
     private static final String SQL_FIND_BY_CLIENT_ID = "SELECT * FROM coach JOIN client ON coach.id_coach = client.coach_id WHERE id_client=?";
     private static final String SQL_FIND_BY_COACH_ID = "SELECT * FROM coach WHERE id_coach=?";
     private static final String SQL_FIND_ALL = "SELECT * FROM coach";
+    private static final String SQL_FIND_COACH_BY_COOKIE = "SELECT * FROM coach WHERE login=? AND password=?";
     private CoachBuilder builder = new CoachBuilder();
 
     @Override

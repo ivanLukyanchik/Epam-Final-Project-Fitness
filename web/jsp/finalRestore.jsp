@@ -5,6 +5,7 @@
 <fmt:setBundle basename="locale.pagecontent" var="locale"/>
 
 <fmt:message bundle="${locale}" key="restore_check" var="restore_check"/>
+<fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
 <head>
@@ -12,5 +13,8 @@
 </head>
 <body>
 <h2>${restore_check}</h2>
+<footer>
+    ${footer}
+</footer>
 </body>
 </html>

@@ -11,6 +11,7 @@ import by.epam.fitness.command.impl.nutrition.RejectNutritionCommand;
 import by.epam.fitness.command.impl.nutrition.ShowClientNutritionCommand;
 import by.epam.fitness.command.impl.nutrition.UpdateNutritionCommand;
 import by.epam.fitness.servlet.Login;
+import by.epam.fitness.servlet.Logout;
 import by.epam.fitness.servlet.ModifyProfile;
 
 public enum CommandEnum {
@@ -43,8 +44,10 @@ public enum CommandEnum {
     REJECT_NUTRITION(new RejectNutritionCommand()),
     COACH_CLIENTS(new CoachClientsCommand()),
     COACH_COMMENTS(new ShowCommentsCommand()),
+    DELETE_ACCOUNT(new DeleteAccountCommand()),
     MODIFY_PROFILE_DATA(new ModifyProfile()),
-    LOGIN_USER(new Login());
+    LOGIN_USER(new Login()),
+    LOGOUT_USER(new Logout());
 
     private ActionCommand command;
 
