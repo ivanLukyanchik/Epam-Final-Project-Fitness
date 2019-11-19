@@ -75,8 +75,8 @@ public class RegisterCommand implements ActionCommand {
 
         try {
             user = buildUser(request, userHash);
-            if (userService.registerUser1(user)) {
-                SendingEmail.verify(email, userHash);
+            if (userService.registerUser(user)) {
+                SendingEmail.verify(login, email, userHash);
                 log.info("client with login = " + login + " was registered");
                 page = Page.VERIFY_PAGE;
             } else {
@@ -99,7 +99,7 @@ public class RegisterCommand implements ActionCommand {
         String newPassword = DigestUtils.sha512Hex(password);
         float personalDiscount = SALE_SYSTEM.getSaleByVisitNumber(START_VISIT_NUMBER);
         Program program = buildProgram();
-        return new User(null, null, name, surname, login, newPassword, email, userHash, START_VISIT_NUMBER,
+        return new User(null, null, name, surname, login, newPassword, email, userHash, false, START_VISIT_NUMBER,
                 personalDiscount, program.getId(), null);
     }
 

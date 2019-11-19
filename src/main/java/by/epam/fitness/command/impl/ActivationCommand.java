@@ -6,17 +6,14 @@ import by.epam.fitness.service.ServiceException;
 import by.epam.fitness.service.UserService;
 import by.epam.fitness.service.impl.UserServiceImpl;
 import by.epam.fitness.util.JspConst;
-import by.epam.fitness.util.SessionAttributes;
 import by.epam.fitness.util.validation.DataValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-
 import java.util.Optional;
 
-import static by.epam.fitness.util.JspConst.PARAM_KEY_1;
-import static by.epam.fitness.util.JspConst.PARAM_KEY_2;
+import static by.epam.fitness.util.JspConst.*;
 import static by.epam.fitness.util.page.Page.LOGIN_PAGE;
 import static by.epam.fitness.util.page.Page.REGISTER_PAGE;
 
@@ -34,22 +31,25 @@ public class ActivationCommand implements ActionCommand {
             request.setAttribute(JspConst.INCORRECT_DATA, true);
             return REGISTER_PAGE;
         }
-        String userHash = request.getParameter(PARAM_KEY_2);
+        String login = request.getParameter(PARAM_KEY_2);
+        if (login==null || !dataValidator.isLoginValid(login)){
+            log.info("invalid login format was received, link was modified:" + login);
+            request.setAttribute(JspConst.INCORRECT_DATA, true);
+            return REGISTER_PAGE;
+        }
+        String userHash = request.getParameter(PARAM_KEY_3);
         if (userHash==null || !dataValidator.isHashValid(userHash)) {
             log.info("invalid hash format was received, link was modified:" + userHash);
             request.setAttribute(JspConst.INCORRECT_DATA, true);
             return REGISTER_PAGE;
         }
         try {
-            Long clientId = (Long) request.getSession().getAttribute(SessionAttributes.ID);
-            Optional<User> clientOptional = userService.findById(clientId);
+            Optional<User> clientOptional = userService.findByLoginHash(login, email, userHash);
             if (clientOptional.isPresent()) {
                 User user = clientOptional.get();
                 user.setActive(true);
                 userService.save(user);
-                log.info("client with id = " + clientId + " activated his profile");
-            }
-            if (userService.registerUser2(email, userHash)) {
+                log.info("client with login = " + login + " activated his profile");
                 page = LOGIN_PAGE;
             } else {
                 page = REGISTER_PAGE;

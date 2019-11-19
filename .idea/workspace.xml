@@ -269,6 +269,7 @@
       <workItem from="1573980632921" duration="28191000" />
       <workItem from="1574067966628" duration="23392000" />
       <workItem from="1574107080485" duration="9152000" />
+      <workItem from="1574151959310" duration="8649000" />
     </task>
     <servers />
   </component>
@@ -282,11 +283,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/client/ModifyProfileCommand.java</url>
           <line>30</line>
           <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/client/DeleteAccountCommand.java</url>
-          <line>26</line>
-          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -1,6 +1,7 @@
 package by.epam.fitness.command.impl;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.entity.User;
 import by.epam.fitness.service.ServiceException;
 import by.epam.fitness.service.UserService;
 import by.epam.fitness.service.impl.UserServiceImpl;
@@ -10,6 +11,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+
+import java.util.Optional;
 
 import static by.epam.fitness.util.JspConst.*;
 
@@ -57,7 +60,12 @@ public class PasswordRestoreCommand implements ActionCommand {
             return Page.PASSWORD_RESTORE_PAGE;
         }
         try {
-            if (userService.restoreUser2(email, password, login, hash)) {
+            Optional<User> clientOptional = userService.findByLoginHash(login, email, hash);
+            if (clientOptional.isPresent()) {
+                User user = clientOptional.get();
+                user.setActive(true);
+                user.setPassword(password);
+                userService.save(user);
                 log.info("password of user " + login + " was changed");
                 request.setAttribute(PASSWORD_CHANGED, true);
                 page = Page.LOGIN_PAGE;

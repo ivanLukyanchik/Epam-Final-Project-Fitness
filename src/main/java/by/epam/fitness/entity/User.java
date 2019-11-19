@@ -12,7 +12,7 @@ public class User extends Entity {
     private String password;
     private String email;
     private String userHash;
-    private boolean active = false;
+    private boolean active;
     private Integer membershipNumber;
     private Float personalDiscount;
     private Long programId;
@@ -22,7 +22,7 @@ public class User extends Entity {
     public User() {}
 
     public User(Long id, Long coachId, String name, String surname, String login, String password, String email,
-                String userHash, Integer membershipNumber, Float personalDiscount, Long programId, String image) {
+                String userHash, boolean active, Integer membershipNumber, Float personalDiscount, Long programId, String image) {
         this.id = id;
         this.coachId = coachId;
         this.name = name;
@@ -31,6 +31,7 @@ public class User extends Entity {
         this.password = password;
         this.email = email;
         this.userHash = userHash;
+        this.active = active;
         this.membershipNumber = membershipNumber;
         this.personalDiscount = personalDiscount;
         this.programId = programId;

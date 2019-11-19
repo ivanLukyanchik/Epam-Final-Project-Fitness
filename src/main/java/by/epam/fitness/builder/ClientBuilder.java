@@ -25,7 +25,7 @@ public class ClientBuilder implements Builder<User> {
             String password = resultSet.getString(ClientTableConst.PASSWORD.getFieldName());
             String email = resultSet.getString(ClientTableConst.EMAIL.getFieldName());
             String userHash = resultSet.getString(ClientTableConst.HASH.getFieldName());
-            String active = resultSet.getString(ClientTableConst.ACTIVE.getFieldName());
+            boolean active = resultSet.getBoolean(ClientTableConst.ACTIVE.getFieldName());
             int membershipPurchasedNumber = resultSet.getInt(ClientTableConst.MEMBERSHIP_PURCHASED_NUMBER.getFieldName());
             float personalDiscount = resultSet.getFloat(ClientTableConst.PERSONAL_DISCOUNT.getFieldName());
             Long programId = resultSet.getLong(ClientTableConst.PROGRAM_ID.getFieldName());
@@ -34,7 +34,7 @@ public class ClientBuilder implements Builder<User> {
             if (blob != null) {
                 base64Image = getBase64Image(blob);
             }
-            return new User(id, coach_id, name, surname, login, password, email, userHash, membershipPurchasedNumber, personalDiscount, programId, base64Image);
+            return new User(id, coach_id, name, surname, login, password, email, userHash, active, membershipPurchasedNumber, personalDiscount, programId, base64Image);
         } catch (SQLException  e) {
             throw new ServiceException(e.getMessage(), e);
         }

@@ -25,37 +25,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean registerUser1(User user) throws ServiceException {
+    public boolean isLoginUnique(String patternLogin) throws ServiceException {
         try {
-            return userDao.registerUser1(user);
+            return userDao.isLoginUnique(patternLogin);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
 
     @Override
-    public boolean registerUser2(String userEmail, String userHash) throws ServiceException {
+    public boolean registerUser(User user) throws ServiceException {
         try {
-            return userDao.registerUser2(userEmail, userHash);
+            return userDao.registerUser(user);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
 
     @Override
-    public boolean restoreUser1(String login, String userEmail, String userHash) throws ServiceException {
+    public boolean restoreUser(String login, String userEmail, String userHash) throws ServiceException {
         try {
-            return userDao.restoreUser1(login, userEmail, userHash);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-    }
-
-    @Override
-    public boolean restoreUser2(String email, String password, String login, String userHash) throws ServiceException {
-        String newPassword = DigestUtils.sha512Hex(password);
-        try {
-            return userDao.restoreUser2(email, newPassword, login, userHash);
+            return userDao.restoreUser(login, userEmail, userHash);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -71,18 +61,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Long save(User user) throws ServiceException {
+    public Optional<User> findByLoginHash(String login, String email, String hash) throws ServiceException {
         try {
-            return userDao.save(user);
+            return userDao.findByLoginHash(login, email, hash);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
 
     @Override
-    public boolean save1(User user) throws ServiceException { // FIXME: 18.11.2019 delete me!
+    public Long save(User user) throws ServiceException {
         try {
-            return userDao.save1(user);
+            return userDao.save(user);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

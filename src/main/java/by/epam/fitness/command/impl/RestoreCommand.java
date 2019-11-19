@@ -39,7 +39,7 @@ public class RestoreCommand implements ActionCommand {
         Random random = new SecureRandom();
         String userHash = DigestUtils.sha512Hex("" + random.nextInt(999999));
         try {
-            if (userService.restoreUser1(login, email, userHash)) {
+            if (userService.restoreUser(login, email, userHash)) {
                 SendingEmail.restorePassword(login, email, userHash);
                 log.info("client with login = " + login + " restored his password");
                 page = Page.FINAL_RESTORE_PAGE;

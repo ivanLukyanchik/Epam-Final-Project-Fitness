@@ -28,11 +28,9 @@ public class DeleteAccountCommand implements ActionCommand {
             if (clientOptional.isPresent()) {
                 User user = clientOptional.get();
                 user.setActive(false);
-//                if (userService.save(user) != null) {
                     userService.save(user);
                     log.info("client with id = "+ clientId + " successfully deleted his profile");
                     request.setAttribute(SUCCESS, true);
-//                }
                 page = "/logoutUser";
             }
         } catch (ServiceException e) {
