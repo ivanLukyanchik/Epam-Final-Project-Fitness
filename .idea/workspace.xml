@@ -270,7 +270,7 @@
       <workItem from="1574067966628" duration="23392000" />
       <workItem from="1574107080485" duration="9152000" />
       <workItem from="1574151959310" duration="36095000" />
-      <workItem from="1574234576409" duration="956000" />
+      <workItem from="1574234576409" duration="24496000" />
     </task>
     <servers />
   </component>
@@ -286,11 +286,6 @@
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/PasswordRestoreCommand.java</url>
-          <line>27</line>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/servlet/ModifyProfile.java</url>
           <line>83</line>
           <option name="timeStamp" value="19" />
@@ -301,9 +296,19 @@
           <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/servlet/Login.java</url>
-          <line>48</line>
-          <option name="timeStamp" value="21" />
+          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/RegisterCommand.java</url>
+          <line>72</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/exercise/ShowClientExercisesCommand.java</url>
+          <line>47</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/nutrition/UpdateNutritionCommand.java</url>
+          <line>26</line>
+          <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

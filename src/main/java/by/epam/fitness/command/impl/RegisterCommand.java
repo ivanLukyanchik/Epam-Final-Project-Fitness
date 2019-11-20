@@ -77,7 +77,7 @@ public class RegisterCommand implements ActionCommand {
             user = buildUser(request, userHash);
             if (userService.registerUser(user)) {
                 SendingEmail.verify(login, email, userHash);
-                log.info("client with login = " + login + " was registered");
+                log.info("client with login = " + login + " was registered. Activation Link sent.");
                 page = Page.VERIFY_PAGE;
             } else {
                 request.setAttribute(WRONG_DATA, true);

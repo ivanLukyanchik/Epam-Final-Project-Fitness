@@ -43,14 +43,22 @@ function checkRegisterPassword() {
 }
 
 function checkRegisterLoginEmail() {
+    checkLogin();
+
+    checkEmail();
+}
+
+function checkLogin() {
     var loginRegisterInput = document.getElementById("login");
-    if (loginRegisterInput.value === "" || (!/^[a-zA-Z][\w\d-_.]{2,19}$/.test(loginRegisterInput.value))) {
+    if (loginRegisterInput.value === "" || (!/^[a-zA-Z][a-zA-Z\d-_.]{2,19}$/.test(loginRegisterInput.value))) {
         var loginRegisterTitle = loginRegisterInput.getAttribute("title");
         loginRegisterInput.setCustomValidity(loginRegisterTitle);
     } else {
         loginRegisterInput.setCustomValidity('');
     }
+}
 
+function checkEmail() {
     var emailRegisterInput = document.getElementById("email");
     var emailRegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (emailRegisterInput.value === "" || (!emailRegExp.test(emailRegisterInput.value))) {
@@ -59,6 +67,7 @@ function checkRegisterLoginEmail() {
     } else {
         emailRegisterInput.setCustomValidity('');
     }
+
 }
 
 function checkForChangingAnyData() {

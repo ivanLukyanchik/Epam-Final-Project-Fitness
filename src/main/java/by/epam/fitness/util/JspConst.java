@@ -23,6 +23,7 @@ public class JspConst {
     public static final String PARAM_KEY_3 = "key3";
     public static final String ORDERS = "orders";
     public static final String MEMBERSHIP_VALID = "membership_valid";
+    public static final String NO_COACH = "noCoach";
     public static final String INVALID_COACH = "invalidCoachId";
     public static final String NOT_EXIST_ID = "notExistId";
     public static final String COMMENT_SAVED = "commentSaved";

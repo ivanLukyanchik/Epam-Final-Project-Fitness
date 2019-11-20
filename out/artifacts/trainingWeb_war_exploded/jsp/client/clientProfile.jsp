@@ -52,26 +52,26 @@
         <label for="name">${name}</label>
     </div>
     <div class="col-2">
-        <input type="text" id="name" name="name" value="${client.name}" required title="${registration_pattern_error}">
+        <input onchange="checkName()" type="text" id="name" name="name" value="${client.name}" required title="${registration_pattern_error}">
     </div>
     <div class="col-1">
         <label for="surname">${surname}</label>
     </div>
     <div class="col-2">
-        <input type="text" id="surname" name="surname" value="${client.surname}" required title="${registration_pattern_error}">
+        <input onchange="checkSurname()" type="text" id="surname" name="surname" value="${client.surname}" required title="${registration_pattern_error}">
     </div>
     <div class="col-1">
         <label for="login">${login}</label>
     </div>
     <div class="col-2">
         <input type="hidden" name="oldLogin" value="${client.login}">
-        <input type="text" id="login" name="login" value="${client.login}" required title="${username_pattern_error}">
+        <input onchange="checkLogin()" type="text" id="login" name="login" value="${client.login}" required title="${username_pattern_error}">
     </div>
     <div class="col-1">
         <label for="email">Email:</label>
     </div>
     <div class="col-2">
-        <input type="text" id="email" name="email" value="${client.email}" required title="${email_pattern_error}">
+        <input onchange="checkEmail()" type="text" id="email" name="email" value="${client.email}" required title="${email_pattern_error}">
     </div>
     <p><img src="data:image/jpg;base64,${client.image}" alt="${have_no_image}" width="100" height="100" style="border-radius: 25px"/></p>
     <label for="photo">${upload_photo}</label>

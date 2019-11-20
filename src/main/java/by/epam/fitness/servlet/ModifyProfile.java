@@ -94,7 +94,7 @@ public class ModifyProfile extends HttpServlet implements ActionCommand {
 //                            log.info("incorrect image format was received from user with id = " + user.getId());
 //                        }
                     }
-                    if (login.equals(oldLogin)) { // FIXME: 19.11.2019 rubbish here
+                    if (login.equals(oldLogin) && (!userService.isLoginUnique(login))) { // FIXME: 19.11.2019 rubbish here
                         userService.save(user);
                         log.info("client with id = " + clientId + " successfully changed his profile data");
                         request.setAttribute(SUCCESS, true);
@@ -106,7 +106,7 @@ public class ModifyProfile extends HttpServlet implements ActionCommand {
                         page = "/controller?command=client_profile";
                     } else {
                         request.setAttribute(WRONG_DATA, true);
-                        page = Page.CLIENT_PROFILE_PAGE;
+                        page = "/controller?command=client_profile";
                     }
                 }
             } catch (ServiceException | IOException | ServletException e) {

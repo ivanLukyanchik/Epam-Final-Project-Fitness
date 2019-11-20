@@ -6,6 +6,7 @@ public class DataBaseInfo {
             "autoReconnect=true&" +
             "useSSL=false&" +
             "useUnicode=true&" +
+            "charSet=UTF8&" +
             "useJDBCCompliantTimezoneShift=true&" +
             "useLegacyDatetimeCode=false&" +
             "serverTimezone=UTC";

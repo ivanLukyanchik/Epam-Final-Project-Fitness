@@ -11,7 +11,7 @@ public enum  NutritionTableConst {
 
     LUNCH_NUTRITION("lunch_nutrition"),
 
-    DINNER_NUTRITION("lunch_nutrition");
+    DINNER_NUTRITION("dinner_nutrition");
 
     private String fieldName;
 

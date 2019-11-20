@@ -35,7 +35,7 @@
         <label for="period_cost">${how_long}</label>
     </div>
     <div class="col-2">
-        <select id="period_cost" onchange="setCost()" name="period">
+        <select oninput="checkOffer()" id="period_cost" onchange="setCost()" name="period">
             <fitness:prices/>
         </select>
     </div>

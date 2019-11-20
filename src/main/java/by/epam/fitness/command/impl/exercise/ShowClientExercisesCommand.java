@@ -3,10 +3,7 @@ package by.epam.fitness.command.impl.exercise;
 import by.epam.fitness.command.ActionCommand;
 import by.epam.fitness.entity.*;
 import by.epam.fitness.service.*;
-import by.epam.fitness.service.impl.ExerciseProgramServiceImpl;
-import by.epam.fitness.service.impl.ExerciseServiceImpl;
-import by.epam.fitness.service.impl.ProgramServiceImpl;
-import by.epam.fitness.service.impl.UserServiceImpl;
+import by.epam.fitness.service.impl.*;
 import by.epam.fitness.util.JspConst;
 import by.epam.fitness.util.MembershipValidChecker;
 import by.epam.fitness.util.SessionAttributes;
@@ -25,6 +22,7 @@ public class ShowClientExercisesCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(ShowClientExercisesCommand.class);
     private UserService userService = new UserServiceImpl();
     private ProgramService programService = new ProgramServiceImpl();
+    private CoachService coachService = new CoachServiceImpl();
     private ExerciseProgramService exerciseProgramService = new ExerciseProgramServiceImpl();
     private ExerciseService exerciseService = new ExerciseServiceImpl();
     private MembershipValidChecker membershipValidChecker = new MembershipValidChecker();
@@ -49,6 +47,9 @@ public class ShowClientExercisesCommand implements ActionCommand {
             }
             Optional<User> user = userService.findById(userId);
             if (user.isPresent()) {
+                if (coachService.findByClientId(userId).isEmpty()) {
+                    request.setAttribute(JspConst.NO_COACH, true);
+                }
                 Long programId = user.get().getProgramId();
                 Optional<Program> program = programService.findProgramById(programId);
                 request.getSession().setAttribute(JspConst.PROGRAM, program.get());

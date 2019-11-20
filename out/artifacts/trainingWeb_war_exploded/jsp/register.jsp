@@ -42,22 +42,22 @@
     <input type="hidden" name="command" value="register"/>
     <div class="group">
         <label for="name">${name}</label>
-        <input id="name" type="text" name="name" required placeholder="${name_placeholder}" title="${registration_pattern_error}"/>
+        <input onchange="checkName()" id="name" type="text" name="name" required placeholder="${name_placeholder}" title="${registration_pattern_error}"/>
     </div>
     <br/><br/>
     <div class="group">
         <label for="surname">${surname}</label>
-        <input id="surname" type="text" name="surname" required placeholder="${surname_placeholder}" title="${registration_pattern_error}"/>
+        <input onchange="checkSurname()" id="surname" type="text" name="surname" required placeholder="${surname_placeholder}" title="${registration_pattern_error}"/>
     </div>
     <br/><br/>
     <div class="group">
         <label for="login">${login}</label>
-        <input id="login" type="text" name="login" required placeholder="${username_placeholder}" title="${username_pattern_error}"/>
+        <input onchange="checkLogin()" id="login" type="text" name="login" required placeholder="${username_placeholder}" title="${username_pattern_error}"/>
     </div>
     <br/><br/>
     <div class="group">
         <label for="password">${password}</label>
-        <input id="password" type="password" name="password" required placeholder="${password_placeholder}" title="${registration_pattern_error}"/>
+        <input onchange="checkPassword()" id="password" type="password" name="password" required placeholder="${password_placeholder}" title="${registration_pattern_error}"/>
         <button type="button" onclick="showHide()" id="eye">
             <img src="https://cdn0.iconfinder.com/data/icons/feather/96/eye-16.png" alt="eye" />
         </button>
@@ -65,7 +65,7 @@
     <br/><br/>
     <div class="group">
         <label for="email">${email}</label>
-        <input id="email" type="text" name="email" required placeholder="${email_placeholder}" title="${email_pattern_error}"/>
+        <input onchange="checkEmail()" id="email" type="text" name="email" required placeholder="${email_placeholder}" title="${email_pattern_error}"/>
     </div>
     <br/>
     <c:choose>

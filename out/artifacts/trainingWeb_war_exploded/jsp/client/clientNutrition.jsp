@@ -21,10 +21,13 @@
 <fmt:message bundle="${locale}" key="updated_nutrition" var="updated_nutrition"/>
 <fmt:message bundle="${locale}" key="rejected_nutrition" var="rejected_nutrition"/>
 <fmt:message bundle="${locale}" key="client_no_nutrition" var="client_no_nutrition"/>
+<fmt:message bundle="${locale}" key="no_coach" var="no_coach"/>
+<fmt:message bundle="${locale}" key="show_coaches" var="show_coaches"/>
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
 <head>
+    <script src="${pageContext.request.contextPath}/script/validation/nutritionValidation.js"></script>
     <title>My nutrition</title>
 </head>
 <body>
@@ -58,6 +61,13 @@
             </form>
         </c:when>
 
+        <c:when test="${noCoach == true}">
+            <h3>${no_coach}</h3>
+            <form action="${pageContext.servletContext.contextPath}/controller?command=find_coaches" method="post">
+                <input type="submit" class="button" value="${show_coaches}">
+            </form>
+        </c:when>
+
         <c:otherwise>
 
             <c:choose>
@@ -82,27 +92,29 @@
             <form name="form" action="${pageContext.request.contextPath}/controller?command=update_nutrition" method="post">
                 <input type="hidden" id="nutrition_id" name="nutrition_id" value="${nutrition.id}"/>
                 <input type="hidden" id="nutrition_time" name="nutrition_time" value="morning"/>
-                <textarea id="nutrition_description" name="nutrition_description" class="textArea">${nutrition.morningNutrition}</textarea>
+                <textarea onchange="checkNutrition()" id="nutrition_description" name="nutrition_description" class="textArea" required title="${invalid_nutrition}">${nutrition.morningNutrition}</textarea>
                 <input type="submit" class="button" value="${save}">
                 <h3>${max_symbols} ${max_number_symbols_attribute}</h3>
             </form>
+            <hr/>
 
             <label for="lunch">${lunch}</label>
             <pre id="lunch">${nutrition.lunchNutrition}</pre>
             <form name="form" action="${pageContext.request.contextPath}/controller?command=update_nutrition" method="post">
                 <input type="hidden" id="nutrition_id" name="nutrition_id" value="${nutrition.id}"/>
                 <input type="hidden" id="nutrition_time" name="nutrition_time" value="lunch"/>
-                <textarea id="nutrition_description" name="nutrition_description" class="textArea">${nutrition.lunchNutrition}</textarea>
+                <textarea onchange="checkNutrition()" id="nutrition_description" name="nutrition_description" class="textArea" required title="${invalid_nutrition}">${nutrition.lunchNutrition}</textarea>
                 <input type="submit" class="button" value="${save}">
                 <h3>${max_symbols} ${max_number_symbols_attribute}</h3>
             </form>
+            <hr/>
 
             <label for="dinner">${dinner}</label>
             <pre id="dinner">${nutrition.dinnerNutrition}</pre>
             <form name="form" action="${pageContext.request.contextPath}/controller?command=update_nutrition" method="post">
                 <input type="hidden" id="nutrition_id" name="nutrition_id" value="${nutrition.id}"/>
                 <input type="hidden" id="nutrition_time" name="nutrition_time" value="dinner"/>
-                <textarea id="nutrition_description" name="nutrition_description" class="textArea">${nutrition.dinnerNutrition}</textarea>
+                <textarea onchange="checkNutrition()" id="nutrition_description" name="nutrition_description" class="textArea" required title="${invalid_nutrition}">${nutrition.dinnerNutrition}</textarea>
                 <input type="submit" class="button" value="${save}">
                 <h3>${max_symbols} ${max_number_symbols_attribute}</h3>
             </form>

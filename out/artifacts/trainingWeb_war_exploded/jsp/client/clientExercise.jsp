@@ -25,10 +25,13 @@
 <fmt:message bundle="${locale}" key="updated_exercise" var="updated_exercise"/>
 <fmt:message bundle="${locale}" key="rejected_exercise" var="rejected_exercise"/>
 <fmt:message bundle="${locale}" key="no_exercises" var="no_exercises"/>
+<fmt:message bundle="${locale}" key="no_coach" var="no_coach"/>
+<fmt:message bundle="${locale}" key="show_coaches" var="show_coaches"/>
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
 <head>
+    <script src="${pageContext.request.contextPath}/script/validation/exerciseValidation.js"></script>
     <title>My Exercises</title>
 </head>
 <body>
@@ -42,6 +45,13 @@
         <h3>${cant_choose_exercise}</h3>
         <form action="${pageContext.servletContext.contextPath}/controller?command=show_order_page" method="post">
             <input type="submit" class="button" value="${buy}">
+        </form>
+    </c:when>
+
+    <c:when test="${noCoach == true}">
+        <h3>${no_coach}</h3>
+        <form action="${pageContext.servletContext.contextPath}/controller?command=find_coaches" method="post">
+            <input type="submit" class="button" value="${show_coaches}">
         </form>
     </c:when>
 
@@ -82,13 +92,13 @@
                                 <label for="set_update">${sets}</label>
                             </div>
                             <div class="col-2">
-                                <input type="text" id="set_update" value="${exerciseProgram.setNumber}" title="${title}" name="set_number">
+                                <input onchange="checkSetNumber()" type="text" id="set_update" value="${exerciseProgram.setNumber}" required title="${title}" name="set_number">
                             </div>
                             <div class="col-1">
-                                <label for="repeatsUpdate">${repeats}</label>
+                                <label for="repeats_update">${repeats}</label>
                             </div>
                             <div class="col-2">
-                                <input type="text" id="repeatsUpdate" value="${exerciseProgram.repeatNumber}" title="${title}"  name="repeats">
+                                <input onchange="checkRepeatNumber()" type="text" id="repeats_update" value="${exerciseProgram.repeatNumber}" required title="${title}" name="repeats">
                             </div>
                             <input type="submit" value="${update}" id="update">
                         </form>

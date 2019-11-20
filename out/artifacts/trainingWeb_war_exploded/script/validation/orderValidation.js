@@ -10,7 +10,7 @@ function checkCardNumber() {
 
 function checkOffer() {
     var input = document.getElementById("period_cost");
-    if(input.selectedIndex===0){
+    if (input.selectedIndex===0){
         input.setCustomValidity("Choose suitable for you offer!");
     } else {
         input.setCustomValidity('');

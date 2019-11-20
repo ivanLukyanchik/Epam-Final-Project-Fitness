@@ -28,11 +28,12 @@
     <jsp:param name="pageTopic" value="allCoaches"/>
     <jsp:param name="currentPage" value="allCoaches"/>
 </jsp:include>
-<ul>
-    <c:choose>
-        <c:when test="${membership_valid == true}">
-            <c:choose>
-                <c:when test="${coach_client_id != null}">
+
+<c:choose>
+    <c:when test="${membership_valid == true}">
+        <c:choose>
+            <c:when test="${coach_client_id != null}">
+                <ul>
                     <c:forEach items="${coaches}" var="coach">
                             <c:choose>
                                 <c:when test="${coach_client_id == coach.id}">
@@ -60,29 +61,29 @@
                                 </c:otherwise>
                             </c:choose>
                     </c:forEach>
-                </c:when>
-                <c:otherwise>
-                    <h2>${choose_coach}</h2>
-                    <c:forEach items="${coaches}" var="coach">
-                        <li class="coach"><c:out value="${coach.name} ${coach.surname}"/></li>
-                        <form action="${pageContext.servletContext.contextPath}/controller?command=choose_coach" method="post">
-                            <input type="hidden" id="coachId" name="coachId" value="${coach.id}"/>
-                            <input type="submit" value="${choose_this_coach}"/>
-                        </form>
-                    </c:forEach>
-                </c:otherwise>
-            </c:choose>
-        </c:when>
+                </ul>
+            </c:when>
+            <c:otherwise>
+                <h2>${choose_coach}</h2>
+                <c:forEach items="${coaches}" var="coach">
+                    <li class="coach"><c:out value="${coach.name} ${coach.surname}"/></li>
+                    <form action="${pageContext.servletContext.contextPath}/controller?command=choose_coach" method="post">
+                        <input type="hidden" id="coachId" name="coachId" value="${coach.id}"/>
+                        <input type="submit" value="${choose_this_coach}"/>
+                    </form>
+                </c:forEach>
+            </c:otherwise>
+        </c:choose>
+    </c:when>
 
-        <c:otherwise>
-            <h3>${cant_choose}</h3>
-            <form action="${pageContext.servletContext.contextPath}/controller?command=show_order_page"
-                  method="post">
-                <input type="submit" class="button" value="${buy}">
-            </form>
-        </c:otherwise>
-    </c:choose>
-</ul>
+    <c:otherwise>
+        <h3>${cant_choose}</h3>
+        <form action="${pageContext.servletContext.contextPath}/controller?command=show_order_page"
+              method="post">
+            <input type="submit" class="button" value="${buy}">
+        </form>
+    </c:otherwise>
+</c:choose>
 <br/>
 <c:choose>
     <c:when test="${invalidCoachId eq true}">
