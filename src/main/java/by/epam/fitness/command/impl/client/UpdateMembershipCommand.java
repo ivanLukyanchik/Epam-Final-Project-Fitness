@@ -10,7 +10,9 @@ import by.epam.fitness.service.impl.OrderInformationServiceImpl;
 import by.epam.fitness.service.impl.UserServiceImpl;
 import by.epam.fitness.util.DateProducer;
 import by.epam.fitness.util.SessionAttributes;
+import by.epam.fitness.util.UtilException;
 import by.epam.fitness.util.page.Page;
+import by.epam.fitness.util.price.MembershipPriceReader;
 import by.epam.fitness.util.sale.SaleSystem;
 import by.epam.fitness.util.validation.DataValidator;
 import org.apache.logging.log4j.LogManager;
@@ -44,19 +46,31 @@ public class UpdateMembershipCommand implements ActionCommand {
             return Page.ORDER_PAGE;
         }
         String costString = request.getParameter(COST);
+        if (costString==null || !dataValidator.isCostValid(costString)){
+            log.info("incorrect cost:" + costString + " was input");
+            request.setAttribute(WRONG_PERIOD, true);
+            return Page.ORDER_PAGE;
+        }
         BigDecimal cost = new BigDecimal(costString);
         HttpSession session = request.getSession();
         Long clientId = (Long) session.getAttribute(SessionAttributes.ID);
         java.sql.Date newEndMembershipDate = null;
         try {
+            String period = request.getParameter(PERIOD);
+            if (period==null || !isPeriodExist(period)){
+                log.info("incorrect period:" + period + " was input");
+                request.setAttribute(WRONG_PERIOD, true);
+                return Page.ORDER_PAGE;
+            }
             newEndMembershipDate = defineNewEndMembershipEndDate(request,clientId);
-            OrderInformation newOrderInformation = new OrderInformation(null, cost, new Timestamp(new Date().getTime()), newEndMembershipDate, clientId,cardNumber);
+            OrderInformation newOrderInformation = new OrderInformation(null, cost, new Timestamp(new Date().getTime()),
+                                                                        newEndMembershipDate, clientId,cardNumber);
             orderInformationService.save(newOrderInformation);
             increaseClientVisitNumber(request, clientId);
             request.setAttribute(PAYMENT_SUCCESS, true);
             log.info("Gym membership of client with id = " + clientId + " has been updated");
             page = "/controller?command=client_profile";;
-        } catch (ServiceException e) {
+        } catch (ServiceException | UtilException e) {
             log.error("Exception occurred while defining NewEndMembershipEndDate", e);
             return Page.ORDER_PAGE;
         }
@@ -85,7 +99,13 @@ public class UpdateMembershipCommand implements ActionCommand {
             Float newPersonalDiscount = SALE_SYSTEM.getSaleByVisitNumber(currentVisitNumber);
             user.setPersonalDiscount(newPersonalDiscount);
             userService.save(user);
-
         }
+    }
+
+    private boolean isPeriodExist(String  period) throws UtilException {
+        period = period.replaceAll(PERIOD_PATTERN,"");
+        Integer periodInteger = Integer.valueOf(period);
+        MembershipPriceReader membershipPrices = MembershipPriceReader.getInstance();
+        return membershipPrices.getPrices().containsKey(periodInteger);
     }
 }

@@ -4,6 +4,7 @@
     "max visits":5,
     "sale": 5.0
   },
+
   {
     "min visits": 6,
     "max visits": 15,
@@ -13,6 +14,6 @@
   {
     "min visits": 16,
     "max visits": 100,
-    "sale": 25.0
+    "sale": 20.0
   }
 ]

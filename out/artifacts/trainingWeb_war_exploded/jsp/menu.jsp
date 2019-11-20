@@ -33,7 +33,6 @@
 <fmt:message bundle="${locale}" key="my_client's_nutrition" var="my_clients_nutrition"/>
 <fmt:message bundle="${locale}" key="my_client's_exercises" var="my_clients_exercises"/>
 
-
 <nav>
     <ul class="top-menu">
         <li id="home"><a href="${pageContext.servletContext.contextPath}/controller?command=home_page" >${home}</a></li>

@@ -9,6 +9,5 @@ import java.util.Optional;
 public interface CoachDao extends BaseDao<Long, Coach> {
     Optional<Coach> checkCoachByLoginPassword(String login, String password) throws DaoException;
     Optional<Coach> findByClientId(long clientId) throws DaoException;
-    Optional<Coach> findById(Long id) throws DaoException;
     List<Coach> findAll() throws DaoException;
 }

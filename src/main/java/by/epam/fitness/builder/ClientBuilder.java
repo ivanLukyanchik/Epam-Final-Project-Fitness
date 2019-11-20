@@ -30,11 +30,14 @@ public class ClientBuilder implements Builder<User> {
             float personalDiscount = resultSet.getFloat(ClientTableConst.PERSONAL_DISCOUNT.getFieldName());
             Long programId = resultSet.getLong(ClientTableConst.PROGRAM_ID.getFieldName());
             String base64Image = null;
+            InputStream inputStream = null;
             Blob blob = resultSet.getBlob(ClientTableConst.IMAGE.getFieldName());
             if (blob != null) {
                 base64Image = getBase64Image(blob);
+                inputStream = blob.getBinaryStream();
             }
-            return new User(id, coach_id, name, surname, login, password, email, userHash, active, membershipPurchasedNumber, personalDiscount, programId, base64Image);
+            return new User(id, coach_id, name, surname, login, password, email, userHash, active,
+                    membershipPurchasedNumber, personalDiscount, programId, base64Image, inputStream);
         } catch (SQLException  e) {
             throw new ServiceException(e.getMessage(), e);
         }

@@ -59,7 +59,7 @@ public class ExerciseProgramDaoImpl implements ExerciseProgramDao {
     }
 
     @Override
-    public List<ExerciseProgram> findExercisesByProgramId(Long programId) throws DaoException {
+    public List<ExerciseProgram> findExercisesByProgramId(long programId) throws DaoException {
         List<ExerciseProgram> exercisesList = new ArrayList<>();
         Connection connection = null;
         PreparedStatement preparedStatement = null;

@@ -31,6 +31,7 @@
 <fmt:message bundle="${locale}" key="coach_chosen" var="coach_chosen" />
 <fmt:message bundle="${locale}" key="comment_saved" var="comment_saved" />
 <fmt:message bundle="${locale}" key="coach_rejected" var="coach_rejected" />
+<fmt:message bundle="${locale}" key="nutrition_rejected" var="nutrition_rejected" />
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer" />
 
 <html>
@@ -63,6 +64,9 @@
 </c:if>
 <c:if test="${coachRejected eq true}">
     <h3>${coach_rejected}</h3>
+</c:if>
+<c:if test="${nutritionRejected eq true}">
+    <h3>${nutrition_rejected}</h3>
 </c:if>
 
 <h2>${slogan}</h2>

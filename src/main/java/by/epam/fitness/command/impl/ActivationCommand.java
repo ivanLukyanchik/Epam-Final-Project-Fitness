@@ -49,6 +49,7 @@ public class ActivationCommand implements ActionCommand {
                 User user = clientOptional.get();
                 user.setActive(true);
                 userService.save(user);
+                request.setAttribute(USER_ACTIVATED, true);
                 log.info("client with login = " + login + " activated his profile");
                 page = LOGIN_PAGE;
             } else {

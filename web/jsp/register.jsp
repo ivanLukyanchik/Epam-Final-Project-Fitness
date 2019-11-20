@@ -2,10 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%
-    pageContext.setAttribute("currentPage", "register");
-%>
-
 <fmt:setLocale value="${sessionScope.local}"/>
 <fmt:setBundle basename="locale.pagecontent" var="locale"/>
 
@@ -34,25 +30,14 @@
 <html>
 <head>
     <script src="${pageContext.request.contextPath}/script/validation/registerValidation.js"></script>
+    <script src="${pageContext.request.contextPath}/script/util.js"></script>
     <title>Registration</title>
 </head>
 <body>
-<c:choose>
-    <c:when test="${not empty sessionScope.user}">
-        <jsp:forward page="/welcome"/>
-    </c:when>
-</c:choose>
-<form action="controller">
-    <input type="hidden" name="command" value="locale"/>
-    <input type="hidden" name="currentPage" value="${currentPage}"/>
-    lang: <select name="lang">
-    <option value="${ru}">Ru</option>
-    <option value="${en}">En</option>
-    <option value="${be}">Bel</option>
-</select>
-    <p><input type="submit" value="OK"></p>
-</form>
-<%--<header><jsp:include page="/jsp/header.jsp"/></header>--%>
+<jsp:include page="/jsp/header.jsp">
+    <jsp:param name="currentPage" value="register"/>
+</jsp:include>
+
 <form method="POST" action="controller">
     <input type="hidden" name="command" value="register"/>
     <div class="group">
@@ -66,18 +51,21 @@
     </div>
     <br/><br/>
     <div class="group">
-    <label for="login">${login}</label>
-    <input id="login" type="text" name="login" required placeholder="${username_placeholder}" title="${username_pattern_error}"/>
+        <label for="login">${login}</label>
+        <input id="login" type="text" name="login" required placeholder="${username_placeholder}" title="${username_pattern_error}"/>
     </div>
     <br/><br/>
     <div class="group">
-    <label for="password">${password}</label>
-    <input id="password" type="password" name="password" required placeholder="${password_placeholder}" title="${registration_pattern_error}"/>
+        <label for="password">${password}</label>
+        <input id="password" type="password" name="password" required placeholder="${password_placeholder}" title="${registration_pattern_error}"/>
+        <button type="button" onclick="showHide()" id="eye">
+            <img src="https://cdn0.iconfinder.com/data/icons/feather/96/eye-16.png" alt="eye" />
+        </button>
     </div>
     <br/><br/>
     <div class="group">
-    <label for="email">${email}</label>
-    <input id="email" type="text" name="email" required placeholder="${email_placeholder}" title="${email_pattern_error}"/>
+        <label for="email">${email}</label>
+        <input id="email" type="text" name="email" required placeholder="${email_placeholder}" title="${email_pattern_error}"/>
     </div>
     <br/>
     <c:choose>

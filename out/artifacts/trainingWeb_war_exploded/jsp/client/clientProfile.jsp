@@ -27,11 +27,18 @@
 <fmt:message bundle="${locale}" key="not_image" var="not_image"/>
 <fmt:message bundle="${locale}" key="have_no_image" var="have_no_image"/>
 <fmt:message bundle="${locale}" key="upload_photo" var="upload_photo"/>
+<fmt:message bundle="${locale}" key="change_password" var="change_password"/>
+<fmt:message bundle="${locale}" key="delete_account" var="delete_account"/>
+<fmt:message bundle="${locale}" key="sales_description" var="sales_description"/>
+<fmt:message bundle="${locale}" key="s_d_1" var="s_d_1"/>
+<fmt:message bundle="${locale}" key="s_d_2" var="s_d_2"/>
+<fmt:message bundle="${locale}" key="s_d_3" var="s_d_3"/>
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
 <head>
     <script src="${pageContext.request.contextPath}/script/validation/registerValidation.js"></script>
+    <script src="${pageContext.request.contextPath}/script/util.js"></script>
     <title>«Olympia» Fitness Centre</title>
 </head>
 <body>
@@ -57,6 +64,7 @@
         <label for="login">${login}</label>
     </div>
     <div class="col-2">
+        <input type="hidden" name="oldLogin" value="${client.login}">
         <input type="text" id="login" name="login" value="${client.login}" required title="${username_pattern_error}">
     </div>
     <div class="col-1">
@@ -67,7 +75,7 @@
     </div>
     <p><img src="data:image/jpg;base64,${client.image}" alt="${have_no_image}" width="100" height="100" style="border-radius: 25px"/></p>
     <label for="photo">${upload_photo}</label>
-    <input type="file" id="photo" name="photo"/>
+    <input type="file" id="photo" name="photo" accept="image/x-png,image/jpeg" />
     <br/>
     <c:choose>
         <c:when test="${not empty requestScope.wrongData}">
@@ -101,6 +109,14 @@
     <br/>
     <input onclick="checkForChangingAnyData()" type="submit" value="${modify}">
 </form>
+
+<form action="${pageContext.request.contextPath}/passwordRestore" method="post">
+    <input type="hidden" name="key1" value="${client.email}">
+    <input type="hidden" name="key2" value="${client.login}">
+    <input type="hidden" name="key3" value="${client.userHash}">
+    <input type="submit" value="${change_password}">
+</form>
+
 <br/>
 <div class="col-1">
     <label for="coach_name">${coach}</label>
@@ -128,6 +144,18 @@
 </div>
 <div class="col-2">
     <input type="text" id="personal_discount" name="personal_discount"  value="${client.personalDiscount}" readonly>
+    <button type="button" onclick="showDescription()" id="question" style="border-radius: 25px">
+        <img src="img/util/question.png" alt="question"  width="15" height="15"/>
+    </button>
+</div>
+
+<div id="description" style="display:none">
+    ${sales_description}
+    <ul>
+        <li>${s_d_1}</li>
+        <li>${s_d_2}</li>
+        <li>${s_d_3}</li>
+    </ul>
 </div>
 
 <div class="col-1">
@@ -165,7 +193,7 @@
 
 <br/>
 <form action="${pageContext.servletContext.contextPath}/controller?command=delete_account" method="post">
-    <input type="submit" value="Delete my account" style="color: darkred">
+    <input type="submit" value="${delete_account}" style="color: darkred">
 </form>
 
 <footer>

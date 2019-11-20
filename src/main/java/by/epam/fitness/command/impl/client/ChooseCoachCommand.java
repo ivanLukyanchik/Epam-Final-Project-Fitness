@@ -43,7 +43,7 @@ public class ChooseCoachCommand implements ActionCommand {
                 return Page.ALL_COACHES;
             }
             HttpSession session = request.getSession();
-            Long clientId = (Long) session.getAttribute(SessionAttributes.ID);
+            long clientId = (long) session.getAttribute(SessionAttributes.ID);
             Optional<User> user = userService.findById(clientId);
             if (user.isPresent()) {
                 user.get().setCoachId(coachId);

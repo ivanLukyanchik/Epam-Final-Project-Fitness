@@ -19,10 +19,10 @@ public class UserDaoImpl implements UserDao {
     private static final String SQL_RESTORE_USER = "SELECT hash FROM client WHERE email=? AND login=? AND active='1'";
     private static final String SQL_DEACTIVATE_AND_HASH = "UPDATE client SET active='0', hash=? WHERE email=? AND login=?";
     private static final String SQL_UPDATE_USER = "UPDATE client SET coach_id=?, name=?, surname=?, login=?, password=?, email=?, hash=?, membership_purchased_number=?, personal_discount=?, program_id=?, image=?, active=? WHERE id_client=?";
-    private static final String SQL_FIND_BY_ID = "SELECT * FROM client WHERE id_client=?";
-    private static final String SQL_FIND_BY_LOGIN_HASH = "SELECT * FROM client WHERE login=? AND email=? AND hash=? AND active='0'";
+    private static final String SQL_FIND_BY_ID = "SELECT * FROM client WHERE id_client=? AND active='1'";
+    private static final String SQL_FIND_BY_LOGIN_HASH = "SELECT * FROM client WHERE login=? AND email=? AND hash=?";
     private static final String SQL_CREATE_USER = "INSERT INTO client (coach_id, name, surname, login, password, email, hash, membership_purchased_number, personal_discount, program_id, image) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-    private static final String SQL_FIND_BY_COACH_ID = "SELECT * FROM client WHERE coach_id=?";
+    private static final String SQL_FIND_BY_COACH_ID = "SELECT * FROM client WHERE coach_id=? AND active='1'";
     private static final String SQL_FIND_USER_BY_COOKIE = "SELECT * FROM client WHERE login=? AND hash=?";
     private ClientBuilder builder = new ClientBuilder();
 
@@ -32,7 +32,7 @@ public class UserDaoImpl implements UserDao {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         User user = null;
-        try{
+        try {
             connection = ConnectionPool.INSTANCE.getConnection();
             preparedStatement = connection.prepareStatement(SQL_CHECK_USER_BY_LOGIN_PASSWORD);
             preparedStatement.setString(1, login);

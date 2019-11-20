@@ -6,6 +6,5 @@ import by.epam.fitness.entity.Program;
 import java.util.Optional;
 
 public interface ProgramDao extends BaseDao<Long, Program> {
-    Long save(Program program) throws DaoException;
-    Optional<Program> findProgramById(Long programId) throws DaoException;
+    Optional<Program> findProgramById(long programId) throws DaoException;
 }

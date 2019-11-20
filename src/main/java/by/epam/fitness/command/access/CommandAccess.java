@@ -46,6 +46,7 @@ public class CommandAccess {
         commandTypes.add(CommandEnum.REJECT_COACH.getCommand());
         commandTypes.add(CommandEnum.DELETE_ACCOUNT.getCommand());
         commandTypes.add(CommandEnum.MODIFY_PROFILE_DATA.getCommand());
+        commandTypes.add(CommandEnum.PASSWORD_RESTORE.getCommand());
         return commandTypes;
     }
 

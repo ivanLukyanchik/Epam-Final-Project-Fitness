@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <fmt:setLocale value="${sessionScope.local}" scope="session"/>
@@ -14,7 +15,7 @@
 <fmt:message bundle="${locale}" key="exercise_description" var="exercise_description"/>
 <fmt:message bundle="${locale}" key="add_exercise" var="add_exercise"/>
 <fmt:message bundle="${locale}" key="add" var="add"/>
-<fmt:message bundle="${locale}" key="cant_choose" var="cant_choose"/>
+<fmt:message bundle="${locale}" key="cant_choose_exercise" var="cant_choose_exercise"/>
 <fmt:message bundle="${locale}" key="buy" var="buy"/>
 <fmt:message bundle="${locale}" key="save" var="save"/>
 <fmt:message bundle="${locale}" key="reject_exercise" var="reject_exercise"/>
@@ -23,6 +24,7 @@
 <fmt:message bundle="${locale}" key="added_exercise" var="added_exercise"/>
 <fmt:message bundle="${locale}" key="updated_exercise" var="updated_exercise"/>
 <fmt:message bundle="${locale}" key="rejected_exercise" var="rejected_exercise"/>
+<fmt:message bundle="${locale}" key="no_exercises" var="no_exercises"/>
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
@@ -37,7 +39,7 @@
 
 <c:choose>
     <c:when test="${membership_valid == false}">
-        <h3>${cant_choose}</h3>
+        <h3>${cant_choose_exercise}</h3>
         <form action="${pageContext.servletContext.contextPath}/controller?command=show_order_page" method="post">
             <input type="submit" class="button" value="${buy}">
         </form>
@@ -60,6 +62,10 @@
                 ${exercise_already_exists}
             </c:when>
         </c:choose>
+
+        <c:if test="${fn:length(clientExercises) eq 0}">
+            <h3><c:out value="${no_exercises}"/></h3>
+        </c:if>
 
         <c:forEach var = "i" begin = "1" end = "${program.trainsPerWeek}">
             <ol>

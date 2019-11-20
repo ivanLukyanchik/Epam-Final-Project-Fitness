@@ -63,7 +63,7 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
     }
 
     @Override
-    public Optional<OrderInformation> findByClientId(Long id) throws DaoException {
+    public Optional<OrderInformation> findByClientId(long id) throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         OrderInformation orderInformation = null;
@@ -85,7 +85,7 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
     }
 
     @Override
-    public List<OrderInformation> findOrdersByClientId(Long id) throws DaoException {
+    public List<OrderInformation> findOrdersByClientId(long id) throws DaoException {
         List<OrderInformation> ordersList = new ArrayList<>();
         Connection connection = null;
         PreparedStatement preparedStatement = null;

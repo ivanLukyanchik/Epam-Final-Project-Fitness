@@ -56,8 +56,9 @@ public class ModifyProfile extends HttpServlet implements ActionCommand {
             return Page.CLIENT_PROFILE_PAGE;
         }
         String login = request.getParameter(PARAM_LOGIN);
-        if (login==null || !dataValidator.isLoginValid(login)) {
-            log.info("invalid login format was received:" + login);
+        String oldLogin = request.getParameter(OLD_LOGIN);
+        if (login==null || !dataValidator.isLoginValid(login) || oldLogin==null || !dataValidator.isLoginValid(oldLogin)) {
+            log.info("invalid login format was received:" + login  + " or " + oldLogin);
             request.setAttribute("invalidLogin", "Wrong login");
             return Page.CLIENT_PROFILE_PAGE;
         }
@@ -93,7 +94,12 @@ public class ModifyProfile extends HttpServlet implements ActionCommand {
 //                            log.info("incorrect image format was received from user with id = " + user.getId());
 //                        }
                     }
-                    if (userService.isLoginUnique(login)) {
+                    if (login.equals(oldLogin)) { // FIXME: 19.11.2019 rubbish here
+                        userService.save(user);
+                        log.info("client with id = " + clientId + " successfully changed his profile data");
+                        request.setAttribute(SUCCESS, true);
+                        page = "/controller?command=client_profile";
+                    } else if (userService.isLoginUnique(login)) {
                         userService.save(user);
                         log.info("client with id = " + clientId + " successfully changed his profile data");
                         request.setAttribute(SUCCESS, true);

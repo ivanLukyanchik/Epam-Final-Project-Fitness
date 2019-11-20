@@ -63,11 +63,11 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="Enum" />
         <option value="Interface" />
         <option value="Jsp File" />
         <option value="Class" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -269,7 +269,8 @@
       <workItem from="1573980632921" duration="28191000" />
       <workItem from="1574067966628" duration="23392000" />
       <workItem from="1574107080485" duration="9152000" />
-      <workItem from="1574151959310" duration="8649000" />
+      <workItem from="1574151959310" duration="36095000" />
+      <workItem from="1574234576409" duration="956000" />
     </task>
     <servers />
   </component>
@@ -283,6 +284,26 @@
           <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/client/ModifyProfileCommand.java</url>
           <line>30</line>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/PasswordRestoreCommand.java</url>
+          <line>27</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/servlet/ModifyProfile.java</url>
+          <line>83</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/coach/CoachClientsCommand.java</url>
+          <line>25</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/servlet/Login.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="21" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

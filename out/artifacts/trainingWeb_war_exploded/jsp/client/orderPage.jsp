@@ -16,6 +16,7 @@
 <fmt:message bundle="${locale}" key="final_amount" var="final_amount"/>
 <fmt:message bundle="${locale}" key="order.credit_card" var="credit_card"/>
 <fmt:message bundle="${locale}" key="pay" var="pay"/>
+<fmt:message bundle="${locale}" key="wrong_cost_period" var="wrong_cost_period"/>
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
@@ -70,6 +71,9 @@
         <c:choose>
             <c:when test="${not empty requestScope.wrongCard}">
                 ${card_pattern_error}
+            </c:when>
+            <c:when test="${not empty requestScope.wrongPeriod}">
+                ${wrong_cost_period}
             </c:when>
         </c:choose>
         <input onclick="checkOffer()" class="button" type="submit" value="${pay}">

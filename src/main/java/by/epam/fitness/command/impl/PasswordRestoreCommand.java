@@ -5,8 +5,10 @@ import by.epam.fitness.entity.User;
 import by.epam.fitness.service.ServiceException;
 import by.epam.fitness.service.UserService;
 import by.epam.fitness.service.impl.UserServiceImpl;
+import by.epam.fitness.util.SessionAttributes;
 import by.epam.fitness.util.page.Page;
 import by.epam.fitness.util.validation.DataValidator;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -64,11 +66,17 @@ public class PasswordRestoreCommand implements ActionCommand {
             if (clientOptional.isPresent()) {
                 User user = clientOptional.get();
                 user.setActive(true);
+                password = DigestUtils.sha512Hex(password);
                 user.setPassword(password);
                 userService.save(user);
                 log.info("password of user " + login + " was changed");
                 request.setAttribute(PASSWORD_CHANGED, true);
-                page = Page.LOGIN_PAGE;
+                Long clientId = (Long) request.getSession().getAttribute(SessionAttributes.ID);
+                if (clientId != null) {
+                    page = "/logoutUser";
+                } else {
+                    page = Page.LOGIN_PAGE;
+                }
             } else {
                 page = Page.PASSWORD_RESTORE_PAGE;
             }

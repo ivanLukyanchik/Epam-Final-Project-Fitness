@@ -29,6 +29,8 @@ public class JspConst {
     public static final String INCORRECT_DATA = "incorrectData";
     public static final String COACH_CHOSEN = "coachChosen";
     public static final String SUCCESS = "success";
+    public static final String NO_ACCESS = "noAccess";
+    public static final String OLD_LOGIN = "oldLogin";
     public static final String WRONG_DATA = "wrongData";
     public static final String INVALID_NAME = "invalidName";
     public static final String INVALID_SURNAME = "invalidSurname";
@@ -38,6 +40,7 @@ public class JspConst {
     public static final String COACH_REJECTED = "coachRejected";
     public static final String PAYMENT_SUCCESS = "paymentSuccess";
     public static final String WRONG_CARD = "wrongCard";
+    public static final String WRONG_PERIOD = "wrongPeriod";
     public final static String ALL_CLIENTS = "all_clients";
     public static final String COACH_CLIENTS = "coachClients";
     public static final String COACH_COMMENTS = "coachComments";
@@ -78,7 +81,9 @@ public class JspConst {
     public static final String LOGIN_PAGE = "login";
     public static final String REGISTER_PAGE = "register";
     public static final String PASSWORD_RESTORE_PAGE = "passwordRestore";
+    public static final String VERIFICATION_PAGE = "verification";
     public static final String NUTRITION_ADDED = "nutritionAdded";
+    public static final String USER_ACTIVATED = "userActivated";
     public static final String NUTRITION_UPDATED = "nutritionUpdated";
     public static final String NUTRITION_REJECTED = "nutritionRejected";
     public static final String EXERCISE_REJECTED = "exerciseRejected";

@@ -6,7 +6,7 @@
 <fmt:setLocale value="${sessionScope.local}" scope="session"/>
 <fmt:setBundle basename="locale.pagecontent" var="locale"/>
 
-<fmt:message bundle="${locale}" key="cant_choose" var="cant_choose"/>
+<fmt:message bundle="${locale}" key="cant_choose_nutrition" var="cant_choose_nutrition"/>
 <fmt:message bundle="${locale}" key="buy" var="buy"/>
 <fmt:message bundle="${locale}" key="max_symbols" var="max_symbols"/>
 <fmt:message bundle="${locale}" key="save" var="save"/>
@@ -20,6 +20,7 @@
 <fmt:message bundle="${locale}" key="added_nutrition" var="added_nutrition"/>
 <fmt:message bundle="${locale}" key="updated_nutrition" var="updated_nutrition"/>
 <fmt:message bundle="${locale}" key="rejected_nutrition" var="rejected_nutrition"/>
+<fmt:message bundle="${locale}" key="client_no_nutrition" var="client_no_nutrition"/>
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
@@ -40,6 +41,7 @@
 
 <c:if test="${not empty sessionScope.coach}">
     <c:if test="${no_nutrition == true}">
+        <h3>${client_no_nutrition}</h3>
         <form action="${pageContext.servletContext.contextPath}/controller?command=add_nutrition" method="post">
             <input type="hidden" id="nutrition_id" name="nutrition_id" value="${nutrition.id}"/>
             <input type="submit" class="button" value="${activate_nutrition}"/>
@@ -50,7 +52,7 @@
 <c:if test="${empty no_nutrition}">
     <c:choose>
         <c:when test="${membership_valid == false}">
-            <h3>${cant_choose}</h3>
+            <h3>${cant_choose_nutrition}</h3>
             <form action="${pageContext.servletContext.contextPath}/controller?command=show_order_page" method="post">
                 <input type="submit" class="button" value="${buy}">
             </form>

@@ -18,7 +18,7 @@ public interface BaseDao <K, T extends Entity> {
     Optional<T> findById(K id) throws DaoException;
 
     default void close(Statement statement) {
-        if (statement  != null) {
+        if (statement != null) {
             try {
                 statement.close();
             } catch (SQLException e) {

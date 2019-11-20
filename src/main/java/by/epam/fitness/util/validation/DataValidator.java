@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class DataValidator {
     private static final Pattern LOGIN_PATTERN = Pattern.compile("^[a-zA-Z][\\w-_.]{2,19}$");
-    public static final Pattern EMAIL_PATTERN = Pattern.compile("^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$");
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$");
     private static final Pattern NAME_SURNAME_PATTERN = Pattern.compile("[a-zA-Zа-яА-Я]{3,20}");
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("[\\w-_.]{3,20}");
     private static final Pattern CARD_NUMBER_PATTERN = Pattern.compile("[0-9]{16}");
@@ -13,6 +13,7 @@ public class DataValidator {
     private static final Pattern SHA512_PATTERN = Pattern.compile("[a-f0-9]{128}");
     private static final Pattern INPUT_IDENTIFIABLE_ID_PATTERN = Pattern.compile("[\\d]{1,20}");
     private static final Pattern SET_NUMBER_PATTERN = Pattern.compile("^[1-9][0-9]*$");
+    private static final Pattern COST_PATTERN = Pattern.compile("[\\d.]{1,20}");
 
     public boolean isLoginValid(String login) {
         Matcher matcher = LOGIN_PATTERN.matcher(login);
@@ -65,6 +66,11 @@ public class DataValidator {
 
     public boolean isSetNumberValid(String setNumber) {
         Matcher matcher = SET_NUMBER_PATTERN.matcher(setNumber);
+        return matcher.matches();
+    }
+
+    public boolean isCostValid(String cost){
+        Matcher matcher = COST_PATTERN.matcher(cost);
         return matcher.matches();
     }
 }

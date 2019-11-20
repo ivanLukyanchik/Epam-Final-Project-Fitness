@@ -22,7 +22,8 @@ public class User extends Entity {
     public User() {}
 
     public User(Long id, Long coachId, String name, String surname, String login, String password, String email,
-                String userHash, boolean active, Integer membershipNumber, Float personalDiscount, Long programId, String image) {
+                String userHash, boolean active, Integer membershipNumber, Float personalDiscount, Long programId,
+                String image, InputStream is) {
         this.id = id;
         this.coachId = coachId;
         this.name = name;
@@ -36,6 +37,7 @@ public class User extends Entity {
         this.personalDiscount = personalDiscount;
         this.programId = programId;
         this.image = image;
+        this.is = is;
     }
 
     public String getName() {

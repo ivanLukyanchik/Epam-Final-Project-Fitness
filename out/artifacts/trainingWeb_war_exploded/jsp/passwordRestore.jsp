@@ -28,16 +28,10 @@
     <title>Restore</title>
 </head>
 <body>
-<form action="controller">
-    <input type="hidden" name="command" value="locale"/>
-    <input type="hidden" name="currentPage" value="${currentPage}"/>
-    lang: <select name="lang">
-    <option value="${ru}">Ru</option>
-    <option value="${en}">En</option>
-    <option value="${be}">Bel</option>
-</select>
-    <p><input type="submit" value="OK"></p>
-</form>
+<jsp:include page="/jsp/header.jsp">
+    <jsp:param name="currentPage" value="passwordRestore"/>
+</jsp:include>
+
 <h1>${password_message}</h1>
 <form method="POST" action="controller">
     <input type="hidden" name="command" value="password_restore">

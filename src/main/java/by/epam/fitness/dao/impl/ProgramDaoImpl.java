@@ -53,7 +53,7 @@ public class ProgramDaoImpl implements ProgramDao {
     }
 
     @Override
-    public Optional<Program> findProgramById(Long programId) throws DaoException {
+    public Optional<Program> findProgramById(long programId) throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         Program program = null;

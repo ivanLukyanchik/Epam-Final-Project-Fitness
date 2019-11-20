@@ -2,10 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%
-    pageContext.setAttribute("currentPage", "login");
-%>
-
 <fmt:setLocale value="${sessionScope.local}" scope="session"/>
 <fmt:setBundle basename="locale.pagecontent" var="locale"/>
 
@@ -23,20 +19,20 @@
 <fmt:message bundle="${locale}" key="restore.password.changed" var="passwordChanged"/>
 <fmt:message bundle="${locale}" key="remember_me" var="remember_me"/>
 <fmt:message bundle="${locale}" key="success_delete" var="success_delete"/>
+<fmt:message bundle="${locale}" key="user_activated" var="user_activated"/>
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
 <head>
     <script src="${pageContext.request.contextPath}/script/validation/loginValidation.js"></script>
+    <script src="${pageContext.request.contextPath}/script/util.js"></script>
     <title>LogIn</title>
 </head>
 <body>
-<c:choose>
-    <c:when test="${not empty sessionScope.user}">
-        <jsp:forward page="/welcome"/>
-    </c:when>
-</c:choose>
-<header><jsp:include page="/jsp/header.jsp"/></header>
+<jsp:include page="/jsp/header.jsp">
+    <jsp:param name="currentPage" value="login"/>
+</jsp:include>
+
 <form method="POST" action="loginUser">
 <%--    <input type="hidden" name="command" value="login"/>--%>
     <div class="group">
@@ -47,6 +43,9 @@
     <div class="group">
     <label for="password">${password}</label>
     <input id="password" oninput="checkPassword()" type="password" name="password" required placeholder="${password_placeholder}" title="${registration_pattern_error}"/>
+    <button type="button" onclick="showHide()" id="eye">
+        <img src="https://cdn0.iconfinder.com/data/icons/feather/96/eye-16.png" alt="eye" />
+    </button>
     </div>
     <br/>
     <a href="restore">${forgot_password}</a>
@@ -67,6 +66,10 @@
         <c:when test="${not empty requestScope.success}">
             ${success_delete}
         </c:when>
+        <c:when test="${not empty requestScope.userActivated}">
+            ${user_activated}
+        </c:when>
+
     </c:choose>
     <br/>
     <a href="${pageContext.request.contextPath}/register">${no_account}</a>

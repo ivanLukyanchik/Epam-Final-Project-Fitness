@@ -13,6 +13,10 @@
     <title>Verification</title>
 </head>
 <body>
+<jsp:include page="/jsp/header.jsp">
+    <jsp:param name="currentPage" value="verification"/>
+</jsp:include>
+
 <h1>${thanks_reg}</h1>
 <h2>${activation_text}</h2>
 

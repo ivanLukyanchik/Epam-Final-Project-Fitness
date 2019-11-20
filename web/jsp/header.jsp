@@ -8,20 +8,15 @@
 <fmt:message bundle="${locale}" key="lang.text.russian" var="ru"/>
 <fmt:message bundle="${locale}" key="lang.text.belorussian" var="be"/>
 
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-<form action="controller">
-    <input type="hidden" name="command" value="locale"/>
-    <input type="hidden" name="currentPage" value="${currentPage}"/>
-    lang: <select name="lang">
-        <option value="${ru}">Ru</option>
-        <option value="${en}">En</option>
-        <option value="${be}">Bel</option>
-    </select>
-    <p><input type="submit" value="OK"></p>
-</form>
-</body>
-</html>
+<nav>
+    <form action="controller">
+        <input type="hidden" name="command" value="locale"/>
+        <input type="hidden" name="currentPage" value="${param.currentPage}"/>
+        <select name="lang">
+            <option value="${ru}">Ru</option>
+            <option value="${en}">En</option>
+            <option value="${be}">Bel</option>
+        </select>
+        <p><input type="submit" value="OK"></p>
+    </form>
+</nav>
