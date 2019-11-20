@@ -54,7 +54,7 @@ public class ShowClientNutritionCommand implements ActionCommand {
             if (nutritionOptional.isPresent()) {
                 if (!nutritionOptional.get().isActive()) {
                     request.setAttribute(NO_NUTRITION, true);
-                    request.setAttribute(NUTRITION, nutritionOptional.get());//для активации
+                    request.setAttribute(NUTRITION, nutritionOptional.get()); //for activation
                 } else {
                     request.setAttribute(NUTRITION, nutritionOptional.get());
                 }

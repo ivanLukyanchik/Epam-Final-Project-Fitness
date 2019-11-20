@@ -31,7 +31,7 @@ public class LocaleCommand implements ActionCommand {
         } else if (page.equals(JspConst.RESTORE_PAGE)) {
             return Page.RESTORE_PAGE;
         } else if (page.equals(JspConst.CLIENT_PROFILE_PAGE)) {
-            return Page.CLIENT_PROFILE_PAGE;
+            return Page.CLIENT_PROFILE_COMMAND;
         } else if (page.equals(JspConst.GYM_PHOTOS_PAGE)) {
             return Page.GYM_PHOTOS_PAGE;
         } else if (page.equals(JspConst.ORDER_PAGE)) {
@@ -39,15 +39,15 @@ public class LocaleCommand implements ActionCommand {
         } else if (page.equals(JspConst.CLIENT_ORDERS)) {
             return Page.CLIENT_ORDERS;
         } else if (page.equals(JspConst.ALL_COACHES)) {
-            return Page.ALL_COACHES;
+            return Page.SHOW_COACHES_COMMAND;
         } else if (page.equals(JspConst.EXERCISES)) {
-            return Page.EXERCISES;
+            return Page.CLIENT_EXERCISES_COMMAND;
         } else if (page.equals(JspConst.NUTRITION)) {
-            return Page.NUTRITION;
+            return Page.CLIENT_NUTRITION_COMMAND;
         } else if (page.equals(JspConst.COACH_CLIENTS)) {
             return Page.COACH_CLIENTS;
         } else if (page.equals(JspConst.COACH_COMMENTS)) {
-            return Page.COACH_COMMENTS;
+            return Page.COACH_COMMENTS_COMMAND;
         } else if (page.equals(JspConst.VERIFICATION_PAGE)) {
             return Page.VERIFY_PAGE;
         } else if (page.equals(JspConst.NO_ACCESS)) {

@@ -62,7 +62,7 @@ public class UpdateExerciseCommand implements ActionCommand {
             }
             request.setAttribute(JspConst.EXERCISE_UPDATED, true);
             log.info("exercise program with id = " + exerciseProgramId + " has been updated");
-            page = "/controller?command=show_client_exercises";
+            page = Page.CLIENT_EXERCISES_COMMAND;
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
             page = Page.EXERCISES;

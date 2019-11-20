@@ -69,7 +69,7 @@ public class UpdateMembershipCommand implements ActionCommand {
             increaseClientVisitNumber(request, clientId);
             request.setAttribute(PAYMENT_SUCCESS, true);
             log.info("Gym membership of client with id = " + clientId + " has been updated");
-            page = "/controller?command=client_profile";;
+            page = Page.CLIENT_PROFILE_COMMAND;
         } catch (ServiceException | UtilException e) {
             log.error("Exception occurred while defining NewEndMembershipEndDate", e);
             return Page.ORDER_PAGE;

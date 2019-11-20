@@ -41,7 +41,7 @@ public class UpdateNutritionCommand implements ActionCommand {
             setNewNutrition(nutritionId, nutritionTime, newNutritionDescription);
             request.setAttribute(NUTRITION_UPDATED, true);
             log.info("nutrition with id = " + nutritionIdString + " has been updated");
-            page = "/controller?command=show_client_nutrition";
+            page = Page.CLIENT_NUTRITION_COMMAND;
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
             page = Page.NUTRITION;

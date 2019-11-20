@@ -32,7 +32,7 @@ public class AddCommentCommand implements ActionCommand {
         request.setAttribute(MAX_NUMBER_SYMBOLS_ATTRIBUTE,MAX_NUMBER_SYMBOLS_VALUE);
         if (commentContent==null || !dataValidator.isCommentContentValid(commentContent)){
             log.info("was received invalid comment format");
-            request.setAttribute("invalidComment", true);
+            request.setAttribute(INVALID_COMMENT, true);
             return Page.ALL_COACHES;
         }
         String coachIdString = request.getParameter(COACH_ID);

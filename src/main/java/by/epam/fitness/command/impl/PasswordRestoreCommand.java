@@ -34,7 +34,7 @@ public class PasswordRestoreCommand implements ActionCommand {
         }
         String confirmedPassword = request.getParameter(PARAM_CONFIRMED_PASSWORD);
         if (confirmedPassword==null || !dataValidator.isPasswordValid(confirmedPassword)){
-            log.info("invalid password format was received:" + confirmedPassword);
+            log.info("invalid confirmed password format was received:" + confirmedPassword);
             request.setAttribute(INVALID_PASSWORD, true);
             return Page.PASSWORD_RESTORE_PAGE;
         }
@@ -73,7 +73,7 @@ public class PasswordRestoreCommand implements ActionCommand {
                 request.setAttribute(PASSWORD_CHANGED, true);
                 Long clientId = (Long) request.getSession().getAttribute(SessionAttributes.ID);
                 if (clientId != null) {
-                    page = "/logoutUser";
+                    page = Page.LOGOUT_COMMAND;
                 } else {
                     page = Page.LOGIN_PAGE;
                 }

@@ -10,22 +10,19 @@ import by.epam.fitness.command.impl.nutrition.AddNutritionCommand;
 import by.epam.fitness.command.impl.nutrition.RejectNutritionCommand;
 import by.epam.fitness.command.impl.nutrition.ShowClientNutritionCommand;
 import by.epam.fitness.command.impl.nutrition.UpdateNutritionCommand;
-import by.epam.fitness.servlet.Login;
-import by.epam.fitness.servlet.Logout;
-import by.epam.fitness.servlet.ModifyProfile;
+import by.epam.fitness.command.impl.servlet.Login;
+import by.epam.fitness.command.impl.servlet.Logout;
+import by.epam.fitness.command.impl.servlet.ModifyProfile;
 
 public enum CommandEnum {
     LOCALE(new LocaleCommand()),
-    LOGIN(new LoginCommand()),
     REGISTER(new RegisterCommand()),
-    LOGOUT(new LogoutCommand()),
     ACTIVATE(new ActivationCommand()),
     RESTORE(new RestoreCommand()),
     PASSWORD_RESTORE(new PasswordRestoreCommand()),
     HOME_PAGE(new HomePageCommand()),
     CLIENT_PROFILE(new ClientProfileCommand()),
     NO_ACCESS(new NoAccessCommand()),
-    MODIFY_PROFILE(new ModifyProfileCommand()),
     GYM_PHOTOS(new GymPhotosCommand()),
     UPDATE_GYM_MEMBERSHIP(new UpdateMembershipCommand()),
     SHOW_ORDER_PAGE(new ShowOrderPageCommand()),
@@ -47,7 +44,8 @@ public enum CommandEnum {
     DELETE_ACCOUNT(new DeleteAccountCommand()),
     MODIFY_PROFILE_DATA(new ModifyProfile()),
     LOGIN_USER(new Login()),
-    LOGOUT_USER(new Logout());
+    LOGOUT_USER(new Logout()),
+    SHOW_LOGIN_PAGE(new LoginPageCommand());
 
     private ActionCommand command;
 

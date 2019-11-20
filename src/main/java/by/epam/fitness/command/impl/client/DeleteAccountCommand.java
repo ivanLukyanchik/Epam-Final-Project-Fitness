@@ -31,7 +31,7 @@ public class DeleteAccountCommand implements ActionCommand {
                     userService.save(user);
                     log.info("client with id = "+ clientId + " successfully deleted his profile");
                     request.setAttribute(SUCCESS, true);
-                page = "/logoutUser";
+                page = Page.LOGOUT_COMMAND;
             }
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);

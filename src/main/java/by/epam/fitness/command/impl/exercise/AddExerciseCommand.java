@@ -46,11 +46,11 @@ public class AddExerciseCommand implements ActionCommand {
                 exerciseProgramService.save(exerciseProgram);
             } else {
                 request.setAttribute(JspConst.EXERCISE_ALREADY_EXISTS, true);
-                return "/controller?command=show_client_exercises";
+                return Page.CLIENT_EXERCISES_COMMAND;
             }
             request.setAttribute(JspConst.EXERCISE_ADDED, true);
             log.info("exercise with id = " + exerciseProgram.getExercise().getId() + " has been added");
-            page = "/controller?command=show_client_exercises";
+            page = Page.CLIENT_EXERCISES_COMMAND;
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
             page = Page.EXERCISES;

@@ -26,7 +26,7 @@ public class RejectExerciseCommand implements ActionCommand {
             exerciseProgramService.deleteExercise(exerciseId);
             log.info("exercise with id = " + exerciseId + " has been rejected");
             request.setAttribute(JspConst.EXERCISE_REJECTED, true);
-            page = "/controller?command=show_client_exercises";
+            page = Page.CLIENT_EXERCISES_COMMAND;
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
             page = Page.EXERCISES;

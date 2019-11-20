@@ -18,7 +18,7 @@ import static by.epam.fitness.util.page.Page.LOGIN_PAGE;
 import static by.epam.fitness.util.page.Page.REGISTER_PAGE;
 
 public class ActivationCommand implements ActionCommand {
-    private static Logger log = LogManager.getLogger(ActionCommand.class);
+    private static Logger log = LogManager.getLogger(ActivationCommand.class);
     private static DataValidator dataValidator = new DataValidator();
     private UserService userService = new UserServiceImpl();
 

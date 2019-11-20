@@ -11,7 +11,7 @@ public class SendingEmail {
 
     public static void restorePassword(String login, String userEmail, String userHash) {
         String message = "Link to restore your password: " + "http://localhost:8080/trainingWeb_war_exploded" +
-                "/passwordRestore?key1=" + userEmail + "&key2=" + login + "&key3=" + userHash;
+                "/controller?command=password_restore?key1=" + userEmail + "&key2=" + login + "&key3=" + userHash;
         new GoogleMailThread("007checkmailphp", "375299300520", "Password Restore Link",
                 userEmail, message).start();
     }

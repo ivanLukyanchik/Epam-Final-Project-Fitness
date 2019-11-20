@@ -36,7 +36,6 @@ public class CommandAccess {
         List<ActionCommand> commandTypes = new ArrayList<>();
         commandTypes.add(CommandEnum.CLIENT_PROFILE.getCommand());
         commandTypes.add(CommandEnum.NO_ACCESS.getCommand());
-        commandTypes.add(CommandEnum.MODIFY_PROFILE.getCommand());
         commandTypes.add(CommandEnum.UPDATE_GYM_MEMBERSHIP.getCommand());
         commandTypes.add(CommandEnum.SHOW_ORDER_PAGE.getCommand());
         commandTypes.add(CommandEnum.CLIENT_ORDERS.getCommand());
@@ -53,10 +52,8 @@ public class CommandAccess {
     private List<ActionCommand> getCommonCommands() {
         List<ActionCommand> commandTypes = new ArrayList<>();
         commandTypes.add(CommandEnum.LOCALE.getCommand());
-        commandTypes.add(CommandEnum.LOGIN.getCommand());
         commandTypes.add(CommandEnum.REGISTER.getCommand());
         commandTypes.add(CommandEnum.ACTIVATE.getCommand());
-        commandTypes.add(CommandEnum.LOGOUT.getCommand());
         commandTypes.add(CommandEnum.HOME_PAGE.getCommand());
         commandTypes.add(CommandEnum.GYM_PHOTOS.getCommand());
         commandTypes.add(CommandEnum.REJECT_EXERCISE.getCommand());
@@ -68,6 +65,7 @@ public class CommandAccess {
         commandTypes.add(CommandEnum.ADD_EXERCISE.getCommand());
         commandTypes.add(CommandEnum.LOGIN_USER.getCommand());
         commandTypes.add(CommandEnum.LOGOUT_USER.getCommand());
+        commandTypes.add(CommandEnum.SHOW_LOGIN_PAGE.getCommand());
         return commandTypes;
     }
 
@@ -83,7 +81,6 @@ public class CommandAccess {
     private List<ActionCommand> getCommandsForNotAuthorized() {
         List<ActionCommand> commandTypes = new ArrayList<>();
         commandTypes.add(CommandEnum.LOCALE.getCommand());
-        commandTypes.add(CommandEnum.LOGIN.getCommand());
         commandTypes.add(CommandEnum.REGISTER.getCommand());
         commandTypes.add(CommandEnum.ACTIVATE.getCommand());
         commandTypes.add(CommandEnum.PASSWORD_RESTORE.getCommand());
@@ -91,6 +88,9 @@ public class CommandAccess {
         commandTypes.add(CommandEnum.NO_ACCESS.getCommand());
         commandTypes.add(CommandEnum.HOME_PAGE.getCommand());
         commandTypes.add(CommandEnum.GYM_PHOTOS.getCommand());
+        commandTypes.add(CommandEnum.LOGIN_USER.getCommand());
+        commandTypes.add(CommandEnum.LOGOUT_USER.getCommand());
+        commandTypes.add(CommandEnum.SHOW_LOGIN_PAGE.getCommand());
         return commandTypes;
     }
 }

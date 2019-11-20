@@ -33,7 +33,7 @@
     <jsp:param name="currentPage" value="login"/>
 </jsp:include>
 
-<form method="POST" action="loginUser">
+<form method="POST" action="${pageContext.request.contextPath}/controller?command=login_user">
 <%--    <input type="hidden" name="command" value="login"/>--%>
     <div class="group">
     <label for="login">${login}</label>

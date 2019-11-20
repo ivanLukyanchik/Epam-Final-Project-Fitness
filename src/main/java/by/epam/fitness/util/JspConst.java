@@ -80,6 +80,9 @@ public class JspConst {
     public static final String CURRENT_PAGE = "currentPage";
     public static final String WELCOME_PAGE = "welcome";
     public static final String LOGIN_PAGE = "login";
+    public static final String INVALID_COMMENT = "invalidComment";
+    public static final String PARAM_PHOTO = "photo";
+    public static final String LOGOUT_PAGE = "logout";
     public static final String REGISTER_PAGE = "register";
     public static final String PASSWORD_RESTORE_PAGE = "passwordRestore";
     public static final String VERIFICATION_PAGE = "verification";

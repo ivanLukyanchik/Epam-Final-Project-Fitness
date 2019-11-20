@@ -3,6 +3,7 @@ package by.epam.fitness.controller;
 import by.epam.fitness.command.ActionCommand;
 import by.epam.fitness.command.factory.ActionFactory;
 import by.epam.fitness.pool.ConnectionPool;
+import by.epam.fitness.util.JspConst;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,6 +26,11 @@ public class Controller extends HttpServlet {
         String page = null;
         ActionCommand command = ActionFactory.defineCommand(request);
         page = command.execute(request);
+        if (page.equals(JspConst.LOGIN_PAGE)) {
+            page = command.executeLogin(request, response);
+        } else if (page.equals(JspConst.LOGOUT_PAGE)) {
+            page = command.executeLogout(request, response);
+        }
         if (page != null) {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");

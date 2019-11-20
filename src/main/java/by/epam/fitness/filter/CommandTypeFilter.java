@@ -56,23 +56,26 @@ public class CommandTypeFilter implements Filter {
     private Optional<String> getUserRoleByRequest(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         Optional<String> roleOptional = Optional.empty();
-        if (session != null) {
-            String role = (String)session.getAttribute(SessionAttributes.ROLE);
-            roleOptional = Optional.ofNullable(role);
-            if (role == null) {
-                try {
+        try {
+            if (session != null) {
+                String role = (String)session.getAttribute(SessionAttributes.ROLE);
+                roleOptional = Optional.ofNullable(role);
+                if (role == null) {
                     if (getClientByCookie(request).isPresent()) {
                         User user = getClientByCookie(request).get();
-                        request.getSession().setAttribute(SessionAttributes.CLIENT, user);
-                        request.getSession().setAttribute(SessionAttributes.USER, user.getLogin());
-                        request.getSession().setAttribute(SessionAttributes.ROLE, UserRole.CLIENT);
-                        request.getSession().setAttribute(SessionAttributes.ID, user.getId());
+                        setClientToSession(request, user);
                         roleOptional = Optional.of(UserRole.CLIENT);
                     }
-                } catch (ServiceException e) {
-                    log.error("Service exception occurred here", e);
+                }
+            } else { // FIXME: 20.11.2019 ask
+                if (getClientByCookie(request).isPresent()) {
+                    User user = getClientByCookie(request).get();
+                    setClientToSession(request, user);
+                    roleOptional = Optional.of(UserRole.CLIENT);
                 }
             }
+        } catch (ServiceException e) {
+            log.error("Service exception occurred here", e);
         }
         return roleOptional;
     }
@@ -94,6 +97,13 @@ public class CommandTypeFilter implements Filter {
             user = userService.getUserByCookieData(login, hash);
         }
         return user;
+    }
+
+    private void setClientToSession(HttpServletRequest request, User user) {
+        request.getSession().setAttribute(SessionAttributes.CLIENT, user);
+        request.getSession().setAttribute(SessionAttributes.USER, user.getLogin());
+        request.getSession().setAttribute(SessionAttributes.ROLE, UserRole.CLIENT);
+        request.getSession().setAttribute(SessionAttributes.ID, user.getId());
     }
 
     @Override

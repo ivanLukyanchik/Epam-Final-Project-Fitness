@@ -10,6 +10,12 @@ public class Page {
     public static final String PASSWORD_RESTORE_PAGE = "/passwordRestore";
     public static final String HOME_PAGE = "/welcome";
     public static final String CLIENT_PROFILE_PAGE = "/jsp/client/clientProfile.jsp";
+    public static final String CLIENT_PROFILE_COMMAND = "/controller?command=client_profile";
+    public static final String CLIENT_NUTRITION_COMMAND = "/controller?command=show_client_nutrition";
+    public static final String CLIENT_EXERCISES_COMMAND = "/controller?command=show_client_exercises";
+    public static final String SHOW_COACHES_COMMAND = "/controller?command=find_coaches";
+    public static final String COACH_COMMENTS_COMMAND = "/controller?command=coach_comments";
+    public static final String LOGOUT_COMMAND = "/controller?command=logout_user";
     public static final String NO_ACCESS_PAGE = "/jsp/noAccess.jsp";
     public static final String ERROR_PAGE = "/WEB-INF/error/errorPage.jsp";
     public static final String GYM_PHOTOS_PAGE = "/jsp/photos.jsp";

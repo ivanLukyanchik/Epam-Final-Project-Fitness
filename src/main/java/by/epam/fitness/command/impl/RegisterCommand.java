@@ -68,16 +68,14 @@ public class RegisterCommand implements ActionCommand {
             request.setAttribute(INVALID_PASSWORD, true);
             return Page.REGISTER_PAGE;
         }
-
         Random random = new SecureRandom();
         String userHash = DigestUtils.sha512Hex("" + random.nextInt(999999));
         User user = null;
-
         try {
             user = buildUser(request, userHash);
             if (userService.registerUser(user)) {
                 SendingEmail.verify(login, email, userHash);
-                log.info("client with login = " + login + " was registered. Activation Link sent.");
+                log.info("client with login = " + login + " was registered. Activation Link was sent.");
                 page = Page.VERIFY_PAGE;
             } else {
                 request.setAttribute(WRONG_DATA, true);

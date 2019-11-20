@@ -36,7 +36,7 @@
 <nav>
     <ul class="top-menu">
         <li id="home"><a href="${pageContext.servletContext.contextPath}/controller?command=home_page" >${home}</a></li>
-        <li id="signOut"><a href="${pageContext.servletContext.contextPath}/logoutUser">${logout}</a></li>
+        <li id="signOut"><a href="${pageContext.servletContext.contextPath}/controller?command=logout_user">${logout}</a></li>
         <li id="language">
             <form action="controller">
                 <input type="hidden" name="command" value="locale"/>
