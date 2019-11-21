@@ -271,7 +271,9 @@
       <workItem from="1574107080485" duration="9152000" />
       <workItem from="1574151959310" duration="36095000" />
       <workItem from="1574234576409" duration="31569000" />
-      <workItem from="1574277886215" duration="6973000" />
+      <workItem from="1574277886215" duration="7443000" />
+      <workItem from="1574323970092" duration="3368000" />
+      <workItem from="1574347868662" duration="12040000" />
     </task>
     <servers />
   </component>
@@ -282,9 +284,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/filter/CommandTypeFilter.java</url>
-          <line>33</line>
-          <option name="timeStamp" value="28" />
+          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/exercise/AddExerciseCommand.java</url>
+          <line>27</line>
+          <option name="timeStamp" value="31" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

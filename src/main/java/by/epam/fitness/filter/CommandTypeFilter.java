@@ -85,12 +85,14 @@ public class CommandTypeFilter implements Filter {
         String hash = null;
         Optional<User> user = Optional.empty();
         Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("clientLogin")) {
-                login = cookie.getValue();
-            }
-            if (cookie.getName().equals("token")) {
-                hash = cookie.getValue();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("clientLogin")) {
+                    login = cookie.getValue();
+                }
+                if (cookie.getName().equals("token")) {
+                    hash = cookie.getValue();
+                }
             }
         }
         if (login != null && hash != null) {

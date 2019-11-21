@@ -33,24 +33,24 @@ public class ShowClientNutritionCommand implements ActionCommand {
         HttpSession session = request.getSession();
         String role = String.valueOf(session.getAttribute(SessionAttributes.ROLE));
         request.setAttribute(MAX_NUMBER_SYMBOLS_ATTRIBUTE,MAX_NUMBER_SYMBOLS_VALUE);
-        Long userId = null;
+        Long clientId = null;
         try {
             if (role.equals(UserRole.COACH)) {
-                userId = getClientIdForAppropriateCoach(session,request);
+                clientId = getClientIdForAppropriateCoach(session,request);
             } else {
-                userId = (Long) session.getAttribute(SessionAttributes.ID);
-                if (!membershipValidChecker.isCurrentMembershipValid(userId)) {
+                clientId = (Long) session.getAttribute(SessionAttributes.ID);
+                if (!membershipValidChecker.isCurrentMembershipValid(clientId)) {
                     request.setAttribute(MEMBERSHIP_VALID, false);
                     return Page.NUTRITION;
                 } else {
-                    if (coachService.findByClientId(userId).isEmpty()) {
+                    if (coachService.findByClientId(clientId).isEmpty()) {
                         request.setAttribute(JspConst.NO_COACH, true);
                         return Page.NUTRITION;
                     }
                     request.setAttribute(MEMBERSHIP_VALID, true);
                 }
             }
-            Optional<Nutrition> nutritionOptional = nutritionService.findByClientId(userId);
+            Optional<Nutrition> nutritionOptional = nutritionService.findByClientId(clientId);
             if (nutritionOptional.isPresent()) {
                 if (!nutritionOptional.get().isActive()) {
                     request.setAttribute(NO_NUTRITION, true);

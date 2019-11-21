@@ -42,7 +42,8 @@ public class AddExerciseCommand implements ActionCommand {
         Integer setNumber = Integer.valueOf(setNumberString);
         try {
             ExerciseProgram exerciseProgram = makeExercise(request, repeats, setNumber);
-            if (!isExerciseExist(exerciseProgram.getExercise().getId())) {
+            long programId = Long.parseLong(request.getParameter(JspConst.PROGRAM_ID));
+            if (!isExerciseExist(exerciseProgram.getExercise().getId(), programId)) {
                 exerciseProgramService.save(exerciseProgram);
             } else {
                 request.setAttribute(JspConst.EXERCISE_ALREADY_EXISTS, true);
@@ -67,7 +68,7 @@ public class AddExerciseCommand implements ActionCommand {
         return new ExerciseProgram(null, exercise, repeats, setNumber, programId, trainDay);
     }
 
-    private boolean isExerciseExist(Long exerciseId) throws ServiceException {
-        return exerciseProgramService.findByExerciseId(exerciseId);
+    private boolean isExerciseExist(Long exerciseId, long programId) throws ServiceException {
+        return exerciseProgramService.findByExerciseId(exerciseId, programId);
     }
 }

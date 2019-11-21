@@ -30,6 +30,7 @@
 <fmt:message bundle="${locale}" key="comments_me_topic" var="comments_me_topic"/>
 <fmt:message bundle="${locale}" key="photos" var="photos"/>
 <fmt:message bundle="${locale}" key="my_clients" var="my_clients"/>
+<fmt:message bundle="${locale}" key="my_clients_orders" var="my_clients_orders"/>
 <fmt:message bundle="${locale}" key="my_client's_nutrition" var="my_clients_nutrition"/>
 <fmt:message bundle="${locale}" key="my_client's_exercises" var="my_clients_exercises"/>
 
@@ -69,7 +70,12 @@
     </c:when>
 
     <c:when test="${param.pageTopic eq 'orders'}">
-        <h1>${my_orders}</h1>
+        <c:if test="${not empty sessionScope.client}">
+            <h1>${my_orders}</h1>
+        </c:if>
+        <c:if test="${not empty sessionScope.coach}">
+            <h1>${my_clients_orders}</h1>
+        </c:if>
     </c:when>
 
     <c:when test="${param.pageTopic eq 'allCoaches'}">

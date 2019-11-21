@@ -9,6 +9,6 @@ public interface ExerciseProgramService {
     Long save(ExerciseProgram exerciseProgram) throws ServiceException;
     List<ExerciseProgram> findExercisesByProgramId(Long programId) throws ServiceException;
     Optional<ExerciseProgram> findById(long id) throws ServiceException;
-    boolean findByExerciseId(long exerciseId) throws ServiceException;
+    boolean findByExerciseId(long exerciseId, long programId) throws ServiceException;
     int deleteExercise(long exerciseId) throws ServiceException;
 }

@@ -38,7 +38,6 @@ public class CommandAccess {
         commandTypes.add(CommandEnum.NO_ACCESS.getCommand());
         commandTypes.add(CommandEnum.UPDATE_GYM_MEMBERSHIP.getCommand());
         commandTypes.add(CommandEnum.SHOW_ORDER_PAGE.getCommand());
-        commandTypes.add(CommandEnum.CLIENT_ORDERS.getCommand());
         commandTypes.add(CommandEnum.FIND_COACHES.getCommand());
         commandTypes.add(CommandEnum.CHOOSE_COACH.getCommand());
         commandTypes.add(CommandEnum.ADD_COMMENT.getCommand());
@@ -46,6 +45,7 @@ public class CommandAccess {
         commandTypes.add(CommandEnum.DELETE_ACCOUNT.getCommand());
         commandTypes.add(CommandEnum.MODIFY_PROFILE_DATA.getCommand());
         commandTypes.add(CommandEnum.PASSWORD_RESTORE.getCommand());
+        commandTypes.add(CommandEnum.ACTIVATE.getCommand());
         return commandTypes;
     }
 
@@ -53,7 +53,7 @@ public class CommandAccess {
         List<ActionCommand> commandTypes = new ArrayList<>();
         commandTypes.add(CommandEnum.LOCALE.getCommand());
         commandTypes.add(CommandEnum.REGISTER.getCommand());
-        commandTypes.add(CommandEnum.ACTIVATE.getCommand());
+        commandTypes.add(CommandEnum.CLIENT_ORDERS.getCommand());
         commandTypes.add(CommandEnum.HOME_PAGE.getCommand());
         commandTypes.add(CommandEnum.GYM_PHOTOS.getCommand());
         commandTypes.add(CommandEnum.REJECT_EXERCISE.getCommand());

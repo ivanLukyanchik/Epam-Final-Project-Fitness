@@ -17,7 +17,7 @@ public class ExerciseProgramDaoImpl implements ExerciseProgramDao {
     private static final String SQL_UPDATE_TABLE = "UPDATE exercise_program SET program_id=?, exercise_id=?, repeat_number=?, set_number=?, number_train_day=? WHERE id_exercise_program=?";
     private static final String SQL_FIND_BY_PROGRAM_ID = "SELECT * FROM exercise LEFT JOIN exercise_program ON exercise.id_exercise = exercise_program.exercise_id WHERE exercise_program.program_id=?";
     private static final String SQL_FIND_BY_ID = "SELECT * FROM exercise RIGHT JOIN exercise_program ON exercise.id_exercise = exercise_program.exercise_id WHERE exercise_program.id_exercise_program=?";
-    private static final String SQL_FIND_BY_EXERCISE_ID = "SELECT * FROM exercise_program WHERE exercise_id=?";
+    private static final String SQL_FIND_BY_EXERCISE_ID = "SELECT * FROM exercise_program WHERE exercise_id=? AND program_id=?";
     private static final String SQL_DELETE = "DELETE FROM exercise_program WHERE exercise_id=?";
     private ExerciseProgramBuilder builder = new ExerciseProgramBuilder();
 
@@ -105,7 +105,7 @@ public class ExerciseProgramDaoImpl implements ExerciseProgramDao {
     }
 
     @Override
-    public boolean findByExerciseId(long exerciseId) throws DaoException {
+    public boolean findByExerciseId(long exerciseId, long programId) throws DaoException {
         boolean result = false;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -113,6 +113,7 @@ public class ExerciseProgramDaoImpl implements ExerciseProgramDao {
             connection = ConnectionPool.INSTANCE.getConnection();
             preparedStatement = connection.prepareStatement(SQL_FIND_BY_EXERCISE_ID);
             preparedStatement.setLong(1, exerciseId);
+            preparedStatement.setLong(2, programId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 result = true;

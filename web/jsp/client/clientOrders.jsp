@@ -29,14 +29,20 @@
         <c:otherwise>
             <table>
                 <tr>
-                    <th>${cost}</th>
+                    <c:if test="${not empty sessionScope.client}">
+                        <th>${cost}</th>
+                    </c:if>
                     <th>${payment_data}</th>
                     <th>${end_date}</th>
-                    <th>${credit_card}</th>
+                    <c:if test="${not empty sessionScope.client}">
+                        <th>${credit_card}</th>
+                    </c:if>
                 </tr>
                 <c:forEach items="${orders}" var="order">
                     <tr>
-                        <td>${order.cost}</td>
+                        <c:if test="${not empty sessionScope.client}">
+                            <td>${order.cost}</td>
+                        </c:if>
                         <td >
                             <c:choose>
                                 <c:when test="${sessionScope.local eq 'en_US'}">
@@ -65,7 +71,9 @@
                                 </c:otherwise>
                             </c:choose>
                         </td>
-                        <td>${fn:substring(order.cardNumber, 0, 4)}  ${fn:substring(order.cardNumber, 4, 6)}**  ****  ${fn:substring(order.cardNumber, 12, 16)}</td>
+                        <c:if test="${not empty sessionScope.client}">
+                            <td>${fn:substring(order.cardNumber, 0, 4)}  ${fn:substring(order.cardNumber, 4, 6)}**  ****  ${fn:substring(order.cardNumber, 12, 16)}</td>
+                        </c:if>
                     </tr>
                 </c:forEach>
             </table>
