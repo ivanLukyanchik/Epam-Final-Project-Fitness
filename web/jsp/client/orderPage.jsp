@@ -1,4 +1,4 @@
-<jsp:useBean id="client" scope="session" type="by.epam.fitness.entity.User"/>
+<jsp:useBean id="client" scope="session" type="by.epam.fitness.entity.Client"/>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 

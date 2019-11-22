@@ -1,4 +1,4 @@
-<jsp:useBean id="client" type="by.epam.fitness.entity.User" scope="request"/>
+<jsp:useBean id="client" type="by.epam.fitness.entity.Client" scope="request"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -48,6 +48,7 @@
 </jsp:include>
 
 <form method="post" action="modifyProfile" enctype="multipart/form-data">
+    <input type="hidden" name="client_id" value="${client.id}">
     <div class="col-1">
         <label for="name">${name}</label>
     </div>

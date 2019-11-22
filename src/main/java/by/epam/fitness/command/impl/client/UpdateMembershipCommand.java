@@ -2,12 +2,12 @@ package by.epam.fitness.command.impl.client;
 
 import by.epam.fitness.command.ActionCommand;
 import by.epam.fitness.entity.OrderInformation;
-import by.epam.fitness.entity.User;
+import by.epam.fitness.entity.Client;
 import by.epam.fitness.service.OrderInformationService;
 import by.epam.fitness.service.ServiceException;
-import by.epam.fitness.service.UserService;
+import by.epam.fitness.service.ClientService;
 import by.epam.fitness.service.impl.OrderInformationServiceImpl;
-import by.epam.fitness.service.impl.UserServiceImpl;
+import by.epam.fitness.service.impl.ClientServiceImpl;
 import by.epam.fitness.util.DateProducer;
 import by.epam.fitness.util.SessionAttributes;
 import by.epam.fitness.util.UtilException;
@@ -30,7 +30,7 @@ import static by.epam.fitness.util.JspConst.*;
 public class UpdateMembershipCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(UpdateMembershipCommand.class);
     private static DataValidator dataValidator = new DataValidator();
-    private UserService userService = new UserServiceImpl();
+    private ClientService clientService = new ClientServiceImpl();
     private OrderInformationService orderInformationService = new OrderInformationServiceImpl();
     private static final String PROFILE_PAGE = "/controller?command=client_profile";
     private static final String PERIOD_PATTERN="\\D+";
@@ -91,14 +91,14 @@ public class UpdateMembershipCommand implements ActionCommand {
     }
 
     private void increaseClientVisitNumber(HttpServletRequest request, long clientId) throws ServiceException {
-        Optional<User> clientOptional = userService.findById(clientId);
+        Optional<Client> clientOptional = clientService.findById(clientId);
         if (clientOptional.isPresent()) {
-            User user = clientOptional.get();
-            int currentVisitNumber = user.getMembershipNumber() + 1;
-            user.setMembershipNumber(currentVisitNumber);
+            Client client = clientOptional.get();
+            int currentVisitNumber = client.getMembershipNumber() + 1;
+            client.setMembershipNumber(currentVisitNumber);
             Float newPersonalDiscount = SALE_SYSTEM.getSaleByVisitNumber(currentVisitNumber);
-            user.setPersonalDiscount(newPersonalDiscount);
-            userService.save(user);
+            client.setPersonalDiscount(newPersonalDiscount);
+            clientService.save(client);
         }
     }
 

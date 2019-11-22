@@ -48,4 +48,13 @@ public class CoachServiceImpl implements CoachService {
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public Long save(Coach coach) throws ServiceException {
+        try {
+            return coachDao.save(coach);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 }

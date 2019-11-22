@@ -1,20 +1,22 @@
 package by.epam.fitness.command.impl.client;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.entity.Client;
 import by.epam.fitness.entity.Coach;
 import by.epam.fitness.entity.OrderInformation;
-import by.epam.fitness.entity.User;
+import by.epam.fitness.entity.UserRole;
+import by.epam.fitness.service.ClientService;
 import by.epam.fitness.service.CoachService;
 import by.epam.fitness.service.OrderInformationService;
 import by.epam.fitness.service.ServiceException;
-import by.epam.fitness.service.UserService;
+import by.epam.fitness.service.impl.ClientServiceImpl;
 import by.epam.fitness.service.impl.CoachServiceImpl;
 import by.epam.fitness.service.impl.OrderInformationServiceImpl;
-import by.epam.fitness.service.impl.UserServiceImpl;
 import by.epam.fitness.util.JspConst;
 import by.epam.fitness.util.MembershipValidChecker;
 import by.epam.fitness.util.SessionAttributes;
 import by.epam.fitness.util.page.Page;
+import by.epam.fitness.util.validation.DataValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,30 +25,45 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
+import static by.epam.fitness.util.JspConst.ADMIN_CLIENT_ID;
+
 public class ClientProfileCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(ClientProfileCommand.class);
     private OrderInformationService orderInformationService = new OrderInformationServiceImpl();
-    private UserService userService = new UserServiceImpl();
+    private ClientService clientService = new ClientServiceImpl();
     private CoachService coachService = new CoachServiceImpl();
     private MembershipValidChecker membershipValidChecker = new MembershipValidChecker();
+    private static DataValidator dataValidator = new DataValidator();
 
     @Override
     public String execute(HttpServletRequest request) {
         String page = null;
         HttpSession session = request.getSession();
-        Long clientId = (Long) session.getAttribute(SessionAttributes.ID);
+        String role = String.valueOf(session.getAttribute(SessionAttributes.ROLE));
+        Long clientId = null;
+        if (role.equals(UserRole.CLIENT)) {
+            clientId = (Long) session.getAttribute(SessionAttributes.ID);
+        } else {
+            String clientIdString = request.getParameter(ADMIN_CLIENT_ID);
+            if (clientIdString == null || !dataValidator.isIdentifiableIdValid(clientIdString)) {
+                log.info("invalid client id format was received:" + clientIdString);
+                request.setAttribute(JspConst.INVALID_EXERCISE_ID_FORMAT, true);
+                return Page.ADMIN_CLIENTS;
+            }
+            clientId = Long.valueOf(clientIdString);
+        }
         try {
             List<OrderInformation> ordersList = orderInformationService.findOrdersByClientId(clientId);
             session.setAttribute(JspConst.ORDERS, ordersList);
-            Optional<User> userOptional = userService.findById(clientId);
+            Optional<Client> userOptional = clientService.findById(clientId);
             if (userOptional.isPresent()) {
-                User user = userOptional.get();
-                request.setAttribute(JspConst.CLIENT, user);
+                Client client = userOptional.get();
+                request.setAttribute(JspConst.CLIENT, client);
                 Optional<OrderInformation> orderInformation = orderInformationService.findByClientId(clientId);
                 if (orderInformation.isPresent()) {
-                    session.setAttribute(JspConst.MEMBERSHIP_VALID, membershipValidChecker.isCurrentMembershipValid(user.getId()));
+                    session.setAttribute(JspConst.MEMBERSHIP_VALID, membershipValidChecker.isCurrentMembershipValid(client.getId()));
                 }
-                Long coachId = user.getCoachId();
+                Long coachId = client.getCoachId();
                 Optional<Coach> coach = coachService.findById(coachId);
                 coach.ifPresent(aCoach -> {
                     request.setAttribute(JspConst.COACH_NAME, aCoach.getName());

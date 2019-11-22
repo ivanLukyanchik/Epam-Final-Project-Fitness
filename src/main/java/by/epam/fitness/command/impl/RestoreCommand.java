@@ -3,8 +3,8 @@ package by.epam.fitness.command.impl;
 import by.epam.fitness.command.ActionCommand;
 import by.epam.fitness.mail.SendingEmail;
 import by.epam.fitness.service.ServiceException;
-import by.epam.fitness.service.UserService;
-import by.epam.fitness.service.impl.UserServiceImpl;
+import by.epam.fitness.service.ClientService;
+import by.epam.fitness.service.impl.ClientServiceImpl;
 import by.epam.fitness.util.JspConst;
 import by.epam.fitness.util.page.Page;
 import by.epam.fitness.util.validation.DataValidator;
@@ -19,7 +19,7 @@ import java.util.Random;
 public class RestoreCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(RestoreCommand.class);
     private static DataValidator dataValidator = new DataValidator();
-    private UserService userService = new UserServiceImpl();
+    private ClientService clientService = new ClientServiceImpl();
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -39,7 +39,7 @@ public class RestoreCommand implements ActionCommand {
         Random random = new SecureRandom();
         String userHash = DigestUtils.sha512Hex("" + random.nextInt(999999));
         try {
-            if (userService.restoreUser(login, email, userHash)) {
+            if (clientService.restoreUser(login, email, userHash)) {
                 SendingEmail.restorePassword(login, email, userHash);
                 log.info("client with login = " + login + " restored his password");
                 page = Page.FINAL_RESTORE_PAGE;

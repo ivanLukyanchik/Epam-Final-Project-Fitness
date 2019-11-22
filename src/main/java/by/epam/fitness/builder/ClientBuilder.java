@@ -1,6 +1,6 @@
 package by.epam.fitness.builder;
 
-import by.epam.fitness.entity.User;
+import by.epam.fitness.entity.Client;
 import by.epam.fitness.service.ServiceException;
 import by.epam.fitness.util.database.ClientTableConst;
 
@@ -12,10 +12,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Base64;
 
-public class ClientBuilder implements Builder<User> {
+public class ClientBuilder implements Builder<Client> {
 
     @Override
-    public User build(ResultSet resultSet) throws ServiceException {
+    public Client build(ResultSet resultSet) throws ServiceException {
         try {
             Long id = resultSet.getLong(ClientTableConst.ID.getFieldName());
             Long coach_id = resultSet.getLong(ClientTableConst.COACH_ID.getFieldName());
@@ -36,7 +36,7 @@ public class ClientBuilder implements Builder<User> {
                 base64Image = getBase64Image(blob);
                 inputStream = blob.getBinaryStream();
             }
-            return new User(id, coach_id, name, surname, login, password, email, userHash, active,
+            return new Client(id, coach_id, name, surname, login, password, email, userHash, active,
                     membershipPurchasedNumber, personalDiscount, programId, base64Image, inputStream);
         } catch (SQLException  e) {
             throw new ServiceException(e.getMessage(), e);

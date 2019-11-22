@@ -17,6 +17,7 @@ public class CoachDaoImpl implements CoachDao {
     private static final String SQL_FIND_BY_CLIENT_ID = "SELECT * FROM coach JOIN client ON coach.id_coach = client.coach_id WHERE id_client=?";
     private static final String SQL_FIND_BY_COACH_ID = "SELECT * FROM coach WHERE id_coach=?";
     private static final String SQL_FIND_ALL = "SELECT * FROM coach";
+    private static final String SQL_CREATE_COACH = "INSERT INTO coach (name, surname, patronymic, login, password) VALUES (?,?,?,?,?)";
     private CoachBuilder builder = new CoachBuilder();
 
     @Override
@@ -65,8 +66,36 @@ public class CoachDaoImpl implements CoachDao {
     }
 
     @Override
-    public Long save(Coach coach) {
-        return null;
+    public Long save(Coach coach) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        String name = coach.getName();
+        String surname = coach.getSurname();
+        String patronymic = coach.getPatronymic();
+        String login = coach.getLogin();
+        String password = coach.getPassword();
+        Long generatedId = null;
+        try {
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_CREATE_COACH, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, surname);
+            preparedStatement.setString(3, patronymic);
+            preparedStatement.setString(4, login);
+            preparedStatement.setString(5, password);
+            preparedStatement.executeUpdate();
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                generatedId = resultSet.getLong(1);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
+        }
+        return generatedId;
+
     }
 
     @Override

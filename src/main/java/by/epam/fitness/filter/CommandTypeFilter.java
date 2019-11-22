@@ -3,11 +3,11 @@ package by.epam.fitness.filter;
 import by.epam.fitness.command.ActionCommand;
 import by.epam.fitness.command.CommandEnum;
 import by.epam.fitness.command.access.CommandAccess;
-import by.epam.fitness.entity.User;
+import by.epam.fitness.entity.Client;
 import by.epam.fitness.entity.UserRole;
 import by.epam.fitness.service.ServiceException;
-import by.epam.fitness.service.UserService;
-import by.epam.fitness.service.impl.UserServiceImpl;
+import by.epam.fitness.service.ClientService;
+import by.epam.fitness.service.impl.ClientServiceImpl;
 import by.epam.fitness.util.SessionAttributes;
 import by.epam.fitness.util.page.Page;
 import org.apache.logging.log4j.LogManager;
@@ -24,7 +24,8 @@ import java.util.Optional;
 public class CommandTypeFilter implements Filter {
     private static Logger log = LogManager.getLogger(CommandTypeFilter.class);
     private static final String COMMAND = "command";
-    private UserService userService = new UserServiceImpl();
+    private CommandAccess commandAccess = new CommandAccess();
+    private ClientService clientService = new ClientServiceImpl();
 
     @Override
     public void init(FilterConfig filterConfig) {}
@@ -33,7 +34,6 @@ public class CommandTypeFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest)servletRequest;
         Optional<String> userRole = getUserRoleByRequest(httpServletRequest);
-        CommandAccess commandAccess = new CommandAccess();
         List<ActionCommand> commandTypes = commandAccess.getAvailableCommandTypesByUser(userRole);
         String action = servletRequest.getParameter(COMMAND);
         ActionCommand currentCommand;
@@ -62,15 +62,15 @@ public class CommandTypeFilter implements Filter {
                 roleOptional = Optional.ofNullable(role);
                 if (role == null) {
                     if (getClientByCookie(request).isPresent()) {
-                        User user = getClientByCookie(request).get();
-                        setClientToSession(request, user);
+                        Client client = getClientByCookie(request).get();
+                        setClientToSession(request, client);
                         roleOptional = Optional.of(UserRole.CLIENT);
                     }
                 }
             } else { // FIXME: 20.11.2019 ask
                 if (getClientByCookie(request).isPresent()) {
-                    User user = getClientByCookie(request).get();
-                    setClientToSession(request, user);
+                    Client client = getClientByCookie(request).get();
+                    setClientToSession(request, client);
                     roleOptional = Optional.of(UserRole.CLIENT);
                 }
             }
@@ -80,10 +80,10 @@ public class CommandTypeFilter implements Filter {
         return roleOptional;
     }
 
-    private Optional<User> getClientByCookie(HttpServletRequest request) throws ServiceException {
+    private Optional<Client> getClientByCookie(HttpServletRequest request) throws ServiceException {
         String login = null;
         String hash = null;
-        Optional<User> user = Optional.empty();
+        Optional<Client> user = Optional.empty();
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
@@ -96,16 +96,16 @@ public class CommandTypeFilter implements Filter {
             }
         }
         if (login != null && hash != null) {
-            user = userService.getUserByCookieData(login, hash);
+            user = clientService.getUserByCookieData(login, hash);
         }
         return user;
     }
 
-    private void setClientToSession(HttpServletRequest request, User user) {
-        request.getSession().setAttribute(SessionAttributes.CLIENT, user);
-        request.getSession().setAttribute(SessionAttributes.USER, user.getLogin());
+    private void setClientToSession(HttpServletRequest request, Client client) {
+        request.getSession().setAttribute(SessionAttributes.CLIENT, client);
+        request.getSession().setAttribute(SessionAttributes.USER, client.getLogin());
         request.getSession().setAttribute(SessionAttributes.ROLE, UserRole.CLIENT);
-        request.getSession().setAttribute(SessionAttributes.ID, user.getId());
+        request.getSession().setAttribute(SessionAttributes.ID, client.getId());
     }
 
     @Override

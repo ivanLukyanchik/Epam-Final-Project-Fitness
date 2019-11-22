@@ -1,10 +1,12 @@
 package by.epam.fitness.command.impl.servlet;
 
 import by.epam.fitness.command.ActionCommand;
-import by.epam.fitness.entity.User;
+import by.epam.fitness.entity.Client;
+import by.epam.fitness.entity.UserRole;
+import by.epam.fitness.service.ClientService;
 import by.epam.fitness.service.ServiceException;
-import by.epam.fitness.service.UserService;
-import by.epam.fitness.service.impl.UserServiceImpl;
+import by.epam.fitness.service.impl.ClientServiceImpl;
+import by.epam.fitness.util.JspConst;
 import by.epam.fitness.util.SessionAttributes;
 import by.epam.fitness.util.page.Page;
 import by.epam.fitness.util.validation.DataValidator;
@@ -30,7 +32,7 @@ import static by.epam.fitness.util.JspConst.*;
 public class ModifyProfile extends HttpServlet implements ActionCommand {
     private static Logger log = LogManager.getLogger(ModifyProfile.class);
     private static DataValidator dataValidator = new DataValidator();
-    private UserService userService = new UserServiceImpl();
+    private ClientService clientService = new ClientServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -74,16 +76,28 @@ public class ModifyProfile extends HttpServlet implements ActionCommand {
                 if (!filePart.getSubmittedFileName().equals("")) {
                     inputStream = filePart.getInputStream();
                 }
-                Long clientId = (Long) request.getSession().getAttribute(SessionAttributes.ID);
-                Optional<User> clientOptional = userService.findById(clientId);
+                String role = String.valueOf(request.getSession().getAttribute(SessionAttributes.ROLE));
+                Long clientId = null;
+                if (role.equals(UserRole.CLIENT)) {
+                    clientId = (Long) request.getSession().getAttribute(SessionAttributes.ID);
+                } else {
+                    String clientIdString = request.getParameter(CLIENT_ID);
+                    if (clientIdString == null || !dataValidator.isIdentifiableIdValid(clientIdString)) {
+                        log.info("invalid client id format was received:" + clientIdString);
+                        request.setAttribute(JspConst.INVALID_EXERCISE_ID_FORMAT, true);
+                        return Page.ADMIN_CLIENTS;
+                    }
+                    clientId = Long.valueOf(clientIdString);
+                }
+                Optional<Client> clientOptional = clientService.findById(clientId);
                 if (clientOptional.isPresent()) {
-                    User user = clientOptional.get();
-                    user.setName(name);
-                    user.setSurname(surname);
-                    user.setLogin(login);
-                    user.setEmail(email);
+                    Client client = clientOptional.get();
+                    client.setName(name);
+                    client.setSurname(surname);
+                    client.setLogin(login);
+                    client.setEmail(email);
                     if (inputStream != null) {
-                        user.setIs(inputStream);
+                        client.setIs(inputStream);
 //                        try {
 //                            ImageIO.read(inputStream).toString();
 //                            user.setIs(inputStream);
@@ -94,13 +108,13 @@ public class ModifyProfile extends HttpServlet implements ActionCommand {
 //                            log.info("incorrect image format was received from user with id = " + user.getId());
 //                        }
                     }
-                    if (login.equals(oldLogin) && (!userService.isLoginUnique(login))) { // FIXME: 19.11.2019 rubbish here
-                        userService.save(user);
+                    if (login.equals(oldLogin) && (!clientService.isLoginUnique(login))) { // FIXME: 19.11.2019 rubbish here
+                        clientService.save(client);
                         log.info("client with id = " + clientId + " successfully changed his profile data");
                         request.setAttribute(SUCCESS, true);
                         page = Page.CLIENT_PROFILE_COMMAND;
-                    } else if (userService.isLoginUnique(login)) {
-                        userService.save(user);
+                    } else if (clientService.isLoginUnique(login)) {
+                        clientService.save(client);
                         log.info("client with id = " + clientId + " successfully changed his profile data");
                         request.setAttribute(SUCCESS, true);
                         page = Page.CLIENT_PROFILE_COMMAND;

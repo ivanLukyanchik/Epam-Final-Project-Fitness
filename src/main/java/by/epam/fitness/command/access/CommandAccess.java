@@ -12,14 +12,19 @@ public class CommandAccess {
     public List<ActionCommand> getAvailableCommandTypesByUser(Optional<String> role) {
         List<ActionCommand> listAvailableCommands = new ArrayList<>();
         if(role.isPresent()) {
-            listAvailableCommands.addAll(getCommonCommands());
             switch (role.get()) {
                 case UserRole.CLIENT: {
                     listAvailableCommands.addAll(getClientCommands());
+                    listAvailableCommands.addAll(getCommonCoachUserCommands());
                     break;
                 }
                 case UserRole.COACH: {
                     listAvailableCommands.addAll(getCoachCommands());
+                    listAvailableCommands.addAll(getCommonCoachUserCommands());
+                    break;
+                }
+                case UserRole.ADMIN: {
+                    listAvailableCommands.addAll(getAdminCommands());
                     break;
                 }
                 default: {
@@ -34,8 +39,8 @@ public class CommandAccess {
 
     private List<ActionCommand> getClientCommands() {
         List<ActionCommand> commandTypes = new ArrayList<>();
+        commandTypes.add(CommandEnum.REGISTER.getCommand());
         commandTypes.add(CommandEnum.CLIENT_PROFILE.getCommand());
-        commandTypes.add(CommandEnum.NO_ACCESS.getCommand());
         commandTypes.add(CommandEnum.UPDATE_GYM_MEMBERSHIP.getCommand());
         commandTypes.add(CommandEnum.SHOW_ORDER_PAGE.getCommand());
         commandTypes.add(CommandEnum.FIND_COACHES.getCommand());
@@ -49,10 +54,10 @@ public class CommandAccess {
         return commandTypes;
     }
 
-    private List<ActionCommand> getCommonCommands() {
+    private List<ActionCommand> getCommonCoachUserCommands() {
         List<ActionCommand> commandTypes = new ArrayList<>();
         commandTypes.add(CommandEnum.LOCALE.getCommand());
-        commandTypes.add(CommandEnum.REGISTER.getCommand());
+        commandTypes.add(CommandEnum.NO_ACCESS.getCommand());
         commandTypes.add(CommandEnum.CLIENT_ORDERS.getCommand());
         commandTypes.add(CommandEnum.HOME_PAGE.getCommand());
         commandTypes.add(CommandEnum.GYM_PHOTOS.getCommand());
@@ -75,6 +80,23 @@ public class CommandAccess {
         commandTypes.add(CommandEnum.ADD_NUTRITION.getCommand());
         commandTypes.add(CommandEnum.COACH_CLIENTS.getCommand());
         commandTypes.add(CommandEnum.COACH_COMMENTS.getCommand());
+        return commandTypes;
+    }
+
+    private List<ActionCommand> getAdminCommands() {
+        List<ActionCommand> commandTypes = new ArrayList<>();
+        commandTypes.add(CommandEnum.LOGIN_USER.getCommand());
+        commandTypes.add(CommandEnum.LOGOUT_USER.getCommand());
+        commandTypes.add(CommandEnum.LOCALE.getCommand());
+        commandTypes.add(CommandEnum.NO_ACCESS.getCommand());
+        commandTypes.add(CommandEnum.HOME_PAGE.getCommand());
+        commandTypes.add(CommandEnum.SHOW_LOGIN_PAGE.getCommand());
+        commandTypes.add(CommandEnum.ADMIN_COACHES.getCommand());
+        commandTypes.add(CommandEnum.ADD_COACH.getCommand());
+        commandTypes.add(CommandEnum.ADMIN_CLIENTS.getCommand());
+        commandTypes.add(CommandEnum.CHANGE_CLIENT_ACTIVE.getCommand());
+        commandTypes.add(CommandEnum.CLIENT_PROFILE.getCommand());
+        commandTypes.add(CommandEnum.MODIFY_PROFILE_DATA.getCommand());
         return commandTypes;
     }
 

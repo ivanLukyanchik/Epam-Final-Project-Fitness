@@ -1,10 +1,10 @@
 package by.epam.fitness.command.impl.client;
 
 import by.epam.fitness.command.ActionCommand;
-import by.epam.fitness.entity.User;
+import by.epam.fitness.entity.Client;
 import by.epam.fitness.service.ServiceException;
-import by.epam.fitness.service.UserService;
-import by.epam.fitness.service.impl.UserServiceImpl;
+import by.epam.fitness.service.ClientService;
+import by.epam.fitness.service.impl.ClientServiceImpl;
 import by.epam.fitness.util.JspConst;
 import by.epam.fitness.util.SessionAttributes;
 import by.epam.fitness.util.page.Page;
@@ -17,7 +17,7 @@ import java.util.Optional;
 
 public class RejectCoachCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(RejectCoachCommand.class);
-    private UserService userService = new UserServiceImpl();
+    private ClientService clientService = new ClientServiceImpl();
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -25,10 +25,10 @@ public class RejectCoachCommand implements ActionCommand {
         HttpSession session = request.getSession();
         Long clientId = (Long) session.getAttribute(SessionAttributes.ID);
         try {
-            Optional<User> user = userService.findById(clientId);
+            Optional<Client> user = clientService.findById(clientId);
             if (user.isPresent()) {
                 user.get().setCoachId(null);
-                userService.save(user.get());
+                clientService.save(user.get());
                 log.info("client with id = " + clientId + " rejected his coach");
                 request.setAttribute(JspConst.COACH_REJECTED, true);
                 page = Page.WELCOME_PAGE;

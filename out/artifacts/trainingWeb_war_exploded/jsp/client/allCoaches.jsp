@@ -37,7 +37,7 @@
                     <c:forEach items="${coaches}" var="coach">
                             <c:choose>
                                 <c:when test="${coach_client_id == coach.id}">
-                                    <li class="coach"><c:out value="${coach.name} ${coach.surname}(${current_coach})"/></li>
+                                    <li class="coach"><c:out value="${coach.name} ${coach.surname} ${coach.patronymic} (${current_coach})"/></li>
                                         <form name="form"
                                               action="${pageContext.request.contextPath}/controller?command=add_comment"
                                               method="post">
@@ -57,7 +57,7 @@
                                         </form>
                                 </c:when>
                                 <c:otherwise>
-                                    <li class="coach"><c:out value="${coach.name} ${coach.surname}"/></li>
+                                    <li class="coach"><c:out value="${coach.name} ${coach.surname} ${coach.patronymic}"/></li>
                                 </c:otherwise>
                             </c:choose>
                     </c:forEach>
@@ -66,7 +66,7 @@
             <c:otherwise>
                 <h2>${choose_coach}</h2>
                 <c:forEach items="${coaches}" var="coach">
-                    <li class="coach"><c:out value="${coach.name} ${coach.surname}"/></li>
+                    <li class="coach"><c:out value="${coach.name} ${coach.surname} ${coach.patronymic}"/></li>
                     <form action="${pageContext.servletContext.contextPath}/controller?command=choose_coach" method="post">
                         <input type="hidden" id="coachId" name="coachId" value="${coach.id}"/>
                         <input type="submit" value="${choose_this_coach}"/>
@@ -78,8 +78,7 @@
 
     <c:otherwise>
         <h3>${cant_choose}</h3>
-        <form action="${pageContext.servletContext.contextPath}/controller?command=show_order_page"
-              method="post">
+        <form action="${pageContext.servletContext.contextPath}/controller?command=show_order_page" method="post">
             <input type="submit" class="button" value="${buy}">
         </form>
     </c:otherwise>

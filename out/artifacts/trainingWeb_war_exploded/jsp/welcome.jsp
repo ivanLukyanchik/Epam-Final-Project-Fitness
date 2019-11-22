@@ -27,6 +27,7 @@
 <fmt:message bundle="${locale}" key="where" var="where"/>
 <fmt:message bundle="${locale}" key="client" var="client" />
 <fmt:message bundle="${locale}" key="coach" var="coach" />
+<fmt:message bundle="${locale}" key="admin" var="admin" />
 <fmt:message bundle="${locale}" key="stranger" var="stranger" />
 <fmt:message bundle="${locale}" key="coach_chosen" var="coach_chosen" />
 <fmt:message bundle="${locale}" key="comment_saved" var="comment_saved" />
@@ -46,10 +47,13 @@
 
 <c:choose>
     <c:when test="${not empty sessionScope.client}">
-        <h2>${client} ${user}, ${welcome}</h2>
+        <h2>${client} ${sessionScope.user}, ${welcome}</h2>
     </c:when>
     <c:when test="${not empty sessionScope.coach}">
-        <h2>${coach} ${user}, ${welcome}</h2>
+        <h2>${coach} ${sessionScope.user}, ${welcome}</h2>
+    </c:when>
+    <c:when test="${not empty sessionScope.admin}">
+        <h2>${admin} ${sessionScope.user}, ${welcome}</h2>
     </c:when>
     <c:otherwise>
         <h2>${stranger}, ${welcome}</h2>

@@ -1,10 +1,10 @@
 package by.epam.fitness.command.impl;
 
 import by.epam.fitness.command.ActionCommand;
-import by.epam.fitness.entity.User;
+import by.epam.fitness.entity.Client;
 import by.epam.fitness.service.ServiceException;
-import by.epam.fitness.service.UserService;
-import by.epam.fitness.service.impl.UserServiceImpl;
+import by.epam.fitness.service.ClientService;
+import by.epam.fitness.service.impl.ClientServiceImpl;
 import by.epam.fitness.util.SessionAttributes;
 import by.epam.fitness.util.page.Page;
 import by.epam.fitness.util.validation.DataValidator;
@@ -21,7 +21,7 @@ import static by.epam.fitness.util.JspConst.*;
 public class PasswordRestoreCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(PasswordRestoreCommand.class);
     private static DataValidator dataValidator = new DataValidator();
-    private UserService userService = new UserServiceImpl();
+    private ClientService clientService = new ClientServiceImpl();
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -62,13 +62,13 @@ public class PasswordRestoreCommand implements ActionCommand {
             return Page.PASSWORD_RESTORE_PAGE;
         }
         try {
-            Optional<User> clientOptional = userService.findByLoginHash(login, email, hash);
+            Optional<Client> clientOptional = clientService.findByLoginHash(login, email, hash);
             if (clientOptional.isPresent()) {
-                User user = clientOptional.get();
-                user.setActive(true);
+                Client client = clientOptional.get();
+                client.setActive(true);
                 password = DigestUtils.sha512Hex(password);
-                user.setPassword(password);
-                userService.save(user);
+                client.setPassword(password);
+                clientService.save(client);
                 log.info("password of user " + login + " was changed");
                 request.setAttribute(PASSWORD_CHANGED, true);
                 Long clientId = (Long) request.getSession().getAttribute(SessionAttributes.ID);

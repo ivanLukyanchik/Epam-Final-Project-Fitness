@@ -20,7 +20,7 @@ import static by.epam.fitness.util.JspConst.COACH_CLIENT_ID;
 
 public class ShowClientExercisesCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(ShowClientExercisesCommand.class);
-    private UserService userService = new UserServiceImpl();
+    private ClientService clientService = new ClientServiceImpl();
     private ProgramService programService = new ProgramServiceImpl();
     private CoachService coachService = new CoachServiceImpl();
     private ExerciseProgramService exerciseProgramService = new ExerciseProgramServiceImpl();
@@ -45,7 +45,7 @@ public class ShowClientExercisesCommand implements ActionCommand {
                     request.setAttribute(JspConst.MEMBERSHIP_VALID, true);
                 }
             }
-            Optional<User> user = userService.findById(userId);
+            Optional<Client> user = clientService.findById(userId);
             if (user.isPresent()) {
                 if (coachService.findByClientId(userId).isEmpty()) {
                     request.setAttribute(JspConst.NO_COACH, true);

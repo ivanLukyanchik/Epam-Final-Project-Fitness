@@ -43,11 +43,13 @@ public class Logout extends HttpServlet implements ActionCommand {
         if (session.getAttribute(SessionAttributes.CLIENT) != null) {
             session.removeAttribute(SessionAttributes.CLIENT);
             clearCookie(CookieConst.CLIENT_LOGIN, request, response);
-        } else {
+        } else if (session.getAttribute(SessionAttributes.COACH) != null){
             session.removeAttribute(SessionAttributes.COACH);
+        } else {
+            session.removeAttribute(SessionAttributes.ADMIN);
         }
         session.invalidate();
-        log.info("client with id = " + userId + " and role = " + userRole + " log out");
+        log.info("user with id = " + userId + " and role = " + userRole + " log out");
         return Page.LOGIN_PAGE;
     }
 

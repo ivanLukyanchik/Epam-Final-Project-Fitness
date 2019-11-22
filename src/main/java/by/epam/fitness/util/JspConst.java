@@ -6,6 +6,7 @@ public class JspConst {
     public static final String CHANGED_LOCALE = "changedLocale";
     public static final String LANGUAGE = "lang";
     public static final String PARAM_LOGIN = "login";
+    public static final String PARAM_PATRONYMIC = "patronymic";
     public static final String CARD_NUMBER = "cardNumber";
     public static final String PERIOD = "period";
     public static final String COST = "cost";;
@@ -35,6 +36,7 @@ public class JspConst {
     public static final String WRONG_DATA = "wrongData";
     public static final String INVALID_NAME = "invalidName";
     public static final String INVALID_SURNAME = "invalidSurname";
+    public static final String INVALID_PATRONYMIC = "invalidPatronymic";
     public static final String INVALID_LOGIN = "invalidLogin";
     public static final String INVALID_EMAIL = "invalidEmail";
     public static final String INVALID_PASSWORD = "invalidPassword";
@@ -58,7 +60,9 @@ public class JspConst {
     public final static String INCORRECT_INPUT_DATA_ERROR = "incorrect_input_data_error";
     public static final String PROGRAM = "program";
     public static final String COACHES = "coaches";
+    public final static String CLIENT_ID = "client_id";
     public final static String COACH_CLIENT_ID = "coach_client_id";
+    public final static String ADMIN_CLIENT_ID = "admin_client_id";
     public static final String CLIENT_EXERCISES = "clientExercises";
     public static final String EXERCISES = "exercises";
     public static final String All_EXERCISES = "allExercises";

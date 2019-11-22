@@ -1,17 +1,17 @@
 package by.epam.fitness.command.impl;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.entity.Client;
 import by.epam.fitness.entity.Nutrition;
 import by.epam.fitness.entity.Program;
-import by.epam.fitness.entity.User;
 import by.epam.fitness.mail.SendingEmail;
 import by.epam.fitness.service.NutritionService;
 import by.epam.fitness.service.ProgramService;
 import by.epam.fitness.service.ServiceException;
-import by.epam.fitness.service.UserService;
+import by.epam.fitness.service.ClientService;
 import by.epam.fitness.service.impl.NutritionServiceImpl;
 import by.epam.fitness.service.impl.ProgramServiceImpl;
-import by.epam.fitness.service.impl.UserServiceImpl;
+import by.epam.fitness.service.impl.ClientServiceImpl;
 import by.epam.fitness.util.page.Page;
 import by.epam.fitness.util.sale.SaleSystem;
 import by.epam.fitness.util.validation.DataValidator;
@@ -28,7 +28,7 @@ import static by.epam.fitness.util.JspConst.*;
 public class RegisterCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(RegisterCommand.class);
     private static DataValidator dataValidator = new DataValidator();
-    private UserService userService = new UserServiceImpl();
+    private ClientService clientService = new ClientServiceImpl();
     private NutritionService nutritionService = new NutritionServiceImpl();
     private ProgramService programService = new ProgramServiceImpl();
     private final static SaleSystem SALE_SYSTEM = SaleSystem.getInstance();
@@ -70,10 +70,10 @@ public class RegisterCommand implements ActionCommand {
         }
         Random random = new SecureRandom();
         String userHash = DigestUtils.sha512Hex("" + random.nextInt(999999));
-        User user = null;
+        Client client = null;
         try {
-            user = buildUser(request, userHash);
-            if (userService.registerUser(user)) {
+            client = buildUser(request, userHash);
+            if (clientService.registerUser(client)) {
                 SendingEmail.verify(login, email, userHash);
                 log.info("client with login = " + login + " was registered. Activation Link was sent.");
                 page = Page.VERIFY_PAGE;
@@ -88,7 +88,7 @@ public class RegisterCommand implements ActionCommand {
         return page;
     }
 
-    private User buildUser(HttpServletRequest request, String userHash) throws ServiceException {
+    private Client buildUser(HttpServletRequest request, String userHash) throws ServiceException {
         String name = request.getParameter(PARAM_NAME);
         String surname = request.getParameter(PARAM_SURNAME);
         String login = request.getParameter(PARAM_LOGIN);
@@ -97,7 +97,7 @@ public class RegisterCommand implements ActionCommand {
         String newPassword = DigestUtils.sha512Hex(password);
         float personalDiscount = SALE_SYSTEM.getSaleByVisitNumber(START_VISIT_NUMBER);
         Program program = buildProgram();
-        return new User(null, null, name, surname, login, newPassword, email, userHash, false, START_VISIT_NUMBER,
+        return new Client(null, null, name, surname, login, newPassword, email, userHash, false, START_VISIT_NUMBER,
                 personalDiscount, program.getId(), null, null);
     }
 

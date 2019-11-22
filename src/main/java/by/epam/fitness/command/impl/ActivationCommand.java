@@ -1,10 +1,10 @@
 package by.epam.fitness.command.impl;
 
 import by.epam.fitness.command.ActionCommand;
-import by.epam.fitness.entity.User;
+import by.epam.fitness.entity.Client;
 import by.epam.fitness.service.ServiceException;
-import by.epam.fitness.service.UserService;
-import by.epam.fitness.service.impl.UserServiceImpl;
+import by.epam.fitness.service.ClientService;
+import by.epam.fitness.service.impl.ClientServiceImpl;
 import by.epam.fitness.util.JspConst;
 import by.epam.fitness.util.validation.DataValidator;
 import org.apache.logging.log4j.LogManager;
@@ -20,7 +20,7 @@ import static by.epam.fitness.util.page.Page.REGISTER_PAGE;
 public class ActivationCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(ActivationCommand.class);
     private static DataValidator dataValidator = new DataValidator();
-    private UserService userService = new UserServiceImpl();
+    private ClientService clientService = new ClientServiceImpl();
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -44,11 +44,11 @@ public class ActivationCommand implements ActionCommand {
             return REGISTER_PAGE;
         }
         try {
-            Optional<User> clientOptional = userService.findByLoginHash(login, email, userHash);
+            Optional<Client> clientOptional = clientService.findByLoginHash(login, email, userHash);
             if (clientOptional.isPresent()) {
-                User user = clientOptional.get();
-                user.setActive(true);
-                userService.save(user);
+                Client client = clientOptional.get();
+                client.setActive(true);
+                clientService.save(client);
                 request.setAttribute(USER_ACTIVATED, true);
                 log.info("client with login = " + login + " activated his profile via link");
                 page = LOGIN_PAGE;

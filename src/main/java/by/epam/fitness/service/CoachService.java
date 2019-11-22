@@ -10,4 +10,5 @@ public interface CoachService {
     Optional<Coach> findByClientId(long clientId) throws ServiceException;
     Optional<Coach> findById(long id) throws ServiceException;
     List<Coach> findAll() throws ServiceException;
+    Long save(Coach coach) throws ServiceException;
 }

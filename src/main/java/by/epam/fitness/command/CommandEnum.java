@@ -1,6 +1,10 @@
 package by.epam.fitness.command;
 
 import by.epam.fitness.command.impl.*;
+import by.epam.fitness.command.impl.admin.AddCoachCommand;
+import by.epam.fitness.command.impl.admin.AdminClientsCommand;
+import by.epam.fitness.command.impl.admin.AdminCoachesCommand;
+import by.epam.fitness.command.impl.admin.ChangeClientActiveCommand;
 import by.epam.fitness.command.impl.client.*;
 import by.epam.fitness.command.impl.coach.CoachClientsCommand;
 import by.epam.fitness.command.impl.comment.AddCommentCommand;
@@ -45,7 +49,11 @@ public enum CommandEnum {
     MODIFY_PROFILE_DATA(new ModifyProfile()),
     LOGIN_USER(new Login()),
     LOGOUT_USER(new Logout()),
-    SHOW_LOGIN_PAGE(new LoginPageCommand());
+    SHOW_LOGIN_PAGE(new LoginPageCommand()),
+    ADMIN_COACHES(new AdminCoachesCommand()),
+    ADD_COACH(new AddCoachCommand()),
+    ADMIN_CLIENTS(new AdminClientsCommand()),
+    CHANGE_CLIENT_ACTIVE(new ChangeClientActiveCommand());
 
     private ActionCommand command;
 

@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class DataValidator {
     private static final Pattern LOGIN_PATTERN = Pattern.compile("^[a-zA-Z][\\w-_.]{2,19}$");
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$");
-    private static final Pattern NAME_SURNAME_PATTERN = Pattern.compile("[a-zA-Zа-яА-Я]{3,20}");
+    private static final Pattern NAME_SURNAME_PATRONYMIC_PATTERN = Pattern.compile("[a-zA-Zа-яА-Я]{3,20}");
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("[\\w-_.]{3,20}");
     private static final Pattern CARD_NUMBER_PATTERN = Pattern.compile("[0-9]{16}");
     private static final Pattern INPUT_TEXT_PATTERN = Pattern.compile("[A-Za-z0-9][A-Za-z,.()\\s0-9]{1,299}");
@@ -40,12 +40,17 @@ public class DataValidator {
     }
 
     public boolean isNameValid(String name) {
-        Matcher matcher = NAME_SURNAME_PATTERN.matcher(name);
+        Matcher matcher = NAME_SURNAME_PATRONYMIC_PATTERN.matcher(name);
         return matcher.matches();
     }
 
     public boolean isSurnameValid(String surname) {
-        Matcher matcher = NAME_SURNAME_PATTERN.matcher(surname);
+        Matcher matcher = NAME_SURNAME_PATRONYMIC_PATTERN.matcher(surname);
+        return matcher.matches();
+    }
+
+    public boolean isPatronymicValid(String patronymic) {
+        Matcher matcher = NAME_SURNAME_PATRONYMIC_PATTERN.matcher(patronymic);
         return matcher.matches();
     }
 

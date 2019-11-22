@@ -1,13 +1,13 @@
 package by.epam.fitness.command.impl.client;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.entity.Client;
 import by.epam.fitness.entity.Coach;
-import by.epam.fitness.entity.User;
 import by.epam.fitness.service.CoachService;
 import by.epam.fitness.service.ServiceException;
-import by.epam.fitness.service.UserService;
+import by.epam.fitness.service.ClientService;
 import by.epam.fitness.service.impl.CoachServiceImpl;
-import by.epam.fitness.service.impl.UserServiceImpl;
+import by.epam.fitness.service.impl.ClientServiceImpl;
 import by.epam.fitness.util.JspConst;
 import by.epam.fitness.util.SessionAttributes;
 import by.epam.fitness.util.page.Page;
@@ -24,7 +24,7 @@ import static by.epam.fitness.util.JspConst.COACH_ID;
 public class ChooseCoachCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(ChooseCoachCommand.class);
     private static DataValidator dataValidator = new DataValidator();
-    private UserService userService = new UserServiceImpl();
+    private ClientService clientService = new ClientServiceImpl();
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -44,10 +44,10 @@ public class ChooseCoachCommand implements ActionCommand {
             }
             HttpSession session = request.getSession();
             long clientId = (long) session.getAttribute(SessionAttributes.ID);
-            Optional<User> user = userService.findById(clientId);
+            Optional<Client> user = clientService.findById(clientId);
             if (user.isPresent()) {
                 user.get().setCoachId(coachId);
-                userService.save(user.get());
+                clientService.save(user.get());
             }
             log.info("coach with id  = " + coachId + " was chosen");
             request.setAttribute(JspConst.COACH_CHOSEN, true);

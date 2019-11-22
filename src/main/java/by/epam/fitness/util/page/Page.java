@@ -15,6 +15,8 @@ public class Page {
     public static final String CLIENT_EXERCISES_COMMAND = "/controller?command=show_client_exercises";
     public static final String SHOW_COACHES_COMMAND = "/controller?command=find_coaches";
     public static final String COACH_COMMENTS_COMMAND = "/controller?command=coach_comments";
+    public static final String ADMIN_COACHES_COMMAND = "/controller?command=admin_coaches";
+    public static final String ADMIN_CLIENTS_COMMAND = "/controller?command=admin_clients";
     public static final String LOGOUT_COMMAND = "/controller?command=logout_user";
     public static final String NO_ACCESS_PAGE = "/jsp/noAccess.jsp";
     public static final String ERROR_PAGE = "/WEB-INF/error/errorPage.jsp";
@@ -26,4 +28,6 @@ public class Page {
     public static final String NUTRITION = "/jsp/client/clientNutrition.jsp";
     public static final String COACH_CLIENTS = "/jsp/coach/coachClients.jsp";
     public static final String COACH_COMMENTS = "/jsp/coach/coachComments.jsp";
+    public static final String ADMIN_COACHES = "/jsp/admin/adminCoaches.jsp";
+    public static final String ADMIN_CLIENTS = "/jsp/admin/adminClients.jsp";
 }
