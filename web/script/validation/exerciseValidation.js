@@ -17,3 +17,23 @@ function checkRepeatNumber() {
         repeatsNumberInput.setCustomValidity('');
     }
 }
+
+function checkName() {
+    var nameRegisterInput = document.getElementById("name");
+    if (nameRegisterInput.value==="" || (!/^[a-zA-Zа-яА-Я]{2,100}$/.test(nameRegisterInput.value))) {
+        var nameRegisterTitle = nameRegisterInput.getAttribute("title");
+        nameRegisterInput.setCustomValidity(nameRegisterTitle);
+    } else {
+        nameRegisterInput.setCustomValidity('');
+    }
+}
+
+function checkDescription() {
+    var descriptionRegisterInput = document.getElementById("description");
+    if (descriptionRegisterInput.value==="" || (!/^[A-Za-z0-9][A-Za-z,.()\s0-9]{4,399}$/.test(descriptionRegisterInput.value))) {
+        var nameRegisterTitle = descriptionRegisterInput.getAttribute("title");
+        descriptionRegisterInput.setCustomValidity(nameRegisterTitle);
+    } else {
+        descriptionRegisterInput.setCustomValidity('');
+    }
+}

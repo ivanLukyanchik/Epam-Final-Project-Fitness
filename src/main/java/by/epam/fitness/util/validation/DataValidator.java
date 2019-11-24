@@ -10,6 +10,8 @@ public class DataValidator {
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("[\\w-_.]{3,20}");
     private static final Pattern CARD_NUMBER_PATTERN = Pattern.compile("[0-9]{16}");
     private static final Pattern INPUT_TEXT_PATTERN = Pattern.compile("[A-Za-z0-9][A-Za-z,.()\\s0-9]{1,299}");
+    private static final Pattern EXERCISE_DESCRIPTION_PATTERN = Pattern.compile("[A-Za-z0-9][A-Za-z,.()\\s0-9]{4,399}");
+    private static final Pattern EXERCISE_NAME_PATTERN = Pattern.compile("^[a-zA-Zа-яА-Я]{2,100}$");
     private static final Pattern SHA512_PATTERN = Pattern.compile("[a-f0-9]{128}");
     private static final Pattern INPUT_IDENTIFIABLE_ID_PATTERN = Pattern.compile("[\\d]{1,20}");
     private static final Pattern SET_NUMBER_PATTERN = Pattern.compile("^[1-9][0-9]*$");
@@ -43,6 +45,10 @@ public class DataValidator {
         Matcher matcher = NAME_SURNAME_PATRONYMIC_PATTERN.matcher(name);
         return matcher.matches();
     }
+    public boolean isExerciseNameValid(String exerciseName) {
+        Matcher matcher = EXERCISE_NAME_PATTERN.matcher(exerciseName);
+        return matcher.matches();
+    }
 
     public boolean isSurnameValid(String surname) {
         Matcher matcher = NAME_SURNAME_PATRONYMIC_PATTERN.matcher(surname);
@@ -66,6 +72,11 @@ public class DataValidator {
 
     public boolean isCommentContentValid(String commentContent) {
         Matcher matcher = INPUT_TEXT_PATTERN.matcher(commentContent);
+        return matcher.matches();
+    }
+
+    public boolean isExerciseDescriptionValid(String exerciseDescription) {
+        Matcher matcher = INPUT_TEXT_PATTERN.matcher(exerciseDescription);
         return matcher.matches();
     }
 

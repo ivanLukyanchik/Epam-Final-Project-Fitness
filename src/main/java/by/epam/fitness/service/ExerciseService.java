@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface ExerciseService {
     List<Exercise> findAll() throws ServiceException;
     Optional<Exercise> findById(long id) throws ServiceException;
+    Long save(Exercise exercise) throws ServiceException;
+    int deleteExercise(long exerciseId) throws ServiceException;
 }

@@ -7,4 +7,6 @@ import java.util.List;
 public interface CommentService {
     Long save(Comment comment) throws ServiceException;
     List<Comment> findByCoachId(long coachId) throws ServiceException;
+    List<Comment> findAll() throws ServiceException;
+    int delete(long id) throws ServiceException;
 }

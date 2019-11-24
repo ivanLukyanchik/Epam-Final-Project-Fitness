@@ -66,8 +66,8 @@
         <option value="JavaScript File" />
         <option value="Enum" />
         <option value="Interface" />
-        <option value="Jsp File" />
         <option value="Class" />
+        <option value="Jsp File" />
       </list>
     </option>
   </component>
@@ -99,16 +99,16 @@
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\css" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\gym" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\jsp" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources\locale" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\css" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -275,7 +275,12 @@
       <workItem from="1574323970092" duration="3368000" />
       <workItem from="1574347868662" duration="12815000" />
       <workItem from="1574416195763" duration="14708000" />
-      <workItem from="1574435699140" duration="6797000" />
+      <workItem from="1574435699140" duration="7633000" />
+      <workItem from="1574456940615" duration="1337000" />
+      <workItem from="1574458473509" duration="410000" />
+      <workItem from="1574516805828" duration="6220000" />
+      <workItem from="1574582164546" duration="10518000" />
+      <workItem from="1574613088004" duration="14809000" />
     </task>
     <servers />
   </component>

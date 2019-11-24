@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ExerciseDao extends BaseDao<Long, Exercise> {
     List<Exercise> findAll() throws DaoException;
+    int deleteExercise(long exerciseId) throws DaoException;
 }

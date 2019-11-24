@@ -7,10 +7,8 @@ import by.epam.fitness.entity.Exercise;
 import by.epam.fitness.pool.ConnectionPool;
 import by.epam.fitness.service.ServiceException;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.InputStream;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +16,8 @@ import java.util.Optional;
 public class ExerciseDaoImpl implements ExerciseDao {
     private static final String SQL_FIND_BY_ID = "SELECT * FROM exercise WHERE id_exercise=?";
     private static final String SQL_FIND_ALL = "SELECT * FROM exercise";
+    private static final String SQL_CREATE_EXERCISE = "INSERT INTO exercise (name, description, image) VALUES (?,?,?)";
+    private static final String SQL_DELETE = "DELETE FROM exercise WHERE id_exercise=?";
     private ExerciseBuilder builder = new ExerciseBuilder();
 
     @Override
@@ -44,8 +44,51 @@ public class ExerciseDaoImpl implements ExerciseDao {
     }
 
     @Override
+    public int deleteExercise(long exerciseId) throws DaoException {
+        int result = 0;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try{
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_DELETE);
+            preparedStatement.setLong(1, exerciseId);
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
+        }
+        return result;
+    }
+
+    @Override
     public Long save(Exercise exercise) throws DaoException {
-        return null;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        String name = exercise.getName();
+        String description = exercise.getDescription();
+        InputStream is = exercise.getIs();
+        Long generatedId = null;
+        try {
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_CREATE_EXERCISE, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, description);
+            preparedStatement.setBlob(3, is);
+            preparedStatement.executeUpdate();
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                generatedId = resultSet.getLong(1);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
+        }
+        return generatedId;
+
     }
 
     @Override

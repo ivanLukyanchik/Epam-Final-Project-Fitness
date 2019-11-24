@@ -9,4 +9,5 @@ public interface OrderInformationService {
     Long save(OrderInformation orderInformation) throws ServiceException;
     Optional<OrderInformation> findByClientId(Long id) throws ServiceException;
     List<OrderInformation> findOrdersByClientId(Long id) throws ServiceException;
+    List<OrderInformation> findAll() throws ServiceException;
 }

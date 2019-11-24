@@ -39,4 +39,13 @@ public class OrderInformationServiceImpl implements OrderInformationService {
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public List<OrderInformation> findAll() throws ServiceException {
+        try {
+            return orderInformationDao.findAll();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 }

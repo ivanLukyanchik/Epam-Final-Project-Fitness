@@ -9,7 +9,6 @@ import by.epam.fitness.service.ServiceException;
 
 import java.math.BigDecimal;
 import java.sql.*;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +17,7 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
     private static final String SQL_CREATE_TABLE = "INSERT INTO order_information (cost, payment_data, membership_end_date, client_id, card_number) VALUES (?,?,?,?,?)";
     private static final String SQL_FIND_BY_ID = "SELECT * FROM order_information WHERE client_id=?";
     private static final String SQL_UPDATE_TABLE = "UPDATE order_information SET cost=?, payment_data=?, membership_end_date=?, client_id=?, card_number=? WHERE id_order_information=?";
+    private static final String SQL_FIND_ALL = "SELECT * FROM order_information";
     private OrderInformationBuilder builder = new OrderInformationBuilder();
 
     @Override
@@ -106,5 +106,28 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
             close(connection);
         }
         return ordersList;
+    }
+
+    @Override
+    public List<OrderInformation> findAll() throws DaoException {
+        List<OrderInformation> orders = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        OrderInformation order = null;
+        try {
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_FIND_ALL);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                order = builder.build(resultSet);
+                orders.add(order);
+            }
+        } catch (SQLException | ServiceException e) {
+            throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
+        }
+        return orders;
     }
 }

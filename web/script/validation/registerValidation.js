@@ -25,6 +25,16 @@ function checkSurname() {
     }
 }
 
+function checkPatronymic() {
+    var patronymicRegisterInput = document.getElementById("patronymic");
+    if (patronymicRegisterInput.value==="" || (!/^[a-zA-Zа-яА-Я]{3,20}$/.test(patronymicRegisterInput.value))) {
+        var surnameRegisterTitle = patronymicRegisterInput.getAttribute("title");
+        patronymicRegisterInput.setCustomValidity(surnameRegisterTitle);
+    } else {
+        patronymicRegisterInput.setCustomValidity('');
+    }
+}
+
 function checkRegisterPassword() {
     var passwordRegisterInput = document.getElementById("password");
     if (passwordRegisterInput.value === "" || (!/[\w\d-_.]{3,20}/.test(passwordRegisterInput.value))) {

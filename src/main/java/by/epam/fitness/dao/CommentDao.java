@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface CommentDao extends BaseDao<Long, Comment> {
     List<Comment> findByCoachId(long coachId) throws DaoException;
+    List<Comment> findAll() throws DaoException;
+    int delete(long id) throws DaoException;
 }

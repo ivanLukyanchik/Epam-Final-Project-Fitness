@@ -9,4 +9,6 @@ import java.util.Optional;
 public interface OrderInformationDao extends BaseDao<Long, OrderInformation> {
     Optional<OrderInformation> findByClientId(long id) throws DaoException;
     List<OrderInformation> findOrdersByClientId(long id) throws DaoException;
+    List<OrderInformation> findAll() throws DaoException;
+
 }

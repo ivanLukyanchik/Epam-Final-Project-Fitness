@@ -30,4 +30,22 @@ public class ExerciseServiceImpl implements ExerciseService {
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public Long save(Exercise exercise) throws ServiceException {
+        try {
+            return exerciseDao.save(exercise);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public int deleteExercise(long exerciseId) throws ServiceException {
+        try {
+            return exerciseDao.deleteExercise(exerciseId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 }

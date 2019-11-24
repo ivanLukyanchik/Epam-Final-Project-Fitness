@@ -1,5 +1,6 @@
 package by.epam.fitness.entity;
 
+import java.io.InputStream;
 import java.util.Objects;
 
 public class Exercise extends Entity {
@@ -7,14 +8,16 @@ public class Exercise extends Entity {
     private String name;
     private String description;
     private String image;
+    private InputStream is;
 
     public Exercise(){}
 
-    public Exercise(Long id, String name, String description, String image){
+    public Exercise(Long id, String name, String description, String image, InputStream is){
         this.id = id;
         this.name = name;
         this.description = description;
         this.image = image;
+        this.is = is;
     }
 
     public Long getId() {
@@ -47,6 +50,14 @@ public class Exercise extends Entity {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public InputStream getIs() {
+        return is;
+    }
+
+    public void setIs(InputStream is) {
+        this.is = is;
     }
 
     @Override

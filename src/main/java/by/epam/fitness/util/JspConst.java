@@ -12,6 +12,7 @@ public class JspConst {
     public static final String COST = "cost";;
     public static final String PARAM_PASSWORD = "password";
     public static final String PARAM_NAME = "name";
+    public static final String PARAM_DESCRIPTION = "description";
     public static final String PARAM_SURNAME = "surname";
     public static final String PARAM_HASH = "hash";
     public static final String COACH_ID = "coachId";
@@ -57,6 +58,7 @@ public class JspConst {
     public static final String TRAIN_DAY = "trainDay";
     public static final String PROGRAM_ID = "programId";
     public static final String EXERCISE_ID = "exerciseId";
+    public static final String COMMENT_ID = "commentId";
     public final static String INCORRECT_INPUT_DATA_ERROR = "incorrect_input_data_error";
     public static final String PROGRAM = "program";
     public static final String COACHES = "coaches";
@@ -86,6 +88,7 @@ public class JspConst {
     public static final String LOGIN_PAGE = "login";
     public static final String INVALID_COMMENT = "invalidComment";
     public static final String PARAM_PHOTO = "photo";
+    public static final String PARAM_IMAGE = "image";
     public static final String LOGOUT_PAGE = "logout";
     public static final String REGISTER_PAGE = "register";
     public static final String PASSWORD_RESTORE_PAGE = "passwordRestore";
@@ -95,6 +98,7 @@ public class JspConst {
     public static final String NUTRITION_UPDATED = "nutritionUpdated";
     public static final String NUTRITION_REJECTED = "nutritionRejected";
     public static final String EXERCISE_REJECTED = "exerciseRejected";
+    public static final String EXERCISE_DELETED = "exerciseDeleted";
     public static final String EXERCISE_UPDATED = "exerciseUpdated";
     public static final String EXERCISE_ADDED = "exerciseAdded";
     public static final String REMEMBER_ME = "rememberMe";

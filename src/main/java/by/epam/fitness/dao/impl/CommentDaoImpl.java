@@ -16,6 +16,8 @@ public class CommentDaoImpl implements CommentDao {
     private static final String SQL_CREATE_TABLE = "INSERT INTO comment (coach_id, client_id, comment_content) VALUES (?,?,?)";
     private static final String SQL_UPDATE_TABLE = "UPDATE comment SET coach_id=?, client_id=?, comment_content=? WHERE id_comment=?";
     private static final String SQL_FIND_BY_COACH_ID = "SELECT * FROM comment WHERE coach_id=?";
+    private static final String SQL_FIND_ALL = "SELECT * FROM comment";
+    private static final String SQL_DELETE = "DELETE FROM comment WHERE id_comment=?";
     private CommentBuilder builder = new CommentBuilder();
 
     @Override
@@ -78,5 +80,47 @@ public class CommentDaoImpl implements CommentDao {
             close(connection);
         }
         return comments;
+    }
+
+    @Override
+    public List<Comment> findAll() throws DaoException {
+        List<Comment> comments = new ArrayList<>();
+        Connection connection = null;
+        Statement statement = null;
+        Comment comment = null;
+        try{
+            connection = ConnectionPool.INSTANCE.getConnection();
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SQL_FIND_ALL);
+            while (resultSet.next()) {
+               comment = builder.build(resultSet);
+                comments.add(comment);
+            }
+        } catch (SQLException | ServiceException e) {
+            throw new DaoException(e);
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return comments;
+    }
+
+    @Override
+    public int delete(long id) throws DaoException {
+        int result = 0;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try{
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_DELETE);
+            preparedStatement.setLong(1, id);
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
+        }
+        return result;
     }
 }

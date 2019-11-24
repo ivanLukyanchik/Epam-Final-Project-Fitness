@@ -35,6 +35,9 @@
 <fmt:message bundle="${locale}" key="my_client's_exercises" var="my_clients_exercises"/>
 <fmt:message bundle="${locale}" key="admin_coaches_nav" var="admin_coaches_nav"/>
 <fmt:message bundle="${locale}" key="admin_clients_nav" var="admin_clients_nav"/>
+<fmt:message bundle="${locale}" key="admin_exercises_nav" var="admin_exercises_nav"/>
+<fmt:message bundle="${locale}" key="admin_comments_nav" var="admin_comments_nav"/>
+<fmt:message bundle="${locale}" key="admin_orders_nav" var="admin_orders_nav"/>
 
 <nav>
     <ul class="top-menu">
@@ -118,6 +121,18 @@
         <h1>${admin_clients_nav}</h1>
     </c:when>
 
+    <c:when test="${param.pageTopic eq 'adminExercises'}">
+        <h1>${admin_exercises_nav}</h1>
+    </c:when>
+
+    <c:when test="${param.pageTopic eq 'adminComments'}">
+        <h1>${admin_comments_nav}</h1>
+    </c:when>
+
+    <c:when test="${param.pageTopic eq 'adminOrders'}">
+        <h1>${admin_orders_nav}</h1>
+    </c:when>
+
 </c:choose>
 </div>
 <nav>
@@ -158,6 +173,15 @@
         </li>
         <li>
             <a href="${pageContext.servletContext.contextPath}/controller?command=admin_clients">${admin_clients_nav}</a>
+        </li>
+        <li>
+            <a href="${pageContext.request.contextPath}/controller?command=admin_exercises">${admin_exercises_nav}</a>
+        </li>
+        <li>
+            <a href="${pageContext.request.contextPath}/controller?command=admin_comments">${admin_comments_nav}</a>
+        </li>
+        <li>
+            <a href="${pageContext.request.contextPath}/controller?command=admin_orders">${admin_orders_nav}</a>
         </li>
     </c:if>
 </nav>

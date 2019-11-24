@@ -29,4 +29,22 @@ public class CommentServiceImpl implements CommentService {
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public List<Comment> findAll() throws ServiceException {
+        try {
+            return commentDao.findAll();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public int delete(long id) throws ServiceException {
+        try {
+            return commentDao.delete(id);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 }

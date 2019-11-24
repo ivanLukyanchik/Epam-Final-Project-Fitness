@@ -20,11 +20,13 @@ public class ExerciseBuilder implements Builder<Exercise> {
             String name = resultSet.getString(ExerciseTableConst.NAME.getFieldName());
             String description = resultSet.getString(ExerciseTableConst.DESCRIPTION.getFieldName());
             String base64Image = null;
+            InputStream inputStream = null;
             Blob blob = resultSet.getBlob(ExerciseTableConst.IMAGE.getFieldName());
             if (blob != null) {
                 base64Image = getBase64Image(blob);
+                inputStream = blob.getBinaryStream();
             }
-            return new Exercise(id, name, description, base64Image);
+            return new Exercise(id, name, description, base64Image, inputStream);
         } catch (SQLException e) {
             throw new ServiceException(e.getMessage(), e);
         }
