@@ -61,12 +61,11 @@ public class ExerciseProgramDaoImpl implements ExerciseProgramDao {
     @Override
     public List<ExerciseProgram> findExercisesByProgramId(long programId) throws DaoException {
         List<ExerciseProgram> exercisesList = new ArrayList<>();
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         ExerciseProgram exerciseProgram;
-        try{
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_FIND_BY_PROGRAM_ID);
+        try (
+                Connection connection = ConnectionPool.INSTANCE.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_PROGRAM_ID);
+        ) {
             preparedStatement.setLong(1, programId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -75,21 +74,17 @@ public class ExerciseProgramDaoImpl implements ExerciseProgramDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return exercisesList;
     }
 
     @Override
     public Optional<ExerciseProgram> findById(Long id) throws DaoException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         ExerciseProgram exerciseProgram = null;
-        try {
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+        try (
+                Connection connection = ConnectionPool.INSTANCE.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+        ) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -97,9 +92,6 @@ public class ExerciseProgramDaoImpl implements ExerciseProgramDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return Optional.ofNullable(exerciseProgram);
     }
@@ -107,11 +99,10 @@ public class ExerciseProgramDaoImpl implements ExerciseProgramDao {
     @Override
     public boolean findByExerciseId(long exerciseId, long programId) throws DaoException {
         boolean result = false;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        try {
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_FIND_BY_EXERCISE_ID);
+        try (
+                Connection connection = ConnectionPool.INSTANCE.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_EXERCISE_ID);
+        ) {
             preparedStatement.setLong(1, exerciseId);
             preparedStatement.setLong(2, programId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -120,9 +111,6 @@ public class ExerciseProgramDaoImpl implements ExerciseProgramDao {
             }
         } catch (SQLException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return result;
     }
@@ -130,18 +118,14 @@ public class ExerciseProgramDaoImpl implements ExerciseProgramDao {
     @Override
     public int deleteExercise(long exerciseId) throws DaoException {
         int result = 0;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        try{
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_DELETE);
+        try (
+                Connection connection = ConnectionPool.INSTANCE.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE);
+        ) {
             preparedStatement.setLong(1, exerciseId);
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return result;
     }

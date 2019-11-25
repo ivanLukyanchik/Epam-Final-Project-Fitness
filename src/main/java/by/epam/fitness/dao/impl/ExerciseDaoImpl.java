@@ -23,12 +23,11 @@ public class ExerciseDaoImpl implements ExerciseDao {
     @Override
     public List<Exercise> findAll() throws DaoException {
         List<Exercise> exercises = new ArrayList<>();
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         Exercise exercise = null;
-        try {
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_FIND_ALL);
+        try (
+                Connection connection = ConnectionPool.INSTANCE.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_ALL);
+        ) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 exercise = builder.build(resultSet);
@@ -36,9 +35,6 @@ public class ExerciseDaoImpl implements ExerciseDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return exercises;
     }
@@ -46,33 +42,28 @@ public class ExerciseDaoImpl implements ExerciseDao {
     @Override
     public int deleteExercise(long exerciseId) throws DaoException {
         int result = 0;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        try{
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_DELETE);
+        try (
+                Connection connection = ConnectionPool.INSTANCE.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE);
+        ) {
             preparedStatement.setLong(1, exerciseId);
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return result;
     }
 
     @Override
     public Long save(Exercise exercise) throws DaoException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         String name = exercise.getName();
         String description = exercise.getDescription();
         InputStream is = exercise.getIs();
         Long generatedId = null;
-        try {
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_CREATE_EXERCISE, Statement.RETURN_GENERATED_KEYS);
+        try (
+                Connection connection = ConnectionPool.INSTANCE.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_EXERCISE, Statement.RETURN_GENERATED_KEYS);
+        ) {
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, description);
             preparedStatement.setBlob(3, is);
@@ -83,9 +74,6 @@ public class ExerciseDaoImpl implements ExerciseDao {
             }
         } catch (SQLException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return generatedId;
 
@@ -93,12 +81,11 @@ public class ExerciseDaoImpl implements ExerciseDao {
 
     @Override
     public Optional<Exercise> findById(Long id) throws DaoException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         Exercise exercise = null;
-        try {
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+        try (
+                Connection connection = ConnectionPool.INSTANCE.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+        ) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -106,9 +93,6 @@ public class ExerciseDaoImpl implements ExerciseDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return Optional.ofNullable(exercise);
     }

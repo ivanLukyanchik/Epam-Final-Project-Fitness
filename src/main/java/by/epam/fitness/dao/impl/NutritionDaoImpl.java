@@ -55,12 +55,11 @@ public class NutritionDaoImpl implements NutritionDao {
 
     @Override
     public Optional<Nutrition> findByClientId(long clientId) throws DaoException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         Nutrition nutrition = null;
-        try {
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_FIND_BY_CLIENT_ID);
+        try (
+                Connection connection = ConnectionPool.INSTANCE.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_CLIENT_ID);
+        ) {
             preparedStatement.setLong(1, clientId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -68,21 +67,17 @@ public class NutritionDaoImpl implements NutritionDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return Optional.ofNullable(nutrition);
     }
 
     @Override
     public Optional<Nutrition> findById(Long id) throws DaoException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         Nutrition nutrition = null;
-        try{
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+        try (
+                Connection connection = ConnectionPool.INSTANCE.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+        ) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -90,9 +85,6 @@ public class NutritionDaoImpl implements NutritionDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return Optional.ofNullable(nutrition);
     }

@@ -210,12 +210,11 @@ public class ClientDaoImpl implements ClientDao {
     @Override
     public List<Client> findByCoachId(long coachId) throws DaoException {
         List<Client> clients = new ArrayList<>();
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         Client client;
-        try {
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_FIND_BY_COACH_ID);
+        try (
+                Connection connection = ConnectionPool.INSTANCE.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_COACH_ID);
+        ) {
             preparedStatement.setLong(1, coachId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -224,21 +223,17 @@ public class ClientDaoImpl implements ClientDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return clients;
     }
 
     @Override
     public Optional<Client> getUserByCookieData(String login, String hash) throws DaoException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         Client client = null;
-        try{
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_FIND_USER_BY_COOKIE);
+        try (
+                Connection connection = ConnectionPool.INSTANCE.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_USER_BY_COOKIE);
+        ) {
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, hash);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -247,9 +242,6 @@ public class ClientDaoImpl implements ClientDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return Optional.ofNullable(client);
     }
@@ -257,12 +249,11 @@ public class ClientDaoImpl implements ClientDao {
     @Override
     public List<Client> findAll() throws DaoException {
         List<Client> clientsList = new ArrayList<>();
-        Connection connection = null;
-        Statement statement = null;
         Client client = null;
-        try {
-            connection = ConnectionPool.INSTANCE.getConnection();
-            statement = connection.createStatement();
+        try (
+                Connection connection = ConnectionPool.INSTANCE.getConnection();
+                Statement statement = connection.createStatement();
+        ) {
             ResultSet resultSet = statement.executeQuery(SQL_FIND_ALL);
             while (resultSet.next()) {
                 client = builder.build(resultSet);
@@ -270,9 +261,6 @@ public class ClientDaoImpl implements ClientDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
-        } finally {
-            close(statement);
-            close(connection);
         }
         return clientsList;
     }
