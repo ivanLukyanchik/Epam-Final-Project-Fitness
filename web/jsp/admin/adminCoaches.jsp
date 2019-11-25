@@ -27,7 +27,7 @@
 <body>
 <jsp:include page="../menu.jsp">
     <jsp:param name="pageTopic" value="adminCoaches"/>
-    <jsp:param name="currentPage" value="adminCoaches"/>
+    <jsp:param name="currentPage" value="admin_coaches"/>
 </jsp:include>
 
 <c:if test="${requestScope.success eq true}">

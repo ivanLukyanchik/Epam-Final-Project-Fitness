@@ -26,7 +26,7 @@
 <body>
 <jsp:include page="../menu.jsp">
     <jsp:param name="pageTopic" value="allCoaches"/>
-    <jsp:param name="currentPage" value="allCoaches"/>
+    <jsp:param name="currentPage" value="find_coaches"/>
 </jsp:include>
 
 <c:choose>

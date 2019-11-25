@@ -9,12 +9,12 @@ public class DataValidator {
     private static final Pattern NAME_SURNAME_PATRONYMIC_PATTERN = Pattern.compile("[a-zA-Zа-яА-Я]{3,20}");
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("[\\w-_.]{3,20}");
     private static final Pattern CARD_NUMBER_PATTERN = Pattern.compile("[0-9]{16}");
-    private static final Pattern INPUT_TEXT_PATTERN = Pattern.compile("[A-Za-z0-9][A-Za-z,.()\\s0-9]{1,299}");
-    private static final Pattern EXERCISE_DESCRIPTION_PATTERN = Pattern.compile("[A-Za-z0-9][A-Za-z,.()\\s0-9]{4,399}");
+    private static final Pattern INPUT_TEXT_PATTERN = Pattern.compile("[A-Za-zА-Яа-я0-9][A-Za-zА-Яа-я,.()\\s0-9]{1,299}");
+    private static final Pattern EXERCISE_DESCRIPTION_PATTERN = Pattern.compile("[A-Za-zА-Яа-я0-9][A-Za-zА-Яа-я,.()\\s0-9]{4,399}");
     private static final Pattern EXERCISE_NAME_PATTERN = Pattern.compile("^[a-zA-Zа-яА-Я]{2,100}$");
     private static final Pattern SHA512_PATTERN = Pattern.compile("[a-f0-9]{128}");
     private static final Pattern INPUT_IDENTIFIABLE_ID_PATTERN = Pattern.compile("[\\d]{1,20}");
-    private static final Pattern SET_NUMBER_PATTERN = Pattern.compile("^[1-9][0-9]*$");
+    private static final Pattern SET_REPEATS_NUMBER_PATTERN = Pattern.compile("^[1-9][0-9]?$");
     private static final Pattern COST_PATTERN = Pattern.compile("[\\d.]{1,20}");
 
     public boolean isLoginValid(String login) {
@@ -76,12 +76,17 @@ public class DataValidator {
     }
 
     public boolean isExerciseDescriptionValid(String exerciseDescription) {
-        Matcher matcher = INPUT_TEXT_PATTERN.matcher(exerciseDescription);
+        Matcher matcher = EXERCISE_DESCRIPTION_PATTERN.matcher(exerciseDescription);
         return matcher.matches();
     }
 
     public boolean isSetNumberValid(String setNumber) {
-        Matcher matcher = SET_NUMBER_PATTERN.matcher(setNumber);
+        Matcher matcher = SET_REPEATS_NUMBER_PATTERN.matcher(setNumber);
+        return matcher.matches();
+    }
+
+    public boolean isRepeatsNumberValid(String repeatsNumber) {
+        Matcher matcher = SET_REPEATS_NUMBER_PATTERN.matcher(repeatsNumber);
         return matcher.matches();
     }
 

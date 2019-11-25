@@ -89,10 +89,12 @@ public class JspConst {
     public static final String INVALID_COMMENT = "invalidComment";
     public static final String PARAM_PHOTO = "photo";
     public static final String PARAM_IMAGE = "image";
+    public static final String TIME_OUT = "timeOut";
     public static final String LOGOUT_PAGE = "logout";
     public static final String REGISTER_PAGE = "register";
     public static final String PASSWORD_RESTORE_PAGE = "passwordRestore";
     public static final String VERIFICATION_PAGE = "verification";
+    public static final String FINAL_RESTORE_PAGE = "finalRestore";
     public static final String NUTRITION_ADDED = "nutritionAdded";
     public static final String USER_ACTIVATED = "userActivated";
     public static final String NUTRITION_UPDATED = "nutritionUpdated";

@@ -35,7 +35,7 @@
 </head>
 <body>
 <jsp:include page="/jsp/header.jsp">
-    <jsp:param name="currentPage" value="register"/>
+    <jsp:param name="currentPage" value="show_register_page"/>
 </jsp:include>
 
 <form method="POST" action="controller">

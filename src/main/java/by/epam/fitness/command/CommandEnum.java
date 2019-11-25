@@ -46,6 +46,7 @@ public enum CommandEnum {
     LOGIN_USER(new LoginCommand()),
     LOGOUT_USER(new LogoutCommand()),
     SHOW_LOGIN_PAGE(new LoginPageCommand()),
+    SHOW_REGISTER_PAGE(new RegisterPageCommand()),
     ADMIN_COACHES(new AdminCoachesCommand()),
     ADD_COACH(new AddCoachCommand()),
     ADMIN_CLIENTS(new AdminClientsCommand()),

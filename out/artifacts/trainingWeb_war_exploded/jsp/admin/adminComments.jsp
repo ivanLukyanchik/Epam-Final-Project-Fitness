@@ -20,7 +20,7 @@
 <body>
 <jsp:include page="../menu.jsp">
     <jsp:param name="pageTopic" value="adminComments"/>
-    <jsp:param name="currentPage" value="adminComments"/>
+    <jsp:param name="currentPage" value="admin_comments"/>
 </jsp:include>
 
 <c:if test="${requestScope.success eq true}">

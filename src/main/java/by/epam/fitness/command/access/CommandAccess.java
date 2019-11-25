@@ -70,6 +70,7 @@ public class CommandAccess {
         commandTypes.add(CommandEnum.LOGIN_USER.getCommand());
         commandTypes.add(CommandEnum.LOGOUT_USER.getCommand());
         commandTypes.add(CommandEnum.SHOW_LOGIN_PAGE.getCommand());
+        commandTypes.add(CommandEnum.SHOW_REGISTER_PAGE.getCommand());
         return commandTypes;
     }
 
@@ -90,6 +91,7 @@ public class CommandAccess {
         commandTypes.add(CommandEnum.NO_ACCESS.getCommand());
         commandTypes.add(CommandEnum.HOME_PAGE.getCommand());
         commandTypes.add(CommandEnum.SHOW_LOGIN_PAGE.getCommand());
+        commandTypes.add(CommandEnum.SHOW_REGISTER_PAGE.getCommand());
         commandTypes.add(CommandEnum.ADMIN_COACHES.getCommand());
         commandTypes.add(CommandEnum.ADD_COACH.getCommand());
         commandTypes.add(CommandEnum.ADMIN_CLIENTS.getCommand());
@@ -116,6 +118,7 @@ public class CommandAccess {
         commandTypes.add(CommandEnum.LOGIN_USER.getCommand());
         commandTypes.add(CommandEnum.LOGOUT_USER.getCommand());
         commandTypes.add(CommandEnum.SHOW_LOGIN_PAGE.getCommand());
+        commandTypes.add(CommandEnum.SHOW_REGISTER_PAGE.getCommand());
         return commandTypes;
     }
 }

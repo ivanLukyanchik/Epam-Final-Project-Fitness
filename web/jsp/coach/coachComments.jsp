@@ -17,7 +17,7 @@
 <body>
 <jsp:include page="../menu.jsp">
     <jsp:param name="pageTopic" value="coachComments"/>
-    <jsp:param name="currentPage" value="coachComments"/>
+    <jsp:param name="currentPage" value="coach_comments"/>
 </jsp:include>
 
 <c:choose>

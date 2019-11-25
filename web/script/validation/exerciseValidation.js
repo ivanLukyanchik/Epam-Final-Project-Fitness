@@ -1,6 +1,6 @@
 function checkSetNumber() {
     var SetNumberInput = document.getElementById("set_update");
-    if (SetNumberInput.value==="" || (!/^[1-9][0-9]*$/.test(SetNumberInput.value))) {
+    if (SetNumberInput.value==="" || (!/^[1-9][0-9]?$/.test(SetNumberInput.value))) {
         var nameRegisterTitle = SetNumberInput.getAttribute("title");
         SetNumberInput.setCustomValidity(nameRegisterTitle);
     } else {
@@ -10,7 +10,7 @@ function checkSetNumber() {
 
 function checkRepeatNumber() {
     var repeatsNumberInput = document.getElementById("repeats_update");
-    if (repeatsNumberInput.value==="" || (!/^[1-9][0-9]*$/.test(repeatsNumberInput.value))) {
+    if (repeatsNumberInput.value==="" || (!/^[1-9][0-9]?$/.test(repeatsNumberInput.value))) {
         var nameRegisterTitle = repeatsNumberInput.getAttribute("title");
         repeatsNumberInput.setCustomValidity(nameRegisterTitle);
     } else {
@@ -30,7 +30,7 @@ function checkName() {
 
 function checkDescription() {
     var descriptionRegisterInput = document.getElementById("description");
-    if (descriptionRegisterInput.value==="" || (!/^[A-Za-z0-9][A-Za-z,.()\s0-9]{4,399}$/.test(descriptionRegisterInput.value))) {
+    if (descriptionRegisterInput.value==="" || (!/^[A-Za-zА-Яа-я0-9][A-Za-zА-Яа-я,.()\s0-9]{4,399}$/.test(descriptionRegisterInput.value))) {
         var nameRegisterTitle = descriptionRegisterInput.getAttribute("title");
         descriptionRegisterInput.setCustomValidity(nameRegisterTitle);
     } else {

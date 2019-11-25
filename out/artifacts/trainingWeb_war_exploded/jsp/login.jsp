@@ -20,6 +20,7 @@
 <fmt:message bundle="${locale}" key="remember_me" var="remember_me"/>
 <fmt:message bundle="${locale}" key="success_delete" var="success_delete"/>
 <fmt:message bundle="${locale}" key="user_activated" var="user_activated"/>
+<fmt:message bundle="${locale}" key="time_out" var="time_out"/>
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
@@ -30,11 +31,10 @@
 </head>
 <body>
 <jsp:include page="/jsp/header.jsp">
-    <jsp:param name="currentPage" value="login"/>
+    <jsp:param name="currentPage" value="show_login_page"/>
 </jsp:include>
 
 <form method="POST" action="${pageContext.request.contextPath}/controller?command=login_user">
-<%--    <input type="hidden" name="command" value="login"/>--%>
     <div class="group">
     <label for="login">${login}</label>
     <input id="login" oninput="checkLogin()" type="text" name="login" required placeholder="${username_placeholder}" title="${username_pattern_error}"/>
@@ -69,7 +69,9 @@
         <c:when test="${not empty requestScope.userActivated}">
             ${user_activated}
         </c:when>
-
+        <c:when test="${not empty requestScope.timeOut}">
+            ${time_out}
+        </c:when>
     </c:choose>
     <br/>
     <a href="${pageContext.request.contextPath}/register">${no_account}</a>

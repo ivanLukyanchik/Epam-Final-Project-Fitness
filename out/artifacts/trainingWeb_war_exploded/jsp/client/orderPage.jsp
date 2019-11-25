@@ -28,7 +28,7 @@
 <body>
 <jsp:include page="../menu.jsp">
     <jsp:param name="pageTopic" value="gym_membership"/>
-    <jsp:param name="currentPage" value="orderPage"/>
+    <jsp:param name="currentPage" value="show_order_page"/>
 </jsp:include>
 
     <div class="col-1">

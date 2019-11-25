@@ -61,11 +61,12 @@ public class CommentDaoImpl implements CommentDao {
     @Override
     public List<Comment> findByCoachId(long coachId) throws DaoException {
         List<Comment> comments = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
         Comment comment = null;
-        try (
-                Connection connection = ConnectionPool.INSTANCE.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_COACH_ID);
-        ) {
+        try{
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_FIND_BY_COACH_ID);
             preparedStatement.setLong(1, coachId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -74,6 +75,9 @@ public class CommentDaoImpl implements CommentDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
         }
         return comments;
     }
@@ -81,18 +85,22 @@ public class CommentDaoImpl implements CommentDao {
     @Override
     public List<Comment> findAll() throws DaoException {
         List<Comment> comments = new ArrayList<>();
+        Connection connection = null;
+        Statement statement = null;
         Comment comment = null;
-        try (
-                Connection connection = ConnectionPool.INSTANCE.getConnection();
-                Statement statement = connection.createStatement();
-        ) {
+        try{
+            connection = ConnectionPool.INSTANCE.getConnection();
+            statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SQL_FIND_ALL);
             while (resultSet.next()) {
-               comment = builder.build(resultSet);
+                comment = builder.build(resultSet);
                 comments.add(comment);
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
+        } finally {
+            close(statement);
+            close(connection);
         }
         return comments;
     }
@@ -100,14 +108,18 @@ public class CommentDaoImpl implements CommentDao {
     @Override
     public int delete(long id) throws DaoException {
         int result = 0;
-        try (
-                Connection connection = ConnectionPool.INSTANCE.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE);
-        ) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try{
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_DELETE);
             preparedStatement.setLong(1, id);
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
         }
         return result;
     }

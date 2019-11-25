@@ -22,11 +22,12 @@ public class CoachDaoImpl implements CoachDao {
 
     @Override
     public Optional<Coach> checkCoachByLoginPassword(String login, String password) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
         Coach coach = null;
-        try (
-                Connection connection = ConnectionPool.INSTANCE.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_CHECK_COACH_BY_LOGIN_PASSWORD);
-        ) {
+        try{
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_CHECK_COACH_BY_LOGIN_PASSWORD);
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, password);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -35,17 +36,21 @@ public class CoachDaoImpl implements CoachDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
         }
         return Optional.ofNullable(coach);
     }
 
     @Override
     public Optional<Coach> findByClientId(long clientId) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
         Coach coach = null;
-        try (
-                Connection connection = ConnectionPool.INSTANCE.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_CLIENT_ID);
-        ) {
+        try{
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_FIND_BY_CLIENT_ID);
             preparedStatement.setLong(1, clientId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -53,22 +58,26 @@ public class CoachDaoImpl implements CoachDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
         }
         return Optional.ofNullable(coach);
     }
 
     @Override
     public Long save(Coach coach) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
         String name = coach.getName();
         String surname = coach.getSurname();
         String patronymic = coach.getPatronymic();
         String login = coach.getLogin();
         String password = coach.getPassword();
         Long generatedId = null;
-        try (
-                Connection connection = ConnectionPool.INSTANCE.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_COACH, Statement.RETURN_GENERATED_KEYS);
-        ) {
+        try {
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_CREATE_COACH, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, surname);
             preparedStatement.setString(3, patronymic);
@@ -81,6 +90,9 @@ public class CoachDaoImpl implements CoachDao {
             }
         } catch (SQLException e) {
             throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
         }
         return generatedId;
 
@@ -88,11 +100,12 @@ public class CoachDaoImpl implements CoachDao {
 
     @Override
     public Optional<Coach> findById(Long id) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
         Coach coach = null;
-        try (
-                Connection connection = ConnectionPool.INSTANCE.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_COACH_ID);
-        ) {
+        try {
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_FIND_BY_COACH_ID);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -100,6 +113,9 @@ public class CoachDaoImpl implements CoachDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
         }
         return Optional.ofNullable(coach);
     }
@@ -107,11 +123,12 @@ public class CoachDaoImpl implements CoachDao {
     @Override
     public List<Coach> findAll() throws DaoException {
         List<Coach> coachesList = new ArrayList<>();
+        Connection connection = null;
+        Statement statement = null;
         Coach coach = null;
-        try (
-                Connection connection = ConnectionPool.INSTANCE.getConnection();
-                Statement statement = connection.createStatement();
-        ) {
+        try{
+            connection = ConnectionPool.INSTANCE.getConnection();
+            statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SQL_FIND_ALL);
             while (resultSet.next()) {
                 coach = builder.build(resultSet);
@@ -119,6 +136,9 @@ public class CoachDaoImpl implements CoachDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
+        } finally {
+            close(statement);
+            close(connection);
         }
         return coachesList;
     }

@@ -6,6 +6,7 @@ import by.epam.fitness.service.ServiceException;
 import by.epam.fitness.service.impl.ExerciseServiceImpl;
 import by.epam.fitness.util.JspConst;
 import by.epam.fitness.util.page.Page;
+import by.epam.fitness.util.validation.DataValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,11 +18,16 @@ import static by.epam.fitness.util.JspConst.EXERCISE_ID;
 public class DeleteExerciseCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(DeleteExerciseCommand.class);
     private ExerciseService exerciseService = new ExerciseServiceImpl();
+    private static DataValidator dataValidator = new DataValidator();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         String exerciseIdString = request.getParameter(EXERCISE_ID);
+        if (exerciseIdString==null || !dataValidator.isIdentifiableIdValid(exerciseIdString)) {
+            log.info("incorrect exercise id was received:" + exerciseIdString);
+            return Page.ADMIN_EXERCISES_COMMAND;
+        }
         long exerciseId = Long.parseLong(exerciseIdString);
         try {
             exerciseService.deleteExercise(exerciseId);

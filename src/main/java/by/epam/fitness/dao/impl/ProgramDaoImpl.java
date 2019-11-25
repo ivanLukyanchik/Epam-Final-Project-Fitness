@@ -54,11 +54,12 @@ public class ProgramDaoImpl implements ProgramDao {
 
     @Override
     public Optional<Program> findProgramById(long programId) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
         Program program = null;
-        try (
-                Connection connection = ConnectionPool.INSTANCE.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
-        ) {
+        try{
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
             preparedStatement.setLong(1, programId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -66,6 +67,9 @@ public class ProgramDaoImpl implements ProgramDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
         }
         return Optional.ofNullable(program);
     }

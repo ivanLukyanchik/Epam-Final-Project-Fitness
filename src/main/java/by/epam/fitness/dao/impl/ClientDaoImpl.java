@@ -30,29 +30,36 @@ public class ClientDaoImpl implements ClientDao {
 
     @Override
     public Optional<Client> checkUserByLoginPassword(String login, String newPassword) throws DaoException {
+        boolean result = false;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
         Client client = null;
-        try (
-            Connection connection = ConnectionPool.INSTANCE.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL_CHECK_USER_BY_LOGIN_PASSWORD);
-        ) {
+        try {
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_CHECK_USER_BY_LOGIN_PASSWORD);
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, newPassword);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 client = builder.build(resultSet);
+                result = true;
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
         }
-        return Optional.ofNullable(client);
+        return result ? Optional.of(client) : Optional.empty();
     }
 
     public boolean isLoginUnique(String patternLogin) throws DaoException {
         boolean result = true;
-        try (
-            Connection connection = ConnectionPool.INSTANCE.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL_IS_LOGIN_UNIQUE);
-        ) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_IS_LOGIN_UNIQUE);
             preparedStatement.setString(1, patternLogin);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -60,6 +67,9 @@ public class ClientDaoImpl implements ClientDao {
             }
         } catch (SQLException e) {
             throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
         }
         return result;
     }
@@ -102,11 +112,12 @@ public class ClientDaoImpl implements ClientDao {
 
     @Override
     public Optional<Client> findById(Long id) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
         Client client = null;
-        try (
-                Connection connection = ConnectionPool.INSTANCE.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
-        ) {
+        try{
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -114,17 +125,21 @@ public class ClientDaoImpl implements ClientDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
         }
         return Optional.ofNullable(client);
     }
 
     @Override
     public Optional<Client> findActiveById(long id) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
         Client client = null;
-        try (
-                Connection connection = ConnectionPool.INSTANCE.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_ACTIVE_BY_ID);
-        ) {
+        try{
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_FIND_ACTIVE_BY_ID);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -132,17 +147,21 @@ public class ClientDaoImpl implements ClientDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
         }
         return Optional.ofNullable(client);
     }
 
     @Override
     public Optional<Client> findByLoginHash(String login, String email, String hash) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
         Client client = null;
-        try (
-                Connection connection = ConnectionPool.INSTANCE.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_LOGIN_HASH);
-        ) {
+        try{
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_FIND_BY_LOGIN_HASH);
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, email);
             preparedStatement.setString(3, hash);
@@ -152,6 +171,9 @@ public class ClientDaoImpl implements ClientDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
         }
         return Optional.ofNullable(client);
     }
@@ -210,11 +232,12 @@ public class ClientDaoImpl implements ClientDao {
     @Override
     public List<Client> findByCoachId(long coachId) throws DaoException {
         List<Client> clients = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
         Client client;
-        try (
-                Connection connection = ConnectionPool.INSTANCE.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_COACH_ID);
-        ) {
+        try {
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_FIND_BY_COACH_ID);
             preparedStatement.setLong(1, coachId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -223,17 +246,21 @@ public class ClientDaoImpl implements ClientDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
         }
         return clients;
     }
 
     @Override
     public Optional<Client> getUserByCookieData(String login, String hash) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
         Client client = null;
-        try (
-                Connection connection = ConnectionPool.INSTANCE.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_USER_BY_COOKIE);
-        ) {
+        try{
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_FIND_USER_BY_COOKIE);
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, hash);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -242,6 +269,9 @@ public class ClientDaoImpl implements ClientDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
         }
         return Optional.ofNullable(client);
     }
@@ -249,11 +279,12 @@ public class ClientDaoImpl implements ClientDao {
     @Override
     public List<Client> findAll() throws DaoException {
         List<Client> clientsList = new ArrayList<>();
+        Connection connection = null;
+        Statement statement = null;
         Client client = null;
-        try (
-                Connection connection = ConnectionPool.INSTANCE.getConnection();
-                Statement statement = connection.createStatement();
-        ) {
+        try {
+            connection = ConnectionPool.INSTANCE.getConnection();
+            statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SQL_FIND_ALL);
             while (resultSet.next()) {
                 client = builder.build(resultSet);
@@ -261,6 +292,9 @@ public class ClientDaoImpl implements ClientDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
+        } finally {
+            close(statement);
+            close(connection);
         }
         return clientsList;
     }

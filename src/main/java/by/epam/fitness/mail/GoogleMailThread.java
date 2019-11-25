@@ -16,7 +16,7 @@ public class GoogleMailThread extends Thread {
     private String recipientMail;
     private String message;
 
-    public GoogleMailThread(String username, String password, String title, String recipientMail, String message) {
+    GoogleMailThread(String username, String password, String title, String recipientMail, String message) {
         this.username = username;
         this.password = password;
         this.title = title;

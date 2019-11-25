@@ -37,7 +37,7 @@
 <body>
 <jsp:include page="../menu.jsp">
     <jsp:param name="pageTopic" value="exercises"/>
-    <jsp:param name="currentPage" value="exercises"/>
+    <jsp:param name="currentPage" value="show_client_exercises"/>
 </jsp:include>
 
 <c:choose>
@@ -130,7 +130,7 @@
                     </div>
 
                     <div class="col-2">
-                        <input type="text" id="set_number" name="set_number" required title="${title}">
+                        <input onchange="checkSetNumber()" type="text" id="set_number" name="set_number" required title="${title}">
                     </div>
 
                     <div class="col-1">
@@ -138,7 +138,7 @@
                     </div>
 
                     <div class="col-2">
-                    <input type="text" id="repeats" name="repeats" required title="${title}">
+                    <input onchange="checkRepeatNumber()" type="text" id="repeats" name="repeats" required title="${title}">
                     </div>
 
                     <input type="submit" value="${add_exercise}">

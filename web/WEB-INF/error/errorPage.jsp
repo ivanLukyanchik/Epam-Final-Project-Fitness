@@ -12,6 +12,8 @@
     <div class="container">
         <h2 th:text="'Error message: ' + ${errorMsg}"></h2>
         <a class="btn btn-lg btn-warning" href="login">Return to login page</a>
+        <br/> <br/> <br/>
+        <a class="btn btn-lg btn-warning" href="welcome">Return to main page</a>
     </div>
     <div class="container">
     <br/><br/>

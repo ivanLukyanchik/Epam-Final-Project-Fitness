@@ -44,7 +44,7 @@
 <body>
 <jsp:include page="../menu.jsp">
     <jsp:param name="pageTopic" value="profile"/>
-    <jsp:param name="currentPage" value="clientProfile"/>
+    <jsp:param name="currentPage" value="client_profile"/>
 </jsp:include>
 
 <form method="post" action="modifyProfileServlet" enctype="multipart/form-data">

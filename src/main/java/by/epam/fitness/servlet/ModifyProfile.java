@@ -12,6 +12,7 @@ import by.epam.fitness.util.validation.DataValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -48,26 +49,26 @@ public class ModifyProfile extends HttpServlet {
         if (name==null || !dataValidator.isNameValid(name)) {
             log.info("invalid name format was received:" + name);
             request.setAttribute(INVALID_NAME, true);
-            return Page.CLIENT_PROFILE_PAGE;
+            return Page.CLIENT_PROFILE_COMMAND;
         }
         String surname = request.getParameter(PARAM_SURNAME);
         if (surname==null || !dataValidator.isSurnameValid(surname)) {
             log.info("invalid surname format was received:" + surname);
             request.setAttribute(INVALID_SURNAME, true);
-            return Page.CLIENT_PROFILE_PAGE;
+            return Page.CLIENT_PROFILE_COMMAND;
         }
         String login = request.getParameter(PARAM_LOGIN);
         String oldLogin = request.getParameter(OLD_LOGIN);
         if (login==null || !dataValidator.isLoginValid(login) || oldLogin==null || !dataValidator.isLoginValid(oldLogin)) {
             log.info("invalid login format was received:" + login  + " or " + oldLogin);
             request.setAttribute(INVALID_LOGIN, true);
-            return Page.CLIENT_PROFILE_PAGE;
+            return Page.CLIENT_PROFILE_COMMAND;
         }
         String email = request.getParameter(PARAM_EMAIL);
         if (email==null || !dataValidator.isEmailValid(email)){
             log.info("invalid email format was received:" + email);
             request.setAttribute(INVALID_EMAIL, true);
-            return Page.CLIENT_PROFILE_PAGE;
+            return Page.CLIENT_PROFILE_COMMAND;
         }
         InputStream inputStream = null;
             try {
@@ -84,7 +85,7 @@ public class ModifyProfile extends HttpServlet {
                     if (clientIdString == null || !dataValidator.isIdentifiableIdValid(clientIdString)) {
                         log.info("invalid client id format was received:" + clientIdString);
                         request.setAttribute(JspConst.INVALID_EXERCISE_ID_FORMAT, true);
-                        return Page.ADMIN_CLIENTS;
+                        return Page.ADMIN_CLIENTS_COMMAND;
                     }
                     clientId = Long.valueOf(clientIdString);
                 }
@@ -96,16 +97,18 @@ public class ModifyProfile extends HttpServlet {
                     client.setLogin(login);
                     client.setEmail(email);
                     if (inputStream != null) {
-                        client.setIs(inputStream);
-//                        try {
-//                            ImageIO.read(inputStream).toString();
-//                            user.setIs(inputStream);
-//                            // It's an image (only BMP, GIF, JPG and PNG are recognized).
-//                        } catch (Exception e) {
-//                            // It's not an image.
-//                            request.setAttribute(NOT_IMAGE, true);
-//                            log.info("incorrect image format was received from user with id = " + user.getId());
-//                        }
+                        try {
+                            if (ImageIO.read(inputStream) != null) {
+                                // It's an image (only BMP, GIF, JPG and PNG are recognized).
+                                client.setIs(inputStream);
+                            } else {
+                                // It's not an image.
+                                request.setAttribute(NOT_IMAGE, true);
+                                log.info("incorrect image format was received from user with id = " + client.getId());
+                            }
+                        } catch (IOException e) {
+                            log.error("IOException occurred ", e);
+                        }
                     }
                     if (login.equals(oldLogin) && (!clientService.isLoginUnique(login))) { // FIXME: 19.11.2019 rubbish here
                         clientService.save(client);
@@ -126,7 +129,7 @@ public class ModifyProfile extends HttpServlet {
                 }
             } catch (ServiceException | IOException | ServletException e) {
                 log.error("Problem with service occurred!", e);
-                page = Page.CLIENT_PROFILE_PAGE;
+                page = Page.CLIENT_PROFILE_COMMAND;
             }
         return page;
     }

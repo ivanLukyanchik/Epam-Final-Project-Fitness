@@ -12,6 +12,10 @@
     <title>Restore</title>
 </head>
 <body>
+<jsp:include page="/jsp/header.jsp">
+    <jsp:param name="currentPage" value="finalRestore"/>
+</jsp:include>
+
 <h2>${restore_check}</h2>
 <footer>
     ${footer}

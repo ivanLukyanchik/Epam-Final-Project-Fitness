@@ -15,11 +15,14 @@
 </head>
 <body>
 <jsp:include page="/jsp/header.jsp">
-    <jsp:param name="currentPage" value="noAccess"/>
+    <jsp:param name="currentPage" value="no_access"/>
 </jsp:include>
 
 <h1>${no_access}</h1>
-<a href="${pageContext.servletContext.contextPath}/login" style="position: absolute;margin-top: 250px;margin-left: 680px;background: white;color: black;font-weight: 700;width: 84px;height: 20px;text-shadow: none;border-radius: 5px;">${return_to_login}</a>
+<a href="${pageContext.servletContext.contextPath}/login" style="text-shadow: none;text-align: center">${return_to_login}</a>
+<br/>
+<br/>
+<a href="${pageContext.servletContext.contextPath}/welcome" style="text-shadow: none;text-align: center">return to main page</a>
 <footer>
     ${footer}
 </footer>

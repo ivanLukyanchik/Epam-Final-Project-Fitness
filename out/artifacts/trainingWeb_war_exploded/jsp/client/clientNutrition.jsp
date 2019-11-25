@@ -33,7 +33,7 @@
 <body>
 <jsp:include page="../menu.jsp">
     <jsp:param name="pageTopic" value="nutrition"/>
-    <jsp:param name="currentPage" value="nutrition"/>
+    <jsp:param name="currentPage" value="show_client_nutrition"/>
 </jsp:include>
 
 <c:if test="${not empty sessionScope.client}">

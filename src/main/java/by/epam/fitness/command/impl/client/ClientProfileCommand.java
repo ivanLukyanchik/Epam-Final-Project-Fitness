@@ -52,14 +52,14 @@ public class ClientProfileCommand implements ActionCommand {
         }
         try {
             List<OrderInformation> ordersList = orderInformationService.findOrdersByClientId(clientId);
-            session.setAttribute(JspConst.ORDERS, ordersList);
+            request.setAttribute(JspConst.ORDERS, ordersList);
             Optional<Client> userOptional = clientService.findById(clientId);
             if (userOptional.isPresent()) {
                 Client client = userOptional.get();
                 request.setAttribute(JspConst.CLIENT, client);
                 Optional<OrderInformation> orderInformation = orderInformationService.findByClientId(clientId);
                 if (orderInformation.isPresent()) {
-                    session.setAttribute(JspConst.MEMBERSHIP_VALID, membershipValidChecker.isCurrentMembershipValid(client.getId()));
+                    request.setAttribute(JspConst.MEMBERSHIP_VALID, membershipValidChecker.isCurrentMembershipValid(client.getId()));
                 }
                 Long coachId = client.getCoachId();
                 Optional<Coach> coach = coachService.findById(coachId);

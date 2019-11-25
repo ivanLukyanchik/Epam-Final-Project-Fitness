@@ -2,9 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%
-    pageContext.setAttribute("currentPage", "restore");
-%>
 
 <fmt:setLocale value="${sessionScope.local}"/>
 <fmt:setBundle basename="locale.pagecontent" var="locale"/>

@@ -28,16 +28,16 @@ public class UpdateExerciseCommand implements ActionCommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         String repeatsString = request.getParameter(JspConst.REPEATS);
-        if (repeatsString==null || !dataValidator.isSetNumberValid(repeatsString)) {
+        if (repeatsString==null || !dataValidator.isRepeatsNumberValid(repeatsString)) {
             log.info("format number of repeats is not correct");
             request.setAttribute(JspConst.INCORRECT_INPUT_DATA_ERROR, true);
-            return Page.EXERCISES;
+            return Page.CLIENT_EXERCISES_COMMAND;
         }
         String setNumberString = request.getParameter(JspConst.SET_NUMBER);
         if (setNumberString==null ||!dataValidator.isSetNumberValid(setNumberString)) {
             log.info("format number of set number is not correct");
             request.setAttribute(JspConst.INCORRECT_INPUT_DATA_ERROR, true);
-            return Page.EXERCISES;
+            return Page.CLIENT_EXERCISES_COMMAND;
         }
         int repeats = Integer.parseInt(repeatsString);
         int setNumber = Integer.parseInt(setNumberString);
@@ -45,14 +45,14 @@ public class UpdateExerciseCommand implements ActionCommand {
         if (exerciseProgramIdString==null || !dataValidator.isIdentifiableIdValid(exerciseProgramIdString)) {
             log.info("incorrect exercise id was received:" + exerciseProgramIdString);
             request.setAttribute(INVALID_EXERCISE_ID_FORMAT, true);
-            return Page.EXERCISES;
+            return Page.CLIENT_EXERCISES_COMMAND;
         }
         Long exerciseProgramId = Long.valueOf(exerciseProgramIdString);
         try {
             if (!isExerciseExist(exerciseProgramId)) {
                 log.info("exercise with id = " + exerciseProgramId + " doesn't exist");
                 request.setAttribute(NOT_EXIST_EXERCISE_ID, true);
-                return Page.EXERCISES;
+                return Page.CLIENT_EXERCISES_COMMAND;
             }
             Optional<ExerciseProgram> exerciseProgramOptional = exerciseProgramService.findById(exerciseProgramId);
             if (exerciseProgramOptional.isPresent()) {
@@ -66,7 +66,7 @@ public class UpdateExerciseCommand implements ActionCommand {
             page = Page.CLIENT_EXERCISES_COMMAND;
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
-            page = Page.EXERCISES;
+            page = Page.CLIENT_EXERCISES_COMMAND;
         }
         return page;
     }

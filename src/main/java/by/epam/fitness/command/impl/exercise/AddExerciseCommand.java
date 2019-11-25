@@ -22,28 +22,34 @@ public class AddExerciseCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(AddExerciseCommand.class);
     private ExerciseProgramService exerciseProgramService = new ExerciseProgramServiceImpl();
     private ExerciseService exerciseService = new ExerciseServiceImpl();
-    private DataValidator dataValidator = new DataValidator();
+    private static DataValidator dataValidator = new DataValidator();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         String repeatsString = request.getParameter(JspConst.REPEATS);
-        if (repeatsString == null || !dataValidator.isSetNumberValid(repeatsString)) {
+        if (repeatsString == null || !dataValidator.isRepeatsNumberValid(repeatsString)) {
             log.info("format number of repeats is not correct");
             request.setAttribute(JspConst.INCORRECT_INPUT_DATA_ERROR, true);
-            return Page.EXERCISES;
+            return Page.CLIENT_EXERCISES_COMMAND;
         }
         String setNumberString = request.getParameter(JspConst.SET_NUMBER);
         if (setNumberString == null || !dataValidator.isSetNumberValid(setNumberString)) {
             log.info("format number of set number is not correct");
             request.setAttribute(JspConst.INCORRECT_INPUT_DATA_ERROR, true);
-            return Page.EXERCISES;
+            return Page.CLIENT_EXERCISES_COMMAND;
         }
         Integer repeats = Integer.valueOf(repeatsString);
         Integer setNumber = Integer.valueOf(setNumberString);
         try {
             ExerciseProgram exerciseProgram = makeExercise(request, repeats, setNumber);
-            long programId = Long.parseLong(request.getParameter(JspConst.PROGRAM_ID));
+            String programIdString = request.getParameter(JspConst.PROGRAM_ID);
+            if (programIdString==null || !dataValidator.isIdentifiableIdValid(programIdString)) {
+                log.info("invalid program id format was received:" + programIdString);
+                request.setAttribute(JspConst.INVALID_EXERCISE_ID_FORMAT, true);
+                return Page.CLIENT_EXERCISES_COMMAND;
+            }
+            long programId = Long.parseLong(programIdString);
             if (!isExerciseExist(exerciseProgram.getExercise().getId(), programId)) {
                 exerciseProgramService.save(exerciseProgram);
             } else {
@@ -55,7 +61,7 @@ public class AddExerciseCommand implements ActionCommand {
             page = Page.CLIENT_EXERCISES_COMMAND;
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
-            page = Page.EXERCISES;
+            page = Page.CLIENT_EXERCISES_COMMAND;
         }
         return page;
     }

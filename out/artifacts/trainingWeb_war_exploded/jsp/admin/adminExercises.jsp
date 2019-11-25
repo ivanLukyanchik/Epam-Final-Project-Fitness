@@ -17,6 +17,7 @@
 <fmt:message bundle="${locale}" key="exercise_name_pattern_error" var="exercise_name_pattern_error"/>
 <fmt:message bundle="${locale}" key="exercise_description_pattern_error" var="exercise_description_pattern_error"/>
 <fmt:message bundle="${locale}" key="no_exercises_admin" var="no_exercises_admin"/>
+<fmt:message bundle="${locale}" key="not_image" var="not_image"/>
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
@@ -27,7 +28,7 @@
 <body>
 <jsp:include page="../menu.jsp">
     <jsp:param name="pageTopic" value="adminExercises"/>
-    <jsp:param name="currentPage" value="adminExercises"/>
+    <jsp:param name="currentPage" value="admin_exercises"/>
 </jsp:include>
 
 <c:if test="${requestScope.success eq true}">
@@ -35,6 +36,9 @@
 </c:if>
 <c:if test="${requestScope.exerciseDeleted eq true}">
     ${exercise_deleted}
+</c:if>
+<c:if test="${not empty requestScope.notImage}">
+    ${not_image}
 </c:if>
 
 <form method="post" action="addExerciseServlet" enctype="multipart/form-data">

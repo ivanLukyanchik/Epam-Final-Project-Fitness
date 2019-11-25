@@ -96,6 +96,15 @@
     </error-page>
 
     <filter>
+        <filter-name>TimeOutFilter</filter-name>
+        <filter-class>by.epam.fitness.filter.TimeOutFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>TimeOutFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
         <filter-name>CommandTypeFilter</filter-name>
         <filter-class>by.epam.fitness.filter.CommandTypeFilter</filter-class>
     </filter>

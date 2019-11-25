@@ -9,6 +9,7 @@ import by.epam.fitness.service.impl.OrderInformationServiceImpl;
 import by.epam.fitness.util.JspConst;
 import by.epam.fitness.util.SessionAttributes;
 import by.epam.fitness.util.page.Page;
+import by.epam.fitness.util.validation.DataValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,6 +23,7 @@ import static by.epam.fitness.util.JspConst.COACH_CLIENT_ID;
 public class ClientOrdersCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(ClientOrdersCommand.class);
     private OrderInformationService orderInformationService = new OrderInformationServiceImpl();
+    private static DataValidator dataValidator = new DataValidator();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -31,6 +33,9 @@ public class ClientOrdersCommand implements ActionCommand {
         Long clientId = null;
         if (role.equals(UserRole.COACH)) {
             clientId = getClientIdForAppropriateCoach(session, request);
+            if (clientId == -1L) {
+                return Page.CLIENT_ORDERS;
+            }
         } else {
             clientId = (Long) session.getAttribute(SessionAttributes.ID);
         }
@@ -51,7 +56,13 @@ public class ClientOrdersCommand implements ActionCommand {
         if (clientIdString == null) {
             clientId = (Long) session.getAttribute(COACH_CLIENT_ID);
         } else {
-            clientId= Long.valueOf(request.getParameter(COACH_CLIENT_ID));
+            clientIdString = request.getParameter(COACH_CLIENT_ID);
+            if (!dataValidator.isIdentifiableIdValid(clientIdString)) {
+                log.info("invalid client id format from coach was received:" + clientIdString);
+                request.setAttribute(JspConst.INVALID_EXERCISE_ID_FORMAT, true);
+                return -1L;
+            }
+            clientId = Long.valueOf(clientIdString);
             session.setAttribute(COACH_CLIENT_ID,clientId);
         }
         return clientId;

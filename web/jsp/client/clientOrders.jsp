@@ -20,7 +20,7 @@
 <body>
 <jsp:include page="../menu.jsp">
     <jsp:param name="pageTopic" value="orders"/>
-    <jsp:param name="currentPage" value="clientOrders"/>
+    <jsp:param name="currentPage" value="client_orders"/>
 </jsp:include>
     <c:choose>
         <c:when test="${fn:length(orders) eq 0}">

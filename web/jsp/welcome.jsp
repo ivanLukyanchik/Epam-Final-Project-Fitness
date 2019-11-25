@@ -2,10 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<%
-    pageContext.setAttribute("currentPage", "welcome");
-%>
-
 <fmt:setLocale value="${sessionScope.local}" scope="session"/>
 <fmt:setBundle basename="locale.pagecontent" var="locale"/>
 
@@ -42,7 +38,7 @@
 <body>
 <jsp:include page="/jsp/menu.jsp">
     <jsp:param name="pageTopic" value="about_us"/>
-    <jsp:param name="currentPage" value="welcome"/>
+    <jsp:param name="currentPage" value="home_page"/>
 </jsp:include>
 
 <c:choose>

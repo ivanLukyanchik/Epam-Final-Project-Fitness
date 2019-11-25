@@ -27,31 +27,31 @@ public class AddCoachCommand implements ActionCommand {
         if (name==null || !dataValidator.isNameValid(name)) {
             log.info("invalid name format was received:" + name);
             request.setAttribute(INVALID_NAME, true);
-            return Page.ADMIN_COACHES;
+            return Page.ADMIN_COACHES_COMMAND;
         }
         String surname = request.getParameter(PARAM_SURNAME);
         if (surname==null || !dataValidator.isSurnameValid(surname)) {
             log.info("invalid name format was received:" + surname);
             request.setAttribute(INVALID_SURNAME, true);
-            return Page.ADMIN_COACHES;
+            return Page.ADMIN_COACHES_COMMAND;
         }
         String patronymic = request.getParameter(PARAM_PATRONYMIC);
         if (patronymic==null || !dataValidator.isPatronymicValid(patronymic)) {
             log.info("invalid patronymic format was received:" + patronymic);
             request.setAttribute(INVALID_PATRONYMIC, true);
-            return Page.ADMIN_COACHES;
+            return Page.ADMIN_COACHES_COMMAND;
         }
         String login = request.getParameter(PARAM_LOGIN);
         if (login==null || !dataValidator.isLoginValid(login)) {
             log.info("invalid login format was received:" + login);
             request.setAttribute(INVALID_LOGIN, true);
-            return Page.ADMIN_COACHES;
+            return Page.ADMIN_COACHES_COMMAND;
         }
         String password = request.getParameter(PARAM_PASSWORD);
         if (password==null || !dataValidator.isPasswordValid(password)) {
             log.info("invalid password format was received:" + password);
             request.setAttribute(INVALID_PASSWORD, true);
-            return Page.ADMIN_COACHES;
+            return Page.ADMIN_COACHES_COMMAND;
         }
         Coach coach = makeCoach(request);
         try {
@@ -61,7 +61,7 @@ public class AddCoachCommand implements ActionCommand {
             page = Page.ADMIN_COACHES_COMMAND;
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
-            page = Page.ADMIN_COACHES;
+            page = Page.ADMIN_COACHES_COMMAND;
         }
         return page;
     }

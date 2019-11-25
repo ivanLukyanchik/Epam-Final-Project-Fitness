@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
-public class ProxyConnection implements Connection {
+public class ProxyConnection implements Connection, AutoCloseable {
     private Logger log = LogManager.getLogger(ProxyConnection.class);
     private Connection connection;
 
@@ -74,27 +74,27 @@ public class ProxyConnection implements Connection {
 
     @Override
     public String nativeSQL(String sql) throws SQLException {
-        return null;
+        return connection.nativeSQL(sql);
     }
 
     @Override
     public void setAutoCommit(boolean autoCommit) throws SQLException {
-
+        connection.setAutoCommit(autoCommit);
     }
 
     @Override
     public boolean getAutoCommit() throws SQLException {
-        return false;
+        return connection.getAutoCommit();
     }
 
     @Override
     public void commit() throws SQLException {
-
+        connection.commit();
     }
 
     @Override
     public void rollback() throws SQLException {
-
+        connection.rollback();
     }
 
     @Override
@@ -103,7 +103,7 @@ public class ProxyConnection implements Connection {
             connection.setAutoCommit(true);
         }
         catch (SQLException e) {
-            log.error("Connection is not returned tu AUTO-commit state", e);
+            log.error("Connection is not returned to AUTO-commit state", e);
             throw new RuntimeException("database is not closed", e);
         }
         ConnectionPool.INSTANCE.releaseConnection(this);

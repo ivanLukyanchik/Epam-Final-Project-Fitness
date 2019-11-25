@@ -29,7 +29,7 @@ public class ChangeClientActiveCommand implements ActionCommand {
         if (clientIdString == null || !dataValidator.isIdentifiableIdValid(clientIdString)) {
             log.info("invalid client id format was received:" + clientIdString);
             request.setAttribute(JspConst.INVALID_EXERCISE_ID_FORMAT, true);
-            return Page.ADMIN_CLIENTS;
+            return Page.ADMIN_CLIENTS_COMMAND;
         }
         try {
             Optional<Client> clientOptional = clientService.findById(Long.parseLong(clientIdString));
@@ -46,7 +46,7 @@ public class ChangeClientActiveCommand implements ActionCommand {
             }
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
-            page = Page.ADMIN_CLIENTS;
+            page = Page.ADMIN_CLIENTS_COMMAND;
         }
         return page;
     }

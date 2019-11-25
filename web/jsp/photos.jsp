@@ -14,7 +14,7 @@
 <body>
 <jsp:include page="/jsp/menu.jsp">
     <jsp:param name="pageTopic" value="gym_photos"/>
-    <jsp:param name="currentPage" value="gymPhotos"/>
+    <jsp:param name="currentPage" value="gym_photos"/>
 </jsp:include>
 <div class="all">
     <input checked type="radio" name="respond" id="desktop">

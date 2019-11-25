@@ -29,13 +29,14 @@ public class UpdateNutritionCommand implements ActionCommand {
         if (newNutritionDescription==null || !dataValidator.isNutritionDescriptionValid(newNutritionDescription)){
             log.info("incorrect nutrition description");
             request.setAttribute(JspConst.INCORRECT_INPUT_NUTRITION_DATA_ERROR, true);
-            return Page.NUTRITION;
+            return Page.CLIENT_NUTRITION_COMMAND;
         }
         String nutritionIdString = request.getParameter(NUTRITION_ID);
         try {
             if (nutritionIdString == null || !isNutritionExist(nutritionIdString)) {
                 log.info("nutrition with id:" + nutritionIdString + " doesn't exist");
                 request.setAttribute(JspConst.NOT_EXIST_NUTRITION_ID, true);
+                return Page.CLIENT_NUTRITION_COMMAND;
             }
             Long nutritionId = Long.parseLong(request.getParameter(NUTRITION_ID));
             String nutritionTime = request.getParameter(NUTRITION_TIME);
@@ -45,7 +46,7 @@ public class UpdateNutritionCommand implements ActionCommand {
             page = Page.CLIENT_NUTRITION_COMMAND;
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
-            page = Page.NUTRITION;
+            page = Page.CLIENT_NUTRITION_COMMAND;
         }
         return page;
     }
