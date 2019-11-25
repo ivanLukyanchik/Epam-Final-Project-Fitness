@@ -15,6 +15,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 public class AddExerciseCommand implements ActionCommand {
@@ -24,7 +25,7 @@ public class AddExerciseCommand implements ActionCommand {
     private DataValidator dataValidator = new DataValidator();
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         String repeatsString = request.getParameter(JspConst.REPEATS);
         if (repeatsString == null || !dataValidator.isSetNumberValid(repeatsString)) {

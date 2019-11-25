@@ -1,10 +1,11 @@
 package by.epam.fitness.servlet;
 
-import by.epam.fitness.command.ActionCommand;
-import by.epam.fitness.entity.User;
+import by.epam.fitness.entity.Client;
+import by.epam.fitness.entity.UserRole;
+import by.epam.fitness.service.ClientService;
 import by.epam.fitness.service.ServiceException;
-import by.epam.fitness.service.UserService;
-import by.epam.fitness.service.impl.UserServiceImpl;
+import by.epam.fitness.service.impl.ClientServiceImpl;
+import by.epam.fitness.util.JspConst;
 import by.epam.fitness.util.SessionAttributes;
 import by.epam.fitness.util.page.Page;
 import by.epam.fitness.util.validation.DataValidator;
@@ -25,12 +26,12 @@ import java.util.Optional;
 
 import static by.epam.fitness.util.JspConst.*;
 
-@WebServlet("/modifyProfile")
+@WebServlet("/modifyProfileServlet")
 @MultipartConfig
-public class ModifyProfile extends HttpServlet implements ActionCommand {
+public class ModifyProfile extends HttpServlet {
     private static Logger log = LogManager.getLogger(ModifyProfile.class);
     private static DataValidator dataValidator = new DataValidator();
-    private UserService userService = new UserServiceImpl();
+    private ClientService clientService = new ClientServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -46,44 +47,56 @@ public class ModifyProfile extends HttpServlet implements ActionCommand {
         String name = request.getParameter(PARAM_NAME);
         if (name==null || !dataValidator.isNameValid(name)) {
             log.info("invalid name format was received:" + name);
-            request.setAttribute("invalidName", "Wrong name");
+            request.setAttribute(INVALID_NAME, true);
             return Page.CLIENT_PROFILE_PAGE;
         }
         String surname = request.getParameter(PARAM_SURNAME);
         if (surname==null || !dataValidator.isSurnameValid(surname)) {
-            log.info("invalid name format was received:" + surname);
-            request.setAttribute("invalidSurname", "Wrong surname");
+            log.info("invalid surname format was received:" + surname);
+            request.setAttribute(INVALID_SURNAME, true);
             return Page.CLIENT_PROFILE_PAGE;
         }
         String login = request.getParameter(PARAM_LOGIN);
         String oldLogin = request.getParameter(OLD_LOGIN);
         if (login==null || !dataValidator.isLoginValid(login) || oldLogin==null || !dataValidator.isLoginValid(oldLogin)) {
             log.info("invalid login format was received:" + login  + " or " + oldLogin);
-            request.setAttribute("invalidLogin", "Wrong login");
+            request.setAttribute(INVALID_LOGIN, true);
             return Page.CLIENT_PROFILE_PAGE;
         }
         String email = request.getParameter(PARAM_EMAIL);
         if (email==null || !dataValidator.isEmailValid(email)){
             log.info("invalid email format was received:" + email);
-            request.setAttribute("invalidEmail", "Wrong email");
+            request.setAttribute(INVALID_EMAIL, true);
             return Page.CLIENT_PROFILE_PAGE;
         }
         InputStream inputStream = null;
             try {
-                Part filePart = request.getPart("photo");
+                Part filePart = request.getPart(PARAM_PHOTO);
                 if (!filePart.getSubmittedFileName().equals("")) {
                     inputStream = filePart.getInputStream();
                 }
-                Long clientId = (Long) request.getSession().getAttribute(SessionAttributes.ID);
-                Optional<User> clientOptional = userService.findById(clientId);
+                String role = String.valueOf(request.getSession().getAttribute(SessionAttributes.ROLE));
+                Long clientId = null;
+                if (role.equals(UserRole.CLIENT)) {
+                    clientId = (Long) request.getSession().getAttribute(SessionAttributes.ID);
+                } else {
+                    String clientIdString = request.getParameter(CLIENT_ID);
+                    if (clientIdString == null || !dataValidator.isIdentifiableIdValid(clientIdString)) {
+                        log.info("invalid client id format was received:" + clientIdString);
+                        request.setAttribute(JspConst.INVALID_EXERCISE_ID_FORMAT, true);
+                        return Page.ADMIN_CLIENTS;
+                    }
+                    clientId = Long.valueOf(clientIdString);
+                }
+                Optional<Client> clientOptional = clientService.findById(clientId);
                 if (clientOptional.isPresent()) {
-                    User user = clientOptional.get();
-                    user.setName(name);
-                    user.setSurname(surname);
-                    user.setLogin(login);
-                    user.setEmail(email);
+                    Client client = clientOptional.get();
+                    client.setName(name);
+                    client.setSurname(surname);
+                    client.setLogin(login);
+                    client.setEmail(email);
                     if (inputStream != null) {
-                        user.setIs(inputStream);
+                        client.setIs(inputStream);
 //                        try {
 //                            ImageIO.read(inputStream).toString();
 //                            user.setIs(inputStream);
@@ -94,19 +107,21 @@ public class ModifyProfile extends HttpServlet implements ActionCommand {
 //                            log.info("incorrect image format was received from user with id = " + user.getId());
 //                        }
                     }
-                    if (login.equals(oldLogin) && (!userService.isLoginUnique(login))) { // FIXME: 19.11.2019 rubbish here
-                        userService.save(user);
+                    if (login.equals(oldLogin) && (!clientService.isLoginUnique(login))) { // FIXME: 19.11.2019 rubbish here
+                        clientService.save(client);
                         log.info("client with id = " + clientId + " successfully changed his profile data");
                         request.setAttribute(SUCCESS, true);
-                        page = "/controller?command=client_profile";
-                    } else if (userService.isLoginUnique(login)) {
-                        userService.save(user);
+                        request.setAttribute(ADMIN_CLIENT_ID, clientId);
+                        page = Page.CLIENT_PROFILE_COMMAND;
+                    } else if (clientService.isLoginUnique(login)) {
+                        clientService.save(client);
                         log.info("client with id = " + clientId + " successfully changed his profile data");
                         request.setAttribute(SUCCESS, true);
-                        page = "/controller?command=client_profile";
+                        request.setAttribute(ADMIN_CLIENT_ID, clientId);
+                        page = Page.CLIENT_PROFILE_COMMAND;
                     } else {
                         request.setAttribute(WRONG_DATA, true);
-                        page = "/controller?command=client_profile";
+                        page = Page.CLIENT_PROFILE_COMMAND;
                     }
                 }
             } catch (ServiceException | IOException | ServletException e) {

@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import static by.epam.fitness.util.JspConst.EXERCISE_ID;
 
@@ -18,7 +19,7 @@ public class RejectExerciseCommand implements ActionCommand {
     private ExerciseProgramService exerciseProgramService = new ExerciseProgramServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         String exerciseIdString = request.getParameter(EXERCISE_ID);
         long exerciseId = Long.parseLong(exerciseIdString);

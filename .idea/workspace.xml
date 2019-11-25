@@ -280,7 +280,8 @@
       <workItem from="1574458473509" duration="410000" />
       <workItem from="1574516805828" duration="6220000" />
       <workItem from="1574582164546" duration="10518000" />
-      <workItem from="1574613088004" duration="14809000" />
+      <workItem from="1574613088004" duration="15037000" />
+      <workItem from="1574663257468" duration="5543000" />
     </task>
     <servers />
   </component>
@@ -291,9 +292,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/client/ClientProfileCommand.java</url>
-          <line>39</line>
-          <option name="timeStamp" value="35" />
+          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/servlet/ModifyProfile.java</url>
+          <line>96</line>
+          <option name="timeStamp" value="38" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

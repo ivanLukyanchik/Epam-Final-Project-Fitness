@@ -4,16 +4,16 @@ import by.epam.fitness.command.impl.*;
 import by.epam.fitness.command.impl.admin.*;
 import by.epam.fitness.command.impl.client.*;
 import by.epam.fitness.command.impl.coach.CoachClientsCommand;
-import by.epam.fitness.command.impl.comment.AddCommentCommand;
 import by.epam.fitness.command.impl.coach.ShowCommentsCommand;
-import by.epam.fitness.command.impl.exercise.*;
+import by.epam.fitness.command.impl.comment.AddCommentCommand;
+import by.epam.fitness.command.impl.exercise.AddExerciseCommand;
+import by.epam.fitness.command.impl.exercise.RejectExerciseCommand;
+import by.epam.fitness.command.impl.exercise.ShowClientExercisesCommand;
+import by.epam.fitness.command.impl.exercise.UpdateExerciseCommand;
 import by.epam.fitness.command.impl.nutrition.AddNutritionCommand;
 import by.epam.fitness.command.impl.nutrition.RejectNutritionCommand;
 import by.epam.fitness.command.impl.nutrition.ShowClientNutritionCommand;
 import by.epam.fitness.command.impl.nutrition.UpdateNutritionCommand;
-import by.epam.fitness.command.impl.servlet.Login;
-import by.epam.fitness.command.impl.servlet.Logout;
-import by.epam.fitness.command.impl.servlet.ModifyProfile;
 
 public enum CommandEnum {
     LOCALE(new LocaleCommand()),
@@ -43,9 +43,8 @@ public enum CommandEnum {
     COACH_CLIENTS(new CoachClientsCommand()),
     COACH_COMMENTS(new ShowCommentsCommand()),
     DELETE_ACCOUNT(new DeleteAccountCommand()),
-    MODIFY_PROFILE_DATA(new ModifyProfile()),
-    LOGIN_USER(new Login()),
-    LOGOUT_USER(new Logout()),
+    LOGIN_USER(new LoginCommand()),
+    LOGOUT_USER(new LogoutCommand()),
     SHOW_LOGIN_PAGE(new LoginPageCommand()),
     ADMIN_COACHES(new AdminCoachesCommand()),
     ADD_COACH(new AddCoachCommand()),

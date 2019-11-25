@@ -12,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 import static by.epam.fitness.util.JspConst.ADMIN_CLIENT_ID;
@@ -22,7 +23,7 @@ public class ChangeClientActiveCommand implements ActionCommand {
     private ClientService clientService = new ClientServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         String clientIdString = request.getParameter(ADMIN_CLIENT_ID);
         if (clientIdString == null || !dataValidator.isIdentifiableIdValid(clientIdString)) {

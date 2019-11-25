@@ -19,12 +19,11 @@ public class AdminDaoImpl implements AdminDao {
 
     @Override
     public Optional<Admin> checkAdminByLoginPassword(String login, String password) throws DaoException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         Admin admin = null;
-        try{
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_CHECK_ADMIN_BY_LOGIN_PASSWORD);
+        try (
+            Connection connection = ConnectionPool.INSTANCE.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_CHECK_ADMIN_BY_LOGIN_PASSWORD);
+        ) {
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, password);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -33,9 +32,6 @@ public class AdminDaoImpl implements AdminDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return Optional.ofNullable(admin);
     }

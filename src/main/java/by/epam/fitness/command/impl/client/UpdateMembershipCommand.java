@@ -19,6 +19,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -37,7 +38,7 @@ public class UpdateMembershipCommand implements ActionCommand {
     private final static SaleSystem SALE_SYSTEM = SaleSystem.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         String cardNumber = request.getParameter(CARD_NUMBER);
         if (cardNumber==null || !dataValidator.isCardNumberValid(cardNumber)) {

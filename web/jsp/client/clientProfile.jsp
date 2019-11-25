@@ -47,7 +47,7 @@
     <jsp:param name="currentPage" value="clientProfile"/>
 </jsp:include>
 
-<form method="post" action="modifyProfile" enctype="multipart/form-data">
+<form method="post" action="modifyProfileServlet" enctype="multipart/form-data">
     <input type="hidden" name="client_id" value="${client.id}">
     <div class="col-1">
         <label for="name">${name}</label>

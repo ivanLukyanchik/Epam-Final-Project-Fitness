@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import static by.epam.fitness.util.JspConst.*;
 
@@ -20,7 +21,7 @@ public class AddCoachCommand implements ActionCommand {
     private CoachService coachService = new CoachServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         String name = request.getParameter(PARAM_NAME);
         if (name==null || !dataValidator.isNameValid(name)) {

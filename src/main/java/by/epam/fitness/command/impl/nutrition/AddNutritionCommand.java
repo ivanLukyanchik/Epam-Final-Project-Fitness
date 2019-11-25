@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import java.util.Optional;
 
@@ -21,7 +22,7 @@ public class AddNutritionCommand implements ActionCommand {
     private NutritionService nutritionService = new NutritionServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         long nutritionId = Long.parseLong(request.getParameter(NUTRITION_ID));
         try {

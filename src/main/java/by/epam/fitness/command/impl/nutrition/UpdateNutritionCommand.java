@@ -12,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 import static by.epam.fitness.util.JspConst.*;
@@ -22,7 +23,7 @@ public class UpdateNutritionCommand implements ActionCommand {
     private NutritionService nutritionService = new NutritionServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         String newNutritionDescription = request.getParameter(JspConst.NUTRITION_DESCRIPTION);
         if (newNutritionDescription==null || !dataValidator.isNutritionDescriptionValid(newNutritionDescription)){

@@ -10,13 +10,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class DeleteCommentCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(DeleteCommentCommand.class);
     private CommentService commentService = new CommentServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         String commentIdString = request.getParameter(JspConst.COMMENT_ID);
         long commentId = Long.parseLong(commentIdString);

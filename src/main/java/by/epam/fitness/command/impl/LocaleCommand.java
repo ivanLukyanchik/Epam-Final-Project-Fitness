@@ -5,6 +5,7 @@ import by.epam.fitness.util.JspConst;
 import by.epam.fitness.util.page.Page;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import static by.epam.fitness.util.JspConst.CHANGED_LOCALE;
 import static by.epam.fitness.util.JspConst.MESSAGE;
@@ -12,7 +13,7 @@ import static by.epam.fitness.util.JspConst.MESSAGE;
 public class LocaleCommand implements ActionCommand {
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         String lang = request.getParameter(JspConst.LANGUAGE);
         request.getSession().setAttribute(JspConst.LOCAL, lang);
         request.getSession().setAttribute(MESSAGE, CHANGED_LOCALE);

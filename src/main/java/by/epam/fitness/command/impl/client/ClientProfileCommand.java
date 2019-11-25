@@ -21,6 +21,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +37,7 @@ public class ClientProfileCommand implements ActionCommand {
     private static DataValidator dataValidator = new DataValidator();
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         HttpSession session = request.getSession();
         String role = String.valueOf(session.getAttribute(SessionAttributes.ROLE));
@@ -44,13 +45,10 @@ public class ClientProfileCommand implements ActionCommand {
         if (role.equals(UserRole.CLIENT)) {
             clientId = (Long) session.getAttribute(SessionAttributes.ID);
         } else {
-            String clientIdString = request.getParameter(ADMIN_CLIENT_ID);
-            if (clientIdString == null || !dataValidator.isIdentifiableIdValid(clientIdString)) {
-                log.info("invalid client id format was received:" + clientIdString);
-                request.setAttribute(JspConst.INVALID_EXERCISE_ID_FORMAT, true);
+            clientId = getClientIdForAppropriateAdmin(session, request);
+            if (clientId == -1L) {
                 return Page.ADMIN_CLIENTS;
             }
-            clientId = Long.valueOf(clientIdString);
         }
         try {
             List<OrderInformation> ordersList = orderInformationService.findOrdersByClientId(clientId);
@@ -76,5 +74,23 @@ public class ClientProfileCommand implements ActionCommand {
             page = Page.CLIENT_PROFILE_PAGE;
         }
         return page;
+    }
+
+    private Long getClientIdForAppropriateAdmin(HttpSession session, HttpServletRequest request) {
+        String clientIdString = request.getParameter(ADMIN_CLIENT_ID);
+        Long clientId;
+        if (clientIdString == null) {
+            clientId = (Long) session.getAttribute(ADMIN_CLIENT_ID);
+        } else {
+            clientIdString = request.getParameter(ADMIN_CLIENT_ID);
+            if (!dataValidator.isIdentifiableIdValid(clientIdString)) {
+                log.info("invalid client id format from admin was received:" + clientIdString);
+                request.setAttribute(JspConst.INVALID_EXERCISE_ID_FORMAT, true);
+                return -1L;
+            }
+            clientId= Long.valueOf(clientIdString);
+            session.setAttribute(ADMIN_CLIENT_ID,clientId);
+        }
+        return clientId;
     }
 }
