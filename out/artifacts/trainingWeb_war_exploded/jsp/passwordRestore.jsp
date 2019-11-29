@@ -48,7 +48,6 @@
         <label for="confirmPassword">${confirmPassword}</label>
         <input id="confirmPassword" type="password" class="form-control" name="confirmPassword" required placeholder="${password_placeholder}" title="${registration_pattern_error}"/>
     </div>
-    <br/>
     <c:choose>
         <c:when test="${not empty requestScope.invalidPassword}">
             ${registration_pattern_error}
@@ -60,7 +59,6 @@
             ${incorrectDataMessage}
         </c:when>
     </c:choose>
-    <br/>
     <input onclick="checkRegisterPassword()" class="btn btn-info my-4 btn-block" type="submit" value="OK"/>
     <br/>
 </form>

@@ -18,6 +18,7 @@
 <fmt:message bundle="${locale}" key="pay" var="pay"/>
 <fmt:message bundle="${locale}" key="wrong_cost_period" var="wrong_cost_period"/>
 <fmt:message bundle="${locale}" key="offer" var="offer"/>
+<fmt:message bundle="${locale}" key="choose_offer" var="choose_offer"/>
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
@@ -41,7 +42,7 @@
             <label for="period_cost">${how_long}</label>
         </div>
         <div>
-            <select  class="form-control mb-4" oninput="checkOffer()" id="period_cost" onchange="setCost()" name="period">
+            <select  class="form-control mb-4" oninput="checkOffer()" id="period_cost" onchange="setCost()" name="period" title="${choose_offer}">
                 <option>${offer}</option>
                 <fitness:prices/>
             </select>

@@ -52,7 +52,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-info">
     <a class="navbar-brand">${company_name}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -139,8 +139,10 @@
                     </c:choose>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
-                    <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/controller?command=client_profile">${profile}</a>
-                    <div class="dropdown-divider"></div>
+                    <c:if test="${not empty sessionScope.client}">
+                        <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/controller?command=client_profile">${profile}</a>
+                        <div class="dropdown-divider"></div>
+                    </c:if>
                     <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/controller?command=logout_user">${logout}</a>
                 </div>
             </li>

@@ -81,73 +81,84 @@
         </c:if>
 
         <c:forEach var = "i" begin = "1" end = "${program.trainsPerWeek}">
-            <ol>
-                <c:forEach items="${clientExercises}" var="exerciseProgram">
-                    <c:if test="${exerciseProgram.numberTrainDay==i}">
-                        <li><h2>${exerciseProgram.exercise.name}</h2></li>
-                        <p><img src="data:image/jpg;base64,${exerciseProgram.exercise.image}" alt="No image yet" width="200" height="200" style="border-radius: 25px"/></p>
-                        <h3>${exerciseProgram.exercise.description}</h3>
-                        <c:out value="(${exerciseProgram.setNumber} * ${exerciseProgram.repeatNumber})"/>
-                        <h2>${edit}</h2>
-                        <form action="${pageContext.request.contextPath}/controller?command=update_exercise" method="post">
-                            <input type="hidden" id="exerciseProgramId" name="exerciseProgramId" value="${exerciseProgram.id}">
-                            <div class="col-1">
-                                <label for="set_update">${sets}</label>
+            <div class="container">
+                <div class="row">
+                    <c:forEach items="${clientExercises}" var="exerciseProgram">
+                        <c:if test="${exerciseProgram.numberTrainDay==i}">
+                            <div class="col">
+                                <div class="card" style="width: 18rem;">
+                                    <img class="card-img-top" src="data:image/jpg;base64,${exerciseProgram.exercise.image}" alt="No image yet">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${exerciseProgram.exercise.name} <c:out value="(${exerciseProgram.setNumber} * ${exerciseProgram.repeatNumber})"/></h5>
+                                        <p class="card-text">${exerciseProgram.exercise.description}</p>
+                                        <form action="${pageContext.request.contextPath}/controller?command=update_exercise" method="post">
+                                            <input type="hidden" id="exerciseProgramId" name="exerciseProgramId" value="${exerciseProgram.id}">
+                                            <h4>${edit}</h4>
+                                            <div>
+                                                <label for="set_update">${sets}</label>
+                                            </div>
+                                            <div>
+                                                <input onchange="checkSetNumber()" type="text" class="form-control mb-4" id="set_update" value="${exerciseProgram.setNumber}" required title="${title}" name="set_number">
+                                            </div>
+                                            <div>
+                                                <label for="repeats_update">${repeats}</label>
+                                            </div>
+                                            <div>
+                                                <input onchange="checkRepeatNumber()" type="text" class="form-control mb-4" id="repeats_update" value="${exerciseProgram.repeatNumber}" required title="${title}" name="repeats">
+                                            </div>
+                                            <input type="submit" class="btn btn-primary" value="${update}" id="update">
+                                        </form>
+                                        <form action="${pageContext.request.contextPath}/controller?command=reject_exercise" method="post">
+                                            <input type="hidden" name="exerciseId" value="${exerciseProgram.exercise.id}">
+                                            <input type="submit" class="btn btn-danger" value="${reject_exercise}">
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-2">
-                                <input onchange="checkSetNumber()" type="text" id="set_update" value="${exerciseProgram.setNumber}" required title="${title}" name="set_number">
-                            </div>
-                            <div class="col-1">
-                                <label for="repeats_update">${repeats}</label>
-                            </div>
-                            <div class="col-2">
-                                <input onchange="checkRepeatNumber()" type="text" id="repeats_update" value="${exerciseProgram.repeatNumber}" required title="${title}" name="repeats">
-                            </div>
-                            <input type="submit" value="${update}" id="update">
-                        </form>
-                        <form action="${pageContext.request.contextPath}/controller?command=reject_exercise" method="post">
-                            <input type="hidden" name="exerciseId" value="${exerciseProgram.exercise.id}">
-                            <input type="submit" value="${reject_exercise}">
-                        </form>
-                    </c:if>
-                </c:forEach>
-            </ol>
+                        </c:if>
+                    </c:forEach>
+                </div>
+            </div>
         </c:forEach>
 
-        <hr/>
 
         <h1>${all_exercises}</h1>
-        <c:forEach items="${allExercises}" var="exercise">
-            <ul>
-                <form action="${pageContext.request.contextPath}/controller?command=add_exercise" method="post">
-                    <input type="hidden" name="exerciseId" value="${exercise.id}">
-                    <input type="hidden" name="trainDay" value="${program.trainsPerWeek}">
-                    <input type="hidden" name="programId" value="${program.id}">
-                    <li><h2>${exercise.name}</h2></li>
-                    <p><img src="data:image/jpg;base64,${exercise.image}" alt="No image yet" width="200" height="200" style="border-radius: 25px"/></p>
-                    ${exercise_description} : ${exercise.description}
-                    <br/>
+        <div class="container">
+            <div class="row">
+                <c:forEach items="${allExercises}" var="exercise">
+                    <div class="col">
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-img-top"  src="data:image/jpg;base64,${exercise.image}" alt="No image yet">
+                            <div class="card-body">
+                                <h5 class="card-title">${exercise.name}</h5>
+                                <p class="card-text">${exercise_description} : ${exercise.description}</p>
+                                <form action="${pageContext.request.contextPath}/controller?command=add_exercise" method="post">
+                                    <input type="hidden" name="exerciseId" value="${exercise.id}">
+                                    <input type="hidden" name="trainDay" value="${program.trainsPerWeek}">
+                                    <input type="hidden" name="programId" value="${program.id}">
 
-                    <div class="col-1">
-                        <label for="set_number">${sets}</label>
+                                    <div>
+                                        <label for="set_number">${sets}</label>
+                                    </div>
+                                    <div>
+                                        <input onchange="checkSetNumberAdd()" class="form-control mb-4" type="text" id="set_number" name="set_number" required title="${title}">
+                                    </div>
+
+                                    <div>
+                                        <label for="repeats">${repeats}</label>
+                                    </div>
+                                    <div>
+                                        <input onchange="checkRepeatNumberAdd()" class="form-control mb-4" type="text" id="repeats" name="repeats" required title="${title}">
+                                    </div>
+
+                                    <input type="submit" class="btn btn-success" value="${add_exercise}">
+                                </form>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="col-2">
-                        <input onchange="checkSetNumberAdd()" type="text" id="set_number" name="set_number" required title="${title}">
-                    </div>
-
-                    <div class="col-1">
-                        <label for="repeats">${repeats}</label>
-                    </div>
-
-                    <div class="col-2">
-                    <input onchange="checkRepeatNumberAdd()" type="text" id="repeats" name="repeats" required title="${title}">
-                    </div>
-
-                    <input type="submit" value="${add_exercise}">
-                </form>
-            </ul>
-        </c:forEach>
+                </c:forEach>
+            </div>
+        </div>
     </c:otherwise>
 </c:choose>
 

@@ -41,23 +41,21 @@
                     <c:forEach items="${coaches}" var="coach">
                             <c:choose>
                                 <c:when test="${coach_client_id == coach.id}">
-                                    <li class="list-group-item active"><c:out value="${coach.name} ${coach.surname} ${coach.patronymic} (${current_coach})"/></li>
-                                        <form name="form"
-                                              action="${pageContext.request.contextPath}/controller?command=add_comment"
-                                              method="post">
+                                    <li class="list-group-item" style="background-color: lightblue"><c:out value="${coach.name} ${coach.surname} ${coach.patronymic} (${current_coach})"/>
+                                        <form action="${pageContext.request.contextPath}/controller?command=reject_coach" method="post">
+                                            <input type="hidden" id="coachId" name="coachId" value="${coach.id}"/>
+                                            <input type="submit" class="btn btn-danger" value="${reject_coach}"/>
+                                        </form>
+                                        <form action="${pageContext.request.contextPath}/controller?command=add_comment" method="post">
                                             <input type="hidden" name="coachId" value="${coach.id}"/>
                                             <i class="fas fa-pencil-alt prefix"></i>
-                                            <div class="md-form amber-textarea active-amber-textarea mb-2">
+                                            <div class="md-form amber-textarea active-amber-textarea my-3">
                                                 <textarea onchange="checkComment()" class="md-textarea form-control" id="commentContent" name="commentContent" placeholder="${your_comment}" required title="${invalid_comment}"></textarea>
                                             </div>
                                             <input class="btn btn-primary" type="submit" value="${save}"/>
                                             <h3>${max_symbols} ${max_number_symbols_attribute}</h3>
                                         </form>
-                                        <form action="${pageContext.request.contextPath}/controller?command=reject_coach"
-                                              method="post">
-                                            <input type="hidden" id="coachId" name="coachId" value="${coach.id}"/>
-                                            <input type="submit" class="btn btn-danger" value="${reject_coach}"/>
-                                        </form>
+                                    </li>
                                 </c:when>
                                 <c:otherwise>
                                     <li class="list-group-item list-group-item-action"><c:out value="${coach.name} ${coach.surname} ${coach.patronymic}"/></li>
@@ -69,7 +67,7 @@
             <c:otherwise>
                 <h2>${choose_coach}</h2>
                 <c:forEach items="${coaches}" var="coach">
-                    <li class="coach"><c:out value="${coach.name} ${coach.surname} ${coach.patronymic}"/></li>
+                    <li class="list-group-item list-group-item-action"><c:out value="${coach.name} ${coach.surname} ${coach.patronymic}"/></li>
                     <form action="${pageContext.servletContext.contextPath}/controller?command=choose_coach" method="post">
                         <input type="hidden" id="coachId" name="coachId" value="${coach.id}"/>
                         <input type="submit" value="${choose_this_coach}"/>

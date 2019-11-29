@@ -30,11 +30,14 @@
 
     <c:otherwise>
         <c:forEach items="${comments}" var="comment">
-            <hr/>
-            <img src="data:image/jpg;base64,${comment.value.image}" alt="${client_no_image}" width="60" height="60" style="border-radius: 25px"/>
-            <h3><c:out value="${comment.value.name} ${comment.value.surname} (login : ${comment.value.login})"/></h3>
-            <h5><c:out value="${comment.key.commentContent}"/></h5>
-            <hr/>
+            <div class="media border p-3">
+                <img src="data:image/jpg;base64,${comment.value.image}" alt="${client_no_image}" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+                <div class="media-body">
+<%--                    <h4>John Doe <small><i>Posted on February 19, 2016</i></small></h4>--%>
+                    <h4><c:out value="${comment.value.name} ${comment.value.surname} (login : ${comment.value.login})"/></h4>
+                    <p><c:out value="${comment.key.commentContent}"/></p>
+                </div>
+            </div>
         </c:forEach>
     </c:otherwise>
 </c:choose>

@@ -50,12 +50,12 @@
             <td>
                 <c:choose>
                     <c:when test="${sessionScope.local eq 'en_US'}">
-                        <div class="col-2">
+                        <div>
                             <fmt:formatDate value="${order.key.paymentData}" pattern="dd-MM-YYYY HH:mm:ss" />
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <div class="col-2">
+                        <div>
                             <fmt:formatDate value="${order.key.paymentData}" pattern="dd.MM.YYYY HH:mm:ss" />
                         </div>
                     </c:otherwise>
@@ -64,12 +64,12 @@
             <td >
                 <c:choose>
                     <c:when test="${sessionScope.local eq 'en_US'}">
-                        <div class="col-2">
+                        <div>
                             <fmt:formatDate value="${order.key.membershipEndDate}" pattern="dd-MM-YYYY HH:mm:ss" />
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <div class="col-2">
+                        <div>
                             <fmt:formatDate value="${order.key.membershipEndDate}" pattern="dd.MM.YYYY HH:mm:ss" />
                         </div>
                     </c:otherwise>

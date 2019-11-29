@@ -35,15 +35,17 @@
 </c:if>
 
 <c:forEach items="${comments}" var="comment">
-    <hr/>
-    <img src="data:image/jpg;base64,${comment.value.image}" alt="${client_no_image}" width="60" height="60" style="border-radius: 25px"/>
-    <h3><c:out value="${comment.value.name} ${comment.value.surname} (login : ${comment.value.login})"/></h3>
-    <h5><c:out value="${comment.key.commentContent}"/></h5>
-    <form method="post" action="${pageContext.servletContext.contextPath}/controller?command=delete_comment">
-        <input type="hidden" name="commentId" value="${comment.key.id}">
-        <input type="submit" value="${delete_comment}">
-    </form>
-    <hr/>
+    <div class="media border p-3">
+        <img src="data:image/jpg;base64,${comment.value.image}" alt="${client_no_image}" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+        <div class="media-body">
+            <h4><c:out value="${comment.value.name} ${comment.value.surname} (login : ${comment.value.login})"/></h4>
+            <p><c:out value="${comment.key.commentContent}"/></p>
+            <form method="post" action="${pageContext.servletContext.contextPath}/controller?command=delete_comment">
+                <input type="hidden" name="commentId" value="${comment.key.id}">
+                <input type="submit" class="btn btn-danger" value="${delete_comment}">
+            </form>
+        </div>
+    </div>
 </c:forEach>
 
 <footer class="footer mt-auto py-3">

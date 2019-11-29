@@ -36,25 +36,32 @@
 </c:if>
 
 <c:forEach items="${all_clients}" var="client">
-    <br/>
-    <img src="data:image/jpg;base64,${client.image}" alt="${client_no_image}" width="60" height="60" style="border-radius: 25px"/>
-    <c:out value="${client.name} ${client.surname} (login : ${client.login})"/>
-    <form action="${pageContext.request.contextPath}/controller?command=change_client_active" method="post">
-        <input type="hidden" id="admin_client_id" name="admin_client_id" value="${client.id}"/>
-        <c:if test="${client.active eq true}">
-            <input type="submit" value="${block_user}"/>
-        </c:if>
-        <c:if test="${client.active eq false}">
-            <input type="submit" value="${unblock_user}"/>
-        </c:if>
-    </form>
 
-    <form action="${pageContext.request.contextPath}/controller?command=client_profile" method="post">
-        <input type="hidden" name="admin_client_id" value="${client.id}" />
-        <input type="submit" value="${show_profile}">
-    </form>
-    <br/>
-    <hr/>
+    <div class="media border p-3">
+        <img src="data:image/jpg;base64,${client.image}" alt="${client_no_image}" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+        <div class="media-body">
+            <h4><c:out value="${client.name} ${client.surname} (login : ${client.login})"/></h4>
+                <div class="row">
+                    <div class="col">
+                        <form action="${pageContext.request.contextPath}/controller?command=change_client_active" method="post">
+                            <input type="hidden" id="admin_client_id" name="admin_client_id" value="${client.id}"/>
+                            <c:if test="${client.active eq true}">
+                                <input type="submit" class="btn btn-danger" value="${block_user}"/>
+                            </c:if>
+                            <c:if test="${client.active eq false}">
+                                <input type="submit" class="btn btn-success" value="${unblock_user}"/>
+                            </c:if>
+                        </form>
+                    </div>
+                    <div class="col">
+                        <form action="${pageContext.request.contextPath}/controller?command=client_profile" method="post">
+                            <input type="hidden" name="admin_client_id" value="${client.id}" />
+                            <input type="submit" class="btn btn-info"  value="${show_profile}">
+                        </form>
+                    </div>
+                </div>
+        </div>
+    </div>
 </c:forEach>
 
 <footer class="footer mt-auto py-3">

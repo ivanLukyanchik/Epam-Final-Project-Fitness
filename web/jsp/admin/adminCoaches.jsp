@@ -37,41 +37,40 @@
     ${coach_added}
 </c:if>
 
-<form method="post" action="${pageContext.servletContext.contextPath}/controller?command=add_coach">
-    <br/>
+<form method="post" class="text-center border border-light p-5" action="${pageContext.servletContext.contextPath}/controller?command=add_coach">
     <label for="name">${coach_name}</label>
-    <input type="text" onchange="checkName()" id="name" name="name" required title="${registration_pattern_error}"/>
+    <input type="text" class="form-control mb-4" onchange="checkName()" id="name" name="name" required title="${registration_pattern_error}"/>
 
-    <br/>
     <label for="surname">${surname}</label>
-    <input type="text" onchange="checkSurname()" id="surname" name="surname" required title="${registration_pattern_error}"/>
+    <input type="text" class="form-control mb-4" onchange="checkSurname()" id="surname" name="surname" required title="${registration_pattern_error}"/>
 
-    <br/>
     <label for="patronymic">${patronymic}</label>
-    <input type="text" onchange="checkPatronymic()" id="patronymic" name="patronymic" required title="${registration_pattern_error}"/>
+    <input type="text" class="form-control mb-4" onchange="checkPatronymic()" id="patronymic" name="patronymic" required title="${registration_pattern_error}"/>
 
-    <br/>
     <label for="login">${login}</label>
-    <input onchange="checkLogin()" type="text" id="login" name="login" required title="${username_pattern_error}"/>
+    <input onchange="checkLogin()" type="text" class="form-control mb-4" id="login" name="login" required title="${username_pattern_error}"/>
 
-    <br/>
     <label for="password">${coach_password}</label>
-    <input onchange="checkLogin()" type="password" id="password" name="password" required title="${registration_pattern_error}"/>
-    <button type="button" onclick="showHide()" id="eye">
-        <img src="https://cdn0.iconfinder.com/data/icons/feather/96/eye-16.png" alt="eye" />
-    </button>
+    <div class="input-group">
+        <input onchange="checkRegisterPassword()" type="password" class="form-control mb-4" id="password" name="password" required title="${registration_pattern_error}"/>
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" onclick="showHide()" id="eye">
+                <img src="https://cdn0.iconfinder.com/data/icons/feather/96/eye-16.png" alt="eye" />
+            </button>
+        </span>
+    </div>
 
     <br/>
-    <input type="submit" value="${add_coach}">
+    <input type="submit" class="btn btn-success my-4 btn-block" value="${add_coach}">
 </form>
 
 <c:if test="${fn:length(coaches) eq 0}">
     <h3><c:out value="${no_coaches}"/></h3>
 </c:if>
 
-<ul>
+<ul class="list-group">
     <c:forEach items="${coaches}" var="coach">
-        <li><c:out value="${coach.name} ${coach.surname} ${coach.patronymic} (login : ${coach.login})"/></li>
+        <li  class="list-group-item list-group-item-action"><c:out value="${coach.name} ${coach.surname} ${coach.patronymic} (login : ${coach.login})"/></li>
     </c:forEach>
 </ul>
 

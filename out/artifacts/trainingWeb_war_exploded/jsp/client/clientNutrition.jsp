@@ -102,9 +102,9 @@
                             <form name="form" action="${pageContext.request.contextPath}/controller?command=update_nutrition" method="post">
                                 <input type="hidden" id="nutrition_id" name="nutrition_id" value="${nutrition.id}"/>
                                 <input type="hidden" id="nutrition_time" name="nutrition_time" value="morning"/>
-                                <div class="md-form amber-textarea active-amber-textarea mb-2">
+                                <div class="md-form amber-textarea active-amber-textarea">
                                     <i class="fas fa-pencil-alt prefix"></i>
-                                    <textarea onchange="checkNutrition()" id="nutrition_description" name="nutrition_description" class="md-textarea form-control" required title="${invalid_nutrition}">${nutrition.morningNutrition}</textarea>
+                                    <textarea onchange="checkNutrition()" id="nutrition_description" name="nutrition_description" class="md-textarea form-control my-3" required title="${invalid_nutrition}">${nutrition.morningNutrition}</textarea>
                                 </div>
                                 <input type="submit" class="btn btn-primary" value="${save}">
                                 <h3>${max_symbols} ${max_number_symbols_attribute}</h3>
@@ -122,9 +122,9 @@
                             <form name="form" action="${pageContext.request.contextPath}/controller?command=update_nutrition" method="post">
                                 <input type="hidden" id="nutrition_id" name="nutrition_id" value="${nutrition.id}"/>
                                 <input type="hidden" id="nutrition_time" name="nutrition_time" value="lunch"/>
-                                <div class="md-form amber-textarea active-amber-textarea mb-2">
+                                <div class="md-form amber-textarea active-amber-textarea">
                                     <i class="fas fa-pencil-alt prefix"></i>
-                                    <textarea  onchange="checkNutrition()" id="nutrition_description" name="nutrition_description" class="md-textarea form-control" required title="${invalid_nutrition}">${nutrition.lunchNutrition}</textarea>
+                                    <textarea  onchange="checkNutrition()" id="nutrition_description" name="nutrition_description" class="md-textarea form-control my-3" required title="${invalid_nutrition}">${nutrition.lunchNutrition}</textarea>
                                 </div>
                                 <input type="submit" class="btn btn-primary" value="${save}">
                                 <h3>${max_symbols} ${max_number_symbols_attribute}</h3>
@@ -142,9 +142,9 @@
                             <form name="form" action="${pageContext.request.contextPath}/controller?command=update_nutrition" method="post">
                                 <input type="hidden" id="nutrition_id" name="nutrition_id" value="${nutrition.id}"/>
                                 <input type="hidden" id="nutrition_time" name="nutrition_time" value="dinner"/>
-                                <div class="md-form amber-textarea active-amber-textarea mb-2">
+                                <div class="md-form amber-textarea active-amber-textarea">
                                     <i class="fas fa-pencil-alt prefix"></i>
-                                    <textarea  onchange="checkNutrition()" id="nutrition_description" name="nutrition_description" class="md-textarea form-control" required title="${invalid_nutrition}">${nutrition.dinnerNutrition}</textarea>
+                                    <textarea  onchange="checkNutrition()" id="nutrition_description" name="nutrition_description" class="md-textarea form-control my-3" required title="${invalid_nutrition}">${nutrition.dinnerNutrition}</textarea>
                                 </div>
                                 <input type="submit" class="btn btn-primary" value="${save}">
                                 <h3>${max_symbols} ${max_number_symbols_attribute}</h3>
