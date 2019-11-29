@@ -22,9 +22,12 @@
 <head>
     <script src="${pageContext.request.contextPath}/script/validation/registerValidation.js"></script>
     <script src="${pageContext.request.contextPath}/script/util.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <title>Coaches</title>
 </head>
-<body>
+<body class="d-flex flex-column">
 <jsp:include page="../menu.jsp">
     <jsp:param name="pageTopic" value="adminCoaches"/>
     <jsp:param name="currentPage" value="admin_coaches"/>
@@ -72,8 +75,10 @@
     </c:forEach>
 </ul>
 
-<footer>
-    ${footer}
+<footer class="footer mt-auto py-3">
+    <div class="container text-center">
+        <span class="text-muted">${footer}</span>
+    </div>
 </footer>
 </body>
 </html>

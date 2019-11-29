@@ -8,8 +8,28 @@ function checkSetNumber() {
     }
 }
 
+function checkSetNumberAdd() {
+    var SetNumberInput = document.getElementById("set_number");
+    if (SetNumberInput.value==="" || (!/^[1-9][0-9]?$/.test(SetNumberInput.value))) {
+        var nameRegisterTitle = SetNumberInput.getAttribute("title");
+        SetNumberInput.setCustomValidity(nameRegisterTitle);
+    } else {
+        SetNumberInput.setCustomValidity('');
+    }
+}
+
 function checkRepeatNumber() {
     var repeatsNumberInput = document.getElementById("repeats_update");
+    if (repeatsNumberInput.value==="" || (!/^[1-9][0-9]?$/.test(repeatsNumberInput.value))) {
+        var nameRegisterTitle = repeatsNumberInput.getAttribute("title");
+        repeatsNumberInput.setCustomValidity(nameRegisterTitle);
+    } else {
+        repeatsNumberInput.setCustomValidity('');
+    }
+}
+
+function checkRepeatNumberAdd() {
+    var repeatsNumberInput = document.getElementById("repeats");
     if (repeatsNumberInput.value==="" || (!/^[1-9][0-9]?$/.test(repeatsNumberInput.value))) {
         var nameRegisterTitle = repeatsNumberInput.getAttribute("title");
         repeatsNumberInput.setCustomValidity(nameRegisterTitle);

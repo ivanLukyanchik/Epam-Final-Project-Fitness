@@ -15,9 +15,12 @@
 
 <html>
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <title>My clients</title>
 </head>
-<body>
+<body class="d-flex flex-column">
 <jsp:include page="../menu.jsp">
     <jsp:param name="pageTopic" value="coachClients"/>
     <jsp:param name="currentPage" value="coach_clients"/>
@@ -30,8 +33,6 @@
 
     <c:otherwise>
         <c:forEach items="${all_clients}" var="client">
-            <hr/>
-            <br/>
             <img src="data:image/jpg;base64,${client.image}" alt="${client_no_image}" width="60" height="60" style="border-radius: 25px"/>
             <c:out value="${client.name} ${client.surname} (login : ${client.login})"/>
             <form action="${pageContext.request.contextPath}/controller?command=show_client_exercises" method="post">
@@ -47,13 +48,14 @@
                 <input type="submit" value="${orders_button}"/>
             </form>
             <br/>
-            <hr/>
         </c:forEach>
     </c:otherwise>
 </c:choose>
 
-<footer>
-    ${footer}
+<footer class="footer mt-auto py-3">
+    <div class="container text-center">
+        <span class="text-muted">${footer}</span>
+    </div>
 </footer>
 </body>
 </html>

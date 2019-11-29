@@ -63,11 +63,12 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="Enum" />
         <option value="Interface" />
         <option value="Jsp File" />
         <option value="Class" />
+        <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -91,9 +92,11 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="findjar.last.used.dir" value="$PROJECT_DIR$/web/WEB-INF/lib" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
+    <property name="last.edited.regexp" value="" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/FinalProject" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
@@ -282,7 +285,13 @@
       <workItem from="1574582164546" duration="10518000" />
       <workItem from="1574613088004" duration="15037000" />
       <workItem from="1574663257468" duration="6203000" />
-      <workItem from="1574683702929" duration="26563000" />
+      <workItem from="1574683702929" duration="27390000" />
+      <workItem from="1574792532755" duration="3304000" />
+      <workItem from="1574801603212" duration="3646000" />
+      <workItem from="1574838859944" duration="13256000" />
+      <workItem from="1574881027601" duration="17079000" />
+      <workItem from="1574927628648" duration="12208000" />
+      <workItem from="1574964963574" duration="19817000" />
     </task>
     <servers />
   </component>
@@ -296,6 +305,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/RegisterCommand.java</url>
           <line>40</line>
           <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/servlet/ModifyProfile.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="44" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

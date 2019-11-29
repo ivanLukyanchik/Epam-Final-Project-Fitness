@@ -13,30 +13,33 @@
 <fmt:message bundle="${locale}" key="restore.first.message" var="message"/>
 <fmt:message bundle="${locale}" key="label.login" var="login"/>
 <fmt:message bundle="${locale}" key="label.email" var="email"/>
-<fmt:message bundle="${locale}" key="lang.text.english" var="en"/>
-<fmt:message bundle="${locale}" key="lang.text.russian" var="ru"/>
-<fmt:message bundle="${locale}" key="lang.text.belorussian" var="be"/>
+<fmt:message bundle="${locale}" key="return_to_login" var="return_to_login"/>
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
 <head>
     <script src="${pageContext.request.contextPath}/script/validation/registerValidation.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <title>Restore</title>
 </head>
-<body>
+<body class="d-flex flex-column">
 <jsp:include page="/jsp/header.jsp">
     <jsp:param name="currentPage" value="restore"/>
 </jsp:include>
 
-<h1>${message}</h1>
-<form method="POST" action="controller">
+<form method="POST" action="controller" class="text-center border border-light p-5">
+
+    <p class="h4 mb-4">${message}</p>
+
     <input type="hidden" name="command" value="restore">
+
     <label for="email">${email}</label>
-    <input id="email" name="email" type="text" required placeholder="example@gmail.com" title="${email_pattern_error}"/>
-    <br/><br/>
+    <input id="email" name="email" type="text" class="form-control mb-4" required placeholder="example@gmail.com" title="${email_pattern_error}"/>
+
     <label for="login">${login}</label>
-    <input id="login" name="login" type="text" required placeholder="VasyaPupkin" title="${username_pattern_error}"/>
-    <br/>
+    <input id="login" name="login" type="text" class="form-control mb-4" required placeholder="VasyaPupkin" title="${username_pattern_error}"/>
     <c:choose>
         <c:when test="${not empty requestScope.wrongData}">
             ${restore_error_mail}
@@ -48,13 +51,14 @@
             ${username_pattern_error}
         </c:when>
     </c:choose>
-    <br/>
-    <input onclick="checkRegisterLoginEmail()" type="submit" value="OK">
-    <br/>
+    <input onclick="checkRegisterLoginEmail()" class="btn btn-info my-4 btn-block" type="submit" value="OK">
+    <a href="${pageContext.servletContext.contextPath}/login">${return_to_login}</a>
 </form>
 
-<footer>
-    ${footer}
+<footer class="footer mt-auto py-3">
+    <div class="container text-center">
+        <span class="text-muted">${footer}</span>
+    </div>
 </footer>
 </body>
 </html>

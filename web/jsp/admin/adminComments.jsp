@@ -15,9 +15,12 @@
 
 <html>
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <title>Comments</title>
 </head>
-<body>
+<body class="d-flex flex-column">
 <jsp:include page="../menu.jsp">
     <jsp:param name="pageTopic" value="adminComments"/>
     <jsp:param name="currentPage" value="admin_comments"/>
@@ -43,8 +46,10 @@
     <hr/>
 </c:forEach>
 
-<footer>
-    ${footer}
+<footer class="footer mt-auto py-3">
+    <div class="container text-center">
+        <span class="text-muted">${footer}</span>
+    </div>
 </footer>
 </body>
 </html>

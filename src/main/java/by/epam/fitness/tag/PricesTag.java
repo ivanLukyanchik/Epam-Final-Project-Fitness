@@ -16,7 +16,6 @@ public class PricesTag extends TagSupport {
         try {
             Map<Integer, BigDecimal> prices = MembershipPriceReader.getInstance().getPrices();
             JspWriter out = pageContext.getOut();
-            out.write("<option>Choose suitable offer</option>"); // FIXME: 16.11.2019
             for (Map.Entry<Integer, BigDecimal> price : prices.entrySet()) {
                 out.write("<option value=\"" + price.getValue() + "\">" + price.getKey() + " days</option>");
             }

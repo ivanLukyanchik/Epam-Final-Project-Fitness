@@ -38,24 +38,117 @@
 <fmt:message bundle="${locale}" key="admin_exercises_nav" var="admin_exercises_nav"/>
 <fmt:message bundle="${locale}" key="admin_comments_nav" var="admin_comments_nav"/>
 <fmt:message bundle="${locale}" key="admin_orders_nav" var="admin_orders_nav"/>
+<fmt:message bundle="${locale}" key="client" var="client" />
+<fmt:message bundle="${locale}" key="coach" var="coach" />
+<fmt:message bundle="${locale}" key="admin" var="admin" />
+<fmt:message bundle="${locale}" key="stranger" var="stranger" />
+<fmt:message bundle="${locale}" key="name" var="company_name"/>
 
-<nav>
-    <ul class="top-menu">
-        <li id="home"><a href="${pageContext.servletContext.contextPath}/controller?command=home_page" >${home}</a></li>
-        <li id="signOut"><a href="${pageContext.servletContext.contextPath}/controller?command=logout_user">${logout}</a></li>
-        <li id="language">
-            <form action="controller">
-                <input type="hidden" name="command" value="locale"/>
-                <input type="hidden" name="currentPage" value="${param.currentPage}"/>
-                <select name="lang">
-                <option value="${ru}">Ru</option>
-                <option value="${en}">En</option>
-                <option value="${be}">Bel</option>
-            </select>
-                <p><input type="submit" value="OK"></p>
-            </form>
-    </ul>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand">${company_name}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=home_page">${home} <span class="sr-only">(current)</span></a>
+            </li>
+            <c:if test="${not empty sessionScope.client}">
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=gym_photos">${photos}</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=show_order_page">${gym_membership_nav}</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=client_orders">${my_orders_nav}</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=find_coaches">${coaches_nav}</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=show_client_exercises">${exercises_nav}</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=show_client_nutrition">${nutrition_nav}</a>
+                </li>
+            </c:if>
+            <c:if test="${not empty sessionScope.coach}">
+                <li>
+                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=coach_clients">${coach_clients_nav}</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=coach_comments">${comments_about_me}</a>
+                </li>
+            </c:if>
+            <c:if test="${not empty sessionScope.admin}">
+                <li>
+                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=admin_coaches">${admin_coaches_nav}</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=admin_clients">${admin_clients_nav}</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=admin_exercises">${admin_exercises_nav}</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=admin_comments">${admin_comments_nav}</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=admin_orders">${admin_orders_nav}</a>
+                </li>
+            </c:if>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-globe" style="font-size: 30px" aria-hidden="true"></i></a>
+                <div class="dropdown-menu" aria-labelledby="dropdown09">
+                    <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/controller?command=locale&currentPage=${param.currentPage}&lang=en_US"><img src="img/flag/uk.png" width="40" height="20" alt="Eng"> Eng</a>
+                    <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/controller?command=locale&currentPage=${param.currentPage}&lang=ru_RU"><img src="img/flag/rus.png" width="40" height="20" alt="Rus"> Rus</a>
+                    <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/controller?command=locale&currentPage=${param.currentPage}&lang=be_BY"><img src="img/flag/bel.png" width="40" height="20" alt="Bel"> Bel</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user"></i>
+                    <c:choose>
+                        <c:when test="${not empty sessionScope.client}">
+                            ${client} ${sessionScope.user}
+                        </c:when>
+                        <c:when test="${not empty sessionScope.coach}">
+                            ${coach} ${sessionScope.user}
+                        </c:when>
+                        <c:when test="${not empty sessionScope.admin}">
+                            ${admin} ${sessionScope.user}
+                        </c:when>
+                        <c:otherwise>
+                            ${stranger}
+                        </c:otherwise>
+                    </c:choose>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                    <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/controller?command=client_profile">${profile}</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/controller?command=logout_user">${logout}</a>
+                </div>
+            </li>
+        </ul>
+    </div>
 </nav>
+
+
 <div id="heading">
 <c:choose>
     <c:when test="${param.pageTopic eq 'about_us'}">
@@ -135,53 +228,3 @@
 
 </c:choose>
 </div>
-<nav>
-    <c:if test="${not empty sessionScope.client}">
-        <li>
-            <a href="${pageContext.servletContext.contextPath}/controller?command=client_profile">${profile}</a>
-        </li>
-        <li>
-            <a href="${pageContext.servletContext.contextPath}/controller?command=gym_photos">${photos}</a>
-        </li>
-        <li>
-            <a href="${pageContext.servletContext.contextPath}/controller?command=show_order_page">${gym_membership_nav}</a>
-        </li>
-        <li>
-            <a href="${pageContext.servletContext.contextPath}/controller?command=client_orders">${my_orders_nav}</a>
-        </li>
-        <li>
-            <a href="${pageContext.servletContext.contextPath}/controller?command=find_coaches">${coaches_nav}</a>
-        </li>
-        <li>
-            <a href="${pageContext.servletContext.contextPath}/controller?command=show_client_exercises">${exercises_nav}</a>
-        </li>
-        <li>
-            <a href="${pageContext.servletContext.contextPath}/controller?command=show_client_nutrition">${nutrition_nav}</a>
-        </li>
-    </c:if>
-    <c:if test="${not empty sessionScope.coach}">
-        <li>
-            <a href="${pageContext.servletContext.contextPath}/controller?command=coach_clients">${coach_clients_nav}</a>
-        </li>
-        <li>
-            <a href="${pageContext.servletContext.contextPath}/controller?command=coach_comments">${comments_about_me}</a>
-        </li>
-    </c:if>
-    <c:if test="${not empty sessionScope.admin}">
-        <li>
-            <a href="${pageContext.servletContext.contextPath}/controller?command=admin_coaches">${admin_coaches_nav}</a>
-        </li>
-        <li>
-            <a href="${pageContext.servletContext.contextPath}/controller?command=admin_clients">${admin_clients_nav}</a>
-        </li>
-        <li>
-            <a href="${pageContext.request.contextPath}/controller?command=admin_exercises">${admin_exercises_nav}</a>
-        </li>
-        <li>
-            <a href="${pageContext.request.contextPath}/controller?command=admin_comments">${admin_comments_nav}</a>
-        </li>
-        <li>
-            <a href="${pageContext.request.contextPath}/controller?command=admin_orders">${admin_orders_nav}</a>
-        </li>
-    </c:if>
-</nav>

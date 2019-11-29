@@ -12,7 +12,6 @@ import by.epam.fitness.util.validation.DataValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -97,20 +96,21 @@ public class ModifyProfile extends HttpServlet {
                     client.setLogin(login);
                     client.setEmail(email);
                     if (inputStream != null) {
-                        try {
-                            if (ImageIO.read(inputStream) != null) {
-                                // It's an image (only BMP, GIF, JPG and PNG are recognized).
-                                client.setIs(inputStream);
-                            } else {
-                                // It's not an image.
-                                request.setAttribute(NOT_IMAGE, true);
-                                log.info("incorrect image format was received from user with id = " + client.getId());
-                            }
-                        } catch (IOException e) {
-                            log.error("IOException occurred ", e);
-                        }
+                        client.setIs(inputStream);
+//                        try {
+//                            if (ImageIO.read(inputStream) != null) {
+//                                // It's an image (only BMP, GIF, JPG and PNG are recognized).
+//                                client.setIs(inputStream);
+//                            } else {
+//                                // It's not an image.
+//                                request.setAttribute(NOT_IMAGE, true);
+//                                log.info("incorrect image format was received from user with id = " + client.getId());
+//                            }
+//                        } catch (IOException e) {
+//                            log.error("IOException occurred ", e);
+//                        }
                     }
-                    if (login.equals(oldLogin) && (!clientService.isLoginUnique(login))) { // FIXME: 19.11.2019 rubbish here
+                    if (login.equals(oldLogin)) {
                         clientService.save(client);
                         log.info("client with id = " + clientId + " successfully changed his profile data");
                         request.setAttribute(SUCCESS, true);

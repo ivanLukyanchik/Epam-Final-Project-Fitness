@@ -7,24 +7,33 @@
 
 <fmt:message bundle="${locale}" key="no_access" var="no_access"/>
 <fmt:message bundle="${locale}" key="return_to_login" var="return_to_login"/>
+<fmt:message bundle="${locale}" key="return_to_main" var="return_to_main"/>
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <title>Restricted</title>
 </head>
-<body>
+<body class="d-flex flex-column">
 <jsp:include page="/jsp/header.jsp">
     <jsp:param name="currentPage" value="no_access"/>
 </jsp:include>
 
-<h1>${no_access}</h1>
-<a href="${pageContext.servletContext.contextPath}/login" style="text-shadow: none;text-align: center">${return_to_login}</a>
-<br/>
-<br/>
-<a href="${pageContext.servletContext.contextPath}/welcome" style="text-shadow: none;text-align: center">return to main page</a>
-<footer>
-    ${footer}
+<div class="text-center">
+    <h1>${no_access}</h1>
+    <a href="${pageContext.servletContext.contextPath}/login">${return_to_login}</a>
+    <br/>
+    <br/>
+    <a href="${pageContext.servletContext.contextPath}/welcome">${return_to_main}</a>
+</div>
+
+<footer class="footer mt-auto py-3">
+    <div class="container text-center">
+        <span class="text-muted">${footer}</span>
+    </div>
 </footer>
 </body>
 </html>

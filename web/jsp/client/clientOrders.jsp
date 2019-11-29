@@ -15,9 +15,12 @@
 
 <html>
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <title>My orders</title>
 </head>
-<body>
+<body class="d-flex flex-column">
 <jsp:include page="../menu.jsp">
     <jsp:param name="pageTopic" value="orders"/>
     <jsp:param name="currentPage" value="client_orders"/>
@@ -27,7 +30,7 @@
             <h3><c:out value="${no_orders}"/></h3>
         </c:when>
         <c:otherwise>
-            <table>
+            <table class="table table-striped table-hover">
                 <tr>
                     <c:if test="${not empty sessionScope.client}">
                         <th>${cost}</th>
@@ -46,28 +49,20 @@
                         <td >
                             <c:choose>
                                 <c:when test="${sessionScope.local eq 'en_US'}">
-                                    <div class="col-2">
-                                        <fmt:formatDate value="${order.paymentData}" pattern="dd-MM-YYYY HH:mm:ss" />
-                                    </div>
+                                    <fmt:formatDate value="${order.paymentData}" pattern="dd-MM-YYYY HH:mm:ss" />
                                 </c:when>
                                 <c:otherwise>
-                                    <div class="col-2">
-                                        <fmt:formatDate value="${order.paymentData}" pattern="dd.MM.YYYY HH:mm:ss" />
-                                    </div>
+                                    <fmt:formatDate value="${order.paymentData}" pattern="dd.MM.YYYY HH:mm:ss" />
                                 </c:otherwise>
                             </c:choose>
                         </td>
                         <td >
                             <c:choose>
                                 <c:when test="${sessionScope.local eq 'en_US'}">
-                                    <div class="col-2">
-                                        <fmt:formatDate value="${order.membershipEndDate}" pattern="dd-MM-YYYY HH:mm:ss" />
-                                    </div>
+                                    <fmt:formatDate value="${order.membershipEndDate}" pattern="dd-MM-YYYY HH:mm:ss" />
                                 </c:when>
                                 <c:otherwise>
-                                    <div class="col-2">
-                                        <fmt:formatDate value="${order.membershipEndDate}" pattern="dd.MM.YYYY HH:mm:ss" />
-                                    </div>
+                                    <fmt:formatDate value="${order.membershipEndDate}" pattern="dd.MM.YYYY HH:mm:ss" />
                                 </c:otherwise>
                             </c:choose>
                         </td>
@@ -79,8 +74,11 @@
             </table>
         </c:otherwise>
     </c:choose>
-<footer>
-    ${footer}
+
+<footer class="footer mt-auto py-3">
+    <div class="container text-center">
+        <span class="text-muted">${footer}</span>
+    </div>
 </footer>
 </body>
 </html>

@@ -28,13 +28,13 @@ public class PasswordRestoreCommand implements ActionCommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         String password = request.getParameter(PARAM_PASSWORD);
-        if (password==null || !dataValidator.isPasswordValid(password)){
+        if (password==null || !dataValidator.isPasswordValid(password)) {
             log.info("invalid password format was received:" + password);
             request.setAttribute(INVALID_PASSWORD, true);
             return Page.PASSWORD_RESTORE_PAGE;
         }
         String confirmedPassword = request.getParameter(PARAM_CONFIRMED_PASSWORD);
-        if (confirmedPassword==null || !dataValidator.isPasswordValid(confirmedPassword)){
+        if (confirmedPassword==null || !dataValidator.isPasswordValid(confirmedPassword)) {
             log.info("invalid confirmed password format was received:" + confirmedPassword);
             request.setAttribute(INVALID_PASSWORD, true);
             return Page.PASSWORD_RESTORE_PAGE;
@@ -45,7 +45,7 @@ public class PasswordRestoreCommand implements ActionCommand {
             return Page.PASSWORD_RESTORE_PAGE;
         }
         String email = request.getParameter(PARAM_EMAIL);
-        if (email==null || !dataValidator.isEmailValid(email)){
+        if (email==null || !dataValidator.isEmailValid(email)) {
             log.info("invalid email format was received, link was modified:" + email);
             request.setAttribute(INCORRECT_DATA, true);
             return Page.PASSWORD_RESTORE_PAGE;

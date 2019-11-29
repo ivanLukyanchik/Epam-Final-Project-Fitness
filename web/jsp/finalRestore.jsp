@@ -9,16 +9,22 @@
 
 <html>
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <title>Restore</title>
 </head>
-<body>
+<body class="d-flex flex-column">
 <jsp:include page="/jsp/header.jsp">
     <jsp:param name="currentPage" value="finalRestore"/>
 </jsp:include>
 
-<h2>${restore_check}</h2>
-<footer>
-    ${footer}
+<h2 class="text-center border border-light p-5">${restore_check}</h2>
+
+<footer class="footer mt-auto py-3">
+    <div class="container text-center">
+        <span class="text-muted">${footer}</span>
+    </div>
 </footer>
 </body>
 </html>

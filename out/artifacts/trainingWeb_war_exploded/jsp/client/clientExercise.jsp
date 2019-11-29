@@ -32,9 +32,12 @@
 <html>
 <head>
     <script src="${pageContext.request.contextPath}/script/validation/exerciseValidation.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <title>My Exercises</title>
 </head>
-<body>
+<body class="d-flex flex-column">
 <jsp:include page="../menu.jsp">
     <jsp:param name="pageTopic" value="exercises"/>
     <jsp:param name="currentPage" value="show_client_exercises"/>
@@ -130,7 +133,7 @@
                     </div>
 
                     <div class="col-2">
-                        <input onchange="checkSetNumber()" type="text" id="set_number" name="set_number" required title="${title}">
+                        <input onchange="checkSetNumberAdd()" type="text" id="set_number" name="set_number" required title="${title}">
                     </div>
 
                     <div class="col-1">
@@ -138,7 +141,7 @@
                     </div>
 
                     <div class="col-2">
-                    <input onchange="checkRepeatNumber()" type="text" id="repeats" name="repeats" required title="${title}">
+                    <input onchange="checkRepeatNumberAdd()" type="text" id="repeats" name="repeats" required title="${title}">
                     </div>
 
                     <input type="submit" value="${add_exercise}">
@@ -147,8 +150,11 @@
         </c:forEach>
     </c:otherwise>
 </c:choose>
-<footer>
-    ${footer}
+
+<footer class="footer mt-auto py-3">
+    <div class="container text-center">
+        <span class="text-muted">${footer}</span>
+    </div>
 </footer>
 </body>
 </html>

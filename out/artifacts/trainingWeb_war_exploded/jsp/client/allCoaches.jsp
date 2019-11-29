@@ -21,9 +21,13 @@
 
 <html>
 <head>
+    <script src="${pageContext.request.contextPath}/script/validation/commentValidation.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <title>All coaches</title>
 </head>
-<body>
+<body class="d-flex flex-column">
 <jsp:include page="../menu.jsp">
     <jsp:param name="pageTopic" value="allCoaches"/>
     <jsp:param name="currentPage" value="find_coaches"/>
@@ -33,31 +37,30 @@
     <c:when test="${membership_valid == true}">
         <c:choose>
             <c:when test="${coach_client_id != null}">
-                <ul>
+                <ul class="list-group">
                     <c:forEach items="${coaches}" var="coach">
                             <c:choose>
                                 <c:when test="${coach_client_id == coach.id}">
-                                    <li class="coach"><c:out value="${coach.name} ${coach.surname} ${coach.patronymic} (${current_coach})"/></li>
+                                    <li class="list-group-item active"><c:out value="${coach.name} ${coach.surname} ${coach.patronymic} (${current_coach})"/></li>
                                         <form name="form"
                                               action="${pageContext.request.contextPath}/controller?command=add_comment"
                                               method="post">
                                             <input type="hidden" name="coachId" value="${coach.id}"/>
-                                            <h2>${your_comment}</h2>
-                                            <textarea id="commentContent"
-                                                      name="commentContent"
-                                                      class="textArea">
-                                            </textarea>
-                                            <input class="button" type="submit" value="${save}"/>
+                                            <i class="fas fa-pencil-alt prefix"></i>
+                                            <div class="md-form amber-textarea active-amber-textarea mb-2">
+                                                <textarea onchange="checkComment()" class="md-textarea form-control" id="commentContent" name="commentContent" placeholder="${your_comment}" required title="${invalid_comment}"></textarea>
+                                            </div>
+                                            <input class="btn btn-primary" type="submit" value="${save}"/>
                                             <h3>${max_symbols} ${max_number_symbols_attribute}</h3>
                                         </form>
                                         <form action="${pageContext.request.contextPath}/controller?command=reject_coach"
                                               method="post">
                                             <input type="hidden" id="coachId" name="coachId" value="${coach.id}"/>
-                                            <input type="submit" value="${reject_coach}"/>
+                                            <input type="submit" class="btn btn-danger" value="${reject_coach}"/>
                                         </form>
                                 </c:when>
                                 <c:otherwise>
-                                    <li class="coach"><c:out value="${coach.name} ${coach.surname} ${coach.patronymic}"/></li>
+                                    <li class="list-group-item list-group-item-action"><c:out value="${coach.name} ${coach.surname} ${coach.patronymic}"/></li>
                                 </c:otherwise>
                             </c:choose>
                     </c:forEach>
@@ -95,8 +98,11 @@
         ${invalid_comment}
     </c:when>
 </c:choose>
-<footer>
-    ${footer}
+
+<footer class="footer mt-auto py-3">
+    <div class="container text-center">
+        <span class="text-muted">${footer}</span>
+    </div>
 </footer>
 </body>
 </html>
