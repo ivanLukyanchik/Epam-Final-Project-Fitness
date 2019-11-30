@@ -25,10 +25,13 @@
 <fmt:message bundle="${locale}" key="label.surname" var="surname"/>
 <fmt:message bundle="${locale}" key="login.surname.placeholder" var="surname_placeholder"/>
 <fmt:message bundle="${locale}" key="login.name.placeholder" var="name_placeholder"/>
+<fmt:message bundle="${locale}" key="home" var="home"/>
+<fmt:message bundle="${locale}" key="sign_up" var="sign_up"/>
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
 <head>
+    <link rel="shortcut icon" href="img/favicon/1.ico"/>
     <script src="${pageContext.request.contextPath}/script/validation/registerValidation.js"></script>
     <script src="${pageContext.request.contextPath}/script/util.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -43,7 +46,7 @@
 
 <form method="POST" action="controller" class="text-center border border-light p-5">
 
-    <p class="h4 mb-4">Sign up</p>
+    <p class="h4 mb-4">${sign_up}</p>
 
     <input type="hidden" name="command" value="register"/>
 
@@ -79,29 +82,31 @@
     </div>
     <c:choose>
         <c:when test="${not empty requestScope.wrongData}">
-            ${wrongLogin}
+            <p class="text-danger">${wrongLogin}</p>
         </c:when>
         <c:when test="${not empty requestScope.invalidPassword}">
-            ${registration_pattern_error}
+            <p class="text-danger">${registration_pattern_error}</p>
         </c:when>
         <c:when test="${not empty requestScope.invalidSurname}">
-            ${registration_pattern_error}
+            <p class="text-danger">${registration_pattern_error}</p>
         </c:when>
         <c:when test="${not empty requestScope.invalidName}">
-            ${registration_pattern_error}
+            <p class="text-danger">${registration_pattern_error}</p>
         </c:when>
         <c:when test="${not empty requestScope.invalidLogin}">
-            ${username_pattern_error}
+            <p class="text-danger">${username_pattern_error}</p>
         </c:when>
         <c:when test="${not empty requestScope.invalidEmail}">
-            ${email_pattern_error}
+            <p class="text-danger">${email_pattern_error}</p>
         </c:when>
         <c:when test="${not empty requestScope.incorrectData}">
-            ${incorrectDataMessage}
+            <p class="text-danger">${incorrectDataMessage}</p>
         </c:when>
     </c:choose>
     <input onclick="checkForRegistrationAnyData()" class="btn btn-info my-4 btn-block" type="submit" value="${submit}"/>
     <a href="${pageContext.request.contextPath}/login">${yes_account}</a>
+    <br/>
+    <a href="${pageContext.request.contextPath}/controller?command=home_page">${home}</a>
 </form>
 
 <footer class="footer mt-auto py-3">

@@ -23,6 +23,7 @@
 
 <html>
 <head>
+    <link rel="shortcut icon" href="img/favicon/1.ico"/>
     <script src="${pageContext.request.contextPath}/script/orderCostSetter.js"></script>
     <script src="${pageContext.request.contextPath}/script/validation/orderValidation.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">

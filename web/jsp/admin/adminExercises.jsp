@@ -19,10 +19,12 @@
 <fmt:message bundle="${locale}" key="no_exercises_admin" var="no_exercises_admin"/>
 <fmt:message bundle="${locale}" key="not_image" var="not_image"/>
 <fmt:message bundle="${locale}" key="choose_file" var="choose_file"/>
+<fmt:message bundle="${locale}" key="exercise_form" var="exercise_form"/>
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
 <head>
+    <link rel="shortcut icon" href="img/favicon/1.ico"/>
     <script src="${pageContext.request.contextPath}/script/validation/exerciseValidation.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -36,34 +38,37 @@
 </jsp:include>
 
 <c:if test="${requestScope.success eq true}">
-    ${exercise_added}
+    <p class="text-success">${exercise_added}</p>
 </c:if>
 <c:if test="${requestScope.exerciseDeleted eq true}">
-    ${exercise_deleted}
+    <p class="text-success">${exercise_deleted}</p>
 </c:if>
 <c:if test="${not empty requestScope.notImage}">
-    ${not_image}
+    <p class="text-danger">${not_image}</p>
 </c:if>
 
-<form method="post" action="addExerciseServlet" class="text-center border border-light p-5" enctype="multipart/form-data">
-    <label for="name">${exercise_name}</label>
-    <input type="text" onchange="checkName()" class="form-control mb-4" id="name" name="name" required placeholder="${exercise_name}" title="${exercise_name_pattern_error}"/>
+<button class="btn btn-primary mx-5 mb-2" data-toggle="collapse" data-target="#hide">${exercise_form}</button>
+<div class="collapse" id="hide">
+    <form method="post" action="addExerciseServlet" class="text-center border border-light px-5" enctype="multipart/form-data">
+        <label for="name">${exercise_name}</label>
+        <input type="text" onchange="checkName()" class="form-control mb-4" id="name" name="name" required placeholder="${exercise_name}" title="${exercise_name_pattern_error}"/>
 
-    <label for="description">${exercise_description}</label>
-    <input type="text" onchange="checkDescription()" class="form-control mb-4" id="description" name="description" required placeholder="${exercise_description}" title="${exercise_description_pattern_error}"/>
+        <label for="description">${exercise_description}</label>
+        <input type="text" onchange="checkDescription()" class="form-control mb-4" id="description" name="description" required placeholder="${exercise_description}" title="${exercise_description_pattern_error}"/>
 
-    <div class="input-group">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroupFileAddon01">${upload_image}</span>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">${upload_image}</span>
+            </div>
+            <div class="custom-file">
+                <input type="file" name="image" accept="image/x-png,image/jpeg" class="custom-file-input" id="image"
+                       aria-describedby="inputGroupFileAddon01">
+                <label class="custom-file-label mb-4" for="image">${choose_file}</label>
+            </div>
         </div>
-        <div class="custom-file">
-            <input type="file" name="image" accept="image/x-png,image/jpeg" class="custom-file-input" id="image"
-                   aria-describedby="inputGroupFileAddon01">
-            <label class="custom-file-label mb-4" for="image">${choose_file}</label>
-        </div>
-    </div>
-    <input type="submit" class="btn btn-success my-4 btn-block" value="${add_exercise}">
-</form>
+        <input type="submit" class="btn btn-success my-4 btn-block" value="${add_exercise}">
+    </form>
+</div>
 
 <c:if test="${fn:length(allExercises) eq 0}">
     <h3><c:out value="${no_exercises_admin}"/></h3>

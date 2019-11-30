@@ -31,6 +31,7 @@
 
 <html>
 <head>
+    <link rel="shortcut icon" href="img/favicon/1.ico"/>
     <script src="${pageContext.request.contextPath}/script/validation/exerciseValidation.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -47,14 +48,14 @@
     <c:when test="${membership_valid == false}">
         <h3>${cant_choose_exercise}</h3>
         <form action="${pageContext.servletContext.contextPath}/controller?command=show_order_page" method="post">
-            <input type="submit" class="button" value="${buy}">
+            <input type="submit" class="btn btn-success" value="${buy}">
         </form>
     </c:when>
 
     <c:when test="${noCoach == true}">
         <h3>${no_coach}</h3>
         <form action="${pageContext.servletContext.contextPath}/controller?command=find_coaches" method="post">
-            <input type="submit" class="button" value="${show_coaches}">
+            <input type="submit" class="btn btn-info" value="${show_coaches}">
         </form>
     </c:when>
 
@@ -63,16 +64,16 @@
 
         <c:choose>
             <c:when test="${exerciseAdded eq true}">
-                ${added_exercise}
+                <p class="text-success">${added_exercise}</p>
             </c:when>
             <c:when test="${exerciseUpdated eq true}">
-                ${updated_exercise}
+                <p class="text-success">${updated_exercise}</p>
             </c:when>
             <c:when test="${exerciseRejected eq true}">
-                ${rejected_exercise}
+                <p class="text-success">${rejected_exercise}</p>
             </c:when>
             <c:when test="${exerciseAlreadyExists eq true}">
-                ${exercise_already_exists}
+                <p class="text-danger">${exercise_already_exists}</p>
             </c:when>
         </c:choose>
 

@@ -27,6 +27,7 @@
 
 <html>
 <head>
+    <link rel="shortcut icon" href="img/favicon/1.ico"/>
     <script src="${pageContext.request.contextPath}/script/validation/nutritionValidation.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -50,7 +51,7 @@
         <h3>${client_no_nutrition}</h3>
         <form action="${pageContext.servletContext.contextPath}/controller?command=add_nutrition" method="post">
             <input type="hidden" id="nutrition_id" name="nutrition_id" value="${nutrition.id}"/>
-            <input type="submit" class="button" value="${activate_nutrition}"/>
+            <input type="submit" class="btn btn-success" value="${activate_nutrition}"/>
         </form>
     </c:if>
 </c:if>
@@ -60,7 +61,7 @@
         <c:when test="${membership_valid == false}">
             <h3>${cant_choose_nutrition}</h3>
             <form action="${pageContext.servletContext.contextPath}/controller?command=show_order_page" method="post">
-                <input type="submit" class="button" value="${buy}">
+                <input type="submit" class="btn btn-success" value="${buy}">
             </form>
         </c:when>
 
@@ -75,13 +76,13 @@
 
             <c:choose>
                 <c:when test="${nutritionAdded eq true}">
-                    ${added_nutrition}
+                    <p class="text-success">${added_nutrition}</p>
                 </c:when>
                 <c:when test="${nutritionUpdated eq true}">
-                    ${updated_nutrition}
+                    <p class="text-success">${updated_nutrition}</p>
                 </c:when>
                 <c:when test="${nutritionRejected eq true}">
-                    ${rejected_nutrition}
+                    <p class="text-success">${rejected_nutrition}</p>
                 </c:when>
             </c:choose>
 
@@ -98,7 +99,7 @@
                         <img class="card-img-top" src="img/nutrition_period/morning.jpg" alt="Morning image">
                         <div class="card-body">
                             <h5 class="card-title">${morning}</h5>
-                            <p class="card-text"><pre>${nutrition.morningNutrition}</pre></p>
+                            <p class="card-text"><c:out value="${nutrition.morningNutrition}"/></p>
                             <form name="form" action="${pageContext.request.contextPath}/controller?command=update_nutrition" method="post">
                                 <input type="hidden" id="nutrition_id" name="nutrition_id" value="${nutrition.id}"/>
                                 <input type="hidden" id="nutrition_time" name="nutrition_time" value="morning"/>
@@ -118,7 +119,7 @@
                         <img class="card-img-top" src="img/nutrition_period/lunch.jpg" alt="Lunch image">
                         <div class="card-body">
                             <h5 class="card-title">${lunch}</h5>
-                            <p class="card-text"><pre>${nutrition.lunchNutrition}</pre></p>
+                            <p class="card-text"><c:out value="${nutrition.lunchNutrition}"/></p>
                             <form name="form" action="${pageContext.request.contextPath}/controller?command=update_nutrition" method="post">
                                 <input type="hidden" id="nutrition_id" name="nutrition_id" value="${nutrition.id}"/>
                                 <input type="hidden" id="nutrition_time" name="nutrition_time" value="lunch"/>
@@ -138,7 +139,7 @@
                         <img class="card-img-top" src="img/nutrition_period/dinner.jpg" alt="Dinner image">
                         <div class="card-body">
                             <h5 class="card-title">${dinner}</h5>
-                            <p class="card-text"><pre>${nutrition.dinnerNutrition}</pre></p>
+                            <p class="card-text"><c:out value="${nutrition.dinnerNutrition}"/></p>
                             <form name="form" action="${pageContext.request.contextPath}/controller?command=update_nutrition" method="post">
                                 <input type="hidden" id="nutrition_id" name="nutrition_id" value="${nutrition.id}"/>
                                 <input type="hidden" id="nutrition_time" name="nutrition_time" value="dinner"/>
@@ -159,7 +160,7 @@
 </c:if>
 
 <c:if test="${incorrect_input_nutrition_data_error eq true}">
-    ${invalid_nutrition}
+    <p class="text-danger">${invalid_nutrition}</p>
 </c:if>
 
 <footer class="footer mt-auto py-3">

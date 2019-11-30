@@ -71,6 +71,7 @@ public class CommandAccess {
         commandTypes.add(CommandEnum.LOGOUT_USER.getCommand());
         commandTypes.add(CommandEnum.SHOW_LOGIN_PAGE.getCommand());
         commandTypes.add(CommandEnum.SHOW_REGISTER_PAGE.getCommand());
+        commandTypes.add(CommandEnum.COACH_COMMENTS.getCommand());
         return commandTypes;
     }
 
@@ -79,7 +80,6 @@ public class CommandAccess {
         commandTypes.add(CommandEnum.ADD_EXERCISE.getCommand());
         commandTypes.add(CommandEnum.ADD_NUTRITION.getCommand());
         commandTypes.add(CommandEnum.COACH_CLIENTS.getCommand());
-        commandTypes.add(CommandEnum.COACH_COMMENTS.getCommand());
         return commandTypes;
     }
 
@@ -119,6 +119,8 @@ public class CommandAccess {
         commandTypes.add(CommandEnum.LOGOUT_USER.getCommand());
         commandTypes.add(CommandEnum.SHOW_LOGIN_PAGE.getCommand());
         commandTypes.add(CommandEnum.SHOW_REGISTER_PAGE.getCommand());
+        commandTypes.add(CommandEnum.COACH_COMMENTS.getCommand());
+        commandTypes.add(CommandEnum.FIND_COACHES.getCommand());
         return commandTypes;
     }
 }

@@ -52,6 +52,7 @@ public class JspConst {
     public static final String COACH_NAME = "coach_name";
     public static final String COACH_SURNAME = "coach_surname";
     public final static String INVALID_EXERCISE_ID_FORMAT = "invalid_exercise_id_format";
+    public final static String INVALID_COACH_ID = "invalid_coach_id";
     public final static String NOT_EXIST_EXERCISE_ID = "not_exist_exercise_id";
     public static final String REPEATS = "repeats";
     public static final String SET_NUMBER = "set_number";

@@ -34,10 +34,14 @@
 <fmt:message bundle="${locale}" key="s_d_2" var="s_d_2"/>
 <fmt:message bundle="${locale}" key="s_d_3" var="s_d_3"/>
 <fmt:message bundle="${locale}" key="choose_file" var="choose_file"/>
+<fmt:message bundle="${locale}" key="account_deleting" var="account_deleting"/>
+<fmt:message bundle="${locale}" key="sure_delete" var="sure_delete"/>
+<fmt:message bundle="${locale}" key="understand_delete" var="understand_delete"/>
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
 <head>
+    <link rel="shortcut icon" href="img/favicon/1.ico"/>
     <script src="${pageContext.request.contextPath}/script/validation/registerValidation.js"></script>
     <script src="${pageContext.request.contextPath}/script/util.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -194,31 +198,31 @@
 
     <c:choose>
         <c:when test="${not empty requestScope.wrongData}">
-            ${wrongLogin}
+            <p class="text-danger">${wrongLogin}</p>
         </c:when>
         <c:when test="${not empty requestScope.notImage}">
-            ${not_image}
+            <p class="text-danger">${not_image}</p>
         </c:when>
         <c:when test="${not empty requestScope.invalidPassword}">
-            ${registration_pattern_error}
+            <p class="text-danger">${registration_pattern_error}</p>
         </c:when>
         <c:when test="${not empty requestScope.invalidSurname}">
-            ${registration_pattern_error}
+            <p class="text-danger">${registration_pattern_error}</p>
         </c:when>
         <c:when test="${not empty requestScope.invalidName}">
-            ${registration_pattern_error}
+            <p class="text-danger">${registration_pattern_error}</p>
         </c:when>
         <c:when test="${not empty requestScope.invalidLogin}">
-            ${username_pattern_error}
+            <p class="text-danger">${username_pattern_error}</p>
         </c:when>
         <c:when test="${not empty requestScope.invalidEmail}">
-            ${email_pattern_error}
+            <p class="text-danger">${email_pattern_error}</p>
         </c:when>
         <c:when test="${not empty requestScope.success}">
-            ${success}
+            <p class="text-success">${success}</p>
         </c:when>
         <c:when test="${not empty requestScope.paymentSuccess}">
-            ${paymentSuccess}
+            <p class="text-success">${paymentSuccess}</p>
         </c:when>
     </c:choose>
     <input onclick="checkForChangingAnyData()" class="btn btn-success mt-4 btn-block" type="submit" value="${modify}">
@@ -232,9 +236,29 @@
         <input type="submit" class="btn btn-warning btn-block" value="${change_password}">
     </form>
 
-    <form action="${pageContext.servletContext.contextPath}/controller?command=delete_account" method="post">
-        <input type="submit" class="btn btn-danger btn-block" value="${delete_account}">
-    </form>
+    <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#deleteModal">${delete_account}</button>
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">${account_deleting}</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ${sure_delete}
+                </div>
+                <div class="modal-footer">
+                    <div class="container">
+                        <form action="${pageContext.servletContext.contextPath}/controller?command=delete_account" method="post">
+                            <input type="submit" class="btn btn-danger btn-block" value="${understand_delete}">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <footer class="footer mt-auto py-3">

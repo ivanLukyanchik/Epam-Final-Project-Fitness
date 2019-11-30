@@ -21,10 +21,13 @@
 <fmt:message bundle="${locale}" key="success_delete" var="success_delete"/>
 <fmt:message bundle="${locale}" key="user_activated" var="user_activated"/>
 <fmt:message bundle="${locale}" key="time_out" var="time_out"/>
+<fmt:message bundle="${locale}" key="home" var="home"/>
+<fmt:message bundle="${locale}" key="sign_in" var="sign_in"/>
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
 <head>
+    <link rel="shortcut icon" href="img/favicon/1.ico"/>
     <script src="${pageContext.request.contextPath}/script/validation/loginValidation.js"></script>
     <script src="${pageContext.request.contextPath}/script/util.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -39,7 +42,7 @@
 
 <form method="POST" action="${pageContext.request.contextPath}/controller?command=login_user" class="text-center border border-light p-5">
 
-    <p class="h4 mb-4">Sign in</p>
+    <p class="h4 mb-4">${sign_in}</p>
 
     <label for="login">${login}</label>
     <input id="login" oninput="checkLogin()" type="text" class="form-control mb-4" name="login" required placeholder="${username_placeholder}" title="${username_pattern_error}"/>
@@ -56,25 +59,25 @@
 
     <c:choose>
         <c:when test="${not empty requestScope.wrongData}">
-            ${wrongCredentials}
+            <p class="text-danger">${wrongCredentials}</p>
         </c:when>
         <c:when test="${not empty requestScope.passwordChanged}">
-            ${passwordChanged}
+            <p class="text-danger">${passwordChanged}</p>
         </c:when>
         <c:when test="${not empty requestScope.invalidPassword}">
-            ${registration_pattern_error}
+            <p class="text-danger">${registration_pattern_error}</p>
         </c:when>
         <c:when test="${not empty requestScope.invalidLogin}">
-            ${username_pattern_error}
+            <p class="text-danger">${username_pattern_error}</p>
         </c:when>
         <c:when test="${not empty requestScope.success}">
-            ${success_delete}
+            <p class="text-success">${success_delete}</p>
         </c:when>
         <c:when test="${not empty requestScope.userActivated}">
-            ${user_activated}
+            <p class="text-success">${user_activated}</p>
         </c:when>
         <c:when test="${not empty requestScope.timeOut}">
-            ${time_out}
+            <p class="text-primary">${time_out}</p>
         </c:when>
     </c:choose>
 
@@ -92,6 +95,8 @@
 
     <input onclick="checkForLoginAnyData()" class="btn btn-info my-4 btn-block" type="submit" value="${submit}"/>
     <a href="${pageContext.request.contextPath}/register">${no_account}</a>
+    <br/>
+    <a href="${pageContext.request.contextPath}/controller?command=home_page">${home}</a>
 </form>
 
 <footer class="footer mt-auto py-3">

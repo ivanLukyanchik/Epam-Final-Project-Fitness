@@ -16,6 +16,7 @@
 
 <html>
 <head>
+    <link rel="shortcut icon" href="img/favicon/1.ico"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -28,7 +29,7 @@
 </jsp:include>
 
 <c:if test="${requestScope.success eq true}">
-    ${status_updated}
+    <p class="text-success">${status_updated}</p>
 </c:if>
 
 <c:if test="${fn:length(all_clients) eq 0}">

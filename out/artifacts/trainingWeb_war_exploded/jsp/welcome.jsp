@@ -33,6 +33,7 @@
 
 <html>
 <head>
+    <link rel="shortcut icon" href="img/favicon/1.ico"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -46,30 +47,30 @@
 
 <c:choose>
     <c:when test="${not empty sessionScope.client}">
-        <h2>${client} ${sessionScope.user}, ${welcome}</h2>
+        <p class="text-primary">${client} ${sessionScope.user}, ${welcome}</p>
     </c:when>
     <c:when test="${not empty sessionScope.coach}">
-        <h2>${coach} ${sessionScope.user}, ${welcome}</h2>
+        <p class="text-primary">${coach} ${sessionScope.user}, ${welcome}</p>
     </c:when>
     <c:when test="${not empty sessionScope.admin}">
-        <h2>${admin} ${sessionScope.user}, ${welcome}</h2>
+        <p class="text-primary">${admin} ${sessionScope.user}, ${welcome}</p>
     </c:when>
     <c:otherwise>
-        <h2>${stranger}, ${welcome}</h2>
+        <p class="text-primary">${stranger}, ${welcome}</p>
     </c:otherwise>
 </c:choose>
 
 <c:if test="${coachChosen eq true}">
-    <h3>${coach_chosen}</h3>
+    <p class="text-success">${coach_chosen}</p>
 </c:if>
 <c:if test="${commentSaved eq true}">
-    <h3>${comment_saved}</h3>
+    <p class="text-success">${comment_saved}</p>
 </c:if>
 <c:if test="${coachRejected eq true}">
-    <h3>${coach_rejected}</h3>
+    <p class="text-success">${coach_rejected}</p>
 </c:if>
 <c:if test="${nutritionRejected eq true}">
-    <h3>${nutrition_rejected}</h3>
+    <p class="text-success">${nutrition_rejected}</p>
 </c:if>
 
 <h2>${slogan}</h2>

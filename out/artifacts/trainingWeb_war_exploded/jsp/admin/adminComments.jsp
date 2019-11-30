@@ -15,6 +15,7 @@
 
 <html>
 <head>
+    <link rel="shortcut icon" href="img/favicon/1.ico"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -27,7 +28,7 @@
 </jsp:include>
 
 <c:if test="${requestScope.success eq true}">
-    ${comment_deleted}
+    <p class="text-success">${comment_deleted}</p>
 </c:if>
 
 <c:if test="${fn:length(comments) eq 0}">
@@ -36,9 +37,10 @@
 
 <c:forEach items="${comments}" var="comment">
     <div class="media border p-3">
-        <img src="data:image/jpg;base64,${comment.value.image}" alt="${client_no_image}" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+        <img src="data:image/jpg;base64,${comment.value.key.image}" alt="${client_no_image}" class="mr-3 mt-3 rounded-circle" style="width:60px;">
         <div class="media-body">
-            <h4><c:out value="${comment.value.name} ${comment.value.surname} (login : ${comment.value.login})"/></h4>
+<%--                                                                                                            Map<Comment, Map<Client, Coach>>--%>
+            <h4><c:out value="${comment.value.key.name} ${comment.value.key.surname} (login : ${comment.value.key.login})"/>  <small><i>about coach with login:${comment.value.value.login}</i></small></h4>
             <p><c:out value="${comment.key.commentContent}"/></p>
             <form method="post" action="${pageContext.servletContext.contextPath}/controller?command=delete_comment">
                 <input type="hidden" name="commentId" value="${comment.key.id}">

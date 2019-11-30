@@ -42,6 +42,7 @@
 <fmt:message bundle="${locale}" key="coach" var="coach" />
 <fmt:message bundle="${locale}" key="admin" var="admin" />
 <fmt:message bundle="${locale}" key="stranger" var="stranger" />
+<fmt:message bundle="${locale}" key="return_to_login" var="return_to_login" />
 <fmt:message bundle="${locale}" key="name" var="company_name"/>
 
 <head>
@@ -52,8 +53,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-info">
-    <a class="navbar-brand">${company_name}</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-info">
+    <a class="navbar-brand" href="${pageContext.servletContext.contextPath}/controller?command=home_page">${company_name}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -63,51 +64,61 @@
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=home_page">${home} <span class="sr-only">(current)</span></a>
             </li>
-            <c:if test="${not empty sessionScope.client}">
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=gym_photos">${photos}</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=show_order_page">${gym_membership_nav}</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=client_orders">${my_orders_nav}</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=find_coaches">${coaches_nav}</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=show_client_exercises">${exercises_nav}</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=show_client_nutrition">${nutrition_nav}</a>
-                </li>
-            </c:if>
-            <c:if test="${not empty sessionScope.coach}">
-                <li>
-                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=coach_clients">${coach_clients_nav}</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=coach_comments">${comments_about_me}</a>
-                </li>
-            </c:if>
-            <c:if test="${not empty sessionScope.admin}">
-                <li>
-                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=admin_coaches">${admin_coaches_nav}</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=admin_clients">${admin_clients_nav}</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=admin_exercises">${admin_exercises_nav}</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=admin_comments">${admin_comments_nav}</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=admin_orders">${admin_orders_nav}</a>
-                </li>
-            </c:if>
+            <c:choose>
+                <c:when test="${not empty sessionScope.client}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=gym_photos">${photos}</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=show_order_page">${gym_membership_nav}</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=client_orders">${my_orders_nav}</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=find_coaches">${coaches_nav}</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=show_client_exercises">${exercises_nav}</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=show_client_nutrition">${nutrition_nav}</a>
+                    </li>
+                </c:when>
+                <c:when test="${not empty sessionScope.coach}">
+                    <li>
+                        <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=coach_clients">${coach_clients_nav}</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=coach_comments">${comments_about_me}</a>
+                    </li>
+                </c:when>
+                <c:when test="${not empty sessionScope.admin}">
+                    <li>
+                        <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=admin_coaches">${admin_coaches_nav}</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=admin_clients">${admin_clients_nav}</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=admin_exercises">${admin_exercises_nav}</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=admin_comments">${admin_comments_nav}</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=admin_orders">${admin_orders_nav}</a>
+                    </li>
+                </c:when>
+                <c:otherwise>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=gym_photos">${photos}</a>
+                    <li>
+                        <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=find_coaches">${coaches_nav}</a>
+                    </li>
+                    </li>
+                </c:otherwise>
+            </c:choose>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
@@ -122,25 +133,41 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-user"></i>
                     <c:choose>
                         <c:when test="${not empty sessionScope.client}">
+                            <c:choose>
+                                <c:when test="${not empty sessionScope.client.image}">
+                                    <img src="data:image/jpg;base64,${sessionScope.client.image}" alt="no image" class="mr-1 rounded-circle" style="width:38px;">
+                                </c:when>
+                                <c:otherwise>
+                                    <i class="fas fa-user" style="font-size: 25px"></i>
+                                </c:otherwise>
+                            </c:choose>
                             ${client} ${sessionScope.user}
                         </c:when>
-                        <c:when test="${not empty sessionScope.coach}">
-                            ${coach} ${sessionScope.user}
-                        </c:when>
-                        <c:when test="${not empty sessionScope.admin}">
-                            ${admin} ${sessionScope.user}
-                        </c:when>
                         <c:otherwise>
-                            ${stranger}
+                            <i class="fas fa-user" style="font-size: 25px"></i>
+                            <c:choose>
+                                <c:when test="${not empty sessionScope.coach}">
+                                    ${coach} ${sessionScope.user}
+                                </c:when>
+                                <c:when test="${not empty sessionScope.admin}">
+                                    ${admin} ${sessionScope.user}
+                                </c:when>
+                                <c:otherwise>
+                                    ${stranger}
+                                </c:otherwise>
+                            </c:choose>
                         </c:otherwise>
                     </c:choose>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
                     <c:if test="${not empty sessionScope.client}">
                         <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/controller?command=client_profile">${profile}</a>
+                        <div class="dropdown-divider"></div>
+                    </c:if>
+                    <c:if test="${empty sessionScope.role}">
+                        <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/controller?command=show_login_page">${return_to_login}</a>
                         <div class="dropdown-divider"></div>
                     </c:if>
                     <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/controller?command=logout_user">${logout}</a>

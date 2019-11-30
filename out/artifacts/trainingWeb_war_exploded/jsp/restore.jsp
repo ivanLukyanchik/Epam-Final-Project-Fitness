@@ -18,6 +18,7 @@
 
 <html>
 <head>
+    <link rel="shortcut icon" href="img/favicon/1.ico"/>
     <script src="${pageContext.request.contextPath}/script/validation/registerValidation.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -42,13 +43,13 @@
     <input id="login" name="login" type="text" class="form-control mb-4" required placeholder="VasyaPupkin" title="${username_pattern_error}"/>
     <c:choose>
         <c:when test="${not empty requestScope.wrongData}">
-            ${restore_error_mail}
+            <p class="text-danger">${restore_error_mail}</p>
         </c:when>
         <c:when test="${not empty requestScope.invalidEmail}">
-            ${email_pattern_error}
+            <p class="text-danger">${email_pattern_error}</p>
         </c:when>
         <c:when test="${not empty requestScope.invalidLogin}">
-            ${username_pattern_error}
+            <p class="text-danger">${username_pattern_error}</p>
         </c:when>
     </c:choose>
     <input onclick="checkRegisterLoginEmail()" class="btn btn-info my-4 btn-block" type="submit" value="OK">

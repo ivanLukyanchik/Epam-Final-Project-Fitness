@@ -17,10 +17,12 @@
 <fmt:message bundle="${locale}" key="not_exist_id" var="not_exist_id"/>
 <fmt:message bundle="${locale}" key="invalid_comment" var="invalid_comment"/>
 <fmt:message bundle="${locale}" key="reject" var="reject_coach"/>
+<fmt:message bundle="${locale}" key="show_coach_comments" var="show_coach_comments"/>
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
 <head>
+    <link rel="shortcut icon" href="img/favicon/1.ico"/>
     <script src="${pageContext.request.contextPath}/script/validation/commentValidation.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -46,6 +48,10 @@
                                             <input type="hidden" id="coachId" name="coachId" value="${coach.id}"/>
                                             <input type="submit" class="btn btn-danger" value="${reject_coach}"/>
                                         </form>
+                                        <form action="${pageContext.request.contextPath}/controller?command=coach_comments" method="post">
+                                            <input type="hidden" id="coachId" name="coachId" value="${coach.id}"/>
+                                            <input type="submit" class="btn btn-success" value="${show_coach_comments}">
+                                        </form>
                                         <form action="${pageContext.request.contextPath}/controller?command=add_comment" method="post">
                                             <input type="hidden" name="coachId" value="${coach.id}"/>
                                             <i class="fas fa-pencil-alt prefix"></i>
@@ -58,7 +64,12 @@
                                     </li>
                                 </c:when>
                                 <c:otherwise>
-                                    <li class="list-group-item list-group-item-action"><c:out value="${coach.name} ${coach.surname} ${coach.patronymic}"/></li>
+                                    <li class="list-group-item list-group-item-action"><c:out value="${coach.name} ${coach.surname} ${coach.patronymic}"/>
+                                        <form action="${pageContext.request.contextPath}/controller?command=coach_comments" method="post">
+                                            <input type="hidden" id="coachId" name="coachId" value="${coach.id}"/>
+                                            <input type="submit" class="btn btn-success" value="${show_coach_comments}">
+                                        </form>
+                                    </li>
                                 </c:otherwise>
                             </c:choose>
                     </c:forEach>
@@ -68,9 +79,13 @@
                 <h2>${choose_coach}</h2>
                 <c:forEach items="${coaches}" var="coach">
                     <li class="list-group-item list-group-item-action"><c:out value="${coach.name} ${coach.surname} ${coach.patronymic}"/></li>
+                    <form action="${pageContext.request.contextPath}/controller?command=coach_comments" method="post">
+                        <input type="hidden" id="coachId" name="coachId" value="${coach.id}"/>
+                        <input type="submit" class="btn btn-success" value="${show_coach_comments}">
+                    </form>
                     <form action="${pageContext.servletContext.contextPath}/controller?command=choose_coach" method="post">
                         <input type="hidden" id="coachId" name="coachId" value="${coach.id}"/>
-                        <input type="submit" value="${choose_this_coach}"/>
+                        <input type="submit" class="btn btn-info" value="${choose_this_coach}"/>
                     </form>
                 </c:forEach>
             </c:otherwise>
@@ -80,20 +95,20 @@
     <c:otherwise>
         <h3>${cant_choose}</h3>
         <form action="${pageContext.servletContext.contextPath}/controller?command=show_order_page" method="post">
-            <input type="submit" class="button" value="${buy}">
+            <input type="submit" class="btn btn-success" value="${buy}">
         </form>
     </c:otherwise>
 </c:choose>
 <br/>
 <c:choose>
     <c:when test="${invalidCoachId eq true}">
-        ${invalid_coach_id}
+        <p class="text-danger">${invalid_coach_id}</p>
     </c:when>
     <c:when test="${notExistId eq true}">
-        ${not_exist_id}
+        <p class="text-danger">${not_exist_id}</p>
     </c:when>
     <c:when test="${invalidComment eq true}">
-        ${invalid_comment}
+        <p class="text-danger">${invalid_comment}</p>
     </c:when>
 </c:choose>
 

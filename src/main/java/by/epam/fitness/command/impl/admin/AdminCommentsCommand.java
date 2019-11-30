@@ -2,11 +2,14 @@ package by.epam.fitness.command.impl.admin;
 
 import by.epam.fitness.command.ActionCommand;
 import by.epam.fitness.entity.Client;
+import by.epam.fitness.entity.Coach;
 import by.epam.fitness.entity.Comment;
 import by.epam.fitness.service.ClientService;
+import by.epam.fitness.service.CoachService;
 import by.epam.fitness.service.CommentService;
 import by.epam.fitness.service.ServiceException;
 import by.epam.fitness.service.impl.ClientServiceImpl;
+import by.epam.fitness.service.impl.CoachServiceImpl;
 import by.epam.fitness.service.impl.CommentServiceImpl;
 import by.epam.fitness.util.JspConst;
 import by.epam.fitness.util.page.Page;
@@ -23,6 +26,7 @@ import java.util.Optional;
 public class AdminCommentsCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(AdminCommentsCommand.class);
     private CommentService commentService = new CommentServiceImpl();
+    private CoachService coachService = new CoachServiceImpl();
     private ClientService clientService = new ClientServiceImpl();
 
     @Override
@@ -30,8 +34,8 @@ public class AdminCommentsCommand implements ActionCommand {
         String page = null;
         try {
             List<Comment> comments = commentService.findAll();
-            Map<Comment, Client> commentUserMap = makeCommentMapForAdmin(comments);
-            request.setAttribute(JspConst.COMMENTS, commentUserMap);
+            Map<Comment, Map<Client, Coach>> commentUserCoachMap = makeCommentMapForAdmin(comments);
+            request.setAttribute(JspConst.COMMENTS, commentUserCoachMap);
             page = Page.ADMIN_COMMENTS;
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
@@ -40,12 +44,17 @@ public class AdminCommentsCommand implements ActionCommand {
         return page;
     }
 
-    private Map<Comment, Client> makeCommentMapForAdmin(List<Comment> comments) throws ServiceException {
-        Map<Comment, Client> commentUserMap = new HashMap<>();
+    private  Map<Comment, Map<Client, Coach>> makeCommentMapForAdmin(List<Comment> comments) throws ServiceException {
+        Map<Comment, Map<Client, Coach>> commentUserCoachMap = new HashMap<>();
         for (Comment comment : comments) {
-            Optional<Client> optionalUser = clientService.findById(comment.getClientId());
-            optionalUser.ifPresent(user -> commentUserMap.put(comment, user));
+            Optional<Client> optionalClient = clientService.findById(comment.getClientId());
+            Optional<Coach> optionalCoach = coachService.findById(comment.getCoachId());
+            if (optionalCoach.isPresent() && optionalClient.isPresent()) {
+                Map<Client, Coach> clientCoachMap= new HashMap<>();
+                clientCoachMap.put(optionalClient.get(), optionalCoach.get());
+                commentUserCoachMap.put(comment, clientCoachMap);
+            }
         }
-        return commentUserMap;
+        return commentUserCoachMap;
     }
 }

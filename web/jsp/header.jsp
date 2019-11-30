@@ -17,23 +17,10 @@
 </head>
 
 <nav>
-<%--    <form action="controller">--%>
-<%--        <input type="hidden" name="command" value="locale"/>--%>
-<%--        <input type="hidden" name="currentPage" value="${param.currentPage}"/>--%>
-<%--        <select name="lang">--%>
-<%--            <option value="${ru}">Ru</option>--%>
-<%--            <option value="${en}">En</option>--%>
-<%--            <option value="${be}">Bel</option>--%>
-<%--        </select>--%>
-<%--        <p><input type="submit" value="OK"></p>--%>
-<%--    </form>--%>
-
-    <%--<li class="nav-item dropdown">--%>
     <a class="nav-link dropdown-toggle" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-globe" style="font-size: 30px" aria-hidden="true"></i></a>
     <div class="dropdown-menu" aria-labelledby="dropdown09">
         <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/controller?command=locale&currentPage=${param.currentPage}&lang=en_US"><img src="img/flag/uk.png" width="40" height="20" alt="Eng"> Eng</a>
         <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/controller?command=locale&currentPage=${param.currentPage}&lang=ru_RU"><img src="img/flag/rus.png" width="40" height="20" alt="Rus"> Rus</a>
         <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/controller?command=locale&currentPage=${param.currentPage}&lang=be_BY"><img src="img/flag/bel.png" width="40" height="20" alt="Bel"> Bel</a>
     </div>
-    <%--</li>--%>
 </nav>

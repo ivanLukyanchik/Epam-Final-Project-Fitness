@@ -16,10 +16,13 @@
 <fmt:message bundle="${locale}" key="lang.text.english" var="en"/>
 <fmt:message bundle="${locale}" key="lang.text.russian" var="ru"/>
 <fmt:message bundle="${locale}" key="lang.text.belorussian" var="be"/>
+<fmt:message bundle="${locale}" key="return_to_profile" var="return_to_profile"/>
+<fmt:message bundle="${locale}" key="" var="return_to_profile"/>
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
 <head>
+    <link rel="shortcut icon" href="img/favicon/1.ico"/>
     <script src="${pageContext.request.contextPath}/script/validation/registerValidation.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -39,28 +42,30 @@
     <input type="hidden" name="email" value="<%= request.getParameter(JspConst.PARAM_KEY_1) %>">
     <input type="hidden" name="login" value="<%= request.getParameter(JspConst.PARAM_KEY_2) %>">
     <input type="hidden" name="hash" value="<%= request.getParameter(JspConst.PARAM_KEY_3) %>">
-    <div class="group">
+    <div>
         <label for="password">${password}</label>
-        <input id="password" type="password" class="form-control" name="password" required placeholder="${password_placeholder}" title="${registration_pattern_error}"/>
+        <input id="password" type="password" class="form-control mb-4" name="password" required placeholder="${password_placeholder}" title="${registration_pattern_error}"/>
     </div>
     <br/>
-    <div class="group">
+    <div>
         <label for="confirmPassword">${confirmPassword}</label>
-        <input id="confirmPassword" type="password" class="form-control" name="confirmPassword" required placeholder="${password_placeholder}" title="${registration_pattern_error}"/>
+        <input id="confirmPassword" type="password" class="form-control mb-4" name="confirmPassword" required placeholder="${password_placeholder}" title="${registration_pattern_error}"/>
     </div>
     <c:choose>
         <c:when test="${not empty requestScope.invalidPassword}">
-            ${registration_pattern_error}
+            <p class="text-danger">${registration_pattern_error}</p>
         </c:when>
         <c:when test="${not empty requestScope.passwordsNotMatch}">
-            ${passwordsNotMatch}
+            <p class="text-danger">${passwordsNotMatch}</p>
         </c:when>
         <c:when test="${not empty requestScope.incorrectData}">
-            ${incorrectDataMessage}
+            <p class="text-danger">${incorrectDataMessage}</p>
         </c:when>
     </c:choose>
     <input onclick="checkRegisterPassword()" class="btn btn-info my-4 btn-block" type="submit" value="OK"/>
-    <br/>
+    <c:if test="${not empty sessionScope.client}">
+        <a href="${pageContext.request.contextPath}/controller?command=client_profile">${return_to_profile}</a>
+    </c:if>
 </form>
 
 <footer class="footer mt-auto py-3">

@@ -23,23 +23,25 @@ import static by.epam.fitness.util.JspConst.MAX_NUMBER_SYMBOLS_VALUE;
 
 public class FindCoachesCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(FindCoachesCommand.class);
-    private MembershipValidChecker membershipValidChecker = new MembershipValidChecker();
     private CoachService coachService = new CoachServiceImpl();
+    private MembershipValidChecker membershipValidChecker = new MembershipValidChecker();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         HttpSession session = request.getSession();
-        Long clientId = (Long) session.getAttribute(SessionAttributes.ID);
+        String role = String.valueOf(session.getAttribute(SessionAttributes.ROLE));
+        Long clientId = null;
+        if (role != null) {
+            clientId = (Long) session.getAttribute(SessionAttributes.ID);
+        }
         try {
             List<Coach> coaches = coachService.findAll();
             request.setAttribute(JspConst.COACHES, coaches);
-            checkAndSetIfClientHasCoach(request,clientId);
-            if (!membershipValidChecker.isCurrentMembershipValid(clientId)) {
-                log.info("Membership isn't valid");
-            } else {
-                request.setAttribute(MAX_NUMBER_SYMBOLS_ATTRIBUTE, MAX_NUMBER_SYMBOLS_VALUE);
-                request.setAttribute(JspConst.MEMBERSHIP_VALID, true);
+            request.setAttribute(MAX_NUMBER_SYMBOLS_ATTRIBUTE, MAX_NUMBER_SYMBOLS_VALUE);
+            request.setAttribute(JspConst.MEMBERSHIP_VALID, true);
+            if (clientId != null) {
+                checkAndSetIfClientHasCoach(request, clientId);
             }
             page = Page.ALL_COACHES;
         } catch (ServiceException e) {
@@ -50,7 +52,11 @@ public class FindCoachesCommand implements ActionCommand {
     }
 
     private void checkAndSetIfClientHasCoach(HttpServletRequest request, Long clientId) throws ServiceException {
-        Optional<Coach> coachOptional = coachService.findByClientId(clientId);
-        coachOptional.ifPresent(coach -> request.setAttribute(JspConst.ID_OF_CLIENT_COACH, coach.getId()));
+        if (membershipValidChecker.isCurrentMembershipValid(clientId)) {
+            Optional<Coach> coachOptional = coachService.findByClientId(clientId);
+            coachOptional.ifPresent(coach -> request.setAttribute(JspConst.ID_OF_CLIENT_COACH, coach.getId()));
+        } else {
+            log.info("Membership isn't valid");
+        }
     }
 }

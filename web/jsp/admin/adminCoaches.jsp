@@ -16,10 +16,13 @@
 <fmt:message bundle="${locale}" key="register.pattern.error" var="registration_pattern_error"/>
 <fmt:message bundle="${locale}" key="login.pattern.error" var="username_pattern_error"/>
 <fmt:message bundle="${locale}" key="no_coaches" var="no_coaches"/>
+<fmt:message bundle="${locale}" key="coach_form" var="coach_form"/>
+<fmt:message bundle="${locale}" key="show_coach_comments" var="show_coach_comments"/>
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
 <head>
+    <link rel="shortcut icon" href="img/favicon/1.ico"/>
     <script src="${pageContext.request.contextPath}/script/validation/registerValidation.js"></script>
     <script src="${pageContext.request.contextPath}/script/util.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -34,35 +37,38 @@
 </jsp:include>
 
 <c:if test="${requestScope.success eq true}">
-    ${coach_added}
+    <p class="text-success">${coach_added}</p>
 </c:if>
 
-<form method="post" class="text-center border border-light p-5" action="${pageContext.servletContext.contextPath}/controller?command=add_coach">
-    <label for="name">${coach_name}</label>
-    <input type="text" class="form-control mb-4" onchange="checkName()" id="name" name="name" required title="${registration_pattern_error}"/>
+<button class="btn btn-primary mx-5 mb-2" data-toggle="collapse" data-target="#hide">${coach_form}</button>
+<div class="collapse" id="hide">
+    <form method="post" class="text-center border border-light px-5" action="${pageContext.servletContext.contextPath}/controller?command=add_coach">
+        <label for="name">${coach_name}</label>
+        <input type="text" class="form-control mb-4" onchange="checkName()" id="name" name="name" required title="${registration_pattern_error}"/>
 
-    <label for="surname">${surname}</label>
-    <input type="text" class="form-control mb-4" onchange="checkSurname()" id="surname" name="surname" required title="${registration_pattern_error}"/>
+        <label for="surname">${surname}</label>
+        <input type="text" class="form-control mb-4" onchange="checkSurname()" id="surname" name="surname" required title="${registration_pattern_error}"/>
 
-    <label for="patronymic">${patronymic}</label>
-    <input type="text" class="form-control mb-4" onchange="checkPatronymic()" id="patronymic" name="patronymic" required title="${registration_pattern_error}"/>
+        <label for="patronymic">${patronymic}</label>
+        <input type="text" class="form-control mb-4" onchange="checkPatronymic()" id="patronymic" name="patronymic" required title="${registration_pattern_error}"/>
 
-    <label for="login">${login}</label>
-    <input onchange="checkLogin()" type="text" class="form-control mb-4" id="login" name="login" required title="${username_pattern_error}"/>
+        <label for="login">${login}</label>
+        <input onchange="checkLogin()" type="text" class="form-control mb-4" id="login" name="login" required title="${username_pattern_error}"/>
 
-    <label for="password">${coach_password}</label>
-    <div class="input-group">
-        <input onchange="checkRegisterPassword()" type="password" class="form-control mb-4" id="password" name="password" required title="${registration_pattern_error}"/>
-        <span class="input-group-btn">
-            <button type="button" class="btn btn-default" onclick="showHide()" id="eye">
-                <img src="https://cdn0.iconfinder.com/data/icons/feather/96/eye-16.png" alt="eye" />
-            </button>
-        </span>
-    </div>
+        <label for="password">${coach_password}</label>
+        <div class="input-group">
+            <input onchange="checkRegisterPassword()" type="password" class="form-control mb-4" id="password" name="password" required title="${registration_pattern_error}"/>
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" onclick="showHide()" id="eye">
+                    <img src="https://cdn0.iconfinder.com/data/icons/feather/96/eye-16.png" alt="eye" />
+                </button>
+            </span>
+        </div>
 
-    <br/>
-    <input type="submit" class="btn btn-success my-4 btn-block" value="${add_coach}">
-</form>
+        <br/>
+        <input type="submit" class="btn btn-success my-4 btn-block" value="${add_coach}">
+    </form>
+</div>
 
 <c:if test="${fn:length(coaches) eq 0}">
     <h3><c:out value="${no_coaches}"/></h3>
@@ -70,7 +76,12 @@
 
 <ul class="list-group">
     <c:forEach items="${coaches}" var="coach">
-        <li  class="list-group-item list-group-item-action"><c:out value="${coach.name} ${coach.surname} ${coach.patronymic} (login : ${coach.login})"/></li>
+        <li  class="list-group-item list-group-item-action"><c:out value="${coach.name} ${coach.surname} ${coach.patronymic} (login : ${coach.login})"/>
+            <form action="${pageContext.request.contextPath}/controller?command=coach_comments" method="post">
+                <input type="hidden" id="coachId" name="coachId" value="${coach.id}"/>
+                <input type="submit" class="btn btn-success" value="${show_coach_comments}">
+            </form>
+        </li>
     </c:forEach>
 </ul>
 
