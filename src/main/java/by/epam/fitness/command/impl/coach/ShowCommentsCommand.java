@@ -46,7 +46,7 @@ public class ShowCommentsCommand implements ActionCommand {
             if (coachIdString==null || !dataValidator.isIdentifiableIdValid(coachIdString)) {
                 log.info("invalid coach id format from user was received:" + coachIdString);
                 request.setAttribute(INVALID_COACH_ID, true);
-                return Page.ALL_COACHES;
+                return Page.ALL_COACHES_COMMAND;
             }
             coachId = Long.valueOf(coachIdString);
         }

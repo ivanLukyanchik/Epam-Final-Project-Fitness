@@ -19,6 +19,7 @@ public class Page {
     public static final String ADMIN_EXERCISES_COMMAND = "/controller?command=admin_exercises";
     public static final String ADMIN_CLIENTS_COMMAND = "/controller?command=admin_clients";
     public static final String ADMIN_COMMENTS_COMMAND = "/controller?command=admin_comments";
+    public static final String ALL_COACHES_COMMAND = "/controller?command=find_coaches";
     public static final String LOGOUT_COMMAND = "/controller?command=logout_user";
     public static final String NO_ACCESS_PAGE = "/jsp/noAccess.jsp";
     public static final String ERROR_PAGE = "/WEB-INF/error/errorPage.jsp";

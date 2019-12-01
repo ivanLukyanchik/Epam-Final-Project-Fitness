@@ -7,6 +7,7 @@
 <fmt:setBundle basename="locale.pagecontent" var="locale"/>
 
 <fmt:message bundle="${locale}" key="no_comments" var="no_comments"/>
+<fmt:message bundle="${locale}" key="coach_no_comments" var="coach_no_comments"/>
 <fmt:message bundle="${locale}" key="client_no_image" var="client_no_image"/>
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
@@ -19,14 +20,31 @@
     <title>Comments About Me</title>
 </head>
 <body class="d-flex flex-column">
-<jsp:include page="../menu.jsp">
-    <jsp:param name="pageTopic" value="coachComments"/>
-    <jsp:param name="currentPage" value="coach_comments"/>
-</jsp:include>
+<c:choose>
+    <c:when test="${not empty sessionScope.coach}">
+        <jsp:include page="../menu.jsp">
+            <jsp:param name="pageTopic" value="coachComments"/>
+            <jsp:param name="currentPage" value="coach_comments"/>
+        </jsp:include>
+    </c:when>
+    <c:otherwise>
+        <jsp:include page="../menu.jsp">
+            <jsp:param name="pageTopic" value="comments_about_coach"/>
+            <jsp:param name="currentPage" value="coach_comments"/>
+        </jsp:include>
+    </c:otherwise>
+</c:choose>
 
 <c:choose>
     <c:when test="${fn:length(comments) eq 0}">
-        <h3><c:out value="${no_comments}"/></h3>
+        <c:choose>
+            <c:when test="${not empty sessionScope.coach}">
+                <h3><c:out value="${no_comments}"/></h3>
+            </c:when>
+            <c:otherwise>
+                <h3><c:out value="${coach_no_comments}"/></h3>
+            </c:otherwise>
+        </c:choose>
     </c:when>
 
     <c:otherwise>

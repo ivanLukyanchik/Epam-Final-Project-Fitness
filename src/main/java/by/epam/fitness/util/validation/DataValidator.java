@@ -9,7 +9,7 @@ public class DataValidator {
     private static final Pattern NAME_SURNAME_PATRONYMIC_PATTERN = Pattern.compile("[a-zA-Zа-яА-Я]{3,20}");
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("[\\w-_.]{3,20}");
     private static final Pattern CARD_NUMBER_PATTERN = Pattern.compile("[0-9]{16}");
-    private static final Pattern INPUT_TEXT_PATTERN = Pattern.compile("[A-Za-zА-Яа-я0-9][A-Za-zА-Яа-я,.!?()\\s0-9]{1,299}");
+    private static final Pattern INPUT_TEXT_PATTERN = Pattern.compile("[A-Za-zА-Яа-я0-9][A-Za-zА-Яа-я,.'!?()\\s0-9]{1,299}");
     private static final Pattern EXERCISE_DESCRIPTION_PATTERN = Pattern.compile("[A-Za-zА-Яа-я0-9][A-Za-zА-Яа-я,.()\\s0-9]{4,399}");
     private static final Pattern EXERCISE_NAME_PATTERN = Pattern.compile("^[a-zA-Zа-яА-Я]{2,100}$");
     private static final Pattern SHA512_PATTERN = Pattern.compile("[a-f0-9]{128}");

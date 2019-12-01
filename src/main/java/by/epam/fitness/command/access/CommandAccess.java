@@ -116,7 +116,6 @@ public class CommandAccess {
         commandTypes.add(CommandEnum.HOME_PAGE.getCommand());
         commandTypes.add(CommandEnum.GYM_PHOTOS.getCommand());
         commandTypes.add(CommandEnum.LOGIN_USER.getCommand());
-        commandTypes.add(CommandEnum.LOGOUT_USER.getCommand());
         commandTypes.add(CommandEnum.SHOW_LOGIN_PAGE.getCommand());
         commandTypes.add(CommandEnum.SHOW_REGISTER_PAGE.getCommand());
         commandTypes.add(CommandEnum.COACH_COMMENTS.getCommand());

@@ -42,6 +42,7 @@
 <fmt:message bundle="${locale}" key="coach" var="coach" />
 <fmt:message bundle="${locale}" key="admin" var="admin" />
 <fmt:message bundle="${locale}" key="stranger" var="stranger" />
+<fmt:message bundle="${locale}" key="comments_about_coach_topic" var="comments_about_coach_topic" />
 <fmt:message bundle="${locale}" key="return_to_login" var="return_to_login" />
 <fmt:message bundle="${locale}" key="name" var="company_name"/>
 
@@ -115,7 +116,6 @@
                         <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=gym_photos">${photos}</a>
                     <li>
                         <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=find_coaches">${coaches_nav}</a>
-                    </li>
                     </li>
                 </c:otherwise>
             </c:choose>
@@ -233,6 +233,10 @@
 
     <c:when test="${param.pageTopic eq 'coachComments'}">
         <h1>${comments_me_topic}</h1>
+    </c:when>
+
+    <c:when test="${param.pageTopic eq 'comments_about_coach'}">
+        <h1>${comments_about_coach_topic}</h1>
     </c:when>
 
     <c:when test="${param.pageTopic eq 'adminCoaches'}">

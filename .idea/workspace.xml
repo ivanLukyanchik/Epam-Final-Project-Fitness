@@ -295,7 +295,8 @@
       <workItem from="1574964963574" duration="20557000" />
       <workItem from="1575018985349" duration="13111000" />
       <workItem from="1575050178264" duration="15289000" />
-      <workItem from="1575102482758" duration="26770000" />
+      <workItem from="1575102482758" duration="27815000" />
+      <workItem from="1575184968414" duration="3192000" />
     </task>
     <servers />
   </component>
@@ -314,11 +315,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/servlet/ModifyProfile.java</url>
           <line>45</line>
           <option name="timeStamp" value="44" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/admin/AdminCommentsCommand.java</url>
-          <line>47</line>
-          <option name="timeStamp" value="46" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

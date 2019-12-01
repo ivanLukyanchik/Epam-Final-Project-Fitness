@@ -36,7 +36,7 @@ public class RejectCoachCommand implements ActionCommand {
             }
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
-            page = Page.ALL_COACHES;
+            page = Page.ALL_COACHES_COMMAND;
         }
         return page;
     }

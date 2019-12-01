@@ -36,14 +36,14 @@ public class ChooseCoachCommand implements ActionCommand {
         if (coachIdString == null || !dataValidator.isIdentifiableIdValid(coachIdString)){
             log.info("invalid coach id format: coach_id:" + coachIdString);
             request.setAttribute(JspConst.INVALID_COACH, true);
-            return Page.ALL_COACHES;
+            return Page.ALL_COACHES_COMMAND;
         }
         Long coachId = Long.valueOf(coachIdString);
         try {
             if (!isCoachIdExist(coachId)) {
                 log.info("coach with id = " + coachId + " doesn't exist");
                 request.setAttribute(JspConst.NOT_EXIST_ID, true);
-                return Page.ALL_COACHES;
+                return Page.ALL_COACHES_COMMAND;
             }
             HttpSession session = request.getSession();
             long clientId = (long) session.getAttribute(SessionAttributes.ID);
@@ -52,7 +52,7 @@ public class ChooseCoachCommand implements ActionCommand {
                 if (!membershipValidChecker.isCurrentMembershipValid(clientId)) {
                     log.info("Membership isn't valid");
                     request.setAttribute(JspConst.MEMBERSHIP_VALID, false);
-                    return Page.ALL_COACHES;
+                    return Page.ALL_COACHES_COMMAND;
                 } else {
                     request.setAttribute(MAX_NUMBER_SYMBOLS_ATTRIBUTE, MAX_NUMBER_SYMBOLS_VALUE);
                     request.setAttribute(JspConst.MEMBERSHIP_VALID, true);
@@ -65,7 +65,7 @@ public class ChooseCoachCommand implements ActionCommand {
             page = Page.WELCOME_PAGE;
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
-            page = Page.ALL_COACHES;
+            page = Page.ALL_COACHES_COMMAND;
         }
         return page;
     }

@@ -36,18 +36,20 @@
 </c:if>
 
 <c:forEach items="${comments}" var="comment">
-    <div class="media border p-3">
-        <img src="data:image/jpg;base64,${comment.value.key.image}" alt="${client_no_image}" class="mr-3 mt-3 rounded-circle" style="width:60px;">
-        <div class="media-body">
-<%--                                                                                                            Map<Comment, Map<Client, Coach>>--%>
-            <h4><c:out value="${comment.value.key.name} ${comment.value.key.surname} (login : ${comment.value.key.login})"/>  <small><i>about coach with login:${comment.value.value.login}</i></small></h4>
-            <p><c:out value="${comment.key.commentContent}"/></p>
-            <form method="post" action="${pageContext.servletContext.contextPath}/controller?command=delete_comment">
-                <input type="hidden" name="commentId" value="${comment.key.id}">
-                <input type="submit" class="btn btn-danger" value="${delete_comment}">
-            </form>
+    <c:forEach items="${comment.value}" var="clientCoachEntry">
+        <div class="media border p-3">
+            <img src="data:image/jpg;base64,${clientCoachEntry.key.image}" alt="${client_no_image}" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+            <div class="media-body">
+    <%--                                                                                                            Map<Comment, Map<Client, Coach>>--%>
+                <h4><c:out value="${clientCoachEntry.key.name} ${clientCoachEntry.key.surname} (login : ${clientCoachEntry.key.login})"/>  <small><i>about coach with login : ${clientCoachEntry.value.login}</i></small></h4>
+                <p><c:out value="${comment.key.commentContent}"/></p>
+                <form method="post" action="${pageContext.servletContext.contextPath}/controller?command=delete_comment">
+                    <input type="hidden" name="commentId" value="${comment.key.id}">
+                    <input type="submit" class="btn btn-danger" value="${delete_comment}">
+                </form>
+            </div>
         </div>
-    </div>
+    </c:forEach>
 </c:forEach>
 
 <footer class="footer mt-auto py-3">
