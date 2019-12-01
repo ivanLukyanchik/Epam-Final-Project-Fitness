@@ -84,6 +84,9 @@
                 <c:when test="${nutritionRejected eq true}">
                     <p class="text-success">${rejected_nutrition}</p>
                 </c:when>
+                <c:when test="${incorrect_input_nutrition_data_error eq true}">
+                    <p class="text-danger">${invalid_nutrition}</p>
+                </c:when>
             </c:choose>
 
             <form action="${pageContext.servletContext.contextPath}/controller?command=reject_nutrition" method="post">
@@ -157,10 +160,6 @@
             </div>
         </c:otherwise>
     </c:choose>
-</c:if>
-
-<c:if test="${incorrect_input_nutrition_data_error eq true}">
-    <p class="text-danger">${invalid_nutrition}</p>
 </c:if>
 
 <footer class="footer mt-auto py-3">

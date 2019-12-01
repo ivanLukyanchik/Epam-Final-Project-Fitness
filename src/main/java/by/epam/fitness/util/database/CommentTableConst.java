@@ -9,7 +9,7 @@ public enum CommentTableConst {
 
     COMMENT_CONTENT("comment_content"),
 
-    PASSWORD("password");
+    PAYMENT_DATA("payment_data");
 
     private String fieldName;
 

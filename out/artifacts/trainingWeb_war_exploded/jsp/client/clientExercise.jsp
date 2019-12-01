@@ -27,6 +27,7 @@
 <fmt:message bundle="${locale}" key="no_exercises" var="no_exercises"/>
 <fmt:message bundle="${locale}" key="no_coach" var="no_coach"/>
 <fmt:message bundle="${locale}" key="show_coaches" var="show_coaches"/>
+<fmt:message bundle="${locale}" key="incorrect_repeat_set" var="incorrect_repeat_set"/>
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
@@ -74,6 +75,9 @@
             </c:when>
             <c:when test="${exerciseAlreadyExists eq true}">
                 <p class="text-danger">${exercise_already_exists}</p>
+            </c:when>
+            <c:when test="${incorrect_input_data_error eq true}">
+                <p class="text-danger">${incorrect_repeat_set}</p>
             </c:when>
         </c:choose>
 

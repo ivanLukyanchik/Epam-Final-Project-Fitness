@@ -17,6 +17,8 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Optional;
 
 import static by.epam.fitness.util.JspConst.*;
@@ -46,7 +48,7 @@ public class AddCommentCommand implements ActionCommand {
             Long coachId = Long.valueOf(coachIdString);
             HttpSession session = request.getSession();
             Long clientId = (Long) session.getAttribute(SessionAttributes.ID);
-            Comment comment = new Comment(null, clientId, coachId, commentContent);
+            Comment comment = new Comment(null, clientId, coachId, commentContent, new Timestamp(new Date().getTime()));
             commentService.save(comment);
             log.info("comment of client with id = " + clientId + " was successfully saved");
             request.setAttribute(COMMENT_SAVED, true);

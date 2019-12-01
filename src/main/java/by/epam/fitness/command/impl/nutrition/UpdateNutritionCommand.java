@@ -38,7 +38,7 @@ public class UpdateNutritionCommand implements ActionCommand {
                 request.setAttribute(JspConst.NOT_EXIST_NUTRITION_ID, true);
                 return Page.CLIENT_NUTRITION_COMMAND;
             }
-            Long nutritionId = Long.parseLong(request.getParameter(NUTRITION_ID));
+            Long nutritionId = Long.parseLong(nutritionIdString);
             String nutritionTime = request.getParameter(NUTRITION_TIME);
             setNewNutrition(nutritionId, nutritionTime, newNutritionDescription);
             request.setAttribute(NUTRITION_UPDATED, true);

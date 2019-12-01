@@ -52,6 +52,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-info">
@@ -181,7 +182,7 @@
 <div id="heading">
 <c:choose>
     <c:when test="${param.pageTopic eq 'about_us'}">
-        <h1>${about_us}</h1>
+<%--        <h1>${about_us}</h1>--%>
     </c:when>
 
     <c:when test="${param.pageTopic eq 'gym_photos'}">

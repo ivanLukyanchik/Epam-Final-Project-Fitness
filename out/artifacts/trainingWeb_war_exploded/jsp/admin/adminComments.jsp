@@ -42,6 +42,18 @@
             <div class="media-body">
     <%--                                                                                                            Map<Comment, Map<Client, Coach>>--%>
                 <h4><c:out value="${clientCoachEntry.key.name} ${clientCoachEntry.key.surname} (login : ${clientCoachEntry.key.login})"/>  <small><i>about coach with login : ${clientCoachEntry.value.login}</i></small></h4>
+                    <h5>
+                        <small><i>
+                            <c:choose>
+                                <c:when test="${sessionScope.local eq 'en_US'}">
+                                    <fmt:formatDate value="${comment.key.paymentData}" pattern="dd-MM-YYYY HH:mm:ss" />
+                                </c:when>
+                                <c:otherwise>
+                                    <fmt:formatDate value="${comment.key.paymentData}" pattern="dd.MM.YYYY HH:mm:ss" />
+                                </c:otherwise>
+                            </c:choose>
+                        </i></small>
+                    </h5>
                 <p><c:out value="${comment.key.commentContent}"/></p>
                 <form method="post" action="${pageContext.servletContext.contextPath}/controller?command=delete_comment">
                     <input type="hidden" name="commentId" value="${comment.key.id}">

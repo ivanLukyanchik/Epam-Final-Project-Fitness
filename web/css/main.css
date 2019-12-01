@@ -1,0 +1,79 @@
+.navbar-nav li {
+    padding-right: 20px;
+}
+
+.nav-link {
+    font-size: 1.1em !important;
+}
+
+.carousel-inner {
+    height: 600px ;
+}
+
+.carousel-inner img {
+    height: 100%;
+}
+
+@media (min-width: 1100px) {
+    .carousel-inner img {
+        width: 100%;
+    }
+}
+
+.carousel caption {
+    position: absolute;
+    top: 50%;
+    text-shadow: 1px 1px 10px #000000;
+}
+
+.jumbotron {
+    padding: 1em;
+    border-radius: 0;
+    width: 70%;
+    margin: 20px auto 0;
+}
+
+.padding {
+    padding-bottom: 2em;
+}
+
+.alert {
+    width: 75%;
+    margin: 0 auto;
+    padding-top: 2em;
+}
+
+.alert hr {
+    border-top: 2px solid #f0f0f0;
+    width: 95%;
+    margin-top: 0.3em;
+    margin-bottom: 1em;
+}
+
+#fixed {
+    height: 400px;
+    border-top: 4px solid #f0f0f0;
+    border-bottom: 4px solid #f0f0f0;
+    background-blend-mode: multiply;
+    background: lightblue url("../img/gym/5.jpg") no-repeat fixed center center;
+    background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    webkit-background-size: cover;
+}
+
+.social a {
+    font-size: 4em;
+}
+
+.fa-instagram {color: #BA36B1}
+
+.fa-vk {color: #4C6EF5}
+
+.fa-instagram:hover, .fa-vk:hover {
+    color: #ccc;
+}
+
+.fa-bed, .fa-dumbbell, .fa-smile {
+    font-size: 4em;
+}

@@ -1,5 +1,6 @@
 package by.epam.fitness.entity;
 
+import java.sql.Timestamp;
 import java.util.Objects;
 
 public class Comment extends Entity {
@@ -7,14 +8,16 @@ public class Comment extends Entity {
     private Long clientId;
     private Long coachId;
     private String commentContent;
+    private Timestamp paymentData;
 
     public Comment() {}
 
-    public Comment(Long id, Long clientId, Long coachId, String commentContent){
+    public Comment(Long id, Long clientId, Long coachId, String commentContent, Timestamp paymentData) {
         this.id = id;
         this.clientId = clientId;
         this.coachId = coachId;
         this.commentContent = commentContent;
+        this.paymentData = paymentData;
     }
 
     public Long getId() {
@@ -47,6 +50,14 @@ public class Comment extends Entity {
 
     public void setCommentContent(String commentContent) {
         this.commentContent = commentContent;
+    }
+
+    public Timestamp getPaymentData() {
+        return paymentData;
+    }
+
+    public void setPaymentData(Timestamp paymentData) {
+        this.paymentData = paymentData;
     }
 
     @Override

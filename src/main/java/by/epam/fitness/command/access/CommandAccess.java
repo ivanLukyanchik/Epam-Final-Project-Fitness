@@ -102,6 +102,7 @@ public class CommandAccess {
         commandTypes.add(CommandEnum.ADMIN_COMMENTS.getCommand());
         commandTypes.add(CommandEnum.DELETE_COMMENT.getCommand());
         commandTypes.add(CommandEnum.ADMIN_ORDERS.getCommand());
+        commandTypes.add(CommandEnum.COACH_COMMENTS.getCommand());
         return commandTypes;
     }
 

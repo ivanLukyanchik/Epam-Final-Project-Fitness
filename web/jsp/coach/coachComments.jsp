@@ -52,8 +52,18 @@
             <div class="media border p-3">
                 <img src="data:image/jpg;base64,${comment.value.image}" alt="${client_no_image}" class="mr-3 mt-3 rounded-circle" style="width:60px;">
                 <div class="media-body">
-<%--                    <h4>John Doe <small><i>Posted on February 19, 2016</i></small></h4>--%>
-                    <h4><c:out value="${comment.value.name} ${comment.value.surname} (login : ${comment.value.login})"/></h4>
+                    <h4><c:out value="${comment.value.name} ${comment.value.surname} (login : ${comment.value.login}) "/>
+                        <small><i>
+                            <c:choose>
+                                <c:when test="${sessionScope.local eq 'en_US'}">
+                                    <fmt:formatDate value="${comment.key.paymentData}" pattern="dd-MM-YYYY HH:mm:ss" />
+                                </c:when>
+                                <c:otherwise>
+                                    <fmt:formatDate value="${comment.key.paymentData}" pattern="dd.MM.YYYY HH:mm:ss" />
+                                </c:otherwise>
+                        </c:choose>
+                        </i></small>
+                    </h4>
                     <p><c:out value="${comment.key.commentContent}"/></p>
                 </div>
             </div>

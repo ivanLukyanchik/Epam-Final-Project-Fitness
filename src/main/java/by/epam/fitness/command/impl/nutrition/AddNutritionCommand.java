@@ -28,6 +28,7 @@ public class AddNutritionCommand implements ActionCommand {
         String nutritionIdString = request.getParameter(NUTRITION_ID);
         if (nutritionIdString==null || !dataValidator.isIdentifiableIdValid(nutritionIdString)) {
             log.info("incorrect nutrition id was received:" + nutritionIdString);
+            request.setAttribute(JspConst.INCORRECT_INPUT_NUTRITION_DATA_ERROR, true);
             return Page.CLIENT_NUTRITION_COMMAND;
         }
         long nutritionId = Long.parseLong(nutritionIdString);

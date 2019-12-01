@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class CommentDaoImpl implements CommentDao {
-    private static final String SQL_CREATE_TABLE = "INSERT INTO comment (coach_id, client_id, comment_content) VALUES (?,?,?)";
-    private static final String SQL_UPDATE_TABLE = "UPDATE comment SET coach_id=?, client_id=?, comment_content=? WHERE id_comment=?";
+    private static final String SQL_CREATE_TABLE = "INSERT INTO comment (coach_id, client_id, comment_content, payment_data) VALUES (?,?,?,?)";
+    private static final String SQL_UPDATE_TABLE = "UPDATE comment SET coach_id=?, client_id=?, comment_content=?, payment_data=? WHERE id_comment=?";
     private static final String SQL_FIND_BY_COACH_ID = "SELECT * FROM comment WHERE coach_id=?";
     private static final String SQL_FIND_ALL = "SELECT * FROM comment";
     private static final String SQL_DELETE = "DELETE FROM comment WHERE id_comment=?";
@@ -27,18 +27,20 @@ public class CommentDaoImpl implements CommentDao {
         Long coachId = comment.getCoachId();
         Long clientId = comment.getClientId();
         String commentContent = comment.getCommentContent();
+        Timestamp paymentData = comment.getPaymentData();
         Long generatedId = null;
         try {
             connection = ConnectionPool.INSTANCE.getConnection();
             if (comment.getId() != null) {
                 preparedStatement = connection.prepareStatement(SQL_UPDATE_TABLE, Statement.RETURN_GENERATED_KEYS);
-                preparedStatement.setLong(4, comment.getId());
+                preparedStatement.setLong(5, comment.getId());
             } else {
                 preparedStatement = connection.prepareStatement(SQL_CREATE_TABLE, Statement.RETURN_GENERATED_KEYS);
             }
             preparedStatement.setLong(1, coachId);
             preparedStatement.setLong(2, clientId);
             preparedStatement.setString(3, commentContent);
+            preparedStatement.setTimestamp(4, paymentData);
             preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {

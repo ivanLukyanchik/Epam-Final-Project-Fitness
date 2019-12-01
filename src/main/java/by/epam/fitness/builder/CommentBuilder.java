@@ -6,6 +6,7 @@ import by.epam.fitness.util.database.CommentTableConst;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 public class CommentBuilder implements Builder<Comment> {
     @Override
@@ -15,7 +16,8 @@ public class CommentBuilder implements Builder<Comment> {
             Long clientId = resultSet.getLong(CommentTableConst.CLIENT_ID.getFieldName());
             Long coachId = resultSet.getLong(CommentTableConst.COACH_ID.getFieldName());
             String commentContent = resultSet.getString(CommentTableConst.COMMENT_CONTENT.getFieldName());
-            return new Comment(commentId, clientId, coachId, commentContent);
+            Timestamp paymentData = resultSet.getTimestamp(CommentTableConst.PAYMENT_DATA.getFieldName());
+            return new Comment(commentId, clientId, coachId, commentContent, paymentData);
         } catch (SQLException e) {
             throw new ServiceException(e.getMessage(), e);
         }

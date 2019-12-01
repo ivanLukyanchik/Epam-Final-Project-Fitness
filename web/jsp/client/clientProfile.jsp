@@ -55,6 +55,36 @@
     <jsp:param name="currentPage" value="client_profile"/>
 </jsp:include>
 
+<c:choose>
+    <c:when test="${not empty requestScope.wrongData}">
+        <p class="text-danger">${wrongLogin}</p>
+    </c:when>
+    <c:when test="${not empty requestScope.notImage}">
+        <p class="text-danger">${not_image}</p>
+    </c:when>
+    <c:when test="${not empty requestScope.invalidPassword}">
+        <p class="text-danger">${registration_pattern_error}</p>
+    </c:when>
+    <c:when test="${not empty requestScope.invalidSurname}">
+        <p class="text-danger">${registration_pattern_error}</p>
+    </c:when>
+    <c:when test="${not empty requestScope.invalidName}">
+        <p class="text-danger">${registration_pattern_error}</p>
+    </c:when>
+    <c:when test="${not empty requestScope.invalidLogin}">
+        <p class="text-danger">${username_pattern_error}</p>
+    </c:when>
+    <c:when test="${not empty requestScope.invalidEmail}">
+        <p class="text-danger">${email_pattern_error}</p>
+    </c:when>
+    <c:when test="${not empty requestScope.success}">
+        <p class="text-success">${success}</p>
+    </c:when>
+    <c:when test="${not empty requestScope.paymentSuccess}">
+        <p class="text-success">${paymentSuccess}</p>
+    </c:when>
+</c:choose>
+
 <form method="post" class="border border-light p-5" action="modifyProfileServlet" enctype="multipart/form-data">
     <input type="hidden" name="client_id" value="${client.id}">
 
@@ -94,9 +124,6 @@
             <input onchange="checkEmail()" type="text" class="form-control" id="email" name="email" value="${client.email}" required title="${email_pattern_error}">
         </div>
     </div>
-
-<%--    <label for="photo">${upload_photo}</label>--%>
-<%--    <input type="file" id="photo" name="photo" accept="image/x-png,image/jpeg" />--%>
 
     <div class="form-group row mb-4">
         <div class="col-1">
@@ -196,35 +223,6 @@
         </c:choose>
     </div>
 
-    <c:choose>
-        <c:when test="${not empty requestScope.wrongData}">
-            <p class="text-danger">${wrongLogin}</p>
-        </c:when>
-        <c:when test="${not empty requestScope.notImage}">
-            <p class="text-danger">${not_image}</p>
-        </c:when>
-        <c:when test="${not empty requestScope.invalidPassword}">
-            <p class="text-danger">${registration_pattern_error}</p>
-        </c:when>
-        <c:when test="${not empty requestScope.invalidSurname}">
-            <p class="text-danger">${registration_pattern_error}</p>
-        </c:when>
-        <c:when test="${not empty requestScope.invalidName}">
-            <p class="text-danger">${registration_pattern_error}</p>
-        </c:when>
-        <c:when test="${not empty requestScope.invalidLogin}">
-            <p class="text-danger">${username_pattern_error}</p>
-        </c:when>
-        <c:when test="${not empty requestScope.invalidEmail}">
-            <p class="text-danger">${email_pattern_error}</p>
-        </c:when>
-        <c:when test="${not empty requestScope.success}">
-            <p class="text-success">${success}</p>
-        </c:when>
-        <c:when test="${not empty requestScope.paymentSuccess}">
-            <p class="text-success">${paymentSuccess}</p>
-        </c:when>
-    </c:choose>
     <input onclick="checkForChangingAnyData()" class="btn btn-success mt-4 btn-block" type="submit" value="${modify}">
 </form>
 

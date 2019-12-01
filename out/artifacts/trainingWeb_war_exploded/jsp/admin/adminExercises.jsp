@@ -20,6 +20,8 @@
 <fmt:message bundle="${locale}" key="not_image" var="not_image"/>
 <fmt:message bundle="${locale}" key="choose_file" var="choose_file"/>
 <fmt:message bundle="${locale}" key="exercise_form" var="exercise_form"/>
+<fmt:message bundle="${locale}" key="exercise_name_not_valid" var="exercise_name_not_valid"/>
+<fmt:message bundle="${locale}" key="exercise_description_not_valid" var="exercise_description_not_valid"/>
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
@@ -45,6 +47,12 @@
 </c:if>
 <c:if test="${not empty requestScope.notImage}">
     <p class="text-danger">${not_image}</p>
+</c:if>
+<c:if test="${not empty requestScope.invalidName}">
+    <p class="text-danger">${exercise_name_not_valid}</p>
+</c:if>
+<c:if test="${not empty requestScope.description}">
+    <p class="text-danger">${exercise_description_not_valid}</p>
 </c:if>
 
 <button class="btn btn-primary mx-5 mb-2" data-toggle="collapse" data-target="#hide">${exercise_form}</button>
