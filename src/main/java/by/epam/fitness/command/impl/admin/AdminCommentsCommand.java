@@ -31,7 +31,7 @@ public class AdminCommentsCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = null;
+        String page;
         try {
             List<Comment> comments = commentService.findAll();
             Map<Comment, Map<Client, Coach>> commentUserCoachMap = makeCommentMapForAdmin(comments);

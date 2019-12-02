@@ -31,7 +31,7 @@ public class ChooseCoachCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = null;
+        String page;
         String coachIdString = request.getParameter(COACH_ID);
         if (coachIdString == null || !dataValidator.isIdentifiableIdValid(coachIdString)){
             log.info("invalid coach id format: coach_id:" + coachIdString);

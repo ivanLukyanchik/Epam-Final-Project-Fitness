@@ -36,10 +36,10 @@ public class LoginCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = null;
-        Client client = null;
-        Coach coach = null;
-        Admin admin = null;
+        String page;
+        Client client;
+        Coach coach;
+        Admin admin;
         String login = request.getParameter(PARAM_LOGIN);
         if (login==null || !dataValidator.isLoginValid(login)) {
             log.info("invalid login format was received:" + login);

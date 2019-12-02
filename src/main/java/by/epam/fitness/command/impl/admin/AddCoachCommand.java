@@ -22,7 +22,7 @@ public class AddCoachCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = null;
+        String page;
         String name = request.getParameter(PARAM_NAME);
         if (name==null || !dataValidator.isNameValid(name)) {
             log.info("invalid name format was received:" + name);

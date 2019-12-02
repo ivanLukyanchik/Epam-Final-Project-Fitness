@@ -38,7 +38,7 @@ public class RegisterCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = null;
+        String page;
         String name = request.getParameter(PARAM_NAME);
         if (name==null || !dataValidator.isNameValid(name)) {
             log.info("invalid name format was received:" + name);
@@ -71,7 +71,7 @@ public class RegisterCommand implements ActionCommand {
         }
         Random random = new SecureRandom();
         String userHash = DigestUtils.sha512Hex("" + random.nextInt(999999));
-        Client client = null;
+        Client client;
         try {
             client = buildUser(request, userHash);
             if (clientService.registerUser(client)) {

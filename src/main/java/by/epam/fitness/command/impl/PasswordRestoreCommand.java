@@ -26,7 +26,7 @@ public class PasswordRestoreCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = null;
+        String page;
         String password = request.getParameter(PARAM_PASSWORD);
         if (password==null || !dataValidator.isPasswordValid(password)) {
             log.info("invalid password format was received:" + password);

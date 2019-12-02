@@ -67,8 +67,10 @@
         <option value="Interface" />
         <option value="Jsp File" />
         <option value="Class" />
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
+        <option value="Arquillian JUnit Test Class" />
+        <option value="TestNG Test Class" />
       </list>
     </option>
   </component>
@@ -91,23 +93,23 @@
     <property name="DatabaseDriversLRU" value="mysql&#10;cassandra" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="TestNG" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Arquillian JUnit4" value="" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.TestNG" value="" />
     <property name="findjar.last.used.dir" value="$PROJECT_DIR$/web/WEB-INF/lib" />
     <property name="last.edited.regexp" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/web/img/main" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\gym" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\jsp" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources\locale" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src" />
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="by.epam.fitness.service.impl" />
+      <recent name="by.epam.fitness.dao.impl" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\main" />
@@ -115,6 +117,16 @@
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\favicon" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\css" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\gym" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\jsp" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources\locale" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -129,7 +141,53 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Tomcat Server.Tomcat 9.0.27">
+    <configuration name="ClientDaoImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="trainingWeb" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="by.epam.fitness.dao.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="by.epam.fitness.dao.impl" />
+      <option name="MAIN_CLASS_NAME" value="by.epam.fitness.dao.impl.ClientDaoImplTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ClientDaoImplTest.checkUserByLoginPasswordPositiveTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="trainingWeb" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="by.epam.fitness.dao.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="by.epam.fitness.dao.impl" />
+      <option name="MAIN_CLASS_NAME" value="by.epam.fitness.dao.impl.ClientDaoImplTest" />
+      <option name="METHOD_NAME" value="checkUserByLoginPasswordPositiveTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ClientServiceImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="trainingWeb" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="by.epam.fitness.service.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="by.epam.fitness.service.impl" />
+      <option name="MAIN_CLASS_NAME" value="by.epam.fitness.service.impl.ClientServiceImplTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Tomcat 9.0.27" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.27" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/trainingWeb_war_exploded/controller?command=show_login_page" />
       <option name="UPDATING_POLICY" value="restart-server" />
@@ -203,6 +261,13 @@
         </option>
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.ClientServiceImplTest" />
+        <item itemvalue="JUnit.ClientDaoImplTest.checkUserByLoginPasswordPositiveTest" />
+        <item itemvalue="JUnit.ClientDaoImplTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ServiceViewManager">
     <option name="allServicesViewState">
@@ -300,7 +365,9 @@
       <workItem from="1575102482758" duration="27815000" />
       <workItem from="1575184968414" duration="10021000" />
       <workItem from="1575209190326" duration="661000" />
-      <workItem from="1575210499625" duration="20078000" />
+      <workItem from="1575210499625" duration="20508000" />
+      <workItem from="1575270332885" duration="12241000" />
+      <workItem from="1575311287787" duration="9017000" />
     </task>
     <servers />
   </component>
@@ -316,14 +383,14 @@
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/servlet/ModifyProfile.java</url>
-          <line>45</line>
-          <option name="timeStamp" value="44" />
+          <url>file://$PROJECT_DIR$/src/test/java/by/epam/fitness/dao/impl/ClientDaoImplTest.java</url>
+          <line>20</line>
+          <option name="timeStamp" value="48" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/servlet/AddExercise.java</url>
-          <line>43</line>
-          <option name="timeStamp" value="47" />
+          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/client/UpdateMembershipCommand.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="51" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

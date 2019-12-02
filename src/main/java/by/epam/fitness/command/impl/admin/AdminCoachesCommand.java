@@ -20,7 +20,7 @@ public class AdminCoachesCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = null;
+        String page;
         try {
             List<Coach> coaches = coachService.findAll();
             request.setAttribute(JspConst.COACHES, coaches);

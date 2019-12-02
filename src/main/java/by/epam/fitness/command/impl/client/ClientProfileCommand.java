@@ -38,10 +38,10 @@ public class ClientProfileCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = null;
+        String page;
         HttpSession session = request.getSession();
         String role = String.valueOf(session.getAttribute(SessionAttributes.ROLE));
-        Long clientId = null;
+        Long clientId;
         if (role.equals(UserRole.CLIENT)) {
             clientId = (Long) session.getAttribute(SessionAttributes.ID);
         } else {

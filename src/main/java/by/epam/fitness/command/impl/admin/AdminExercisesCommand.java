@@ -20,7 +20,7 @@ public class AdminExercisesCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = null;
+        String page;
         try {
             List<Exercise> exercises = exerciseService.findAll();
             request.setAttribute(JspConst.All_EXERCISES, exercises);

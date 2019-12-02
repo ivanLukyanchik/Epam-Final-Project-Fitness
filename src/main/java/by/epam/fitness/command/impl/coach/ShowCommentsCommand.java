@@ -34,11 +34,11 @@ public class ShowCommentsCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = null;
+        String page;
         HttpSession session = request.getSession();
         request.setAttribute(MAX_NUMBER_SYMBOLS_ATTRIBUTE,MAX_NUMBER_SYMBOLS_VALUE);
         String role = String.valueOf(session.getAttribute(SessionAttributes.ROLE));
-        Long coachId = null;
+        Long coachId;
         if (role.equals(UserRole.COACH)) {
             coachId = (Long) session.getAttribute(SessionAttributes.ID);
         } else {

@@ -33,7 +33,7 @@ public class ShowClientExercisesCommand implements ActionCommand {
         String page = null;
         HttpSession session = request.getSession();
         String role = String.valueOf(session.getAttribute(SessionAttributes.ROLE));
-        Long userId = null;
+        Long userId;
         try {
             if (role.equals(UserRole.COACH)) {
                 userId = getClientIdForAppropriateCoach(session,request);
@@ -53,7 +53,7 @@ public class ShowClientExercisesCommand implements ActionCommand {
                 }
                 Long programId = user.get().getProgramId();
                 Optional<Program> program = programService.findProgramById(programId);
-                request.getSession().setAttribute(JspConst.PROGRAM, program.get());
+                request.getSession().setAttribute(JspConst.PROGRAM, program.get()); //exactly initialized in register
                 List<ExerciseProgram> clientExercises = exerciseProgramService.findExercisesByProgramId(programId);
                 request.setAttribute(JspConst.CLIENT_EXERCISES, clientExercises);
                 List<Exercise> allExercises = exerciseService.findAll();

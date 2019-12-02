@@ -20,7 +20,7 @@ public class DeleteCommentCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = null;
+        String page;
         String commentIdString = request.getParameter(JspConst.COMMENT_ID);
         if (commentIdString==null || !dataValidator.isIdentifiableIdValid(commentIdString)) {
             log.info("incorrect comment id was received:" + commentIdString);

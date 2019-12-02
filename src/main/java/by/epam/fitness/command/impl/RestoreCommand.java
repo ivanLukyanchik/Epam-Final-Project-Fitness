@@ -24,7 +24,7 @@ public class RestoreCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = null;
+        String page;
         String email = request.getParameter(JspConst.PARAM_EMAIL);
         if (email==null || !dataValidator.isEmailValid(email)){
             log.info("invalid email format was received:" + email);

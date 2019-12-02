@@ -202,7 +202,7 @@
 
             <c:when test="${empty membership_valid}">
                 <div class="col-11">
-                    <input type="text" class="form-control" id="end_date_of_trains" name="end_date_of_trains"  value="${not_valid_membership}" readonly>
+                    <input type="text" class="form-control" name="end_date_of_trains"  value="${not_valid_membership}" readonly>
                 </div>
             </c:when>
 
@@ -210,12 +210,12 @@
                 <c:choose>
                     <c:when test="${sessionScope.local eq 'en_US'}">
                         <div class="col-11">
-                            <input type="text" class="form-control" id="end_date_of_trains" name="end_date_of_trains"  value="<fmt:formatDate value="${orders[fn:length(orders)-1].membershipEndDate}" pattern="dd-MM-YYYY" />" readonly>
+                            <input type="text" class="form-control" name="end_date_of_trains"  value="<fmt:formatDate value="${orders[fn:length(orders)-1].membershipEndDate}" pattern="dd-MM-YYYY" />" readonly>
                         </div>
                     </c:when>
                     <c:otherwise>
                         <div class="col-11">
-                            <input type="text" class="form-control" id="end_date_of_trains" name="end_date_of_trains"  value="<fmt:formatDate value="${orders[fn:length(orders)-1].membershipEndDate}" pattern="dd.MM.YYYY" />" readonly>
+                            <input type="text" class="form-control" name="end_date_of_trains"  value="<fmt:formatDate value="${orders[fn:length(orders)-1].membershipEndDate}" pattern="dd.MM.YYYY" />" readonly>
                         </div>
                     </c:otherwise>
                 </c:choose>

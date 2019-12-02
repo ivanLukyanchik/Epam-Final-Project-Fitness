@@ -25,7 +25,7 @@ public class ActivationCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = null;
+        String page;
         String email = request.getParameter(PARAM_KEY_1);
         if (email==null || !dataValidator.isEmailValid(email)){
             log.info("invalid email format was received, link was modified:" + email);

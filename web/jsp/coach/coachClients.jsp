@@ -42,19 +42,19 @@
                         <div class="row">
                             <div class="col-3">
                                 <form action="${pageContext.request.contextPath}/controller?command=show_client_exercises" method="post">
-                                    <input type="hidden" id="coach_client_id" name="coach_client_id" value="${client.id}">
+                                    <input type="hidden" name="coach_client_id" value="${client.id}">
                                     <input type="submit" class="btn btn-primary" value="${exercises_button}"/>
                                 </form>
                             </div>
                             <div class="col-3">
                                 <form action="${pageContext.request.contextPath}/controller?command=show_client_nutrition" method="post">
-                                    <input type="hidden" id="coach_client_id" name="coach_client_id" value="${client.id}"/>
+                                    <input type="hidden" name="coach_client_id" value="${client.id}"/>
                                     <input type="submit" class="btn btn-success" value="${nutrition_button}"/>
                                 </form>
                             </div>
                             <div class="col-3">
                                 <form action="${pageContext.request.contextPath}/controller?command=client_orders" method="post">
-                                    <input type="hidden" id="coach_client_id" name="coach_client_id" value="${client.id}"/>
+                                    <input type="hidden" name="coach_client_id" value="${client.id}"/>
                                     <input type="submit" class="btn btn-info" value="${orders_button}"/>
                                 </form>
                             </div>

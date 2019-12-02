@@ -50,7 +50,7 @@
     <c:if test="${no_nutrition == true}">
         <h3>${client_no_nutrition}</h3>
         <form action="${pageContext.servletContext.contextPath}/controller?command=add_nutrition" method="post">
-            <input type="hidden" id="nutrition_id" name="nutrition_id" value="${nutrition.id}"/>
+            <input type="hidden" name="nutrition_id" value="${nutrition.id}"/>
             <input type="submit" class="btn btn-success" value="${activate_nutrition}"/>
         </form>
     </c:if>
@@ -90,8 +90,10 @@
             </c:choose>
 
             <form action="${pageContext.servletContext.contextPath}/controller?command=reject_nutrition" method="post">
-                <input type="hidden" id="nutrition_id" name="nutrition_id" value="${nutrition.id}"/>
-                <input type="submit" class="btn btn-danger" value="${reject_nutrition}">
+                <input type="hidden" name="nutrition_id" value="${nutrition.id}"/>
+                <div class="text-center">
+                    <input type="submit" class="btn btn-danger" value="${reject_nutrition}">
+                </div>
             </form>
 
             <div class="container">
@@ -104,11 +106,11 @@
                             <h5 class="card-title">${morning}</h5>
                             <p class="card-text"><c:out value="${nutrition.morningNutrition}"/></p>
                             <form name="form" action="${pageContext.request.contextPath}/controller?command=update_nutrition" method="post">
-                                <input type="hidden" id="nutrition_id" name="nutrition_id" value="${nutrition.id}"/>
-                                <input type="hidden" id="nutrition_time" name="nutrition_time" value="morning"/>
+                                <input type="hidden" name="nutrition_id" value="${nutrition.id}"/>
+                                <input type="hidden" name="nutrition_time" value="morning"/>
                                 <div class="md-form amber-textarea active-amber-textarea">
                                     <i class="fas fa-pencil-alt prefix"></i>
-                                    <textarea onchange="checkNutrition()" id="nutrition_description" name="nutrition_description" class="md-textarea form-control my-3" required title="${invalid_nutrition}">${nutrition.morningNutrition}</textarea>
+                                    <textarea onchange="checkNutrition()" name="nutrition_description" class="md-textarea form-control my-3" required title="${invalid_nutrition}">${nutrition.morningNutrition}</textarea>
                                 </div>
                                 <input type="submit" class="btn btn-primary" value="${save}">
                                 <h3>${max_symbols} ${max_number_symbols_attribute}</h3>
@@ -124,11 +126,11 @@
                             <h5 class="card-title">${lunch}</h5>
                             <p class="card-text"><c:out value="${nutrition.lunchNutrition}"/></p>
                             <form name="form" action="${pageContext.request.contextPath}/controller?command=update_nutrition" method="post">
-                                <input type="hidden" id="nutrition_id" name="nutrition_id" value="${nutrition.id}"/>
-                                <input type="hidden" id="nutrition_time" name="nutrition_time" value="lunch"/>
+                                <input type="hidden" name="nutrition_id" value="${nutrition.id}"/>
+                                <input type="hidden" name="nutrition_time" value="lunch"/>
                                 <div class="md-form amber-textarea active-amber-textarea">
                                     <i class="fas fa-pencil-alt prefix"></i>
-                                    <textarea  onchange="checkNutrition()" id="nutrition_description" name="nutrition_description" class="md-textarea form-control my-3" required title="${invalid_nutrition}">${nutrition.lunchNutrition}</textarea>
+                                    <textarea  onchange="checkNutrition()" name="nutrition_description" class="md-textarea form-control my-3" required title="${invalid_nutrition}">${nutrition.lunchNutrition}</textarea>
                                 </div>
                                 <input type="submit" class="btn btn-primary" value="${save}">
                                 <h3>${max_symbols} ${max_number_symbols_attribute}</h3>

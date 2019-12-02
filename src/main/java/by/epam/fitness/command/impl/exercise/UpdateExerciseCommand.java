@@ -26,7 +26,7 @@ public class UpdateExerciseCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = null;
+        String page;
         String repeatsString = request.getParameter(JspConst.REPEATS);
         if (repeatsString==null || !dataValidator.isRepeatsNumberValid(repeatsString)) {
             log.info("format number of repeats is not correct");

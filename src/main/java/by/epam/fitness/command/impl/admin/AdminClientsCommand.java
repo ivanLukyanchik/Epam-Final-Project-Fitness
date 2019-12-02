@@ -20,7 +20,7 @@ public class AdminClientsCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = null;
+        String page;
         try {
             List<Client> clients = clientService.findAll();
             request.setAttribute(JspConst.ALL_CLIENTS, clients);

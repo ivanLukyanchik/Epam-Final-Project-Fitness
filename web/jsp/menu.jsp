@@ -179,7 +179,7 @@
 </nav>
 
 
-<div id="heading">
+<div id="heading" class="text-center">
 <c:choose>
     <c:when test="${param.pageTopic eq 'about_us'}">
 <%--        <h1>${about_us}</h1>--%>

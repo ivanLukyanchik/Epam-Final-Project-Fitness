@@ -30,7 +30,7 @@ public class AddCommentCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = null;
+        String page;
         String commentContent  = request.getParameter(COMMENT_CONTENT).strip();
         request.setAttribute(MAX_NUMBER_SYMBOLS_ATTRIBUTE,MAX_NUMBER_SYMBOLS_VALUE);
         if (commentContent==null || !dataValidator.isCommentContentValid(commentContent)){

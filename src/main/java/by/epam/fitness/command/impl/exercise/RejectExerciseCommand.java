@@ -22,7 +22,7 @@ public class RejectExerciseCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = null;
+        String page;
         String exerciseIdString = request.getParameter(EXERCISE_ID);
         if (exerciseIdString==null || !dataValidator.isIdentifiableIdValid(exerciseIdString)) {
             log.info("invalid exercise id format was received:" + exerciseIdString);

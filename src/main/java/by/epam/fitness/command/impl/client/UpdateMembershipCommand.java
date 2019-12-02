@@ -33,13 +33,12 @@ public class UpdateMembershipCommand implements ActionCommand {
     private static DataValidator dataValidator = new DataValidator();
     private ClientService clientService = new ClientServiceImpl();
     private OrderInformationService orderInformationService = new OrderInformationServiceImpl();
-    private static final String PROFILE_PAGE = "/controller?command=client_profile";
     private static final String PERIOD_PATTERN="\\D+";
     private final static SaleSystem SALE_SYSTEM = SaleSystem.getInstance();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = null;
+        String page;
         String cardNumber = request.getParameter(CARD_NUMBER);
         if (cardNumber==null || !dataValidator.isCardNumberValid(cardNumber)) {
             log.info("incorrect card number:" + cardNumber + " was input");
@@ -55,7 +54,7 @@ public class UpdateMembershipCommand implements ActionCommand {
         BigDecimal cost = new BigDecimal(costString);
         HttpSession session = request.getSession();
         Long clientId = (Long) session.getAttribute(SessionAttributes.ID);
-        java.sql.Date newEndMembershipDate = null;
+        java.sql.Date newEndMembershipDate;
         try {
             String period = request.getParameter(PERIOD);
             if (period==null || !isPeriodExist(period)){
@@ -67,7 +66,7 @@ public class UpdateMembershipCommand implements ActionCommand {
             OrderInformation newOrderInformation = new OrderInformation(null, cost, new Timestamp(new Date().getTime()),
                                                                         newEndMembershipDate, clientId,cardNumber);
             orderInformationService.save(newOrderInformation);
-            increaseClientVisitNumber(request, clientId);
+            increaseClientVisitNumber(clientId);
             request.setAttribute(PAYMENT_SUCCESS, true);
             log.info("Gym membership of client with id = " + clientId + " has been updated");
             page = Page.CLIENT_PROFILE_COMMAND;
@@ -91,7 +90,7 @@ public class UpdateMembershipCommand implements ActionCommand {
         return new java.sql.Date(newMembershipEndDate.getTime());
     }
 
-    private void increaseClientVisitNumber(HttpServletRequest request, long clientId) throws ServiceException {
+    private void increaseClientVisitNumber(long clientId) throws ServiceException {
         Optional<Client> clientOptional = clientService.findById(clientId);
         if (clientOptional.isPresent()) {
             Client client = clientOptional.get();

@@ -30,11 +30,11 @@ public class ShowClientNutritionCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = null;
+        String page;
         HttpSession session = request.getSession();
         String role = String.valueOf(session.getAttribute(SessionAttributes.ROLE));
         request.setAttribute(MAX_NUMBER_SYMBOLS_ATTRIBUTE,MAX_NUMBER_SYMBOLS_VALUE);
-        Long clientId = null;
+        Long clientId;
         try {
             if (role.equals(UserRole.COACH)) {
                 clientId = getClientIdForAppropriateCoach(session,request);

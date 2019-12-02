@@ -24,7 +24,7 @@ public class UpdateNutritionCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = null;
+        String page;
         String newNutritionDescription = request.getParameter(JspConst.NUTRITION_DESCRIPTION);
         if (newNutritionDescription==null || !dataValidator.isNutritionDescriptionValid(newNutritionDescription)){
             log.info("incorrect nutrition description");

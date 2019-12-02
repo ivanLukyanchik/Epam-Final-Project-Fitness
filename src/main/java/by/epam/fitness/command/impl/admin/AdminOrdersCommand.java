@@ -27,7 +27,7 @@ public class AdminOrdersCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = null;
+        String page;
         try {
             List<OrderInformation> orders = orderInformationService.findAll();
             Map<OrderInformation, Client> orderClientMap =  makeOrderMapForAdmin(orders);

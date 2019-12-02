@@ -20,7 +20,7 @@ public class ActionFactory {
         try {
             currentCommand = CommandEnum.getCurrentCommand(action);
         } catch (IllegalArgumentException e) {
-            request.setAttribute("wrongAction", "wrongaction");
+            request.setAttribute("wrongAction", true);
             log.info("Wrong action!");
         }
         return currentCommand;

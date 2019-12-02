@@ -27,10 +27,10 @@ public class ClientOrdersCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = null;
+        String page;
         HttpSession session = request.getSession();
         String role = String.valueOf(session.getAttribute(SessionAttributes.ROLE));
-        Long clientId = null;
+        Long clientId;
         if (role.equals(UserRole.COACH)) {
             clientId = getClientIdForAppropriateCoach(session, request);
             if (clientId == -1L) {

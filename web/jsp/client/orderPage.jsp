@@ -37,7 +37,7 @@
     <jsp:param name="currentPage" value="show_order_page"/>
 </jsp:include>
 
-    <form name="form" action="${pageContext.servletContext.contextPath}/controller?command=update_gym_membership" class="text-center border border-light p-5" method="post">
+    <form name="form" action="${pageContext.servletContext.contextPath}/controller?command=update_gym_membership" class="text-center border border-light px-5 py-1" method="post">
         <input type="hidden" id="period" name="period">
         <div>
             <label for="period_cost">${how_long}</label>
@@ -83,6 +83,13 @@
             </c:when>
         </c:choose>
         <input onclick="checkOffer()" class="btn btn-success my-4 btn-block" type="submit" value="${pay}">
+        <div class="row text-center">
+            <div class="col-12 payment">
+                <i class="fab fa-cc-mastercard"></i>
+                <i class="fab fa-cc-visa"></i>
+                <i class="fab fa-cc-paypal"></i>
+            </div>
+        </div>
     </form>
 
 <footer class="footer mt-auto py-3">

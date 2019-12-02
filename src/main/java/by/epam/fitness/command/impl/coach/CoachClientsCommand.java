@@ -24,7 +24,7 @@ public class CoachClientsCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = null;
+        String page;
         HttpSession session = request.getSession();
         Long id = (Long) session.getAttribute(SessionAttributes.ID);
         try {
