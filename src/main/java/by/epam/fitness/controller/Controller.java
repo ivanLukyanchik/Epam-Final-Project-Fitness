@@ -2,7 +2,6 @@ package by.epam.fitness.controller;
 
 import by.epam.fitness.command.ActionCommand;
 import by.epam.fitness.command.factory.ActionFactory;
-import by.epam.fitness.pool.ConnectionPool;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,6 +16,7 @@ public class Controller extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -36,8 +36,8 @@ public class Controller extends HttpServlet {
         }
     }
 
-    @Override
-    public void destroy() {
-        ConnectionPool.INSTANCE.destroyPool();
-    }
+//    @Override
+//    public void destroy() {
+//        ConnectionPool.INSTANCE.destroyPool();
+//    }
 }

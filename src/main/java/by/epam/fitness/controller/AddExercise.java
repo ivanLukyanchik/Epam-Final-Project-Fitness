@@ -42,17 +42,17 @@ public class AddExercise extends HttpServlet {
     private String execute(HttpServletRequest request) {
         String page;
         String name = request.getParameter(JspConst.PARAM_NAME);
-//        if (name == null || !dataValidator.isExerciseNameValid(name)) {
-//            log.info("format name is not correct: " + name);
-//            request.setAttribute(JspConst.INVALID_NAME, true);
-//            return Page.ADMIN_EXERCISES_COMMAND;
-//        }
+        if (name == null || !dataValidator.isExerciseNameValid(name)) {
+            log.info("format name is not correct: " + name);
+            request.setAttribute(JspConst.INVALID_NAME, true);
+            return Page.ADMIN_EXERCISES_COMMAND;
+        }
         String description = request.getParameter(JspConst.PARAM_DESCRIPTION);
-//        if (description == null || !dataValidator.isExerciseDescriptionValid(description)) {
-//            log.info("format description is not correct: " + description);
-//            request.setAttribute(JspConst.PARAM_DESCRIPTION, true);
-//            return Page.ADMIN_EXERCISES_COMMAND;
-//        }
+        if (description == null || !dataValidator.isExerciseDescriptionValid(description)) {
+            log.info("format description is not correct: " + description);
+            request.setAttribute(JspConst.PARAM_DESCRIPTION, true);
+            return Page.ADMIN_EXERCISES_COMMAND;
+        }
         InputStream inputStream = null;
         try {
             Part filePart = request.getPart(JspConst.PARAM_IMAGE);

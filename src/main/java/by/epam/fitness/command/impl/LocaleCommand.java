@@ -11,7 +11,6 @@ import static by.epam.fitness.util.JspConst.CHANGED_LOCALE;
 import static by.epam.fitness.util.JspConst.MESSAGE;
 
 public class LocaleCommand implements ActionCommand {
-    private static final String CURRENT_PAGE = "currentPage";
     private static final String COMMAND = "/controller?command=";
 
     @Override

@@ -328,7 +328,8 @@ public class ProxyConnection implements Connection, AutoCloseable {
         try {
             connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("database is not closed", e);
+            throw new RuntimeException("database is not closed", e);
         }
     }
 

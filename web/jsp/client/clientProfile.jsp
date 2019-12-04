@@ -85,7 +85,7 @@
     </c:when>
 </c:choose>
 
-<form method="post" class="border border-light p-5" action="modifyProfileServlet" enctype="multipart/form-data">
+<form method="post" class="border border-light px-5 py-1" action="modifyProfileServlet" enctype="multipart/form-data">
     <input type="hidden" name="client_id" value="${client.id}">
 
     <div class="form-group row mb-4">
@@ -231,7 +231,7 @@
         <input type="hidden" name="key1" value="${client.email}">
         <input type="hidden" name="key2" value="${client.login}">
         <input type="hidden" name="key3" value="${client.userHash}">
-        <input type="submit" class="btn btn-warning btn-block" value="${change_password}">
+        <input type="submit" class="btn btn-primary btn-block" value="${change_password}">
     </form>
 
     <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#deleteModal">${delete_account}</button>

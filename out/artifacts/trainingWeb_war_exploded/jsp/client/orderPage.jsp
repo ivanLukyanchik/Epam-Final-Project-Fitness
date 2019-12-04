@@ -53,7 +53,7 @@
             <label for="cost">${amount}</label>
         </div>
         <div>
-            <input type="text" class="form-control mb-4" id="cost" name="cost" value="0$" readonly>
+            <input type="text" class="form-control mb-4" id="cost" value="0$" readonly>
         </div>
 
         <div>

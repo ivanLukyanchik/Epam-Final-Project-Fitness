@@ -6,6 +6,7 @@ import by.epam.fitness.entity.Exercise;
 import java.util.List;
 
 public interface ExerciseDao extends BaseDao<Long, Exercise> {
-    List<Exercise> findAll() throws DaoException;
+    List<Exercise> findAllLimited(int start, int total) throws DaoException;
     int deleteExercise(long exerciseId) throws DaoException;
+    int getNumberOfRows() throws DaoException;
 }

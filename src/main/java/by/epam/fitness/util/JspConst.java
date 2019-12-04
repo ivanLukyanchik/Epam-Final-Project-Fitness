@@ -9,7 +9,8 @@ public class JspConst {
     public static final String PARAM_PATRONYMIC = "patronymic";
     public static final String CARD_NUMBER = "cardNumber";
     public static final String PERIOD = "period";
-    public static final String COST = "cost";;
+    public static final String COST = "cost";
+    public static final String PAGE_NUMBER = "page";
     public static final String PARAM_PASSWORD = "password";
     public static final String PARAM_NAME = "name";
     public static final String PARAM_DESCRIPTION = "description";
@@ -69,6 +70,7 @@ public class JspConst {
     public static final String CLIENT_EXERCISES = "clientExercises";
     public static final String EXERCISES = "exercises";
     public static final String All_EXERCISES = "allExercises";
+    public static final String NUMBER_OF_PAGES = "numberOfPages";
     public static final String NUTRITION = "nutrition";
     public static final String NO_NUTRITION = "no_nutrition";
     public final static String NUTRITION_DESCRIPTION = "nutrition_description";

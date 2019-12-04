@@ -103,6 +103,7 @@ public class CommandAccess {
         commandTypes.add(CommandEnum.DELETE_COMMENT.getCommand());
         commandTypes.add(CommandEnum.ADMIN_ORDERS.getCommand());
         commandTypes.add(CommandEnum.COACH_COMMENTS.getCommand());
+        commandTypes.add(CommandEnum.FIND_CLIENTS_BY_FILTER.getCommand());
         return commandTypes;
     }
 

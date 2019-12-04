@@ -28,6 +28,7 @@
 <fmt:message bundle="${locale}" key="no_coach" var="no_coach"/>
 <fmt:message bundle="${locale}" key="show_coaches" var="show_coaches"/>
 <fmt:message bundle="${locale}" key="incorrect_repeat_set" var="incorrect_repeat_set"/>
+<fmt:message bundle="${locale}" key="click_exercises" var="click_exercises"/>
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
@@ -81,53 +82,56 @@
             </c:when>
         </c:choose>
 
-        <c:if test="${fn:length(clientExercises) eq 0}">
-            <h3><c:out value="${no_exercises}"/></h3>
-        </c:if>
-
-        <c:forEach var = "i" begin = "1" end = "${program.trainsPerWeek}">
-            <div class="container">
-                <div class="row">
-                    <c:forEach items="${clientExercises}" var="exerciseProgram">
-                        <c:if test="${exerciseProgram.numberTrainDay==i}">
-                            <div class="col">
-                                <div class="card" style="width: 18rem;">
-                                    <img class="card-img-top" src="data:image/jpg;base64,${exerciseProgram.exercise.image}" alt="No image yet">
-                                    <div class="card-body">
-                                        <h5 class="card-title">${exerciseProgram.exercise.name} <c:out value="(${exerciseProgram.setNumber} * ${exerciseProgram.repeatNumber})"/></h5>
-                                        <p class="card-text">${exerciseProgram.exercise.description}</p>
-                                        <form action="${pageContext.request.contextPath}/controller?command=update_exercise" method="post">
-                                            <input type="hidden" id="exerciseProgramId" name="exerciseProgramId" value="${exerciseProgram.id}">
-                                            <h4>${edit}</h4>
-                                            <div>
-                                                <label for="set_update">${sets}</label>
-                                            </div>
-                                            <div>
-                                                <input onchange="checkSetNumber()" type="text" class="form-control mb-4" id="set_update" value="${exerciseProgram.setNumber}" required title="${title}" name="set_number">
-                                            </div>
-                                            <div>
-                                                <label for="repeats_update">${repeats}</label>
-                                            </div>
-                                            <div>
-                                                <input onchange="checkRepeatNumber()" type="text" class="form-control mb-4" id="repeats_update" value="${exerciseProgram.repeatNumber}" required title="${title}" name="repeats">
-                                            </div>
-                                            <input type="submit" class="btn btn-primary" value="${update}" id="update">
-                                        </form>
-                                        <form action="${pageContext.request.contextPath}/controller?command=reject_exercise" method="post">
-                                            <input type="hidden" name="exerciseId" value="${exerciseProgram.exercise.id}">
-                                            <input type="submit" class="btn btn-danger" value="${reject_exercise}">
-                                        </form>
+        <button class="btn btn-primary mx-5 mb-2" data-toggle="collapse" data-target="#hide">${click_exercises}</button>
+        <div class="collapse" id="hide">
+            <c:if test="${fn:length(clientExercises) eq 0}">
+                <h3><c:out value="${no_exercises}"/></h3>
+            </c:if>
+            <c:forEach var = "i" begin = "1" end = "${program.trainsPerWeek}">
+                <div class="container">
+                    <div class="row">
+                        <c:forEach items="${clientExercises}" var="exerciseProgram">
+                            <c:if test="${exerciseProgram.numberTrainDay==i}">
+                                <div class="col">
+                                    <div class="card" style="width: 18rem;">
+                                        <img class="card-img-top" src="data:image/jpg;base64,${exerciseProgram.exercise.image}" alt="No image yet">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${exerciseProgram.exercise.name} <c:out value="(${exerciseProgram.setNumber} * ${exerciseProgram.repeatNumber})"/></h5>
+                                            <p class="card-text">${exerciseProgram.exercise.description}</p>
+                                            <form action="${pageContext.request.contextPath}/controller?command=update_exercise" method="post">
+                                                <input type="hidden" id="exerciseProgramId" name="exerciseProgramId" value="${exerciseProgram.id}">
+                                                <h4>${edit}</h4>
+                                                <div>
+                                                    <label for="set_update">${sets}</label>
+                                                </div>
+                                                <div>
+                                                    <input onchange="checkSetNumber()" type="text" class="form-control mb-4" id="set_update" value="${exerciseProgram.setNumber}" required title="${title}" name="set_number">
+                                                </div>
+                                                <div>
+                                                    <label for="repeats_update">${repeats}</label>
+                                                </div>
+                                                <div>
+                                                    <input onchange="checkRepeatNumber()" type="text" class="form-control mb-4" id="repeats_update" value="${exerciseProgram.repeatNumber}" required title="${title}" name="repeats">
+                                                </div>
+                                                <input type="submit" class="btn btn-primary" value="${update}" id="update">
+                                            </form>
+                                            <form action="${pageContext.request.contextPath}/controller?command=reject_exercise" method="post">
+                                                <input type="hidden" name="exerciseId" value="${exerciseProgram.exercise.id}">
+                                                <input type="submit" class="btn btn-danger" value="${reject_exercise}">
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </c:if>
-                    </c:forEach>
+                            </c:if>
+                        </c:forEach>
+                    </div>
                 </div>
-            </div>
-        </c:forEach>
+            </c:forEach>
+        </div>
 
-
-        <h1>${all_exercises}</h1>
+        <div class="text-center my-2">
+            <h1>${all_exercises}</h1>
+        </div>
         <div class="container">
             <div class="row">
                 <c:forEach items="${allExercises}" var="exercise">
@@ -162,6 +166,36 @@
                         </div>
                     </div>
                 </c:forEach>
+            </div>
+
+            <div class="text-center mt-2">
+                <ul class="pagination text-center mx-auto justify-content-center">
+                    <c:if test="${page != 1}">
+                        <li class="page-item">
+                            <a class="page-link" href="${pageContext.request.contextPath}/controller?command=show_client_exercises&page=${page-1}">Previous</a>
+                        </li>
+                    </c:if>
+
+                    <c:forEach begin="1" end="${numberOfPages}" var="i">
+                        <c:choose>
+                            <c:when test="${page eq i}">
+                                <li class="page-item active"><a class="page-link"> ${i} <span class="sr-only">(current)</span></a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item">
+                                    <a class="page-link" href="${pageContext.request.contextPath}/controller?command=show_client_exercises&page=${i}">${i}</a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+
+                    <c:if test="${page < numberOfPages}">
+                        <li class="page-item">
+                            <a class="page-link" href="${pageContext.request.contextPath}/controller?command=show_client_exercises&page=${page+1}">Next</a>
+                        </li>
+                    </c:if>
+                </ul>
             </div>
         </div>
     </c:otherwise>

@@ -60,7 +60,7 @@ public enum ConnectionPool {
     }
 
     public void destroyPool() {
-        for (int i = 0; i < DEFAULT_POOL_SIZE; i++) {
+        for (int i = 0; i < freeConnections.size(); i++) {
             try {
                 ProxyConnection connection = (ProxyConnection) freeConnections.take();
                 connection.reallyClose();

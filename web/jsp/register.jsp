@@ -53,22 +53,22 @@
     <div class="form-row mb-4">
         <div class="col">
     <%--        <label for="name">${name}</label>--%>
-            <input onchange="checkName()" id="name" class="form-control" type="text" name="name" required placeholder="${name_placeholder}" title="${registration_pattern_error}"/>
+            <input onchange="checkName()" id="name" class="form-control" type="text" name="name"  value="${param.name}" required placeholder="${name_placeholder}" title="${registration_pattern_error}"/>
         </div>
         <div class="col">
     <%--        <label for="surname">${surname}</label>--%>
-            <input onchange="checkSurname()" id="surname" class="form-control" type="text" name="surname" required placeholder="${surname_placeholder}" title="${registration_pattern_error}"/>
+            <input onchange="checkSurname()" id="surname" class="form-control" type="text" name="surname"  value="${param.surname}" required placeholder="${surname_placeholder}" title="${registration_pattern_error}"/>
         </div>
     </div>
 
     <div>
         <label for="login">${login}</label>
-        <input onchange="checkLogin()" id="login" type="text" name="login" class="form-control mb-4" required placeholder="${username_placeholder}" title="${username_pattern_error}"/>
+        <input onchange="checkLogin()" id="login" type="text" name="login" value="${param.login}" class="form-control mb-4" required placeholder="${username_placeholder}" title="${username_pattern_error}"/>
     </div>
 
     <label for="password">${password}</label>
     <div class="input-group">
-        <input onchange="checkPassword()" id="password" type="password" name="password" class="form-control mb-4" required placeholder="${password_placeholder}" title="${registration_pattern_error}"/>
+        <input onchange="checkPassword()" id="password" type="password" name="password" value="${param.password}" class="form-control mb-4" required placeholder="${password_placeholder}" title="${registration_pattern_error}"/>
         <span class="input-group-btn">
             <button type="button" class="btn btn-default" onclick="showHide()" id="eye">
                 <img src="https://cdn0.iconfinder.com/data/icons/feather/96/eye-16.png" alt="eye" />
@@ -78,26 +78,26 @@
 
     <div>
         <label for="email">${email}</label>
-        <input onchange="checkEmail()" id="email" type="text" name="email" class="form-control mb-4" required placeholder="${email_placeholder}" title="${email_pattern_error}"/>
+        <input onchange="checkEmail()" id="email" type="text" name="email" value="${param.email}" class="form-control mb-4" required placeholder="${email_placeholder}" title="${email_pattern_error}"/>
     </div>
     <c:choose>
         <c:when test="${not empty requestScope.wrongData}">
             <p class="text-danger">${wrongLogin}</p>
         </c:when>
         <c:when test="${not empty requestScope.invalidPassword}">
-            <p class="text-danger">${registration_pattern_error}</p>
+            <p class="text-danger">Password: ${registration_pattern_error}</p>
         </c:when>
         <c:when test="${not empty requestScope.invalidSurname}">
-            <p class="text-danger">${registration_pattern_error}</p>
+            <p class="text-danger">Surname: ${registration_pattern_error}</p>
         </c:when>
         <c:when test="${not empty requestScope.invalidName}">
-            <p class="text-danger">${registration_pattern_error}</p>
+            <p class="text-danger">Name: ${registration_pattern_error}</p>
         </c:when>
         <c:when test="${not empty requestScope.invalidLogin}">
-            <p class="text-danger">${username_pattern_error}</p>
+            <p class="text-danger">Login: ${username_pattern_error}</p>
         </c:when>
         <c:when test="${not empty requestScope.invalidEmail}">
-            <p class="text-danger">${email_pattern_error}</p>
+            <p class="text-danger">Email: ${email_pattern_error}</p>
         </c:when>
         <c:when test="${not empty requestScope.incorrectData}">
             <p class="text-danger">${incorrectDataMessage}</p>

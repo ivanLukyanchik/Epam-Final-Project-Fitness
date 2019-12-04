@@ -15,20 +15,23 @@ import java.util.Optional;
 
 public class ExerciseDaoImpl implements ExerciseDao {
     private static final String SQL_FIND_BY_ID = "SELECT * FROM exercise WHERE id_exercise=?";
-    private static final String SQL_FIND_ALL = "SELECT * FROM exercise";
+    private static final String SQL_FIND_ALL_LIMITED = "SELECT * FROM exercise LIMIT ?, ?";
     private static final String SQL_CREATE_EXERCISE = "INSERT INTO exercise (name, description, image) VALUES (?,?,?)";
     private static final String SQL_DELETE = "DELETE FROM exercise WHERE id_exercise=?";
+    private static final String SQL_NUMBER_OF_ROWS = "SELECT COUNT(id_exercise) FROM exercise";
     private ExerciseBuilder builder = new ExerciseBuilder();
 
     @Override
-    public List<Exercise> findAll() throws DaoException {
+    public List<Exercise> findAllLimited(int start, int total) throws DaoException {
         List<Exercise> exercises = new ArrayList<>();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         Exercise exercise = null;
         try {
             connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_FIND_ALL);
+            preparedStatement = connection.prepareStatement(SQL_FIND_ALL_LIMITED);
+            preparedStatement.setInt(1, start);
+            preparedStatement.setInt(2, total);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 exercise = builder.build(resultSet);
@@ -53,6 +56,27 @@ public class ExerciseDaoImpl implements ExerciseDao {
             preparedStatement = connection.prepareStatement(SQL_DELETE);
             preparedStatement.setLong(1, exerciseId);
             result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
+        }
+        return result;
+    }
+
+    @Override
+    public int getNumberOfRows() throws DaoException {
+        int result = 1;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try{
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_NUMBER_OF_ROWS);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                result = resultSet.getInt(1);
+            }
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {

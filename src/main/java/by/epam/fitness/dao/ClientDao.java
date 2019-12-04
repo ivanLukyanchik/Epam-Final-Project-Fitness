@@ -16,4 +16,5 @@ public interface ClientDao extends BaseDao<Long, Client> {
     Optional<Client> getUserByCookieData(String login, String hash) throws DaoException;
     List<Client> findAll() throws DaoException;
     Optional<Client> findActiveById(long id) throws DaoException;
+    List<Client> findByFilter(Client clientForData) throws DaoException;
 }

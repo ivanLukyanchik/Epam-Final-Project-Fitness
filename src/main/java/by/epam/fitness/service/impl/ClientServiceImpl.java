@@ -112,4 +112,13 @@ public class ClientServiceImpl implements ClientService {
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public List<Client> findByFilter(Client clientForData) throws ServiceException {
+        try {
+            return clientDao.findByFilter(clientForData);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 }

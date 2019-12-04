@@ -17,7 +17,6 @@
 <fmt:message bundle="${locale}" key="lang.text.russian" var="ru"/>
 <fmt:message bundle="${locale}" key="lang.text.belorussian" var="be"/>
 <fmt:message bundle="${locale}" key="return_to_profile" var="return_to_profile"/>
-<fmt:message bundle="${locale}" key="" var="return_to_profile"/>
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>

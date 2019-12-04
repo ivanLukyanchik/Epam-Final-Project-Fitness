@@ -81,7 +81,7 @@
                         <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=find_coaches">${coaches_nav}</a>
                     </li>
                     <li>
-                        <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=show_client_exercises">${exercises_nav}</a>
+                        <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=show_client_exercises&page=1">${exercises_nav}</a>
                     </li>
                     <li>
                         <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=show_client_nutrition">${nutrition_nav}</a>
@@ -103,7 +103,7 @@
                         <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=admin_clients">${admin_clients_nav}</a>
                     </li>
                     <li>
-                        <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=admin_exercises">${admin_exercises_nav}</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=admin_exercises&page=1">${admin_exercises_nav}</a>
                     </li>
                     <li>
                         <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=admin_comments">${admin_comments_nav}</a>

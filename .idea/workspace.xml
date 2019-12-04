@@ -66,11 +66,11 @@
         <option value="Enum" />
         <option value="Interface" />
         <option value="Jsp File" />
-        <option value="Class" />
         <option value="CSS File" />
         <option value="JavaScript File" />
         <option value="Arquillian JUnit Test Class" />
         <option value="TestNG Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -111,22 +111,22 @@
       <recent name="by.epam.fitness.service.impl" />
       <recent name="by.epam.fitness.dao.impl" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\main" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\favicon" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\css" />
-    </key>
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\gym" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\jsp" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources\locale" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\main" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\favicon" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\css" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -367,7 +367,12 @@
       <workItem from="1575209190326" duration="661000" />
       <workItem from="1575210499625" duration="20508000" />
       <workItem from="1575270332885" duration="12241000" />
-      <workItem from="1575311287787" duration="9017000" />
+      <workItem from="1575311287787" duration="9948000" />
+      <workItem from="1575357077159" duration="4672000" />
+      <workItem from="1575361841260" duration="1970000" />
+      <workItem from="1575369759009" duration="4519000" />
+      <workItem from="1575382118405" duration="8377000" />
+      <workItem from="1575446536216" duration="21899000" />
     </task>
     <servers />
   </component>
@@ -378,11 +383,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/RegisterCommand.java</url>
-          <line>40</line>
-          <option name="timeStamp" value="43" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/by/epam/fitness/dao/impl/ClientDaoImplTest.java</url>
           <line>20</line>
           <option name="timeStamp" value="48" />
@@ -391,6 +391,21 @@
           <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/client/UpdateMembershipCommand.java</url>
           <line>41</line>
           <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/pool/ConnectionPool.java</url>
+          <line>62</line>
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/controller/AddExercise.java</url>
+          <line>44</line>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/admin/FindClientsByFilterCommand.java</url>
+          <line>24</line>
+          <option name="timeStamp" value="58" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

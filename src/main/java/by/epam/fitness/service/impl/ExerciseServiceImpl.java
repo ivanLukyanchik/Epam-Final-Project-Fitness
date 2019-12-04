@@ -14,9 +14,9 @@ public class ExerciseServiceImpl implements ExerciseService {
     private ExerciseDao exerciseDao = new ExerciseDaoImpl();
 
     @Override
-    public List<Exercise> findAll() throws ServiceException {
+    public List<Exercise> findAll(int start, int total) throws ServiceException {
         try {
-            return exerciseDao.findAll();
+            return exerciseDao.findAllLimited(start, total);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -44,6 +44,20 @@ public class ExerciseServiceImpl implements ExerciseService {
     public int deleteExercise(long exerciseId) throws ServiceException {
         try {
             return exerciseDao.deleteExercise(exerciseId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public int getNumberOfPages(int totalPerPage) throws ServiceException {
+        try {
+            int rows = exerciseDao.getNumberOfRows();
+            int numberOfPages = rows / totalPerPage;
+            if (numberOfPages % totalPerPage > 0) {
+                numberOfPages++;
+            }
+            return numberOfPages;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

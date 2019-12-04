@@ -12,11 +12,11 @@ public class Page {
     public static final String CLIENT_PROFILE_PAGE = "/jsp/client/clientProfile.jsp";
     public static final String CLIENT_PROFILE_COMMAND = "/controller?command=client_profile";
     public static final String CLIENT_NUTRITION_COMMAND = "/controller?command=show_client_nutrition";
-    public static final String CLIENT_EXERCISES_COMMAND = "/controller?command=show_client_exercises";
+    public static final String CLIENT_EXERCISES_COMMAND = "/controller?command=show_client_exercises&page=1";
     public static final String SHOW_COACHES_COMMAND = "/controller?command=find_coaches";
     public static final String COACH_COMMENTS_COMMAND = "/controller?command=coach_comments";
     public static final String ADMIN_COACHES_COMMAND = "/controller?command=admin_coaches";
-    public static final String ADMIN_EXERCISES_COMMAND = "/controller?command=admin_exercises";
+    public static final String ADMIN_EXERCISES_COMMAND = "/controller?command=admin_exercises&page=1";
     public static final String ADMIN_CLIENTS_COMMAND = "/controller?command=admin_clients";
     public static final String ADMIN_COMMENTS_COMMAND = "/controller?command=admin_comments";
     public static final String ALL_COACHES_COMMAND = "/controller?command=find_coaches";

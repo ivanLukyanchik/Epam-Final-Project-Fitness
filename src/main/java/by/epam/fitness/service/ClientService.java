@@ -17,4 +17,5 @@ public interface ClientService {
     Optional<Client> getUserByCookieData(String login, String hash) throws ServiceException;
     List<Client> findAll() throws ServiceException;
     Optional<Client> findActiveById(long id) throws  ServiceException;
+    List<Client> findByFilter(Client clientForData) throws ServiceException;
 }

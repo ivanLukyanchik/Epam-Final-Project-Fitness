@@ -26,6 +26,7 @@ public class ClientDaoImpl implements ClientDao {
     private static final String SQL_FIND_BY_COACH_ID = "SELECT * FROM client WHERE coach_id=? AND active='1'";
     private static final String SQL_FIND_USER_BY_COOKIE = "SELECT * FROM client WHERE login=? AND hash=?";
     private static final String SQL_FIND_ALL = "SELECT * FROM client";
+    private static final String SQL_FIND_BY_FILTER = "SELECT * FROM client WHERE name=IFNULL(?, name) AND surname=IFNULL(?, surname) AND login=IFNULL(?, login) AND membership_purchased_number=IFNULL(?, membership_purchased_number) AND personal_discount=IFNULL(?, personal_discount)";
     private ClientBuilder builder = new ClientBuilder();
 
     @Override
@@ -152,6 +153,35 @@ public class ClientDaoImpl implements ClientDao {
             close(connection);
         }
         return Optional.ofNullable(client);
+    }
+
+    @Override
+    public List<Client> findByFilter(Client clientForData) throws DaoException {
+        List<Client> clientsList = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        Client client = null;
+        try {
+            connection = ConnectionPool.INSTANCE.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_FIND_BY_FILTER);
+            preparedStatement.setString(1, clientForData.getName());
+            preparedStatement.setString(2, clientForData.getSurname());
+            preparedStatement.setString(3, clientForData.getLogin());
+            preparedStatement.setObject(4, clientForData.getMembershipNumber());
+            preparedStatement.setObject(5, clientForData.getPersonalDiscount());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                client = builder.build(resultSet);
+                clientsList.add(client);
+            }
+        } catch (SQLException | ServiceException e) {
+            throw new DaoException(e);
+        } finally {
+            close(preparedStatement);
+            close(connection);
+        }
+        return clientsList;
+
     }
 
     @Override

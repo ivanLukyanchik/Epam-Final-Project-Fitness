@@ -55,7 +55,8 @@ public enum CommandEnum {
     CHANGE_CLIENT_ACTIVE(new ChangeClientActiveCommand()),
     ADMIN_COMMENTS(new AdminCommentsCommand()),
     DELETE_COMMENT(new DeleteCommentCommand()),
-    ADMIN_ORDERS(new AdminOrdersCommand());
+    ADMIN_ORDERS(new AdminOrdersCommand()),
+    FIND_CLIENTS_BY_FILTER(new FindClientsByFilterCommand());
 
     private ActionCommand command;
 

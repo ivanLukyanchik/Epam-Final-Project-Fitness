@@ -8,6 +8,7 @@ import by.epam.fitness.util.JspConst;
 import by.epam.fitness.util.MembershipValidChecker;
 import by.epam.fitness.util.SessionAttributes;
 import by.epam.fitness.util.page.Page;
+import by.epam.fitness.util.validation.DataValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -27,10 +28,19 @@ public class ShowClientExercisesCommand implements ActionCommand {
     private ExerciseProgramService exerciseProgramService = new ExerciseProgramServiceImpl();
     private ExerciseService exerciseService = new ExerciseServiceImpl();
     private MembershipValidChecker membershipValidChecker = new MembershipValidChecker();
+    private static DataValidator dataValidator = new DataValidator();
+    private static final int TOTAL_PER_PAGE = 3;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
+        String pageNumberString = request.getParameter(JspConst.PAGE_NUMBER);
+        if (pageNumberString==null || !dataValidator.isIdentifiableIdValid(pageNumberString)) {
+            log.info("invalid page number format was received:" + pageNumberString);
+            pageNumberString = "1";
+        }
+        int pageNumber = Integer.parseInt(pageNumberString);
+        int start = pageNumber * TOTAL_PER_PAGE - TOTAL_PER_PAGE;
         HttpSession session = request.getSession();
         String role = String.valueOf(session.getAttribute(SessionAttributes.ROLE));
         Long userId;
@@ -53,10 +63,13 @@ public class ShowClientExercisesCommand implements ActionCommand {
                 }
                 Long programId = user.get().getProgramId();
                 Optional<Program> program = programService.findProgramById(programId);
-                request.getSession().setAttribute(JspConst.PROGRAM, program.get()); //exactly initialized in register
+                request.getSession().setAttribute(JspConst.PROGRAM, program.get()); //exactly initialized in registerCommand
                 List<ExerciseProgram> clientExercises = exerciseProgramService.findExercisesByProgramId(programId);
                 request.setAttribute(JspConst.CLIENT_EXERCISES, clientExercises);
-                List<Exercise> allExercises = exerciseService.findAll();
+                int numberOfPages = exerciseService.getNumberOfPages(TOTAL_PER_PAGE);
+                request.setAttribute(JspConst.NUMBER_OF_PAGES, numberOfPages);
+                List<Exercise> allExercises = exerciseService.findAll(start, TOTAL_PER_PAGE);
+                request.setAttribute(JspConst.PAGE_NUMBER, pageNumber);
                 request.setAttribute(JspConst.All_EXERCISES, allExercises);
                 page = Page.EXERCISES;
             }
