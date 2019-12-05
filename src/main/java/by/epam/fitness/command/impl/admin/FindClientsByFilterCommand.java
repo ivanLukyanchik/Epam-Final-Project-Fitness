@@ -22,12 +22,12 @@ public class FindClientsByFilterCommand implements ActionCommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         Integer membershipNumber;
         Float personalDiscount;
-        String page = null;
+        String page;
         String name = request.getParameter(JspConst.PARAM_NAME);
         String surname = request.getParameter(JspConst.PARAM_SURNAME);
         String login = request.getParameter(JspConst.PARAM_LOGIN);
-        String membershipNumberString = request.getParameter("membership_purchased_number");
-        String personalDiscountString = request.getParameter("personal_discount");
+        String membershipNumberString = request.getParameter(JspConst.MEMBERSHIP_PURCHASED_NUMBER);
+        String personalDiscountString = request.getParameter(JspConst.PERSONAL_DISCOUNT);
 
         if (name.isBlank()) {
             name = null;

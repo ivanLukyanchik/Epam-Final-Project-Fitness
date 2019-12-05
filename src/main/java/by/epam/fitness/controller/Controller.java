@@ -2,6 +2,7 @@ package by.epam.fitness.controller;
 
 import by.epam.fitness.command.ActionCommand;
 import by.epam.fitness.command.factory.ActionFactory;
+import by.epam.fitness.pool.ConnectionPool;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,6 +29,7 @@ public class Controller extends HttpServlet {
         if (page != null) {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+//            response.sendRedirect(request.getContextPath() + page);
             dispatcher.forward(request, response);
         } else {
             page = "/login";
@@ -36,8 +38,8 @@ public class Controller extends HttpServlet {
         }
     }
 
-//    @Override
-//    public void destroy() {
-//        ConnectionPool.INSTANCE.destroyPool();
-//    }
+    @Override
+    public void destroy() {
+        ConnectionPool.INSTANCE.destroyPool();
+    }
 }

@@ -372,7 +372,10 @@
       <workItem from="1575361841260" duration="1970000" />
       <workItem from="1575369759009" duration="4519000" />
       <workItem from="1575382118405" duration="8377000" />
-      <workItem from="1575446536216" duration="21899000" />
+      <workItem from="1575446536216" duration="22145000" />
+      <workItem from="1575537080455" duration="4211000" />
+      <workItem from="1575558713310" duration="1657000" />
+      <workItem from="1575569675554" duration="8555000" />
     </task>
     <servers />
   </component>
@@ -391,21 +394,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/client/UpdateMembershipCommand.java</url>
           <line>41</line>
           <option name="timeStamp" value="51" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/pool/ConnectionPool.java</url>
-          <line>62</line>
-          <option name="timeStamp" value="52" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/controller/AddExercise.java</url>
-          <line>44</line>
-          <option name="timeStamp" value="53" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/admin/FindClientsByFilterCommand.java</url>
-          <line>24</line>
-          <option name="timeStamp" value="58" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

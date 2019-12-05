@@ -54,7 +54,7 @@ public class ExerciseServiceImpl implements ExerciseService {
         try {
             int rows = exerciseDao.getNumberOfRows();
             int numberOfPages = rows / totalPerPage;
-            if (numberOfPages % totalPerPage > 0) {
+            if (rows % totalPerPage > 0) {
                 numberOfPages++;
             }
             return numberOfPages;

@@ -1,5 +1,6 @@
 <jsp:useBean id="nutrition" class="by.epam.fitness.entity.Nutrition" scope="request"/>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -110,7 +111,7 @@
                                 <input type="hidden" name="nutrition_time" value="morning"/>
                                 <div class="md-form amber-textarea active-amber-textarea">
                                     <i class="fas fa-pencil-alt prefix"></i>
-                                    <textarea onchange="checkNutrition()" name="nutrition_description" class="md-textarea form-control my-3" required title="${invalid_nutrition}">${nutrition.morningNutrition}</textarea>
+                                    <textarea onchange="checkNutrition()" name="nutrition_description" class="md-textarea form-control my-3" required title="${invalid_nutrition}">${fn:escapeXml(nutrition.morningNutrition)}</textarea>
                                 </div>
                                 <input type="submit" class="btn btn-primary" value="${save}">
                                 <h3>${max_symbols} ${max_number_symbols_attribute}</h3>
@@ -130,7 +131,7 @@
                                 <input type="hidden" name="nutrition_time" value="lunch"/>
                                 <div class="md-form amber-textarea active-amber-textarea">
                                     <i class="fas fa-pencil-alt prefix"></i>
-                                    <textarea  onchange="checkNutrition()" name="nutrition_description" class="md-textarea form-control my-3" required title="${invalid_nutrition}">${nutrition.lunchNutrition}</textarea>
+                                    <textarea  onchange="checkNutrition()" name="nutrition_description" class="md-textarea form-control my-3" required title="${invalid_nutrition}">${fn:escapeXml(nutrition.lunchNutrition)}</textarea>
                                 </div>
                                 <input type="submit" class="btn btn-primary" value="${save}">
                                 <h3>${max_symbols} ${max_number_symbols_attribute}</h3>
@@ -150,7 +151,7 @@
                                 <input type="hidden" id="nutrition_time" name="nutrition_time" value="dinner"/>
                                 <div class="md-form amber-textarea active-amber-textarea">
                                     <i class="fas fa-pencil-alt prefix"></i>
-                                    <textarea  onchange="checkNutrition()" id="nutrition_description" name="nutrition_description" class="md-textarea form-control my-3" required title="${invalid_nutrition}">${nutrition.dinnerNutrition}</textarea>
+                                    <textarea  onchange="checkNutrition()" id="nutrition_description" name="nutrition_description" class="md-textarea form-control my-3" required title="${invalid_nutrition}">${fn:escapeXml(nutrition.dinnerNutrition)}</textarea>
                                 </div>
                                 <input type="submit" class="btn btn-primary" value="${save}">
                                 <h3>${max_symbols} ${max_number_symbols_attribute}</h3>

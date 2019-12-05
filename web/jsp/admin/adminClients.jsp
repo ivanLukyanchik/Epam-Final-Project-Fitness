@@ -12,6 +12,13 @@
 <fmt:message bundle="${locale}" key="unblock_user" var="unblock_user"/>
 <fmt:message bundle="${locale}" key="show_profile" var="show_profile"/>
 <fmt:message bundle="${locale}" key="no_registered_clients" var="no_registered_clients"/>
+<fmt:message bundle="${locale}" key="client_search_name" var="client_search_name"/>
+<fmt:message bundle="${locale}" key="client_search_surname" var="client_search_surname"/>
+<fmt:message bundle="${locale}" key="client_search_login" var="client_search_login"/>
+<fmt:message bundle="${locale}" key="client_search_purchased_number" var="client_search_purchased_number"/>
+<fmt:message bundle="${locale}" key="client_search_discount" var="client_search_discount"/>
+<fmt:message bundle="${locale}" key="client_search_button" var="client_search_button"/>
+<fmt:message bundle="${locale}" key="client_search_form" var="client_search_form"/>
 <fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
@@ -32,14 +39,17 @@
     <p class="text-success">${status_updated}</p>
 </c:if>
 
-<form method="post" class="text-center border border-light px-5" action="${pageContext.servletContext.contextPath}/controller?command=find_clients_by_filter">
-    <input type="text" class="form-control mb-4" name="name" value="${param.name}" placeholder="name..."/>
-    <input type="text" class="form-control mb-4" name="surname" value="${param.surname}" placeholder="surname..."/>
-    <input type="text" class="form-control mb-4" name="login" value="${param.login}" placeholder="login..."/>
-    <input type="text" class="form-control mb-4" name="membership_purchased_number" value="${param.membership_purchased_number}" placeholder="membership_purchased_number..."/>
-    <input type="text" class="form-control mb-4" name="personal_discount" value="${param.personal_discount}" placeholder="personal_discount..."/>
-    <input type="submit" class="btn btn-primary my-4 btn-block" value="Ok">
-</form>
+<button class="btn btn-primary mx-5 mb-2" data-toggle="collapse" data-target="#hide">${client_search_form}</button>
+<div class="collapse" id="hide">
+    <form method="post" class="text-center border border-light px-5" action="${pageContext.servletContext.contextPath}/controller?command=find_clients_by_filter">
+        <input type="text" class="form-control mb-4" name="name" value="${param.name}" placeholder="${client_search_name}" title="${client_search_name}"/>
+        <input type="text" class="form-control mb-4" name="surname" value="${param.surname}" placeholder="${client_search_surname}" title="${client_search_surname}"/>
+        <input type="text" class="form-control mb-4" name="login" value="${param.login}" placeholder="${client_search_login}" title="${client_search_login}"/>
+        <input type="text" class="form-control mb-4" name="membership_purchased_number" value="${param.membership_purchased_number}" placeholder="${client_search_purchased_number}" title="${client_search_purchased_number}"/>
+        <input type="text" class="form-control mb-4" name="personal_discount" value="${param.personal_discount}" placeholder="${client_search_discount}" title="${client_search_discount}"/>
+        <input type="submit" class="btn btn-success my-4 btn-block" value="${client_search_button}">
+    </form>
+</div>
 
 <c:choose>
     <c:when test="${fn:length(all_clients) eq 0}">

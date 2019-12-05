@@ -62,6 +62,8 @@ public class JspConst {
     public static final String EXERCISE_ID = "exerciseId";
     public static final String COMMENT_ID = "commentId";
     public final static String INCORRECT_INPUT_DATA_ERROR = "incorrect_input_data_error";
+    public final static String MEMBERSHIP_PURCHASED_NUMBER = "membership_purchased_number";
+    public final static String PERSONAL_DISCOUNT = "personal_discount";
     public static final String PROGRAM = "program";
     public static final String COACHES = "coaches";
     public final static String CLIENT_ID = "client_id";

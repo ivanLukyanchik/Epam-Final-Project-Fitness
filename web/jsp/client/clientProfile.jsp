@@ -93,7 +93,7 @@
             <label for="name">${name}</label>
         </div>
         <div class="col-11">
-            <input onchange="checkName()" type="text" class="form-control" id="name" name="name" value="${client.name}" required title="${registration_pattern_error}">
+            <input onchange="checkName()" type="text" class="form-control" id="name" name="name" value="${fn:escapeXml(client.name)}" required title="${registration_pattern_error}">
         </div>
     </div>
 
@@ -102,7 +102,7 @@
             <label for="surname">${surname}</label>
         </div>
         <div class="col-11">
-            <input onchange="checkSurname()" type="text" class="form-control" id="surname" name="surname" value="${client.surname}" required title="${registration_pattern_error}">
+            <input onchange="checkSurname()" type="text" class="form-control" id="surname" name="surname" value="${fn:escapeXml(client.surname)}" required title="${registration_pattern_error}">
         </div>
     </div>
 
@@ -112,7 +112,7 @@
         </div>
         <div class="col-11">
             <input type="hidden" name="oldLogin" value="${client.login}">
-            <input onchange="checkLogin()" type="text" class="form-control" id="login" name="login" value="${client.login}" required title="${username_pattern_error}">
+            <input onchange="checkLogin()" type="text" class="form-control" id="login" name="login" value="${fn:escapeXml(client.login)}" required title="${username_pattern_error}">
         </div>
     </div>
 
@@ -121,7 +121,7 @@
             <label for="email">Email:</label>
         </div>
         <div class="col-11">
-            <input onchange="checkEmail()" type="text" class="form-control" id="email" name="email" value="${client.email}" required title="${email_pattern_error}">
+            <input onchange="checkEmail()" type="text" class="form-control" id="email" name="email" value="${fn:escapeXml(client.email)}" required title="${email_pattern_error}">
         </div>
     </div>
 
@@ -226,7 +226,7 @@
     <input onclick="checkForChangingAnyData()" class="btn btn-success mt-4 btn-block" type="submit" value="${modify}">
 </form>
 
-<div class="container text-center p-5">
+<div class="container text-center">
     <form action="${pageContext.request.contextPath}/passwordRestore" method="post">
         <input type="hidden" name="key1" value="${client.email}">
         <input type="hidden" name="key2" value="${client.login}">

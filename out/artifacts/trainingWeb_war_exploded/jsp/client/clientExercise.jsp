@@ -105,13 +105,13 @@
                                                     <label for="set_update">${sets}</label>
                                                 </div>
                                                 <div>
-                                                    <input onchange="checkSetNumber()" type="text" class="form-control mb-4" id="set_update" value="${exerciseProgram.setNumber}" required title="${title}" name="set_number">
+                                                    <input onchange="checkSetNumber()" type="text" class="form-control mb-4" id="set_update" value="${fn:escapeXml(exerciseProgram.setNumber)}" required title="${title}" name="set_number">
                                                 </div>
                                                 <div>
                                                     <label for="repeats_update">${repeats}</label>
                                                 </div>
                                                 <div>
-                                                    <input onchange="checkRepeatNumber()" type="text" class="form-control mb-4" id="repeats_update" value="${exerciseProgram.repeatNumber}" required title="${title}" name="repeats">
+                                                    <input onchange="checkRepeatNumber()" type="text" class="form-control mb-4" id="repeats_update" value="${fn:escapeXml(exerciseProgram.repeatNumber)}" required title="${title}" name="repeats">
                                                 </div>
                                                 <input type="submit" class="btn btn-primary" value="${update}" id="update">
                                             </form>
