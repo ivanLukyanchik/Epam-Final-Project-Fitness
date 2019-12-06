@@ -14,6 +14,7 @@ public class JspConst {
     public static final String PARAM_PASSWORD = "password";
     public static final String PARAM_NAME = "name";
     public static final String PARAM_DESCRIPTION = "description";
+    public static final String INVALID_DESCRIPTION = "invalidDescription";
     public static final String PARAM_SURNAME = "surname";
     public static final String PARAM_HASH = "hash";
     public static final String COACH_ID = "coachId";

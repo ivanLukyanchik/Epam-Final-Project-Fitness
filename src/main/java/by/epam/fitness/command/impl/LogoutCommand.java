@@ -1,6 +1,7 @@
 package by.epam.fitness.command.impl;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.command.CommandResult;
 import by.epam.fitness.util.CookieConst;
 import by.epam.fitness.util.SessionAttributes;
 import by.epam.fitness.util.page.Page;
@@ -13,7 +14,7 @@ public class LogoutCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(LogoutCommand.class);
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute(SessionAttributes.ID);
         String userRole = (String) session.getAttribute(SessionAttributes.ROLE);
@@ -31,7 +32,7 @@ public class LogoutCommand implements ActionCommand {
         }
         session.invalidate();
         log.info("user with id = " + userId + " and role = " + userRole + " log out");
-        return Page.LOGIN_PAGE;
+        return new CommandResult(Page.LOGIN_PAGE);
     }
 
     private void clearCookie(String cookieName, HttpServletRequest request, HttpServletResponse response) {

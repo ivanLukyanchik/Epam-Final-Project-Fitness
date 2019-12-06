@@ -76,10 +76,10 @@
         <input id="finalCostModalWindow" class="form-control mb-4" name="cost" type="text" readonly>
         <c:choose>
             <c:when test="${not empty requestScope.wrongCard}">
-                ${card_pattern_error}
+                <p class="text-danger">${card_pattern_error}</p>
             </c:when>
             <c:when test="${not empty requestScope.wrongPeriod}">
-                ${wrong_cost_period}
+                <p class="text-danger">${wrong_cost_period}</p>
             </c:when>
         </c:choose>
         <input onclick="checkOffer()" class="btn btn-success my-4 btn-block" type="submit" value="${pay}">

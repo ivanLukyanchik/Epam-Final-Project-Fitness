@@ -1,6 +1,7 @@
 package by.epam.fitness.command.impl.admin;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.command.CommandResult;
 import by.epam.fitness.entity.Client;
 import by.epam.fitness.service.ClientService;
 import by.epam.fitness.service.ServiceException;
@@ -19,17 +20,16 @@ import static by.epam.fitness.util.JspConst.ADMIN_CLIENT_ID;
 
 public class ChangeClientActiveCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(ChangeClientActiveCommand.class);
-    private static DataValidator dataValidator = new DataValidator();
     private ClientService clientService = new ClientServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         String clientIdString = request.getParameter(ADMIN_CLIENT_ID);
-        if (clientIdString == null || !dataValidator.isIdentifiableIdValid(clientIdString)) {
+        if (clientIdString == null || !DataValidator.isIdentifiableIdValid(clientIdString)) {
             log.info("invalid client id format was received:" + clientIdString);
             request.setAttribute(JspConst.INVALID_EXERCISE_ID_FORMAT, true);
-            return Page.ADMIN_CLIENTS_COMMAND;
+            return new CommandResult(Page.ADMIN_CLIENTS_COMMAND);
         }
         try {
             Optional<Client> clientOptional = clientService.findById(Long.parseLong(clientIdString));
@@ -41,13 +41,13 @@ public class ChangeClientActiveCommand implements ActionCommand {
                     client.setActive(true);
                 }
                 clientService.save(client);
-                request.setAttribute(JspConst.SUCCESS, true);
+                request.getSession().setAttribute(JspConst.SUCCESS, true);
                 page = Page.ADMIN_CLIENTS_COMMAND;
             }
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
             page = Page.ADMIN_CLIENTS_COMMAND;
         }
-        return page;
+        return new CommandResult(page, true);
     }
 }

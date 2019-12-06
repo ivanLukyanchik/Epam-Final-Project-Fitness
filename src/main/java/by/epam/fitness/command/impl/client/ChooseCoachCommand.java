@@ -1,6 +1,7 @@
 package by.epam.fitness.command.impl.client;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.command.CommandResult;
 import by.epam.fitness.entity.Client;
 import by.epam.fitness.entity.Coach;
 import by.epam.fitness.service.CoachService;
@@ -25,25 +26,24 @@ import static by.epam.fitness.util.JspConst.*;
 
 public class ChooseCoachCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(ChooseCoachCommand.class);
-    private static DataValidator dataValidator = new DataValidator();
     private ClientService clientService = new ClientServiceImpl();
     private MembershipValidChecker membershipValidChecker = new MembershipValidChecker();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String page;
         String coachIdString = request.getParameter(COACH_ID);
-        if (coachIdString == null || !dataValidator.isIdentifiableIdValid(coachIdString)){
+        if (coachIdString == null || !DataValidator.isIdentifiableIdValid(coachIdString)){
             log.info("invalid coach id format: coach_id:" + coachIdString);
             request.setAttribute(JspConst.INVALID_COACH, true);
-            return Page.ALL_COACHES_COMMAND;
+            return new CommandResult(Page.ALL_COACHES_COMMAND);
         }
         Long coachId = Long.valueOf(coachIdString);
         try {
             if (!isCoachIdExist(coachId)) {
                 log.info("coach with id = " + coachId + " doesn't exist");
                 request.setAttribute(JspConst.NOT_EXIST_ID, true);
-                return Page.ALL_COACHES_COMMAND;
+                return new CommandResult(Page.ALL_COACHES_COMMAND);
             }
             HttpSession session = request.getSession();
             long clientId = (long) session.getAttribute(SessionAttributes.ID);
@@ -52,7 +52,7 @@ public class ChooseCoachCommand implements ActionCommand {
                 if (!membershipValidChecker.isCurrentMembershipValid(clientId)) {
                     log.info("Membership isn't valid");
                     request.setAttribute(JspConst.MEMBERSHIP_VALID, false);
-                    return Page.ALL_COACHES_COMMAND;
+                    return new CommandResult(Page.ALL_COACHES_COMMAND);
                 } else {
                     request.setAttribute(MAX_NUMBER_SYMBOLS_ATTRIBUTE, MAX_NUMBER_SYMBOLS_VALUE);
                     request.setAttribute(JspConst.MEMBERSHIP_VALID, true);
@@ -61,13 +61,13 @@ public class ChooseCoachCommand implements ActionCommand {
                 clientService.save(user.get());
             }
             log.info("coach with id  = " + coachId + " was chosen");
-            request.setAttribute(JspConst.COACH_CHOSEN, true);
+            session.setAttribute(JspConst.COACH_CHOSEN, true);
             page = Page.WELCOME_PAGE;
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
             page = Page.ALL_COACHES_COMMAND;
         }
-        return page;
+        return new CommandResult(page, true);
     }
 
     private boolean isCoachIdExist(Long coachId) throws ServiceException {

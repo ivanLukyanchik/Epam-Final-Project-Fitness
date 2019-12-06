@@ -1,6 +1,7 @@
 package by.epam.fitness.command.impl.admin;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.command.CommandResult;
 import by.epam.fitness.entity.Coach;
 import by.epam.fitness.service.CoachService;
 import by.epam.fitness.service.ServiceException;
@@ -19,7 +20,7 @@ public class AdminCoachesCommand implements ActionCommand {
     private CoachService coachService = new CoachServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String page;
         try {
             List<Coach> coaches = coachService.findAll();
@@ -29,6 +30,6 @@ public class AdminCoachesCommand implements ActionCommand {
             log.error("Problem with service occurred!", e);
             page = Page.ADMIN_COACHES;
         }
-        return page;
+        return new CommandResult(page);
     }
 }

@@ -1,6 +1,7 @@
 package by.epam.fitness.command.impl.admin;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.command.CommandResult;
 import by.epam.fitness.entity.Client;
 import by.epam.fitness.entity.Coach;
 import by.epam.fitness.entity.Comment;
@@ -30,7 +31,7 @@ public class AdminCommentsCommand implements ActionCommand {
     private ClientService clientService = new ClientServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String page;
         try {
             List<Comment> comments = commentService.findAll();
@@ -41,7 +42,7 @@ public class AdminCommentsCommand implements ActionCommand {
             log.error("Problem with service occurred!", e);
             page = Page.ADMIN_COMMENTS;
         }
-        return page;
+        return new CommandResult(page);
     }
 
     private  Map<Comment, Map<Client, Coach>> makeCommentMapForAdmin(List<Comment> comments) throws ServiceException {

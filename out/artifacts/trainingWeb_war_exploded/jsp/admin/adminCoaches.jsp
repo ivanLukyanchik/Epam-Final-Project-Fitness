@@ -36,9 +36,12 @@
     <jsp:param name="currentPage" value="admin_coaches"/>
 </jsp:include>
 
-<c:if test="${requestScope.success eq true}">
-    <p class="text-success">${coach_added}</p>
-</c:if>
+<div class="text-center">
+    <c:if test="${sessionScope.success eq true}">
+        <p class="text-success">${coach_added}</p>
+        <c:remove var="success" scope="session" />
+    </c:if>
+</div>
 
 <button class="btn btn-primary mx-5 mb-2" data-toggle="collapse" data-target="#hide">${coach_form}</button>
 <div class="collapse" id="hide">

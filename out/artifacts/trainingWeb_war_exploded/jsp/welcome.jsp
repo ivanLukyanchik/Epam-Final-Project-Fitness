@@ -85,17 +85,21 @@
 </div>
 
 <div class="text-center">
-    <c:if test="${coachChosen eq true}">
-        <p class="text-success">${coach_chosen}</p>
+    <c:if test="${sessionScope.coachChosen eq true}">
+        <h1 class="text-success">${coach_chosen}</h1>
+        <c:remove var="coachChosen" scope="session" />
     </c:if>
-    <c:if test="${commentSaved eq true}">
-        <p class="text-success">${comment_saved}</p>
+    <c:if test="${sessionScope.commentSaved eq true}">
+        <h1 class="text-success">${comment_saved}</h1>
+        <c:remove var="commentSaved" scope="session" />
     </c:if>
-    <c:if test="${coachRejected eq true}">
-        <p class="text-success">${coach_rejected}</p>
+    <c:if test="${sessionScope.coachRejected eq true}">
+        <h1 class="text-success">${coach_rejected}</h1>
+        <c:remove var="coachRejected" scope="session" />
     </c:if>
-    <c:if test="${nutritionRejected eq true}">
-        <p class="text-success">${nutrition_rejected}</p>
+    <c:if test="${sessionScope.nutritionRejected eq true}">
+        <h1 class="text-success">${nutrition_rejected}</h1>
+        <c:remove var="nutritionRejected" scope="session" />
     </c:if>
 </div>
 

@@ -35,17 +35,19 @@
     <jsp:param name="currentPage" value="find_coaches"/>
 </jsp:include>
 
-<c:choose>
-    <c:when test="${invalidCoachId eq true}">
-        <p class="text-danger">${invalid_coach_id}</p>
-    </c:when>
-    <c:when test="${notExistId eq true}">
-        <p class="text-danger">${not_exist_id}</p>
-    </c:when>
-    <c:when test="${invalidComment eq true}">
-        <p class="text-danger">${invalid_comment}</p>
-    </c:when>
-</c:choose>
+<div class="text-center">
+    <c:choose>
+        <c:when test="${invalidCoachId eq true}">
+            <p class="text-danger">${invalid_coach_id}</p>
+        </c:when>
+        <c:when test="${notExistId eq true}">
+            <p class="text-danger">${not_exist_id}</p>
+        </c:when>
+        <c:when test="${invalidComment eq true}">
+            <p class="text-danger">${invalid_comment}</p>
+        </c:when>
+    </c:choose>
+</div>
 
 <c:choose>
     <c:when test="${membership_valid == true}">

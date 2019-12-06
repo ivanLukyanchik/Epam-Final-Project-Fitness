@@ -1,6 +1,7 @@
 package by.epam.fitness.command.impl.client;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.command.CommandResult;
 import by.epam.fitness.entity.Client;
 import by.epam.fitness.service.ServiceException;
 import by.epam.fitness.service.ClientService;
@@ -21,7 +22,7 @@ public class DeleteAccountCommand implements ActionCommand {
     private ClientService clientService = new ClientServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         Long clientId = (Long) request.getSession().getAttribute(SessionAttributes.ID);
         try {
@@ -29,15 +30,15 @@ public class DeleteAccountCommand implements ActionCommand {
             if (clientOptional.isPresent()) {
                 Client client = clientOptional.get();
                 client.setActive(false);
-                    clientService.save(client);
-                    log.info("client with id = "+ clientId + " successfully deleted his profile");
-                    request.setAttribute(SUCCESS, true);
+                clientService.save(client);
+                log.info("client with id = "+ clientId + " successfully deleted his profile");
+                request.getSession().setAttribute(SUCCESS, true);
                 page = Page.LOGOUT_COMMAND;
             }
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
             page = Page.CLIENT_PROFILE_PAGE;
         }
-        return page;
+        return new CommandResult(page, true);
     }
 }

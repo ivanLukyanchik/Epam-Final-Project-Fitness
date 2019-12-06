@@ -1,14 +1,9 @@
 package by.epam.fitness.filter;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-@WebFilter(urlPatterns = "/*", dispatcherTypes = {
-        DispatcherType.FORWARD,
-        DispatcherType.REQUEST
-})
 public class CharacterEncodingFilter implements Filter {
 
     @Override

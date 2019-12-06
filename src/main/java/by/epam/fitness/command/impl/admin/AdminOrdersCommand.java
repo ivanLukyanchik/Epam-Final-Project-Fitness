@@ -1,6 +1,7 @@
 package by.epam.fitness.command.impl.admin;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.command.CommandResult;
 import by.epam.fitness.entity.Client;
 import by.epam.fitness.entity.OrderInformation;
 import by.epam.fitness.service.ClientService;
@@ -26,7 +27,7 @@ public class AdminOrdersCommand implements ActionCommand {
     private ClientService clientService = new ClientServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String page;
         try {
             List<OrderInformation> orders = orderInformationService.findAll();
@@ -37,7 +38,7 @@ public class AdminOrdersCommand implements ActionCommand {
             log.error("Problem with service occurred!", e);
             page = Page.ADMIN_ORDERS;
         }
-        return page;
+        return new CommandResult(page);
     }
 
     private Map<OrderInformation, Client> makeOrderMapForAdmin(List<OrderInformation> orders) throws ServiceException {

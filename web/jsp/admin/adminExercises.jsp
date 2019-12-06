@@ -39,21 +39,25 @@
     <jsp:param name="currentPage" value="admin_exercises"/>
 </jsp:include>
 
-<c:if test="${requestScope.success eq true}">
-    <p class="text-success">${exercise_added}</p>
-</c:if>
-<c:if test="${requestScope.exerciseDeleted eq true}">
-    <p class="text-success">${exercise_deleted}</p>
-</c:if>
-<c:if test="${not empty requestScope.notImage}">
-    <p class="text-danger">${not_image}</p>
-</c:if>
-<c:if test="${not empty requestScope.invalidName}">
-    <p class="text-danger">${exercise_name_not_valid}</p>
-</c:if>
-<c:if test="${not empty requestScope.description}">
-    <p class="text-danger">${exercise_description_not_valid}</p>
-</c:if>
+<div class="text-center">
+    <c:if test="${requestScope.success eq true}">
+        <p class="text-success">${exercise_added}</p>
+        <c:remove var="success" scope="session" />
+    </c:if>
+    <c:if test="${sessionScope.exerciseDeleted eq true}">
+        <p class="text-success">${exercise_deleted}</p>
+        <c:remove var="exerciseDeleted" scope="session" />
+    </c:if>
+    <c:if test="${not empty requestScope.notImage}">
+        <p class="text-danger">${not_image}</p>
+    </c:if>
+    <c:if test="${not empty requestScope.invalidName}">
+        <p class="text-danger">${exercise_name_not_valid}</p>
+    </c:if>
+    <c:if test="${not empty requestScope.invalidDescription}">
+        <p class="text-danger">${exercise_description_not_valid}</p>
+    </c:if>
+</div>
 
 <button class="btn btn-primary mx-5 mb-2" data-toggle="collapse" data-target="#hide">${exercise_form}</button>
 <div class="collapse" id="hide">

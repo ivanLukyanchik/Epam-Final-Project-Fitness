@@ -1,6 +1,7 @@
 package by.epam.fitness.command.impl.admin;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.command.CommandResult;
 import by.epam.fitness.entity.Exercise;
 import by.epam.fitness.service.ExerciseService;
 import by.epam.fitness.service.ServiceException;
@@ -18,14 +19,13 @@ import java.util.List;
 public class AdminExercisesCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(AdminExercisesCommand.class);
     private ExerciseService exerciseService = new ExerciseServiceImpl();
-    private static DataValidator dataValidator = new DataValidator();
     private static final int TOTAL_PER_PAGE = 3;
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String page;
         String pageNumberString = request.getParameter(JspConst.PAGE_NUMBER);
-        if (pageNumberString==null || !dataValidator.isIdentifiableIdValid(pageNumberString)) {
+        if (pageNumberString==null || !DataValidator.isIdentifiableIdValid(pageNumberString)) {
             log.info("invalid page number format was received:" + pageNumberString);
             pageNumberString = "1";
         }
@@ -42,6 +42,6 @@ public class AdminExercisesCommand implements ActionCommand {
             log.error("Problem with service occurred!", e);
             page = Page.ADMIN_EXERCISES;
         }
-        return page;
+        return new CommandResult(page);
     }
 }

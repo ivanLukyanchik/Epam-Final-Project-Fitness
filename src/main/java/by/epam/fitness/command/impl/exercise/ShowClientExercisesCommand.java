@@ -1,6 +1,7 @@
 package by.epam.fitness.command.impl.exercise;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.command.CommandResult;
 import by.epam.fitness.entity.*;
 import by.epam.fitness.service.*;
 import by.epam.fitness.service.impl.*;
@@ -28,14 +29,13 @@ public class ShowClientExercisesCommand implements ActionCommand {
     private ExerciseProgramService exerciseProgramService = new ExerciseProgramServiceImpl();
     private ExerciseService exerciseService = new ExerciseServiceImpl();
     private MembershipValidChecker membershipValidChecker = new MembershipValidChecker();
-    private static DataValidator dataValidator = new DataValidator();
     private static final int TOTAL_PER_PAGE = 3;
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         String pageNumberString = request.getParameter(JspConst.PAGE_NUMBER);
-        if (pageNumberString==null || !dataValidator.isIdentifiableIdValid(pageNumberString)) {
+        if (pageNumberString==null || !DataValidator.isIdentifiableIdValid(pageNumberString)) {
             log.info("invalid page number format was received:" + pageNumberString);
             pageNumberString = "1";
         }
@@ -51,7 +51,7 @@ public class ShowClientExercisesCommand implements ActionCommand {
                 userId = (Long) session.getAttribute(SessionAttributes.ID);
                 if (!membershipValidChecker.isCurrentMembershipValid(userId)) {
                     request.setAttribute(JspConst.MEMBERSHIP_VALID, false);
-                    return Page.EXERCISES;
+                    return new CommandResult(Page.EXERCISES);
                 } else {
                     request.setAttribute(JspConst.MEMBERSHIP_VALID, true);
                 }
@@ -77,7 +77,7 @@ public class ShowClientExercisesCommand implements ActionCommand {
             log.error("Problem with service occurred!", e);
             page = Page.EXERCISES;
         }
-        return page;
+        return new CommandResult(page);
     }
 
     private Long getClientIdForAppropriateCoach(HttpSession session, HttpServletRequest request) {

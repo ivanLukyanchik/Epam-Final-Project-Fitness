@@ -1,6 +1,7 @@
 package by.epam.fitness.command.impl;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.command.CommandResult;
 import by.epam.fitness.entity.Client;
 import by.epam.fitness.entity.Nutrition;
 import by.epam.fitness.entity.Program;
@@ -28,7 +29,6 @@ import static by.epam.fitness.util.JspConst.*;
 
 public class RegisterCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(RegisterCommand.class);
-    private static DataValidator dataValidator = new DataValidator();
     private ClientService clientService = new ClientServiceImpl();
     private NutritionService nutritionService = new NutritionServiceImpl();
     private ProgramService programService = new ProgramServiceImpl();
@@ -37,37 +37,37 @@ public class RegisterCommand implements ActionCommand {
     private final static Integer STANDARD_TRAINS_PER_WEEK = 3;
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String page;
         String name = request.getParameter(PARAM_NAME);
-        if (name==null || !dataValidator.isNameValid(name)) {
+        if (name==null || !DataValidator.isNameValid(name)) {
             log.info("invalid name format was received:" + name);
             request.setAttribute(INVALID_NAME, true);
-            return Page.REGISTER_PAGE;
+            return new CommandResult(Page.REGISTER_PAGE);
         }
         String surname = request.getParameter(PARAM_SURNAME);
-        if (surname==null || !dataValidator.isSurnameValid(surname)) {
+        if (surname==null || !DataValidator.isSurnameValid(surname)) {
             log.info("invalid name format was received:" + surname);
             request.setAttribute(INVALID_SURNAME, true);
-            return Page.REGISTER_PAGE;
+            return new CommandResult(Page.REGISTER_PAGE);
         }
         String login = request.getParameter(PARAM_LOGIN);
-        if (login==null || !dataValidator.isLoginValid(login)) {
+        if (login==null || !DataValidator.isLoginValid(login)) {
             log.info("invalid login format was received:" + login);
             request.setAttribute(INVALID_LOGIN, true);
-            return Page.REGISTER_PAGE;
+            return new CommandResult(Page.REGISTER_PAGE);
         }
         String email = request.getParameter(PARAM_EMAIL);
-        if (email==null || !dataValidator.isEmailValid(email)){
+        if (email==null || !DataValidator.isEmailValid(email)){
             log.info("invalid email format was received:" + email);
             request.setAttribute(INVALID_EMAIL, true);
-            return Page.REGISTER_PAGE;
+            return new CommandResult(Page.REGISTER_PAGE);
         }
         String password = request.getParameter(PARAM_PASSWORD);
-        if (password==null || !dataValidator.isPasswordValid(password)){
+        if (password==null || !DataValidator.isPasswordValid(password)){
             log.info("invalid password format was received:" + password);
             request.setAttribute(INVALID_PASSWORD, true);
-            return Page.REGISTER_PAGE;
+            return new CommandResult(Page.REGISTER_PAGE);
         }
         Random random = new SecureRandom();
         String userHash = DigestUtils.sha512Hex("" + random.nextInt(999999));
@@ -80,13 +80,13 @@ public class RegisterCommand implements ActionCommand {
                 page = Page.VERIFY_PAGE;
             } else {
                 request.setAttribute(WRONG_DATA, true);
-                page = Page.REGISTER_PAGE;
+                return new CommandResult(Page.REGISTER_PAGE);
             }
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
             page = Page.REGISTER_PAGE;
         }
-        return page;
+        return new CommandResult(page, true);
     }
 
     private Client buildUser(HttpServletRequest request, String userHash) throws ServiceException {

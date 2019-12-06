@@ -1,6 +1,7 @@
 package by.epam.fitness.command.impl.client;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.command.CommandResult;
 import by.epam.fitness.entity.Client;
 import by.epam.fitness.entity.Coach;
 import by.epam.fitness.entity.OrderInformation;
@@ -34,10 +35,9 @@ public class ClientProfileCommand implements ActionCommand {
     private ClientService clientService = new ClientServiceImpl();
     private CoachService coachService = new CoachServiceImpl();
     private MembershipValidChecker membershipValidChecker = new MembershipValidChecker();
-    private static DataValidator dataValidator = new DataValidator();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String page;
         HttpSession session = request.getSession();
         String role = String.valueOf(session.getAttribute(SessionAttributes.ROLE));
@@ -47,7 +47,7 @@ public class ClientProfileCommand implements ActionCommand {
         } else {
             clientId = getClientIdForAppropriateAdmin(session, request);
             if (clientId == -1L) {
-                return Page.ADMIN_CLIENTS;
+                return new CommandResult(Page.ADMIN_CLIENTS);
             }
         }
         try {
@@ -73,7 +73,7 @@ public class ClientProfileCommand implements ActionCommand {
             log.error("Problem with service occurred!", e);
             page = Page.CLIENT_PROFILE_PAGE;
         }
-        return page;
+        return new CommandResult(page);
     }
 
     private Long getClientIdForAppropriateAdmin(HttpSession session, HttpServletRequest request) {
@@ -83,7 +83,7 @@ public class ClientProfileCommand implements ActionCommand {
             clientId = (Long) session.getAttribute(ADMIN_CLIENT_ID);
         } else {
             clientIdString = request.getParameter(ADMIN_CLIENT_ID);
-            if (!dataValidator.isIdentifiableIdValid(clientIdString)) {
+            if (!DataValidator.isIdentifiableIdValid(clientIdString)) {
                 log.info("invalid client id format from admin was received:" + clientIdString);
                 request.setAttribute(JspConst.INVALID_EXERCISE_ID_FORMAT, true);
                 return -1L;

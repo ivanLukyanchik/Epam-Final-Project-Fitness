@@ -70,8 +70,9 @@
         <c:when test="${not empty requestScope.invalidLogin}">
             <p class="text-danger">${username_pattern_error}</p>
         </c:when>
-        <c:when test="${not empty requestScope.success}">
+        <c:when test="${not empty sessionScope.success}">
             <p class="text-success">${success_delete}</p>
+            <c:remove var="success" scope="session" />
         </c:when>
         <c:when test="${not empty requestScope.userActivated}">
             <p class="text-success">${user_activated}</p>

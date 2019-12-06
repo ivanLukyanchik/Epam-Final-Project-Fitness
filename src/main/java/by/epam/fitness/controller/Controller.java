@@ -1,6 +1,7 @@
 package by.epam.fitness.controller;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.command.CommandResult;
 import by.epam.fitness.command.factory.ActionFactory;
 import by.epam.fitness.pool.ConnectionPool;
 
@@ -23,17 +24,20 @@ public class Controller extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String page;
         ActionCommand command = ActionFactory.defineCommand(request);
-        page = command.execute(request, response);
-        if (page != null) {
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+        CommandResult commandResult = command.execute(request, response);
+        String page;
+        if (commandResult.getPage() != null) {
+            page = commandResult.getPage();
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-//            response.sendRedirect(request.getContextPath() + page);
-            dispatcher.forward(request, response);
+            if (commandResult.isRedirect()) {
+                response.sendRedirect(request.getContextPath() + page);
+            } else {
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+                dispatcher.forward(request, response);
+            }
         } else {
             page = "/login";
-            request.getSession().setAttribute("nullPage", "nullpage");
             response.sendRedirect(request.getContextPath() + page);
         }
     }

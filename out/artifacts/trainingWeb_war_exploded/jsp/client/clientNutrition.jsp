@@ -74,21 +74,25 @@
         </c:when>
 
         <c:otherwise>
-
-            <c:choose>
-                <c:when test="${nutritionAdded eq true}">
-                    <p class="text-success">${added_nutrition}</p>
-                </c:when>
-                <c:when test="${nutritionUpdated eq true}">
-                    <p class="text-success">${updated_nutrition}</p>
-                </c:when>
-                <c:when test="${nutritionRejected eq true}">
-                    <p class="text-success">${rejected_nutrition}</p>
-                </c:when>
-                <c:when test="${incorrect_input_nutrition_data_error eq true}">
-                    <p class="text-danger">${invalid_nutrition}</p>
-                </c:when>
-            </c:choose>
+            <div class="text-center">
+                <c:choose>
+                    <c:when test="${sessionScope.nutritionAdded eq true}">
+                        <p class="text-success">${added_nutrition}</p>
+                        <c:remove var="nutritionAdded" scope="session" />
+                    </c:when>
+                    <c:when test="${sessionScope.nutritionUpdated eq true}">
+                        <p class="text-success">${updated_nutrition}</p>
+                        <c:remove var="nutritionUpdated" scope="session" />
+                    </c:when>
+                    <c:when test="${sessionScope.nutritionRejected eq true}">
+                        <p class="text-success">${rejected_nutrition}</p>
+                        <c:remove var="nutritionRejected" scope="session" />
+                    </c:when>
+                    <c:when test="${incorrect_input_nutrition_data_error eq true}">
+                        <p class="text-danger">${invalid_nutrition}</p>
+                    </c:when>
+                </c:choose>
+            </div>
 
             <form action="${pageContext.servletContext.contextPath}/controller?command=reject_nutrition" method="post">
                 <input type="hidden" name="nutrition_id" value="${nutrition.id}"/>

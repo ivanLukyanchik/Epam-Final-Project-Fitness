@@ -35,9 +35,12 @@
     <jsp:param name="currentPage" value="admin_clients"/>
 </jsp:include>
 
-<c:if test="${requestScope.success eq true}">
-    <p class="text-success">${status_updated}</p>
-</c:if>
+<div class="text-center">
+    <c:if test="${sessionScope.success eq true}">
+        <p class="text-success">${status_updated}</p>
+        <c:remove var="success" scope="session" />
+    </c:if>
+</div>
 
 <button class="btn btn-primary mx-5 mb-2" data-toggle="collapse" data-target="#hide">${client_search_form}</button>
 <div class="collapse" id="hide">

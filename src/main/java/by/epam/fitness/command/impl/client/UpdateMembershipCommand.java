@@ -1,6 +1,7 @@
 package by.epam.fitness.command.impl.client;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.command.CommandResult;
 import by.epam.fitness.entity.OrderInformation;
 import by.epam.fitness.entity.Client;
 import by.epam.fitness.service.OrderInformationService;
@@ -30,26 +31,25 @@ import static by.epam.fitness.util.JspConst.*;
 
 public class UpdateMembershipCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(UpdateMembershipCommand.class);
-    private static DataValidator dataValidator = new DataValidator();
     private ClientService clientService = new ClientServiceImpl();
     private OrderInformationService orderInformationService = new OrderInformationServiceImpl();
     private static final String PERIOD_PATTERN="\\D+";
     private final static SaleSystem SALE_SYSTEM = SaleSystem.getInstance();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String page;
         String cardNumber = request.getParameter(CARD_NUMBER);
-        if (cardNumber==null || !dataValidator.isCardNumberValid(cardNumber)) {
+        if (cardNumber==null || !DataValidator.isCardNumberValid(cardNumber)) {
             log.info("incorrect card number:" + cardNumber + " was input");
             request.setAttribute(WRONG_CARD, true);
-            return Page.ORDER_PAGE;
+            return new CommandResult(Page.ORDER_PAGE);
         }
         String costString = request.getParameter(COST);
-        if (costString==null || !dataValidator.isCostValid(costString)){
+        if (costString==null || !DataValidator.isCostValid(costString)){
             log.info("incorrect cost:" + costString + " was input");
             request.setAttribute(WRONG_PERIOD, true);
-            return Page.ORDER_PAGE;
+            return new CommandResult(Page.ORDER_PAGE);
         }
         BigDecimal cost = new BigDecimal(costString);
         HttpSession session = request.getSession();
@@ -60,21 +60,21 @@ public class UpdateMembershipCommand implements ActionCommand {
             if (period==null || !isPeriodExist(period)){
                 log.info("incorrect period:" + period + " was input");
                 request.setAttribute(WRONG_PERIOD, true);
-                return Page.ORDER_PAGE;
+                return new CommandResult(Page.ORDER_PAGE);
             }
             newEndMembershipDate = defineNewEndMembershipEndDate(request,clientId);
             OrderInformation newOrderInformation = new OrderInformation(null, cost, new Timestamp(new Date().getTime()),
                                                                         newEndMembershipDate, clientId,cardNumber);
             orderInformationService.save(newOrderInformation);
             increaseClientVisitNumber(clientId);
-            request.setAttribute(PAYMENT_SUCCESS, true);
+            session.setAttribute(PAYMENT_SUCCESS, true);
             log.info("Gym membership of client with id = " + clientId + " has been updated");
             page = Page.CLIENT_PROFILE_COMMAND;
         } catch (ServiceException | UtilException e) {
             log.error("Exception occurred while defining NewEndMembershipEndDate", e);
-            return Page.ORDER_PAGE;
+            return new CommandResult(Page.ORDER_PAGE);
         }
-        return page;
+        return new CommandResult(page, true);
     }
 
     private java.sql.Date defineNewEndMembershipEndDate(HttpServletRequest request, long clientID) throws ServiceException {

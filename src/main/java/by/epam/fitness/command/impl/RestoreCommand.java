@@ -1,6 +1,7 @@
 package by.epam.fitness.command.impl;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.command.CommandResult;
 import by.epam.fitness.mail.SendingEmail;
 import by.epam.fitness.service.ServiceException;
 import by.epam.fitness.service.ClientService;
@@ -19,23 +20,22 @@ import java.util.Random;
 
 public class RestoreCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(RestoreCommand.class);
-    private static DataValidator dataValidator = new DataValidator();
     private ClientService clientService = new ClientServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String page;
         String email = request.getParameter(JspConst.PARAM_EMAIL);
-        if (email==null || !dataValidator.isEmailValid(email)){
+        if (email==null || !DataValidator.isEmailValid(email)){
             log.info("invalid email format was received:" + email);
             request.setAttribute(JspConst.INVALID_EMAIL, true);
-            return Page.RESTORE_PAGE;
+            return new CommandResult(Page.RESTORE_PAGE);
         }
         String login = request.getParameter(JspConst.PARAM_LOGIN);
-        if (login==null || !dataValidator.isLoginValid(login)) {
+        if (login==null || !DataValidator.isLoginValid(login)) {
             log.info("invalid login format was received:" + login);
             request.setAttribute(JspConst.INVALID_LOGIN, true);
-            return Page.RESTORE_PAGE;
+            return new CommandResult(Page.RESTORE_PAGE);
         }
         Random random = new SecureRandom();
         String userHash = DigestUtils.sha512Hex("" + random.nextInt(999999));
@@ -53,6 +53,6 @@ public class RestoreCommand implements ActionCommand {
             log.error("Problem with service occurred!", e);
             page = Page.RESTORE_PAGE;
         }
-        return page;
+        return new CommandResult(page);
     }
 }

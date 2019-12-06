@@ -1,6 +1,7 @@
 package by.epam.fitness.command.impl.admin;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.command.CommandResult;
 import by.epam.fitness.entity.Client;
 import by.epam.fitness.service.ClientService;
 import by.epam.fitness.service.ServiceException;
@@ -19,7 +20,7 @@ public class FindClientsByFilterCommand implements ActionCommand {
     private ClientService clientService = new ClientServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         Integer membershipNumber;
         Float personalDiscount;
         String page;
@@ -62,6 +63,6 @@ public class FindClientsByFilterCommand implements ActionCommand {
             log.error("Problem with service occurred!", e);
             page = Page.ADMIN_CLIENTS_COMMAND;
         }
-        return page;
+        return new CommandResult(page, true);
     }
 }

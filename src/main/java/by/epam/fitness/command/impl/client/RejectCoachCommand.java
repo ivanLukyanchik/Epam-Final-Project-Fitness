@@ -1,6 +1,7 @@
 package by.epam.fitness.command.impl.client;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.command.CommandResult;
 import by.epam.fitness.entity.Client;
 import by.epam.fitness.service.ServiceException;
 import by.epam.fitness.service.ClientService;
@@ -21,7 +22,7 @@ public class RejectCoachCommand implements ActionCommand {
     private ClientService clientService = new ClientServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         HttpSession session = request.getSession();
         Long clientId = (Long) session.getAttribute(SessionAttributes.ID);
@@ -31,13 +32,13 @@ public class RejectCoachCommand implements ActionCommand {
                 user.get().setCoachId(null);
                 clientService.save(user.get());
                 log.info("client with id = " + clientId + " rejected his coach");
-                request.setAttribute(JspConst.COACH_REJECTED, true);
+                session.setAttribute(JspConst.COACH_REJECTED, true);
                 page = Page.WELCOME_PAGE;
             }
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
             page = Page.ALL_COACHES_COMMAND;
         }
-        return page;
+        return new CommandResult(page, true);
     }
 }

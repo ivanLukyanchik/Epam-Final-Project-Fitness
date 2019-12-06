@@ -27,13 +27,16 @@
     <jsp:param name="currentPage" value="admin_comments"/>
 </jsp:include>
 
-<c:if test="${requestScope.success eq true}">
-    <p class="text-success">${comment_deleted}</p>
-</c:if>
+<div class="text-center">
+    <c:if test="${sessionScope.success eq true}">
+        <p class="text-success">${comment_deleted}</p>
+        <c:remove var="success" scope="session" />
+    </c:if>
 
-<c:if test="${fn:length(comments) eq 0}">
-    <h3><c:out value="${no_comments_admin}"/></h3>
-</c:if>
+    <c:if test="${fn:length(comments) eq 0}">
+        <h3><c:out value="${no_comments_admin}"/></h3>
+    </c:if>
+</div>
 
 <c:forEach items="${comments}" var="comment">
     <c:forEach items="${comment.value}" var="clientCoachEntry">

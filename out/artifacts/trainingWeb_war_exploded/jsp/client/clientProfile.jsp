@@ -55,35 +55,39 @@
     <jsp:param name="currentPage" value="client_profile"/>
 </jsp:include>
 
-<c:choose>
-    <c:when test="${not empty requestScope.wrongData}">
-        <p class="text-danger">${wrongLogin}</p>
-    </c:when>
-    <c:when test="${not empty requestScope.notImage}">
-        <p class="text-danger">${not_image}</p>
-    </c:when>
-    <c:when test="${not empty requestScope.invalidPassword}">
-        <p class="text-danger">${registration_pattern_error}</p>
-    </c:when>
-    <c:when test="${not empty requestScope.invalidSurname}">
-        <p class="text-danger">${registration_pattern_error}</p>
-    </c:when>
-    <c:when test="${not empty requestScope.invalidName}">
-        <p class="text-danger">${registration_pattern_error}</p>
-    </c:when>
-    <c:when test="${not empty requestScope.invalidLogin}">
-        <p class="text-danger">${username_pattern_error}</p>
-    </c:when>
-    <c:when test="${not empty requestScope.invalidEmail}">
-        <p class="text-danger">${email_pattern_error}</p>
-    </c:when>
-    <c:when test="${not empty requestScope.success}">
-        <p class="text-success">${success}</p>
-    </c:when>
-    <c:when test="${not empty requestScope.paymentSuccess}">
-        <p class="text-success">${paymentSuccess}</p>
-    </c:when>
-</c:choose>
+<div class="text-center">
+    <c:choose>
+        <c:when test="${not empty requestScope.wrongData}">
+            <p class="text-danger">${wrongLogin}</p>
+        </c:when>
+        <c:when test="${not empty requestScope.notImage}">
+            <p class="text-danger">${not_image}</p>
+        </c:when>
+        <c:when test="${not empty requestScope.invalidPassword}">
+            <p class="text-danger">${registration_pattern_error}</p>
+        </c:when>
+        <c:when test="${not empty requestScope.invalidSurname}">
+            <p class="text-danger">${registration_pattern_error}</p>
+        </c:when>
+        <c:when test="${not empty requestScope.invalidName}">
+            <p class="text-danger">${registration_pattern_error}</p>
+        </c:when>
+        <c:when test="${not empty requestScope.invalidLogin}">
+            <p class="text-danger">${username_pattern_error}</p>
+        </c:when>
+        <c:when test="${not empty requestScope.invalidEmail}">
+            <p class="text-danger">${email_pattern_error}</p>
+        </c:when>
+        <c:when test="${not empty sessionScope.success}">
+            <p class="text-success">${success}</p>
+            <c:remove var="success" scope="session" />
+        </c:when>
+        <c:when test="${not empty sessionScope.paymentSuccess}">
+            <p class="text-success">${paymentSuccess}</p>
+            <c:remove var="paymentSuccess" scope="session" />
+        </c:when>
+    </c:choose>
+</div>
 
 <form method="post" class="border border-light px-5 py-1" action="modifyProfileServlet" enctype="multipart/form-data">
     <input type="hidden" name="client_id" value="${client.id}">

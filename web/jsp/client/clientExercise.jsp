@@ -64,23 +64,28 @@
     <c:otherwise>
         <jsp:useBean id="program" type="by.epam.fitness.entity.Program" scope="session"/>
 
-        <c:choose>
-            <c:when test="${exerciseAdded eq true}">
-                <p class="text-success">${added_exercise}</p>
-            </c:when>
-            <c:when test="${exerciseUpdated eq true}">
-                <p class="text-success">${updated_exercise}</p>
-            </c:when>
-            <c:when test="${exerciseRejected eq true}">
-                <p class="text-success">${rejected_exercise}</p>
-            </c:when>
-            <c:when test="${exerciseAlreadyExists eq true}">
-                <p class="text-danger">${exercise_already_exists}</p>
-            </c:when>
-            <c:when test="${incorrect_input_data_error eq true}">
-                <p class="text-danger">${incorrect_repeat_set}</p>
-            </c:when>
-        </c:choose>
+        <div class="text-center">
+            <c:choose>
+                <c:when test="${sessionScope.exerciseAdded eq true}">
+                    <p class="text-success">${added_exercise}</p>
+                    <c:remove var="exerciseAdded" scope="session" />
+                </c:when>
+                <c:when test="${sessionScope.exerciseUpdated eq true}">
+                    <p class="text-success">${updated_exercise}</p>
+                    <c:remove var="exerciseUpdated" scope="session" />
+                </c:when>
+                <c:when test="${sessionScope.exerciseRejected eq true}">
+                    <p class="text-success">${rejected_exercise}</p>
+                    <c:remove var="exerciseRejected" scope="session" />
+                </c:when>
+                <c:when test="${exerciseAlreadyExists eq true}">
+                    <p class="text-danger">${exercise_already_exists}</p>
+                </c:when>
+                <c:when test="${incorrect_input_data_error eq true}">
+                    <p class="text-danger">${incorrect_repeat_set}</p>
+                </c:when>
+            </c:choose>
+        </div>
 
         <button class="btn btn-primary mx-5 mb-2" data-toggle="collapse" data-target="#hide">${click_exercises}</button>
         <div class="collapse" id="hide">

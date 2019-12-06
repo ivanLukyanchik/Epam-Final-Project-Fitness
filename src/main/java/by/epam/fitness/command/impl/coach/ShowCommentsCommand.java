@@ -1,6 +1,7 @@
 package by.epam.fitness.command.impl.coach;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.command.CommandResult;
 import by.epam.fitness.entity.Client;
 import by.epam.fitness.entity.Comment;
 import by.epam.fitness.entity.UserRole;
@@ -30,10 +31,9 @@ public class ShowCommentsCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(ShowCommentsCommand.class);
     private CommentService commentService = new CommentServiceImpl();
     private ClientService clientService = new ClientServiceImpl();
-    private static DataValidator dataValidator = new DataValidator();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String page;
         HttpSession session = request.getSession();
         request.setAttribute(MAX_NUMBER_SYMBOLS_ATTRIBUTE,MAX_NUMBER_SYMBOLS_VALUE);
@@ -43,10 +43,10 @@ public class ShowCommentsCommand implements ActionCommand {
             coachId = (Long) session.getAttribute(SessionAttributes.ID);
         } else {
             String coachIdString = request.getParameter(COACH_ID);
-            if (coachIdString==null || !dataValidator.isIdentifiableIdValid(coachIdString)) {
+            if (coachIdString==null || !DataValidator.isIdentifiableIdValid(coachIdString)) {
                 log.info("invalid coach id format from user was received:" + coachIdString);
                 request.setAttribute(INVALID_COACH_ID, true);
-                return Page.ALL_COACHES_COMMAND;
+                return new CommandResult(Page.ALL_COACHES_COMMAND);
             }
             coachId = Long.valueOf(coachIdString);
         }
@@ -59,7 +59,7 @@ public class ShowCommentsCommand implements ActionCommand {
             log.error("Problem with service occurred!", e);
             page = Page.COACH_COMMENTS;
         }
-        return page;
+        return new CommandResult(page);
     }
 
     private Map<Comment, Client> makeCommentMapForCoach(List<Comment> comments) throws ServiceException {

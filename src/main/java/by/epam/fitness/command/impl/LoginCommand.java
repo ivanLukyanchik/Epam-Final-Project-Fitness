@@ -1,6 +1,7 @@
 package by.epam.fitness.command.impl;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.command.CommandResult;
 import by.epam.fitness.entity.Admin;
 import by.epam.fitness.entity.Client;
 import by.epam.fitness.entity.Coach;
@@ -29,28 +30,27 @@ import static by.epam.fitness.util.JspConst.PARAM_PASSWORD;
 
 public class LoginCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(LoginCommand.class);
-    private static DataValidator dataValidator = new DataValidator();
     private static ClientService clientService = new ClientServiceImpl();
     private static CoachService coachService = new CoachServiceImpl();
     private static AdminService adminService = new AdminServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String page;
         Client client;
         Coach coach;
         Admin admin;
         String login = request.getParameter(PARAM_LOGIN);
-        if (login==null || !dataValidator.isLoginValid(login)) {
+        if (login==null || !DataValidator.isLoginValid(login)) {
             log.info("invalid login format was received:" + login);
-            request.setAttribute("invalidLogin", "Wrong login or password");
-            return Page.LOGIN_PAGE;
+            request.setAttribute(JspConst.INVALID_LOGIN, true);
+            return new CommandResult(Page.LOGIN_PAGE);
         }
         String password = request.getParameter(PARAM_PASSWORD);
-        if (password==null || !dataValidator.isPasswordValid(password)) {
+        if (password==null || !DataValidator.isPasswordValid(password)) {
             log.info("invalid password format was received:" + password);
-            request.setAttribute("invalidPassword", "Wrong login or password");
-            return Page.LOGIN_PAGE;
+            request.setAttribute(JspConst.INVALID_PASSWORD, true);
+            return new CommandResult(Page.LOGIN_PAGE);
         }
         boolean rememberMe = Boolean.parseBoolean(request.getParameter(JspConst.REMEMBER_ME));
         try {
@@ -90,12 +90,12 @@ public class LoginCommand implements ActionCommand {
                 page = Page.WELCOME_PAGE;
             } else {
                 request.setAttribute(JspConst.WRONG_DATA, true);
-                page = Page.LOGIN_PAGE;
+                return new CommandResult(Page.LOGIN_PAGE);
             }
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
             page = Page.LOGIN_PAGE;
         }
-        return page;
+        return new CommandResult(page, true);
     }
 }

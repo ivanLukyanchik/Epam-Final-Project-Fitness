@@ -1,6 +1,7 @@
 package by.epam.fitness.command.impl.client;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.command.CommandResult;
 import by.epam.fitness.entity.Coach;
 import by.epam.fitness.service.CoachService;
 import by.epam.fitness.service.ServiceException;
@@ -27,7 +28,7 @@ public class FindCoachesCommand implements ActionCommand {
     private MembershipValidChecker membershipValidChecker = new MembershipValidChecker();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String page;
         HttpSession session = request.getSession();
         String role = String.valueOf(session.getAttribute(SessionAttributes.ROLE));
@@ -48,7 +49,7 @@ public class FindCoachesCommand implements ActionCommand {
             log.error("Problem with service occurred!", e);
             page = Page.ALL_COACHES;
         }
-        return page;
+        return new CommandResult(page);
     }
 
     private void checkAndSetIfClientHasCoach(HttpServletRequest request, Long clientId) throws ServiceException {

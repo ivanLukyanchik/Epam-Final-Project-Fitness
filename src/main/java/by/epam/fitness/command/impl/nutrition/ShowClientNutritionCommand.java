@@ -1,6 +1,7 @@
 package by.epam.fitness.command.impl.nutrition;
 
 import by.epam.fitness.command.ActionCommand;
+import by.epam.fitness.command.CommandResult;
 import by.epam.fitness.entity.Nutrition;
 import by.epam.fitness.entity.UserRole;
 import by.epam.fitness.service.CoachService;
@@ -29,7 +30,7 @@ public class ShowClientNutritionCommand implements ActionCommand {
     private CoachService coachService = new CoachServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String page;
         HttpSession session = request.getSession();
         String role = String.valueOf(session.getAttribute(SessionAttributes.ROLE));
@@ -42,11 +43,11 @@ public class ShowClientNutritionCommand implements ActionCommand {
                 clientId = (Long) session.getAttribute(SessionAttributes.ID);
                 if (!membershipValidChecker.isCurrentMembershipValid(clientId)) {
                     request.setAttribute(MEMBERSHIP_VALID, false);
-                    return Page.NUTRITION;
+                    return new CommandResult(Page.NUTRITION);
                 } else {
                     if (coachService.findByClientId(clientId).isEmpty()) {
                         request.setAttribute(JspConst.NO_COACH, true);
-                        return Page.NUTRITION;
+                        return new CommandResult(Page.NUTRITION);
                     }
                     request.setAttribute(MEMBERSHIP_VALID, true);
                 }
@@ -65,7 +66,7 @@ public class ShowClientNutritionCommand implements ActionCommand {
             log.error("Problem with service occurred!", e);
             page = Page.NUTRITION;
         }
-        return page;
+        return new CommandResult(page);
     }
 
     private Long getClientIdForAppropriateCoach(HttpSession session, HttpServletRequest request) {
