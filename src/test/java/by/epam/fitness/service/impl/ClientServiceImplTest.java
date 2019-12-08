@@ -40,6 +40,13 @@ public class ClientServiceImplTest {
     }
 
     @Test
+    public void findByInvalidIdTest() throws ServiceException {
+        long testId = -999;
+        boolean actual = clientService.findById(testId).isPresent();
+        assertFalse(actual);
+    }
+
+    @Test
     public void findByCoachIdTest() throws ServiceException {
         boolean actual = clientService.findByCoachId(2).isEmpty();
         assertTrue(actual);

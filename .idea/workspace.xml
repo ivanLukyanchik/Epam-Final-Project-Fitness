@@ -69,8 +69,8 @@
         <option value="CSS File" />
         <option value="JavaScript File" />
         <option value="Arquillian JUnit Test Class" />
-        <option value="TestNG Test Class" />
         <option value="Class" />
+        <option value="TestNG Test Class" />
       </list>
     </option>
   </component>
@@ -98,7 +98,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.TestNG" value="" />
     <property name="findjar.last.used.dir" value="$PROJECT_DIR$/web/WEB-INF/lib" />
     <property name="last.edited.regexp" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/web/img/main" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/java/resources" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
@@ -109,24 +109,26 @@
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
       <recent name="by.epam.fitness.service.impl" />
+      <recent name="by.epam.fitness.util" />
+      <recent name="by.epam.fitness.pool" />
       <recent name="by.epam.fitness.dao.impl" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources\db" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\gym" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\jsp" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources\locale" />
-    </key>
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\test\java\resources" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\main" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\favicon" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\css" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\test" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources\db" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\gym" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\jsp" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -184,6 +186,40 @@
       <option name="PACKAGE_NAME" value="by.epam.fitness.service.impl" />
       <option name="MAIN_CLASS_NAME" value="by.epam.fitness.service.impl.ClientServiceImplTest" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ConnectionPoolTest" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="trainingWeb" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="by.epam.fitness.pool.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="by.epam.fitness.pool" />
+      <option name="MAIN_CLASS_NAME" value="by.epam.fitness.pool.ConnectionPoolTest" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PropertyLoaderTest" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="trainingWeb" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="by.epam.fitness.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="by.epam.fitness.util" />
+      <option name="MAIN_CLASS_NAME" value="by.epam.fitness.util.PropertyLoaderTest" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -263,6 +299,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="TestNG.ConnectionPoolTest" />
+        <item itemvalue="TestNG.PropertyLoaderTest" />
         <item itemvalue="JUnit.ClientServiceImplTest" />
         <item itemvalue="JUnit.ClientDaoImplTest.checkUserByLoginPasswordPositiveTest" />
         <item itemvalue="JUnit.ClientDaoImplTest" />
@@ -379,7 +417,8 @@
       <workItem from="1575581222897" duration="5000" />
       <workItem from="1575616796272" duration="12035000" />
       <workItem from="1575743236764" duration="10316000" />
-      <workItem from="1575799297734" duration="8445000" />
+      <workItem from="1575799297734" duration="8952000" />
+      <workItem from="1575821784604" duration="9991000" />
     </task>
     <servers />
   </component>

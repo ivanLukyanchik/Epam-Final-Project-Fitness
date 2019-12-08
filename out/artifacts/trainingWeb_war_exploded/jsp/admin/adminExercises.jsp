@@ -40,7 +40,7 @@
 </jsp:include>
 
 <div class="text-center">
-    <c:if test="${requestScope.success eq true}">
+    <c:if test="${sessionScope.success eq true}">
         <p class="text-success">${exercise_added}</p>
         <c:remove var="success" scope="session" />
     </c:if>
