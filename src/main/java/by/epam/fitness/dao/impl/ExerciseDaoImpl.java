@@ -24,12 +24,11 @@ public class ExerciseDaoImpl implements ExerciseDao {
     @Override
     public List<Exercise> findAllLimited(int start, int total) throws DaoException {
         List<Exercise> exercises = new ArrayList<>();
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         Exercise exercise = null;
-        try {
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_FIND_ALL_LIMITED);
+        try (
+                Connection connection = ConnectionPool.getInstance().takeConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_ALL_LIMITED);
+        ) {
             preparedStatement.setInt(1, start);
             preparedStatement.setInt(2, total);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -39,9 +38,6 @@ public class ExerciseDaoImpl implements ExerciseDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return exercises;
     }
@@ -49,18 +45,23 @@ public class ExerciseDaoImpl implements ExerciseDao {
     @Override
     public int deleteExercise(long exerciseId) throws DaoException {
         int result = 0;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        try{
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_DELETE);
-            preparedStatement.setLong(1, exerciseId);
-            result = preparedStatement.executeUpdate();
+        try (
+                Connection connection = ConnectionPool.getInstance().takeConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE);
+        ) {
+            try {
+                connection.setAutoCommit(false);
+                preparedStatement.setLong(1, exerciseId);
+                result = preparedStatement.executeUpdate();
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                throw new SQLException(e);
+            } finally {
+                connection.setAutoCommit(true);
+            }
         } catch (SQLException e) {
-            throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
+            throw new DaoException();
         }
         return result;
     }
@@ -68,20 +69,16 @@ public class ExerciseDaoImpl implements ExerciseDao {
     @Override
     public int getNumberOfRows() throws DaoException {
         int result = 1;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        try{
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_NUMBER_OF_ROWS);
+        try (
+                Connection connection = ConnectionPool.getInstance().takeConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_NUMBER_OF_ROWS);
+        ) {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 result = resultSet.getInt(1);
             }
         } catch (SQLException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return result;
     }
@@ -95,21 +92,29 @@ public class ExerciseDaoImpl implements ExerciseDao {
         InputStream is = exercise.getIs();
         Long generatedId = null;
         try {
-            connection = ConnectionPool.INSTANCE.getConnection();
+            connection = ConnectionPool.getInstance().takeConnection();
             preparedStatement = connection.prepareStatement(SQL_CREATE_EXERCISE, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, description);
-            preparedStatement.setBlob(3, is);
-            preparedStatement.executeUpdate();
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if (resultSet.next()) {
-                generatedId = resultSet.getLong(1);
+            try {
+                connection.setAutoCommit(false);
+                preparedStatement.setString(1, name);
+                preparedStatement.setString(2, description);
+                preparedStatement.setBlob(3, is);
+                preparedStatement.executeUpdate();
+                ResultSet resultSet = preparedStatement.getGeneratedKeys();
+                if (resultSet.next()) {
+                    generatedId = resultSet.getLong(1);
+                }
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                throw new SQLException(e);
+            } finally {
+                close(preparedStatement);
+                close(connection);
+                connection.setAutoCommit(true);
             }
         } catch (SQLException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return generatedId;
 
@@ -117,12 +122,11 @@ public class ExerciseDaoImpl implements ExerciseDao {
 
     @Override
     public Optional<Exercise> findById(Long id) throws DaoException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         Exercise exercise = null;
-        try {
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+        try (
+                Connection connection = ConnectionPool.getInstance().takeConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+        ) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -130,9 +134,6 @@ public class ExerciseDaoImpl implements ExerciseDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return Optional.ofNullable(exercise);
     }

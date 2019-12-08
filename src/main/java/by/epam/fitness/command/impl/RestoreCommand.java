@@ -42,7 +42,7 @@ public class RestoreCommand implements ActionCommand {
         try {
             if (clientService.restoreUser(login, email, userHash)) {
                 SendingEmail.restorePassword(login, email, userHash);
-                log.info("client with login = " + login + " restored his password");
+                log.info("client with login = " + login + "trying to restore his password");
                 page = Page.FINAL_RESTORE_PAGE;
             } else {
                 log.info("there is no client with such login " + login + " or email " + email);

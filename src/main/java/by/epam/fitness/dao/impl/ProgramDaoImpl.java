@@ -24,25 +24,33 @@ public class ProgramDaoImpl implements ProgramDao {
         int trains_per_week = program.getTrainsPerWeek();
         Long generatedId = null;
         try {
-            connection = ConnectionPool.INSTANCE.getConnection();
-            if (program.getId() != null) {
-                preparedStatement = connection.prepareStatement(SQL_UPDATE_TABLE, Statement.RETURN_GENERATED_KEYS);
-                preparedStatement.setLong(3, program.getId());
-            } else {
-                preparedStatement = connection.prepareStatement(SQL_CREATE_TABLE, Statement.RETURN_GENERATED_KEYS);
-            }
-            preparedStatement.setLong(1, nutrition_id);
-            preparedStatement.setInt(2, trains_per_week);
-            preparedStatement.executeUpdate();
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if (resultSet.next()) {
-                generatedId = resultSet.getLong(1);
+            connection = ConnectionPool.getInstance().takeConnection();
+            try {
+                connection.setAutoCommit(false);
+                if (program.getId() != null) {
+                    preparedStatement = connection.prepareStatement(SQL_UPDATE_TABLE, Statement.RETURN_GENERATED_KEYS);
+                    preparedStatement.setLong(3, program.getId());
+                } else {
+                    preparedStatement = connection.prepareStatement(SQL_CREATE_TABLE, Statement.RETURN_GENERATED_KEYS);
+                }
+                preparedStatement.setLong(1, nutrition_id);
+                preparedStatement.setInt(2, trains_per_week);
+                preparedStatement.executeUpdate();
+                ResultSet resultSet = preparedStatement.getGeneratedKeys();
+                if (resultSet.next()) {
+                    generatedId = resultSet.getLong(1);
+                }
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                throw new SQLException(e);
+            } finally {
+                close(preparedStatement);
+                close(connection);
+                connection.setAutoCommit(true);
             }
         } catch (SQLException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return generatedId;
     }
@@ -54,12 +62,11 @@ public class ProgramDaoImpl implements ProgramDao {
 
     @Override
     public Optional<Program> findProgramById(long programId) throws DaoException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         Program program = null;
-        try{
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+        try (
+                Connection connection = ConnectionPool.getInstance().takeConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+        ) {
             preparedStatement.setLong(1, programId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -67,9 +74,6 @@ public class ProgramDaoImpl implements ProgramDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return Optional.ofNullable(program);
     }

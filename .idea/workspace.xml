@@ -111,22 +111,22 @@
       <recent name="by.epam.fitness.service.impl" />
       <recent name="by.epam.fitness.dao.impl" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources\db" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\gym" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\jsp" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources\locale" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\main" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\favicon" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\css" />
-    </key>
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\gym" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\jsp" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources\locale" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -377,7 +377,9 @@
       <workItem from="1575558713310" duration="1657000" />
       <workItem from="1575569675554" duration="10346000" />
       <workItem from="1575581222897" duration="5000" />
-      <workItem from="1575616796272" duration="11445000" />
+      <workItem from="1575616796272" duration="12035000" />
+      <workItem from="1575743236764" duration="10316000" />
+      <workItem from="1575799297734" duration="8445000" />
     </task>
     <servers />
   </component>
@@ -393,14 +395,24 @@
           <option name="timeStamp" value="48" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/LoginCommand.java</url>
-          <line>42</line>
-          <option name="timeStamp" value="51" />
+          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/admin/FindClientsByFilterCommand.java</url>
+          <line>26</line>
+          <option name="timeStamp" value="55" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/LoginPageCommand.java</url>
-          <line>13</line>
-          <option name="timeStamp" value="52" />
+          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/RestoreCommand.java</url>
+          <line>27</line>
+          <option name="timeStamp" value="56" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/PasswordRestoreCommand.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/controller/Controller.java</url>
+          <line>26</line>
+          <option name="timeStamp" value="61" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

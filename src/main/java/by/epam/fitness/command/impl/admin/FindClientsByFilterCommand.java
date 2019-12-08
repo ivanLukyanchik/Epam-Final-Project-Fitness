@@ -63,6 +63,6 @@ public class FindClientsByFilterCommand implements ActionCommand {
             log.error("Problem with service occurred!", e);
             page = Page.ADMIN_CLIENTS_COMMAND;
         }
-        return new CommandResult(page, true);
+        return new CommandResult(page);
     }
 }

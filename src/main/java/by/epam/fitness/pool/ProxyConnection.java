@@ -13,63 +13,47 @@ public class ProxyConnection implements Connection, AutoCloseable {
     private Logger log = LogManager.getLogger(ProxyConnection.class);
     private Connection connection;
 
+    /**
+     * Instantiates a new Proxy connection.
+     *
+     * @param connection the connection
+     */
     ProxyConnection(Connection connection) {
         this.connection = connection;
     }
 
-    @Override
-    public void beginRequest() throws SQLException {
-
+    /**
+     * Really close.
+     *
+     * @throws SQLException the sql exception
+     */
+    public void reallyClose() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            log.error("database is not closed", e);
+            throw new RuntimeException("database is not closed", e);
+        }
     }
 
     @Override
-    public void endRequest() throws SQLException {
-
-    }
-
-    @Override
-    public boolean setShardingKeyIfValid(ShardingKey shardingKey, ShardingKey superShardingKey, int timeout) throws SQLException {
-        return false;
-    }
-
-    @Override
-    public boolean setShardingKeyIfValid(ShardingKey shardingKey, int timeout) throws SQLException {
-        return false;
-    }
-
-    @Override
-    public void setShardingKey(ShardingKey shardingKey, ShardingKey superShardingKey) throws SQLException {
-
-    }
-
-    @Override
-    public void setShardingKey(ShardingKey shardingKey) throws SQLException {
-
-    }
-
-    @Override
-    public <T> T unwrap(Class<T> iface) throws SQLException {
-        return connection.unwrap(iface);
-    }
-
-    @Override
-    public boolean isWrapperFor(Class<?> iface) throws SQLException {
-        return connection.isWrapperFor(iface);
+    public void close() throws SQLException {
+        ConnectionPool.getInstance().releaseConnection(this);
     }
 
     @Override
     public Statement createStatement() throws SQLException {
-        return null;
+        return connection.createStatement();
     }
 
     @Override
     public PreparedStatement prepareStatement(String sql) throws SQLException {
-        return null;
+        return connection.prepareStatement(sql);
     }
 
     @Override
     public CallableStatement prepareCall(String sql) throws SQLException {
-        return null;
+        return connection.prepareCall(sql);
     }
 
     @Override
@@ -95,18 +79,6 @@ public class ProxyConnection implements Connection, AutoCloseable {
     @Override
     public void rollback() throws SQLException {
         connection.rollback();
-    }
-
-    @Override
-    public void close() throws SQLException {
-        try {
-            connection.setAutoCommit(true);
-        }
-        catch (SQLException e) {
-            log.error("Connection is not returned to AUTO-commit state", e);
-            throw new RuntimeException("database is not closed", e);
-        }
-        ConnectionPool.INSTANCE.releaseConnection(this);
     }
 
     @Override
@@ -324,13 +296,43 @@ public class ProxyConnection implements Connection, AutoCloseable {
         return connection.getNetworkTimeout();
     }
 
-    void reallyClose() {
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            log.error("database is not closed", e);
-            throw new RuntimeException("database is not closed", e);
-        }
+    @Override
+    public void beginRequest() throws SQLException {
+        connection.beginRequest();
     }
 
+    @Override
+    public void endRequest() throws SQLException {
+        connection.endRequest();
+    }
+
+    @Override
+    public boolean setShardingKeyIfValid(ShardingKey shardingKey, ShardingKey superShardingKey, int timeout) throws SQLException {
+        return connection.setShardingKeyIfValid(shardingKey, superShardingKey, timeout);
+    }
+
+    @Override
+    public boolean setShardingKeyIfValid(ShardingKey shardingKey, int timeout) throws SQLException {
+        return connection.setShardingKeyIfValid(shardingKey, timeout);
+    }
+
+    @Override
+    public void setShardingKey(ShardingKey shardingKey, ShardingKey superShardingKey) throws SQLException {
+        connection.setShardingKey(shardingKey, superShardingKey);
+    }
+
+    @Override
+    public void setShardingKey(ShardingKey shardingKey) throws SQLException {
+        connection.setShardingKey(shardingKey);
+    }
+
+    @Override
+    public <T> T unwrap(Class<T> iface) throws SQLException {
+        return connection.unwrap(iface);
+    }
+
+    @Override
+    public boolean isWrapperFor(Class<?> iface) throws SQLException {
+        return connection.isWrapperFor(iface);
+    }
 }

@@ -31,28 +31,36 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
         String cardNumber = orderInformation.getCardNumber();
         Long generatedId = null;
         try {
-            connection = ConnectionPool.INSTANCE.getConnection();
-            if (orderInformation.getId() != null) {
-                preparedStatement = connection.prepareStatement(SQL_UPDATE_TABLE, Statement.RETURN_GENERATED_KEYS);
-                preparedStatement.setLong(6, orderInformation.getId());
-            } else {
-                preparedStatement = connection.prepareStatement(SQL_CREATE_TABLE, Statement.RETURN_GENERATED_KEYS);
-            }
-            preparedStatement.setBigDecimal(1, cost);
-            preparedStatement.setTimestamp(2, paymentData);
-            preparedStatement.setDate(3, membershipEndDate);
-            preparedStatement.setLong(4, clientId);
-            preparedStatement.setString(5, cardNumber);
-            preparedStatement.executeUpdate();
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if (resultSet.next()) {
-                generatedId = resultSet.getLong(1);
+            connection = ConnectionPool.getInstance().takeConnection();
+            try {
+                connection.setAutoCommit(false);
+                if (orderInformation.getId() != null) {
+                    preparedStatement = connection.prepareStatement(SQL_UPDATE_TABLE, Statement.RETURN_GENERATED_KEYS);
+                    preparedStatement.setLong(6, orderInformation.getId());
+                } else {
+                    preparedStatement = connection.prepareStatement(SQL_CREATE_TABLE, Statement.RETURN_GENERATED_KEYS);
+                }
+                preparedStatement.setBigDecimal(1, cost);
+                preparedStatement.setTimestamp(2, paymentData);
+                preparedStatement.setDate(3, membershipEndDate);
+                preparedStatement.setLong(4, clientId);
+                preparedStatement.setString(5, cardNumber);
+                preparedStatement.executeUpdate();
+                ResultSet resultSet = preparedStatement.getGeneratedKeys();
+                if (resultSet.next()) {
+                    generatedId = resultSet.getLong(1);
+                }
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                throw new SQLException(e);
+            } finally {
+                close(preparedStatement);
+                close(connection);
+                connection.setAutoCommit(true);
             }
         } catch (SQLException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return generatedId;
     }
@@ -64,12 +72,11 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
 
     @Override
     public Optional<OrderInformation> findByClientId(long id) throws DaoException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         OrderInformation orderInformation = null;
-        try{
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+        try (
+                Connection connection = ConnectionPool.getInstance().takeConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+        ) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -77,9 +84,6 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return Optional.ofNullable(orderInformation);
     }
@@ -87,12 +91,11 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
     @Override
     public List<OrderInformation> findOrdersByClientId(long id) throws DaoException {
         List<OrderInformation> ordersList = new ArrayList<>();
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         OrderInformation orderInformation = null;
-        try{
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+        try (
+                Connection connection = ConnectionPool.getInstance().takeConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+        ) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -101,9 +104,6 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return ordersList;
     }
@@ -111,12 +111,11 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
     @Override
     public List<OrderInformation> findAll() throws DaoException {
         List<OrderInformation> orders = new ArrayList<>();
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         OrderInformation order = null;
-        try {
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_FIND_ALL);
+        try (
+                Connection connection = ConnectionPool.getInstance().takeConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_ALL);
+        ) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 order = builder.build(resultSet);
@@ -124,9 +123,6 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return orders;
     }

@@ -3,6 +3,7 @@ package by.epam.fitness.dao;
 import by.epam.fitness.dao.exception.DaoException;
 import by.epam.fitness.entity.Entity;
 import by.epam.fitness.pool.ConnectionPool;
+import by.epam.fitness.pool.ProxyConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -29,7 +30,7 @@ public interface BaseDao <K, T extends Entity> {
 
     default void close (Connection connection) {
         if (connection != null) {
-            ConnectionPool.INSTANCE.releaseConnection(connection);
+            ConnectionPool.getInstance().releaseConnection((ProxyConnection) connection);
         }
     }
 }

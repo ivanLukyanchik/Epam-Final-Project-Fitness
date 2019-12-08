@@ -27,40 +27,47 @@ public class NutritionDaoImpl implements NutritionDao {
         String lunch_nutrition = nutrition.getLunchNutrition();
         Long generatedId = null;
         try {
-            connection = ConnectionPool.INSTANCE.getConnection();
-            if (nutrition.getId() != null) {
-                preparedStatement = connection.prepareStatement(SQL_UPDATE_TABLE, Statement.RETURN_GENERATED_KEYS);
-                preparedStatement.setBoolean(5, nutrition.isActive());
-                preparedStatement.setLong(6, nutrition.getId());
-            } else {
-                preparedStatement = connection.prepareStatement(SQL_CREATE_TABLE, Statement.RETURN_GENERATED_KEYS);
-            }
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, morning_nutrition);
-            preparedStatement.setString(3, dinner_nutrition);
-            preparedStatement.setString(4, lunch_nutrition);
-            preparedStatement.executeUpdate();
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if (resultSet.next()) {
-                generatedId = resultSet.getLong(1);
+            connection = ConnectionPool.getInstance().takeConnection();
+            try {
+                connection.setAutoCommit(false);
+                if (nutrition.getId() != null) {
+                    preparedStatement = connection.prepareStatement(SQL_UPDATE_TABLE, Statement.RETURN_GENERATED_KEYS);
+                    preparedStatement.setBoolean(5, nutrition.isActive());
+                    preparedStatement.setLong(6, nutrition.getId());
+                } else {
+                    preparedStatement = connection.prepareStatement(SQL_CREATE_TABLE, Statement.RETURN_GENERATED_KEYS);
+                }
+                preparedStatement.setString(1, name);
+                preparedStatement.setString(2, morning_nutrition);
+                preparedStatement.setString(3, dinner_nutrition);
+                preparedStatement.setString(4, lunch_nutrition);
+                preparedStatement.executeUpdate();
+                ResultSet resultSet = preparedStatement.getGeneratedKeys();
+                if (resultSet.next()) {
+                    generatedId = resultSet.getLong(1);
+                }
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                throw new SQLException(e);
+            } finally {
+                close(preparedStatement);
+                close(connection);
+                connection.setAutoCommit(true);
             }
         } catch (SQLException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return generatedId;
     }
 
     @Override
     public Optional<Nutrition> findByClientId(long clientId) throws DaoException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         Nutrition nutrition = null;
-        try {
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_FIND_BY_CLIENT_ID);
+        try (
+                Connection connection = ConnectionPool.getInstance().takeConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_CLIENT_ID);
+        ) {
             preparedStatement.setLong(1, clientId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -68,21 +75,17 @@ public class NutritionDaoImpl implements NutritionDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return Optional.ofNullable(nutrition);
     }
 
     @Override
     public Optional<Nutrition> findById(Long id) throws DaoException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         Nutrition nutrition = null;
-        try{
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+        try (
+                Connection connection = ConnectionPool.getInstance().takeConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+        ) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -90,9 +93,6 @@ public class NutritionDaoImpl implements NutritionDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return Optional.ofNullable(nutrition);
     }

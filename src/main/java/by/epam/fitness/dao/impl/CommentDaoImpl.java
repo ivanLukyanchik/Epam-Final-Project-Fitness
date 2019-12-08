@@ -30,27 +30,35 @@ public class CommentDaoImpl implements CommentDao {
         Timestamp paymentData = comment.getPaymentData();
         Long generatedId = null;
         try {
-            connection = ConnectionPool.INSTANCE.getConnection();
-            if (comment.getId() != null) {
-                preparedStatement = connection.prepareStatement(SQL_UPDATE_TABLE, Statement.RETURN_GENERATED_KEYS);
-                preparedStatement.setLong(5, comment.getId());
-            } else {
-                preparedStatement = connection.prepareStatement(SQL_CREATE_TABLE, Statement.RETURN_GENERATED_KEYS);
-            }
-            preparedStatement.setLong(1, coachId);
-            preparedStatement.setLong(2, clientId);
-            preparedStatement.setString(3, commentContent);
-            preparedStatement.setTimestamp(4, paymentData);
-            preparedStatement.executeUpdate();
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if (resultSet.next()) {
-                generatedId = resultSet.getLong(1);
+            connection = ConnectionPool.getInstance().takeConnection();
+            try {
+                connection.setAutoCommit(false);
+                if (comment.getId() != null) {
+                    preparedStatement = connection.prepareStatement(SQL_UPDATE_TABLE, Statement.RETURN_GENERATED_KEYS);
+                    preparedStatement.setLong(5, comment.getId());
+                } else {
+                    preparedStatement = connection.prepareStatement(SQL_CREATE_TABLE, Statement.RETURN_GENERATED_KEYS);
+                }
+                preparedStatement.setLong(1, coachId);
+                preparedStatement.setLong(2, clientId);
+                preparedStatement.setString(3, commentContent);
+                preparedStatement.setTimestamp(4, paymentData);
+                preparedStatement.executeUpdate();
+                ResultSet resultSet = preparedStatement.getGeneratedKeys();
+                if (resultSet.next()) {
+                    generatedId = resultSet.getLong(1);
+                }
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                throw new SQLException(e);
+            } finally {
+                close(preparedStatement);
+                close(connection);
+                connection.setAutoCommit(true);
             }
         } catch (SQLException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return generatedId;
     }
@@ -63,12 +71,11 @@ public class CommentDaoImpl implements CommentDao {
     @Override
     public List<Comment> findByCoachId(long coachId) throws DaoException {
         List<Comment> comments = new ArrayList<>();
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         Comment comment = null;
-        try{
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_FIND_BY_COACH_ID);
+        try (
+                Connection connection = ConnectionPool.getInstance().takeConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_COACH_ID);
+        ) {
             preparedStatement.setLong(1, coachId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -77,9 +84,6 @@ public class CommentDaoImpl implements CommentDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return comments;
     }
@@ -87,12 +91,11 @@ public class CommentDaoImpl implements CommentDao {
     @Override
     public List<Comment> findAll() throws DaoException {
         List<Comment> comments = new ArrayList<>();
-        Connection connection = null;
-        Statement statement = null;
         Comment comment = null;
-        try{
-            connection = ConnectionPool.INSTANCE.getConnection();
-            statement = connection.createStatement();
+        try (
+                Connection connection = ConnectionPool.getInstance().takeConnection();
+                Statement statement = connection.createStatement();
+        ) {
             ResultSet resultSet = statement.executeQuery(SQL_FIND_ALL);
             while (resultSet.next()) {
                 comment = builder.build(resultSet);
@@ -100,9 +103,6 @@ public class CommentDaoImpl implements CommentDao {
             }
         } catch (SQLException | ServiceException e) {
             throw new DaoException(e);
-        } finally {
-            close(statement);
-            close(connection);
         }
         return comments;
     }
@@ -110,18 +110,23 @@ public class CommentDaoImpl implements CommentDao {
     @Override
     public int delete(long id) throws DaoException {
         int result = 0;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        try{
-            connection = ConnectionPool.INSTANCE.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_DELETE);
-            preparedStatement.setLong(1, id);
-            result = preparedStatement.executeUpdate();
+        try (
+                Connection connection = ConnectionPool.getInstance().takeConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE);
+        ) {
+            try {
+                connection.setAutoCommit(false);
+                preparedStatement.setLong(1, id);
+                result = preparedStatement.executeUpdate();
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                throw new SQLException(e);
+            } finally {
+                connection.setAutoCommit(true);
+            }
         } catch (SQLException e) {
             throw new DaoException(e);
-        } finally {
-            close(preparedStatement);
-            close(connection);
         }
         return result;
     }
