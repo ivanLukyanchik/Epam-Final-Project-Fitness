@@ -21,6 +21,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Command type filter.
+ */
 public class CommandTypeFilter implements Filter {
     private static Logger log = LogManager.getLogger(CommandTypeFilter.class);
     private static final String COMMAND = "command";

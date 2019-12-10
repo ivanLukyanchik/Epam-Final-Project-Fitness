@@ -9,6 +9,9 @@ import javax.mail.internet.MimeMessage;
 import java.util.Date;
 import java.util.Properties;
 
+/**
+ * The type Google mail thread.
+ */
 public class GoogleMailThread extends Thread {
     private String username;
     private String password;
@@ -16,6 +19,15 @@ public class GoogleMailThread extends Thread {
     private String recipientMail;
     private String message;
 
+    /**
+     * Instantiates a new Google mail thread.
+     *
+     * @param username      the username
+     * @param password      the password
+     * @param title         the title
+     * @param recipientMail the recipient mail
+     * @param message       the message
+     */
     GoogleMailThread(String username, String password, String title, String recipientMail, String message) {
         this.username = username;
         this.password = password;

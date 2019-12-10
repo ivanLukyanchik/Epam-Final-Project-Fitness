@@ -9,6 +9,9 @@ import by.epam.fitness.service.ServiceException;
 
 import java.util.Optional;
 
+/**
+ * The type Nutrition service.
+ */
 public class NutritionServiceImpl implements NutritionService {
     private NutritionDao nutritionDao = new NutritionDaoImpl();
 

@@ -7,6 +7,9 @@ import by.epam.fitness.util.database.CoachTableConst;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * The type Coach builder.
+ */
 public class CoachBuilder implements Builder<Coach> {
     @Override
     public Coach build(ResultSet resultSet) throws ServiceException {

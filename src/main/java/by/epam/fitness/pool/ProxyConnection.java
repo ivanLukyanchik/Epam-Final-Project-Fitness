@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
+/**
+ * The type Proxy connection.
+ */
 public class ProxyConnection implements Connection, AutoCloseable {
     private Logger log = LogManager.getLogger(ProxyConnection.class);
     private Connection connection;

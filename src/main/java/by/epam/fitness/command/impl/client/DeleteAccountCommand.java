@@ -17,6 +17,9 @@ import java.util.Optional;
 
 import static by.epam.fitness.util.JspConst.SUCCESS;
 
+/**
+ * The type Delete account command.
+ */
 public class DeleteAccountCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(DeleteAccountCommand.class);
     private ClientService clientService = new ClientServiceImpl();

@@ -10,6 +10,9 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.Optional;
 
+/**
+ * The type Admin service.
+ */
 public class AdminServiceImpl implements AdminService {
     private AdminDao adminDao = new AdminDaoImpl();
 

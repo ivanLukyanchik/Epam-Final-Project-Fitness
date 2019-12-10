@@ -27,6 +27,9 @@ import java.util.Optional;
 
 import static by.epam.fitness.util.JspConst.*;
 
+/**
+ * The type Modify profile servlet.
+ */
 @WebServlet("/modifyProfileServlet")
 @MultipartConfig(fileSizeThreshold = 1024 *  1024,
         maxFileSize = 1024 *  1024 *  5,
@@ -56,6 +59,12 @@ public class ModifyProfileServlet extends HttpServlet {
         doPost(req, resp); // FIXME: 05.12.2019
     }
 
+    /**
+     * Execute command result.
+     *
+     * @param request the request
+     * @return the command result
+     */
     public CommandResult execute(HttpServletRequest request) {
         String page = null;
         String userRole = String.valueOf(request.getSession().getAttribute(SessionAttributes.ROLE));

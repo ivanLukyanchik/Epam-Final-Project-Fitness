@@ -10,6 +10,9 @@ import by.epam.fitness.service.ServiceException;
 import java.sql.*;
 import java.util.Optional;
 
+/**
+ * The type Program dao.
+ */
 public class ProgramDaoImpl implements ProgramDao {
     private static final String SQL_CREATE_TABLE = "INSERT INTO program (nutrition_id, trains_per_week) VALUES (?,?)";
     private static final String SQL_UPDATE_TABLE = "UPDATE program SET nutrition_id=?, trains_per_week=? WHERE id_program=?";

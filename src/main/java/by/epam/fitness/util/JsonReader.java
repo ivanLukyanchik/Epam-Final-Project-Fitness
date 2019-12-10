@@ -6,9 +6,19 @@ import org.apache.logging.log4j.Logger;
 import java.io.InputStream;
 import java.util.Scanner;
 
+/**
+ * The type Json reader.
+ */
 public class JsonReader {
     private static Logger log = LogManager.getLogger(JsonReader.class);
 
+    /**
+     * Read string.
+     *
+     * @param pathToFile the path to file
+     * @return the string
+     * @throws UtilException the util exception
+     */
     public String read(String pathToFile) throws UtilException {
         if (pathToFile == null) {
             log.error("NULL PATH TO FILE IN READ METHOD");

@@ -8,7 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Command access.
+ */
 public class CommandAccess {
+    /**
+     * Gets available command types by user.
+     *
+     * @param role the role
+     * @return the available command types by user
+     */
     public List<ActionCommand> getAvailableCommandTypesByUser(Optional<String> role) {
         List<ActionCommand> listAvailableCommands = new ArrayList<>();
         if(role.isPresent()) {

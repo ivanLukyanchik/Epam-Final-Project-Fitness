@@ -20,6 +20,9 @@ import java.util.Optional;
 
 import static by.epam.fitness.util.JspConst.*;
 
+/**
+ * The type Password restore command.
+ */
 public class PasswordRestoreCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(PasswordRestoreCommand.class);
     private ClientService clientService = new ClientServiceImpl();

@@ -8,6 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ * The type Comment builder.
+ */
 public class CommentBuilder implements Builder<Comment> {
     @Override
     public Comment build(ResultSet resultSet) throws ServiceException {

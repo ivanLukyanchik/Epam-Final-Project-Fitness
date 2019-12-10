@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import static by.epam.fitness.util.JspConst.EXERCISE_ID;
 
+/**
+ * The type Delete exercise command.
+ */
 public class DeleteExerciseCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(DeleteExerciseCommand.class);
     private ExerciseService exerciseService = new ExerciseServiceImpl();

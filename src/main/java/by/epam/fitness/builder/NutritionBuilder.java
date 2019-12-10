@@ -7,6 +7,9 @@ import by.epam.fitness.util.database.NutritionTableConst;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * The type Nutrition builder.
+ */
 public class NutritionBuilder implements Builder<Nutrition> {
     @Override
     public Nutrition build(ResultSet resultSet) throws ServiceException {

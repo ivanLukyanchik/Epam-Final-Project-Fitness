@@ -1,7 +1,17 @@
 package by.epam.fitness.mail;
 
+/**
+ * The type Sending email.
+ */
 public class SendingEmail {
 
+    /**
+     * Verify.
+     *
+     * @param login     the login
+     * @param userEmail the user email
+     * @param userHash  the user hash
+     */
     public static void verify(String login, String userEmail, String userHash) {
         String message = "Your Verification Link : " + "http://localhost:8080/trainingWeb_war_exploded/controller?" +
                 "command=activate&key1=" + userEmail + "&key2=" + login + "&key3=" + userHash;
@@ -10,6 +20,13 @@ public class SendingEmail {
         thread.start(); // FIXME: 08.12.2019
     }
 
+    /**
+     * Restore password.
+     *
+     * @param login     the login
+     * @param userEmail the user email
+     * @param userHash  the user hash
+     */
     public static void restorePassword(String login, String userEmail, String userHash) {
         String message = "Link to restore your password: " + "http://localhost:8080/trainingWeb_war_exploded" +
                 "/controller?command=password_restore&key1=" + userEmail + "&key2=" + login + "&key3=" + userHash;

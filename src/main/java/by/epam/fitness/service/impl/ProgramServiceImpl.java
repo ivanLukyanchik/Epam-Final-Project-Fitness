@@ -9,6 +9,9 @@ import by.epam.fitness.service.ServiceException;
 
 import java.util.Optional;
 
+/**
+ * The type Program service.
+ */
 public class ProgramServiceImpl implements ProgramService {
     private ProgramDao programDao = new ProgramDaoImpl();
 

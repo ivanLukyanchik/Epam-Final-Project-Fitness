@@ -10,6 +10,9 @@ import by.epam.fitness.service.ServiceException;
 import java.sql.*;
 import java.util.Optional;
 
+/**
+ * The type Nutrition dao.
+ */
 public class NutritionDaoImpl implements NutritionDao {
     private static final String SQL_CREATE_TABLE = "INSERT INTO nutrition (name, morning_nutrition, dinner_nutrition, lunch_nutrition) VALUES (?,?,?,?)";
     private static final String SQL_UPDATE_TABLE = "UPDATE nutrition SET name=?, morning_nutrition=?, dinner_nutrition=?, lunch_nutrition=?, active=? WHERE id_nutrition=?";

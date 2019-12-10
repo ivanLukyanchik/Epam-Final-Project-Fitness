@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Properties;
 
+/**
+ * The type Property loader.
+ */
 public class PropertyLoader {
 
     private PropertyLoader() {}

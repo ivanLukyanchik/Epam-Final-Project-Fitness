@@ -10,6 +10,9 @@ import by.epam.fitness.service.ServiceException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Coach service.
+ */
 public class CoachServiceImpl implements CoachService {
     private CoachDao coachDao = new CoachDaoImpl();
 

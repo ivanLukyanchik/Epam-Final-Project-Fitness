@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Exercise dao.
+ */
 public class ExerciseDaoImpl implements ExerciseDao {
     private static final String SQL_FIND_BY_ID = "SELECT * FROM exercise WHERE id_exercise=?";
     private static final String SQL_FIND_ALL_LIMITED = "SELECT * FROM exercise LIMIT ?, ?";

@@ -7,6 +7,9 @@ import by.epam.fitness.util.database.AdminTableConst;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * The type Admin builder.
+ */
 public class AdminBuilder implements Builder {
 
     @Override

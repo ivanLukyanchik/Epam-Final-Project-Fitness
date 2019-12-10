@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import static by.epam.fitness.util.JspConst.EXERCISE_ID;
 
+/**
+ * The type Reject exercise command.
+ */
 public class RejectExerciseCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(RejectExerciseCommand.class);
     private ExerciseProgramService exerciseProgramService = new ExerciseProgramServiceImpl();

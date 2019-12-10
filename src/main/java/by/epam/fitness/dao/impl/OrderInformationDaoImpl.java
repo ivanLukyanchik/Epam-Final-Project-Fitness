@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Order information dao.
+ */
 public class OrderInformationDaoImpl implements OrderInformationDao {
     private static final String SQL_CREATE_TABLE = "INSERT INTO order_information (cost, payment_data, membership_end_date, client_id, card_number) VALUES (?,?,?,?,?)";
     private static final String SQL_FIND_BY_ID = "SELECT * FROM order_information WHERE client_id=?";

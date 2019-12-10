@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * The type Admin clients command.
+ */
 public class AdminClientsCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(AdminClientsCommand.class);
     private ClientService clientService = new ClientServiceImpl();

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="ANALYZE_TEST_SOURCES" value="false" />
+  </component>
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
       <artifact name="trainingWeb:war exploded" />
@@ -418,7 +421,11 @@
       <workItem from="1575616796272" duration="12035000" />
       <workItem from="1575743236764" duration="10316000" />
       <workItem from="1575799297734" duration="8952000" />
-      <workItem from="1575821784604" duration="9991000" />
+      <workItem from="1575821784604" duration="10303000" />
+      <workItem from="1575885229613" duration="1493000" />
+      <workItem from="1575903193592" duration="613000" />
+      <workItem from="1575979512142" duration="317000" />
+      <workItem from="1575979863374" duration="1181000" />
     </task>
     <servers />
   </component>
@@ -435,22 +442,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/admin/FindClientsByFilterCommand.java</url>
-          <line>26</line>
+          <line>29</line>
           <option name="timeStamp" value="55" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/RestoreCommand.java</url>
-          <line>27</line>
+          <line>30</line>
           <option name="timeStamp" value="56" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/PasswordRestoreCommand.java</url>
-          <line>30</line>
+          <line>33</line>
           <option name="timeStamp" value="59" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/controller/Controller.java</url>
-          <line>26</line>
+          <line>29</line>
           <option name="timeStamp" value="61" />
         </line-breakpoint>
       </breakpoints>

@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Map;
 
+/**
+ * The type Prices tag.
+ */
 public class PricesTag extends TagSupport {
     @Override
     public int doStartTag() throws JspException {

@@ -18,6 +18,9 @@ import java.util.Optional;
 
 import static by.epam.fitness.util.JspConst.ADMIN_CLIENT_ID;
 
+/**
+ * The type Change client active command.
+ */
 public class ChangeClientActiveCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(ChangeClientActiveCommand.class);
     private ClientService clientService = new ClientServiceImpl();

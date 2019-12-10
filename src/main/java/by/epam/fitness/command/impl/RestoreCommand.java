@@ -18,6 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.security.SecureRandom;
 import java.util.Random;
 
+/**
+ * The type Restore command.
+ */
 public class RestoreCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(RestoreCommand.class);
     private ClientService clientService = new ClientServiceImpl();

@@ -10,6 +10,9 @@ import by.epam.fitness.service.ServiceException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Order information service.
+ */
 public class OrderInformationServiceImpl implements OrderInformationService {
     private OrderInformationDao orderInformationDao = new OrderInformationDaoImpl();
 

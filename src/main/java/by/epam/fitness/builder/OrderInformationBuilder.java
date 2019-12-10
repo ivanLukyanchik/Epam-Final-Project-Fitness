@@ -10,6 +10,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Date;
 
+/**
+ * The type Order information builder.
+ */
 public class OrderInformationBuilder implements Builder<OrderInformation> {
     @Override
     public OrderInformation build(ResultSet resultSet) throws ServiceException {

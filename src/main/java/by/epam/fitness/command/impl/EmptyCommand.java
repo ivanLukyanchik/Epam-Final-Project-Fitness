@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import static by.epam.fitness.util.page.Page.LOGIN_PAGE;
 
+/**
+ * The type Empty command.
+ */
 public class EmptyCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {

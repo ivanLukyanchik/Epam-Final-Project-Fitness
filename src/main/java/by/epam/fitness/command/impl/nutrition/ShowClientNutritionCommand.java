@@ -23,6 +23,9 @@ import java.util.Optional;
 
 import static by.epam.fitness.util.JspConst.*;
 
+/**
+ * The type Show client nutrition command.
+ */
 public class ShowClientNutritionCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(ShowClientNutritionCommand.class);
     private MembershipValidChecker membershipValidChecker = new MembershipValidChecker();

@@ -8,6 +8,9 @@ import by.epam.fitness.util.database.ExerciseProgramTableConst;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * The type Exercise program builder.
+ */
 public class ExerciseProgramBuilder implements Builder<ExerciseProgram> {
     @Override
     public ExerciseProgram build(ResultSet resultSet) throws ServiceException {

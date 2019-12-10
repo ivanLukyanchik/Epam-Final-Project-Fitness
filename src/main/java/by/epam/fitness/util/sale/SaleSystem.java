@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * The type Sale system.
+ */
 public class SaleSystem {
     private static Logger log = LogManager.getLogger(SaleSystem.class);
     private final static String MIN_VISITS = "min visits";
@@ -31,6 +34,11 @@ public class SaleSystem {
         visitsSaleMap = getVisitsSaleMap(jsonPrices);
     }
 
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
     public static SaleSystem getInstance() {
         if (instance == null) {
             lock.lock();
@@ -67,6 +75,12 @@ public class SaleSystem {
         return visitsSaleMap;
     }
 
+    /**
+     * Get sale by visit number float.
+     *
+     * @param visitsNumber the visits number
+     * @return the float
+     */
     public Float getSaleByVisitNumber(Integer visitsNumber){
         for(List<Integer> visitsRange : visitsSaleMap.keySet()){
             if (visitsNumber >= visitsRange.get(0) && visitsNumber <= visitsRange.get(1)){

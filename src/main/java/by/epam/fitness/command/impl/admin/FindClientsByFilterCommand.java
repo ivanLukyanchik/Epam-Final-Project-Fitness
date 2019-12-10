@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * The type Find clients by filter command.
+ */
 public class FindClientsByFilterCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(FindClientsByFilterCommand.class);
     private ClientService clientService = new ClientServiceImpl();

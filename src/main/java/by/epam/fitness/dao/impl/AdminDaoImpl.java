@@ -13,6 +13,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
+/**
+ * The type Admin dao.
+ */
 public class AdminDaoImpl implements AdminDao {
     private static final String SQL_CHECK_ADMIN_BY_LOGIN_PASSWORD = "SELECT * FROM admin WHERE login=? AND password=?";
     private AdminBuilder builder = new AdminBuilder();

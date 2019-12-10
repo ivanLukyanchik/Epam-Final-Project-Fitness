@@ -27,6 +27,9 @@ import java.util.Random;
 
 import static by.epam.fitness.util.JspConst.*;
 
+/**
+ * The type Register command.
+ */
 public class RegisterCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(RegisterCommand.class);
     private ClientService clientService = new ClientServiceImpl();

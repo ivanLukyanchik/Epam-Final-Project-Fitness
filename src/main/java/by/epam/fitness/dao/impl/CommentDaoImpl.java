@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Comment dao.
+ */
 public class CommentDaoImpl implements CommentDao {
     private static final String SQL_CREATE_TABLE = "INSERT INTO comment (coach_id, client_id, comment_content, payment_data) VALUES (?,?,?,?)";
     private static final String SQL_UPDATE_TABLE = "UPDATE comment SET coach_id=?, client_id=?, comment_content=?, payment_data=? WHERE id_comment=?";

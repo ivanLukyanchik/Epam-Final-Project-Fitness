@@ -28,6 +28,9 @@ import javax.servlet.http.HttpServletResponse;
 import static by.epam.fitness.util.JspConst.PARAM_LOGIN;
 import static by.epam.fitness.util.JspConst.PARAM_PASSWORD;
 
+/**
+ * The type Login command.
+ */
 public class LoginCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(LoginCommand.class);
     private static ClientService clientService = new ClientServiceImpl();

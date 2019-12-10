@@ -29,6 +29,9 @@ import java.util.Optional;
 
 import static by.epam.fitness.util.JspConst.ADMIN_CLIENT_ID;
 
+/**
+ * The type Client profile command.
+ */
 public class ClientProfileCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(ClientProfileCommand.class);
     private OrderInformationService orderInformationService = new OrderInformationServiceImpl();

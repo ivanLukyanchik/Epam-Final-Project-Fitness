@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import static by.epam.fitness.util.JspConst.CHANGED_LOCALE;
 import static by.epam.fitness.util.JspConst.MESSAGE;
 
+/**
+ * The type Locale command.
+ */
 public class LocaleCommand implements ActionCommand {
     private static final String COMMAND = "/controller?command=";
 

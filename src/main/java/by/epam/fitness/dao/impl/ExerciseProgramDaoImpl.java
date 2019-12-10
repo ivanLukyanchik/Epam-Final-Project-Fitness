@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Exercise program dao.
+ */
 public class ExerciseProgramDaoImpl implements ExerciseProgramDao {
     private static final String SQL_CREATE_TABLE = "INSERT INTO exercise_program (program_id, exercise_id, repeat_number, set_number, number_train_day) VALUES (?,?,?,?,?)";
     private static final String SQL_UPDATE_TABLE = "UPDATE exercise_program SET program_id=?, exercise_id=?, repeat_number=?, set_number=?, number_train_day=? WHERE id_exercise_program=?";

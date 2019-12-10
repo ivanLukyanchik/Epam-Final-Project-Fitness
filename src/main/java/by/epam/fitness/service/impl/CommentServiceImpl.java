@@ -9,6 +9,9 @@ import by.epam.fitness.service.ServiceException;
 
 import java.util.List;
 
+/**
+ * The type Comment service.
+ */
 public class CommentServiceImpl implements CommentService {
     private CommentDao commentDao = new CommentDaoImpl();
 

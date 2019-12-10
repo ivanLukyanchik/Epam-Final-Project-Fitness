@@ -7,6 +7,9 @@ import by.epam.fitness.util.page.Page;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * The type Home page command.
+ */
 public class HomePageCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {

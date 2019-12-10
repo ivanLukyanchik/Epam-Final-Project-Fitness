@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * The type Admin exercises command.
+ */
 public class AdminExercisesCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(AdminExercisesCommand.class);
     private ExerciseService exerciseService = new ExerciseServiceImpl();

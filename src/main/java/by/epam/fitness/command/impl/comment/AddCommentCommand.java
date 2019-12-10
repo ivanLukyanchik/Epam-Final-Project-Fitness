@@ -24,6 +24,9 @@ import java.util.Optional;
 
 import static by.epam.fitness.util.JspConst.*;
 
+/**
+ * The type Add comment command.
+ */
 public class AddCommentCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(AddCommentCommand.class);
     private CommentService commentService = new CommentServiceImpl();

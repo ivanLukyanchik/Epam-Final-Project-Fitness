@@ -12,6 +12,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Base64;
 
+/**
+ * The type Client builder.
+ */
 public class ClientBuilder implements Builder<Client> {
 
     @Override

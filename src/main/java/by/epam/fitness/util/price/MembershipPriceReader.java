@@ -14,6 +14,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * The type Membership price reader.
+ */
 public class MembershipPriceReader {
     private static Logger log = LogManager.getLogger(MembershipPriceReader.class);
     private final static String DAYS = "days";
@@ -29,6 +32,12 @@ public class MembershipPriceReader {
         periodPriceMap = getPeriodPriceMap(jsonPrices);
     }
 
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     * @throws UtilException the util exception
+     */
     public static MembershipPriceReader getInstance() throws UtilException {
         if (instance == null) {
             lock.lock();
@@ -62,6 +71,11 @@ public class MembershipPriceReader {
         return periodPriceMap;
     }
 
+    /**
+     * Gets prices.
+     *
+     * @return the prices
+     */
     public Map<Integer, BigDecimal> getPrices() {
         return periodPriceMap;
     }

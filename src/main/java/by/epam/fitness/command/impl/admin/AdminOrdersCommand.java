@@ -21,6 +21,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * The type Admin orders command.
+ */
 public class AdminOrdersCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(AdminOrdersCommand.class);
     private OrderInformationService orderInformationService = new OrderInformationServiceImpl();

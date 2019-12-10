@@ -21,6 +21,9 @@ import java.util.Optional;
 
 import static by.epam.fitness.util.JspConst.COACH_CLIENT_ID;
 
+/**
+ * The type Show client exercises command.
+ */
 public class ShowClientExercisesCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(ShowClientExercisesCommand.class);
     private ClientService clientService = new ClientServiceImpl();

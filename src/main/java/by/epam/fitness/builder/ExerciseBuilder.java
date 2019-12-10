@@ -12,6 +12,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Base64;
 
+/**
+ * The type Exercise builder.
+ */
 public class ExerciseBuilder implements Builder<Exercise> {
     @Override
     public Exercise build(ResultSet resultSet) throws ServiceException {

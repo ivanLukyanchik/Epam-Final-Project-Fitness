@@ -17,6 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
+/**
+ * The type Reject coach command.
+ */
 public class RejectCoachCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(RejectCoachCommand.class);
     private ClientService clientService = new ClientServiceImpl();

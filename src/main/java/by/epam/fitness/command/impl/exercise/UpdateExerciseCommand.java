@@ -20,6 +20,9 @@ import java.util.Optional;
 import static by.epam.fitness.util.JspConst.INVALID_EXERCISE_ID_FORMAT;
 import static by.epam.fitness.util.JspConst.NOT_EXIST_EXERCISE_ID;
 
+/**
+ * The type Update exercise command.
+ */
 public class UpdateExerciseCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(AddExerciseCommand.class);
     private ExerciseProgramService exerciseProgramService = new ExerciseProgramServiceImpl();

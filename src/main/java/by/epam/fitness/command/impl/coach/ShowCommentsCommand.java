@@ -27,6 +27,9 @@ import java.util.Optional;
 
 import static by.epam.fitness.util.JspConst.*;
 
+/**
+ * The type Show comments command.
+ */
 public class ShowCommentsCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(ShowCommentsCommand.class);
     private CommentService commentService = new CommentServiceImpl();

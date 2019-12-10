@@ -21,6 +21,9 @@ import java.util.List;
 
 import static by.epam.fitness.util.JspConst.COACH_CLIENT_ID;
 
+/**
+ * The type Client orders command.
+ */
 public class ClientOrdersCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(ClientOrdersCommand.class);
     private OrderInformationService orderInformationService = new OrderInformationServiceImpl();

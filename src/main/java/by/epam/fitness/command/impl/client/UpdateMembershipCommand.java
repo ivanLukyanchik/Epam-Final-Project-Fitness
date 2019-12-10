@@ -29,6 +29,9 @@ import java.util.Optional;
 
 import static by.epam.fitness.util.JspConst.*;
 
+/**
+ * The type Update membership command.
+ */
 public class UpdateMembershipCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(UpdateMembershipCommand.class);
     private ClientService clientService = new ClientServiceImpl();

@@ -19,6 +19,9 @@ import java.util.List;
 
 import static by.epam.fitness.util.JspConst.ALL_CLIENTS;
 
+/**
+ * The type Coach clients command.
+ */
 public class CoachClientsCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(RejectCoachCommand.class);
     private ClientService clientService = new ClientServiceImpl();

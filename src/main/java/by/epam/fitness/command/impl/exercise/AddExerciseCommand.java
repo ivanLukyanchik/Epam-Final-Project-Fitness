@@ -19,6 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
+/**
+ * The type Add exercise command.
+ */
 public class AddExerciseCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(AddExerciseCommand.class);
     private ExerciseProgramService exerciseProgramService = new ExerciseProgramServiceImpl();

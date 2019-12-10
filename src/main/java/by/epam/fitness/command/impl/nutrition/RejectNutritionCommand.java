@@ -18,6 +18,9 @@ import java.util.Optional;
 
 import static by.epam.fitness.util.JspConst.NUTRITION_ID;
 
+/**
+ * The type Reject nutrition command.
+ */
 public class RejectNutritionCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(AddNutritionCommand.class);
     private NutritionService nutritionService = new NutritionServiceImpl();

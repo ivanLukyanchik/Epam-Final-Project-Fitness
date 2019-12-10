@@ -4,6 +4,9 @@ import javax.servlet.*;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * The type Character encoding filter.
+ */
 public class CharacterEncodingFilter implements Filter {
 
     @Override

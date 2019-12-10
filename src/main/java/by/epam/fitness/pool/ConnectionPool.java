@@ -16,6 +16,9 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * The type Connection pool.
+ */
 public class ConnectionPool {
     private static Logger logger = LogManager.getLogger(ConnectionPool.class);
 

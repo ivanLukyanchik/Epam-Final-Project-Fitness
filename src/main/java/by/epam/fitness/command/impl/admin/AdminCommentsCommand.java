@@ -24,6 +24,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * The type Admin comments command.
+ */
 public class AdminCommentsCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(AdminCommentsCommand.class);
     private CommentService commentService = new CommentServiceImpl();

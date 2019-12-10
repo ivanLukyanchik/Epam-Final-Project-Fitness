@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * The type Time out filter.
+ */
 public class TimeOutFilter implements Filter {
 
     @Override

@@ -27,6 +27,9 @@ import java.io.InputStream;
 import static by.epam.fitness.util.JspConst.NOT_IMAGE;
 import static by.epam.fitness.util.JspConst.SUCCESS;
 
+/**
+ * The type Add exercise servlet.
+ */
 @WebServlet("/addExerciseServlet")
 @MultipartConfig(fileSizeThreshold = 1024 *  1024,
         maxFileSize = 1024 *  1024 *  5,

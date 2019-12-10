@@ -10,6 +10,9 @@ import by.epam.fitness.service.ServiceException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Exercise service.
+ */
 public class ExerciseServiceImpl implements ExerciseService {
     private ExerciseDao exerciseDao = new ExerciseDaoImpl();
 

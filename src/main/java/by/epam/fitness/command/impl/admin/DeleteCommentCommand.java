@@ -14,6 +14,9 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * The type Delete comment command.
+ */
 public class DeleteCommentCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(DeleteCommentCommand.class);
     private CommentService commentService = new CommentServiceImpl();

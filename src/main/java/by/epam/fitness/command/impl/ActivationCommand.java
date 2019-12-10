@@ -19,6 +19,9 @@ import static by.epam.fitness.util.JspConst.*;
 import static by.epam.fitness.util.page.Page.LOGIN_PAGE;
 import static by.epam.fitness.util.page.Page.REGISTER_PAGE;
 
+/**
+ * The type Activation command.
+ */
 public class ActivationCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(ActivationCommand.class);
     private ClientService clientService = new ClientServiceImpl();

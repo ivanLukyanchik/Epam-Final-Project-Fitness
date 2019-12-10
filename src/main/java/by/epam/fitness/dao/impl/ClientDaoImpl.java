@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Client dao.
+ */
 public class ClientDaoImpl implements ClientDao {
     private static final String SQL_CHECK_USER_BY_LOGIN_PASSWORD = "SELECT * FROM client WHERE login=? AND password=? AND active='1'";
     private static final String SQL_IS_LOGIN_UNIQUE = "SELECT login FROM client WHERE login=?";

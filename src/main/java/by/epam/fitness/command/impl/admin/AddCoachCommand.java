@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import static by.epam.fitness.util.JspConst.*;
 
+/**
+ * The type Add coach command.
+ */
 public class AddCoachCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(AddCoachCommand.class);
     private CoachService coachService = new CoachServiceImpl();

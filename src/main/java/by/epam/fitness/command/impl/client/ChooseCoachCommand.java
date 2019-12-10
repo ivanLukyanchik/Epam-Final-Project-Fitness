@@ -24,6 +24,9 @@ import java.util.Optional;
 
 import static by.epam.fitness.util.JspConst.*;
 
+/**
+ * The type Choose coach command.
+ */
 public class ChooseCoachCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(ChooseCoachCommand.class);
     private ClientService clientService = new ClientServiceImpl();

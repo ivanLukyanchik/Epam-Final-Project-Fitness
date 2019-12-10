@@ -18,6 +18,9 @@ import java.util.Optional;
 
 import static by.epam.fitness.util.JspConst.*;
 
+/**
+ * The type Update nutrition command.
+ */
 public class UpdateNutritionCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(UpdateNutritionCommand.class);
     private NutritionService nutritionService = new NutritionServiceImpl();

@@ -22,6 +22,9 @@ import java.util.Optional;
 import static by.epam.fitness.util.JspConst.MAX_NUMBER_SYMBOLS_ATTRIBUTE;
 import static by.epam.fitness.util.JspConst.MAX_NUMBER_SYMBOLS_VALUE;
 
+/**
+ * The type Find coaches command.
+ */
 public class FindCoachesCommand implements ActionCommand {
     private static Logger log = LogManager.getLogger(FindCoachesCommand.class);
     private CoachService coachService = new CoachServiceImpl();

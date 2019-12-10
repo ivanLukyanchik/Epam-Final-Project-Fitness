@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Coach dao.
+ */
 public class CoachDaoImpl implements CoachDao {
     private static final String SQL_CHECK_COACH_BY_LOGIN_PASSWORD = "SELECT * FROM coach WHERE login=? AND password=?";
     private static final String SQL_FIND_BY_CLIENT_ID = "SELECT * FROM coach JOIN client ON coach.id_coach = client.coach_id WHERE id_client=?";
