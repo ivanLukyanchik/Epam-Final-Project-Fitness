@@ -50,7 +50,14 @@
     <c:otherwise>
         <c:forEach items="${comments}" var="comment">
             <div class="media border p-3">
-                <img src="data:image/jpg;base64,${comment.value.image}" alt="${client_no_image}" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+                <c:choose>
+                    <c:when test="${not empty comment.value.image}">
+                        <img src="data:image/jpg;base64,${comment.value.image}" alt="${client_no_image}" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+                    </c:when>
+                    <c:otherwise>
+                        <i class="fas fa-user-circle mr-3 mt-3" style="font-size: 55px"></i>
+                    </c:otherwise>
+                </c:choose>
                 <div class="media-body">
                     <h4><c:out value="${comment.value.name} ${comment.value.surname} (login : ${comment.value.login}) "/>
                         <small><i>

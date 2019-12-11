@@ -131,7 +131,14 @@
 
     <div class="form-group row mb-4">
         <div class="col-1">
-            <img src="data:image/jpg;base64,${client.image}" alt="${have_no_image}" class="rounded-circle" style="width:100px"/>
+            <c:choose>
+                <c:when test="${not empty client.image}">
+                    <img src="data:image/jpg;base64,${client.image}" alt="${have_no_image}" class="rounded-circle" style="width:100px;">
+                </c:when>
+                <c:otherwise>
+                    <i class="fas fa-user-tie mr-3 mt-3" style="font-size: 80px"></i>
+                </c:otherwise>
+            </c:choose>
         </div>
         <div class="col-11">
             <div class="input-group">

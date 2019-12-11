@@ -41,7 +41,16 @@
 <c:forEach items="${comments}" var="comment">
     <c:forEach items="${comment.value}" var="clientCoachEntry">
         <div class="media border p-3">
-            <img src="data:image/jpg;base64,${clientCoachEntry.key.image}" alt="${client_no_image}" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+            <a href="${pageContext.request.contextPath}/controller?command=client_profile&admin_client_id=${clientCoachEntry.key.id}">
+                <c:choose>
+                    <c:when test="${not empty clientCoachEntry.key.image}">
+                        <img src="data:image/jpg;base64,${clientCoachEntry.key.image}" alt="${client_no_image}" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+                    </c:when>
+                    <c:otherwise>
+                        <i class="fas fa-user-circle mr-3 mt-3" style="font-size: 55px"></i>
+                    </c:otherwise>
+            </c:choose>
+            </a>
             <div class="media-body">
     <%--                                                                                                            Map<Comment, Map<Client, Coach>>--%>
                 <h4><c:out value="${clientCoachEntry.key.name} ${clientCoachEntry.key.surname} (login : ${clientCoachEntry.key.login})"/>  <small><i>about coach with login : ${clientCoachEntry.value.login}</i></small></h4>

@@ -46,7 +46,18 @@
     <c:forEach items="${orders}" var="order">
         <tr>
             <td>${order.value.login}</td>
-            <td><img src="data:image/jpg;base64,${order.value.image}" alt="${client_no_image}" width="30" height="30" style="border-radius: 25px"/></td>
+            <td>
+                <a href="${pageContext.request.contextPath}/controller?command=client_profile&admin_client_id=${order.value.id}">
+                    <c:choose>
+                        <c:when test="${not empty order.value.image}">
+                            <img src="data:image/jpg;base64,${order.value.image}"  class="rounded-circle" alt="${client_no_image}" width="30" height="30"/>
+                        </c:when>
+                        <c:otherwise>
+                            <i class="fas fa-user-circle" style="font-size: 32px"></i>
+                        </c:otherwise>
+                    </c:choose>
+                </a>
+            </td>
             <td>${order.key.cost}</td>
             <td>
                 <c:choose>

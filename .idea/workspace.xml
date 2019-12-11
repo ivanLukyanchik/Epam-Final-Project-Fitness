@@ -426,6 +426,11 @@
       <workItem from="1575903193592" duration="613000" />
       <workItem from="1575979512142" duration="317000" />
       <workItem from="1575979863374" duration="1181000" />
+      <workItem from="1575981584538" duration="187000" />
+      <workItem from="1575996803553" duration="1909000" />
+      <workItem from="1576007429845" duration="161000" />
+      <workItem from="1576054453822" duration="1774000" />
+      <workItem from="1576089162150" duration="4068000" />
     </task>
     <servers />
   </component>
@@ -454,11 +459,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/PasswordRestoreCommand.java</url>
           <line>33</line>
           <option name="timeStamp" value="59" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/controller/Controller.java</url>
-          <line>29</line>
-          <option name="timeStamp" value="61" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

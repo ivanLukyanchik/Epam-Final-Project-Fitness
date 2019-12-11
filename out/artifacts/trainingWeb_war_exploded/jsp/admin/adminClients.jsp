@@ -61,7 +61,14 @@
     <c:otherwise>
         <c:forEach items="${all_clients}" var="client">
             <div class="media border p-3">
-                <img src="data:image/jpg;base64,${client.image}" alt="${client_no_image}" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+                <c:choose>
+                    <c:when test="${not empty client.image}">
+                        <img src="data:image/jpg;base64,${client.image}" alt="${client_no_image}" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+                    </c:when>
+                    <c:otherwise>
+                        <i class="fas fa-user-circle mr-3 mt-3" style="font-size: 55px"></i>
+                    </c:otherwise>
+                </c:choose>
                 <div class="media-body">
                     <h4><c:out value="${client.name} ${client.surname} (login : ${client.login})"/></h4>
                         <div class="row">
