@@ -51,4 +51,40 @@ public class OrderInformationServiceImpl implements OrderInformationService {
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public List<OrderInformation> findAscPrice() throws ServiceException {
+        try {
+            return orderInformationDao.findAscPrice();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<OrderInformation> findDescPrice() throws ServiceException {
+        try {
+            return orderInformationDao.findDescPrice();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<OrderInformation> findAscPaymentData() throws ServiceException {
+        try {
+            return orderInformationDao.findAscPaymentData();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<OrderInformation> findDescPaymentData() throws ServiceException {
+        try {
+            return orderInformationDao.findDescPaymentData();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 }

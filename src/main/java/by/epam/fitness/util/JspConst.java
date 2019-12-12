@@ -9,10 +9,6 @@ public class JspConst {
      */
     public static final String LOCAL = "local";
     /**
-     * The constant MESSAGE.
-     */
-    public static final String MESSAGE = "message";
-    /**
      * The constant CHANGED_LOCALE.
      */
     public static final String CHANGED_LOCALE = "changedLocale";
@@ -137,10 +133,6 @@ public class JspConst {
      */
     public static final String SUCCESS = "success";
     /**
-     * The constant NO_ACCESS.
-     */
-    public static final String NO_ACCESS = "noAccess";
-    /**
      * The constant OLD_LOGIN.
      */
     public static final String OLD_LOGIN = "oldLogin";
@@ -192,6 +184,11 @@ public class JspConst {
      * The constant ALL_CLIENTS.
      */
     public final static String ALL_CLIENTS = "all_clients";
+
+    /**
+     * The constant CLIENT_PERSONAL_SALE.
+     */
+    public static final String CLIENT_PERSONAL_SALE = "client_personal_discount";
     /**
      * The constant COACH_CLIENTS.
      */
@@ -344,6 +341,10 @@ public class JspConst {
      * The constant CLIENT.
      */
     public static final String CLIENT = "client";
+    /**
+     * The constant CLIENTS.
+     */
+    public static final String CLIENTS = "clients";
     /**
      * The constant MAX_NUMBER_SYMBOLS_ATTRIBUTE.
      */

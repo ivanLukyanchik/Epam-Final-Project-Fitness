@@ -78,8 +78,8 @@ public class ClientDaoImpl implements ClientDao {
     @Override
     public boolean restoreUser(String login, String userEmail, String userHash) throws DaoException {
         int result = 0;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+        Connection connection;
+        PreparedStatement preparedStatement;
         try {
             connection = ConnectionPool.getInstance().takeConnection();
             preparedStatement = connection.prepareStatement(SQL_RESTORE_USER);
@@ -115,7 +115,7 @@ public class ClientDaoImpl implements ClientDao {
         Client client = null;
         try (
                 Connection connection = ConnectionPool.getInstance().takeConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID)
         ) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -133,7 +133,7 @@ public class ClientDaoImpl implements ClientDao {
         Client client = null;
         try (
                 Connection connection = ConnectionPool.getInstance().takeConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_ACTIVE_BY_ID);
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_ACTIVE_BY_ID)
         ) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -149,10 +149,10 @@ public class ClientDaoImpl implements ClientDao {
     @Override
     public List<Client> findByFilter(Client clientForData) throws DaoException {
         List<Client> clientsList = new ArrayList<>();
-        Client client = null;
+        Client client;
         try (
                 Connection connection = ConnectionPool.getInstance().takeConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_FILTER);
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_FILTER)
         ) {
             preparedStatement.setString(1, clientForData.getName());
             preparedStatement.setString(2, clientForData.getSurname());
@@ -176,7 +176,7 @@ public class ClientDaoImpl implements ClientDao {
         Client client = null;
         try (
                 Connection connection = ConnectionPool.getInstance().takeConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_LOGIN_HASH);
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_LOGIN_HASH)
         ) {
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, email);
@@ -193,7 +193,7 @@ public class ClientDaoImpl implements ClientDao {
 
     @Override
     public Long save(Client client) throws DaoException {
-        Connection connection = null;
+        Connection connection;
         PreparedStatement preparedStatement = null;
         Long coachId = client.getCoachId();
         String name = client.getName();
@@ -256,7 +256,7 @@ public class ClientDaoImpl implements ClientDao {
         Client client;
         try (
                 Connection connection = ConnectionPool.getInstance().takeConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_COACH_ID);
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_COACH_ID)
         ) {
             preparedStatement.setLong(1, coachId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -275,7 +275,7 @@ public class ClientDaoImpl implements ClientDao {
         Client client = null;
         try (
                 Connection connection = ConnectionPool.getInstance().takeConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_USER_BY_COOKIE);
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_USER_BY_COOKIE)
         ) {
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, hash);
@@ -292,10 +292,10 @@ public class ClientDaoImpl implements ClientDao {
     @Override
     public List<Client> findAll() throws DaoException {
         List<Client> clientsList = new ArrayList<>();
-        Client client = null;
+        Client client;
         try (
                 Connection connection = ConnectionPool.getInstance().takeConnection();
-                Statement statement = connection.createStatement();
+                Statement statement = connection.createStatement()
         ) {
             ResultSet resultSet = statement.executeQuery(SQL_FIND_ALL);
             while (resultSet.next()) {

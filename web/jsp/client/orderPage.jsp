@@ -1,4 +1,3 @@
-<jsp:useBean id="client" scope="session" type="by.epam.fitness.entity.Client"/>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -60,7 +59,7 @@
             <label for="personal_discount">${discount}</label>
         </div>
         <div>
-            <input type="text" class="form-control mb-4" id="personal_discount" name="personal_discount" value="${client.personalDiscount}" readonly>
+            <input type="text" class="form-control mb-4" id="personal_discount" name="personal_discount" value="${client_personal_discount}" readonly>
         </div>
 
         <div>

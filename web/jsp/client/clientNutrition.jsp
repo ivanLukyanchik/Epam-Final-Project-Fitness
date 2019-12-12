@@ -97,7 +97,7 @@
             <form action="${pageContext.servletContext.contextPath}/controller?command=reject_nutrition" method="post">
                 <input type="hidden" name="nutrition_id" value="${nutrition.id}"/>
                 <div class="text-center">
-                    <input type="submit" class="btn btn-danger" value="${reject_nutrition}">
+                    <input type="submit" class="btn btn-danger mt-2" value="${reject_nutrition}">
                 </div>
             </form>
 

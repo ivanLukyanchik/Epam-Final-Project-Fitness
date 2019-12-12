@@ -21,11 +21,15 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
     private static final String SQL_FIND_BY_ID = "SELECT * FROM order_information WHERE client_id=?";
     private static final String SQL_UPDATE_TABLE = "UPDATE order_information SET cost=?, payment_data=?, membership_end_date=?, client_id=?, card_number=? WHERE id_order_information=?";
     private static final String SQL_FIND_ALL = "SELECT * FROM order_information";
+    private static final String SQL_FIND_ASC_PRICE = "SELECT * FROM order_information ORDER BY cost ASC";
+    private static final String SQL_FIND_DESC_PRICE = "SELECT * FROM order_information ORDER BY cost DESC";
+    private static final String SQL_FIND_ASC_PAYMENT_DATA = "SELECT * FROM order_information ORDER BY payment_data ASC";
+    private static final String SQL_FIND_DESC_PAYMENT_DATA = "SELECT * FROM order_information ORDER BY payment_data DESC";
     private OrderInformationBuilder builder = new OrderInformationBuilder();
 
     @Override
     public Long save(OrderInformation orderInformation) throws DaoException {
-        Connection connection = null;
+        Connection connection;
         PreparedStatement preparedStatement = null;
         BigDecimal cost = orderInformation.getCost();
         Timestamp paymentData = orderInformation.getPaymentData();
@@ -69,7 +73,7 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
     }
 
     @Override
-    public Optional<OrderInformation> findById(Long id) throws DaoException {
+    public Optional<OrderInformation> findById(Long id) {
         return Optional.empty();
     }
 
@@ -78,7 +82,7 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
         OrderInformation orderInformation = null;
         try (
                 Connection connection = ConnectionPool.getInstance().takeConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID)
         ) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -94,10 +98,10 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
     @Override
     public List<OrderInformation> findOrdersByClientId(long id) throws DaoException {
         List<OrderInformation> ordersList = new ArrayList<>();
-        OrderInformation orderInformation = null;
+        OrderInformation orderInformation;
         try (
                 Connection connection = ConnectionPool.getInstance().takeConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID)
         ) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -114,10 +118,86 @@ public class OrderInformationDaoImpl implements OrderInformationDao {
     @Override
     public List<OrderInformation> findAll() throws DaoException {
         List<OrderInformation> orders = new ArrayList<>();
-        OrderInformation order = null;
+        OrderInformation order;
         try (
                 Connection connection = ConnectionPool.getInstance().takeConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_ALL);
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_ALL)
+        ) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                order = builder.build(resultSet);
+                orders.add(order);
+            }
+        } catch (SQLException | ServiceException e) {
+            throw new DaoException(e);
+        }
+        return orders;
+    }
+
+    @Override
+    public List<OrderInformation> findAscPrice() throws DaoException {
+        List<OrderInformation> orders = new ArrayList<>();
+        OrderInformation order;
+        try (
+                Connection connection = ConnectionPool.getInstance().takeConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_ASC_PRICE)
+        ) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                order = builder.build(resultSet);
+                orders.add(order);
+            }
+        } catch (SQLException | ServiceException e) {
+            throw new DaoException(e);
+        }
+        return orders;
+    }
+
+    @Override
+    public List<OrderInformation> findDescPrice() throws DaoException {
+        List<OrderInformation> orders = new ArrayList<>();
+        OrderInformation order;
+        try (
+                Connection connection = ConnectionPool.getInstance().takeConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_DESC_PRICE)
+        ) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                order = builder.build(resultSet);
+                orders.add(order);
+            }
+        } catch (SQLException | ServiceException e) {
+            throw new DaoException(e);
+        }
+        return orders;
+    }
+
+    @Override
+    public List<OrderInformation> findAscPaymentData() throws DaoException {
+        List<OrderInformation> orders = new ArrayList<>();
+        OrderInformation order;
+        try (
+                Connection connection = ConnectionPool.getInstance().takeConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_ASC_PAYMENT_DATA)
+        ) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                order = builder.build(resultSet);
+                orders.add(order);
+            }
+        } catch (SQLException | ServiceException e) {
+            throw new DaoException(e);
+        }
+        return orders;
+    }
+
+    @Override
+    public List<OrderInformation> findDescPaymentData() throws DaoException {
+        List<OrderInformation> orders = new ArrayList<>();
+        OrderInformation order;
+        try (
+                Connection connection = ConnectionPool.getInstance().takeConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_DESC_PAYMENT_DATA)
         ) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {

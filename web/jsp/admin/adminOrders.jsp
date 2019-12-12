@@ -14,7 +14,9 @@
 <fmt:message bundle="${locale}" key="login" var="login"/>
 <fmt:message bundle="${locale}" key="image" var="image"/>
 <fmt:message bundle="${locale}" key="no_orders" var="no_orders"/>
-<fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
+<fmt:message bundle="${locale}" key="sort_by" var="sort_by"/>
+<fmt:message bundle="${locale}" key="price_sort" var="price_sort"/>
+<fmt:message bundle="${locale}" key="time_sort" var="time_sort"/>
 
 <html>
 <head>
@@ -34,7 +36,55 @@
     <h3><c:out value="${no_orders}"/></h3>
 </c:if>
 
-<table class="table table-striped table-hover">
+<div class="container row">
+    <div class="col-3">
+        ${sort_by}
+    </div>
+
+    <c:choose>
+        <c:when test="${param.sortOrder eq 'priceAsc'}">
+            <form method="post" class="col-3" action="${pageContext.servletContext.contextPath}/controller?command=admin_orders">
+                <input type="hidden" name="sortOrder" value="priceDesc">
+                <button class="btn btn-light active">${price_sort} <i class="fas fa-arrow-up"></i></button>
+            </form>
+        </c:when>
+        <c:when test="${param.sortOrder eq 'priceDesc'}">
+            <form method="post" class="col-3" action="${pageContext.servletContext.contextPath}/controller?command=admin_orders">
+                <input type="hidden" name="sortOrder" value="priceAsc">
+                <button class="btn btn-light active">${price_sort} <i class="fas fa-arrow-down"></i></button>
+            </form>
+        </c:when>
+        <c:otherwise>
+            <form method="post" class="col-3" action="${pageContext.servletContext.contextPath}/controller?command=admin_orders">
+                <input type="hidden" name="sortOrder" value="priceAsc">
+                <button class="btn btn-link">${price_sort} </button>
+            </form>
+        </c:otherwise>
+    </c:choose>
+
+    <c:choose>
+        <c:when test="${param.sortOrder eq 'paymentDataAsc'}">
+            <form method="post" class="col-3" action="${pageContext.servletContext.contextPath}/controller?command=admin_orders">
+                <input type="hidden" name="sortOrder" value="paymentDataDesc">
+                <button class="btn btn-light active">${time_sort} <i class="fas fa-arrow-up"></i></button>
+            </form>
+        </c:when>
+        <c:when test="${param.sortOrder eq 'paymentDataDesc'}">
+            <form method="post" class="col-3" action="${pageContext.servletContext.contextPath}/controller?command=admin_orders">
+                <input type="hidden" name="sortOrder" value="paymentDataAsc">
+                <button class="btn btn-light active">${time_sort} <i class="fas fa-arrow-down"></i></button>
+            </form>
+        </c:when>
+        <c:otherwise>
+            <form method="post" class="col-3" action="${pageContext.servletContext.contextPath}/controller?command=admin_orders">
+                <input type="hidden" name="sortOrder" value="paymentDataAsc">
+                <button class="btn btn-link">${time_sort}</button>
+            </form>
+        </c:otherwise>
+    </c:choose>
+</div>
+
+<table class="table table-striped table-hover mt-3">
     <tr>
         <th>${login}</th>
         <th>${image}</th>
@@ -44,53 +94,61 @@
         <th>${credit_card}</th>
     </tr>
     <c:forEach items="${orders}" var="order">
-        <tr>
-            <td>${order.value.login}</td>
-            <td>
-                <a href="${pageContext.request.contextPath}/controller?command=client_profile&admin_client_id=${order.value.id}">
-                    <c:choose>
-                        <c:when test="${not empty order.value.image}">
-                            <img src="data:image/jpg;base64,${order.value.image}"  class="rounded-circle" alt="${client_no_image}" width="30" height="30"/>
-                        </c:when>
-                        <c:otherwise>
-                            <i class="fas fa-user-circle" style="font-size: 32px"></i>
-                        </c:otherwise>
-                    </c:choose>
-                </a>
-            </td>
-            <td>${order.key.cost}</td>
-            <td>
-                <c:choose>
-                    <c:when test="${sessionScope.local eq 'en_US'}">
-                        <div>
-                            <fmt:formatDate value="${order.key.paymentData}" pattern="dd-MM-YYYY HH:mm:ss" />
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                        <div>
-                            <fmt:formatDate value="${order.key.paymentData}" pattern="dd.MM.YYYY HH:mm:ss" />
-                        </div>
-                    </c:otherwise>
-                </c:choose>
-            </td>
-            <td >
-                <c:choose>
-                    <c:when test="${sessionScope.local eq 'en_US'}">
-                        <div>
-                            <fmt:formatDate value="${order.key.membershipEndDate}" pattern="dd-MM-YYYY HH:mm:ss" />
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                        <div>
-                            <fmt:formatDate value="${order.key.membershipEndDate}" pattern="dd.MM.YYYY HH:mm:ss" />
-                        </div>
-                    </c:otherwise>
-                </c:choose>
-            </td>
-            <td>
-                ${fn:substring(order.key.cardNumber, 0, 4)}  ${fn:substring(order.key.cardNumber, 4, 6)}**  ****  ${fn:substring(order.key.cardNumber, 12, 16)}
-            </td>
-        </tr>
+        <c:set var="continueExecuting" scope="request" value="true"/>
+        <c:forEach items="${clients}" var="client">
+            <c:if test="${order.clientId==client.id}">
+                <c:if test="${continueExecuting}">
+                    <tr>
+                        <td>${client.login}</td>
+                        <td>
+                            <a href="${pageContext.request.contextPath}/controller?command=client_profile&admin_client_id=${client.id}">
+                                <c:choose>
+                                    <c:when test="${not empty client.image}">
+                                        <img src="data:image/jpg;base64,${client.image}"  class="rounded-circle" alt="${client_no_image}" width="30" height="30"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <i class="fas fa-user-circle" style="font-size: 32px"></i>
+                                    </c:otherwise>
+                                </c:choose>
+                            </a>
+                        </td>
+                        <td>${order.cost}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${sessionScope.local eq 'en_US'}">
+                                    <div>
+                                        <fmt:formatDate value="${order.paymentData}" pattern="dd-MM-YYYY HH:mm:ss" />
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div>
+                                        <fmt:formatDate value="${order.paymentData}" pattern="dd.MM.YYYY HH:mm:ss" />
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td >
+                            <c:choose>
+                                <c:when test="${sessionScope.local eq 'en_US'}">
+                                    <div>
+                                        <fmt:formatDate value="${order.membershipEndDate}" pattern="dd-MM-YYYY HH:mm:ss" />
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div>
+                                        <fmt:formatDate value="${order.membershipEndDate}" pattern="dd.MM.YYYY HH:mm:ss" />
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td>
+                            ${fn:substring(order.cardNumber, 0, 4)}  ${fn:substring(order.cardNumber, 4, 6)}**  ****  ${fn:substring(order.cardNumber, 12, 16)}
+                        </td>
+                    </tr>
+                </c:if>
+                <c:set var="continueExecuting" scope="request" value="false"/>
+            </c:if>
+        </c:forEach>
     </c:forEach>
 </table>
 

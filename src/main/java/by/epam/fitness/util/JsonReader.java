@@ -34,9 +34,11 @@ public class JsonReader {
             throw new UtilException("ERROR WHILE READING FILE: " + pathToFile, e);
         }
         Scanner scanner;
-        scanner = new Scanner(file);
-        while (scanner.hasNextLine()) {
-            resultJsonString.append(scanner.nextLine()).append("\n");
+        if (file != null) {
+            scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                resultJsonString.append(scanner.nextLine()).append("\n");
+            }
         }
         return resultJsonString.toString();
     }

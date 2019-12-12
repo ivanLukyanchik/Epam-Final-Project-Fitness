@@ -17,7 +17,7 @@ public class SendingEmail {
                 "command=activate&key1=" + userEmail + "&key2=" + login + "&key3=" + userHash;
         GoogleMailThread thread = new GoogleMailThread("007checkmailphp", "375299300520", "Email Verification Link",
                 userEmail, message);
-        thread.start(); // FIXME: 08.12.2019
+        thread.start();
     }
 
     /**

@@ -87,7 +87,7 @@
             </c:choose>
         </div>
 
-        <button class="btn btn-primary mx-5 mb-2" data-toggle="collapse" data-target="#hide">${click_exercises}</button>
+        <button class="btn btn-primary mx-5 my-2" data-toggle="collapse" data-target="#hide">${click_exercises}</button>
         <div class="collapse" id="hide">
             <c:if test="${fn:length(clientExercises) eq 0}">
                 <h3><c:out value="${no_exercises}"/></h3>

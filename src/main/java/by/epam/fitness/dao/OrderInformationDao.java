@@ -36,4 +36,35 @@ public interface OrderInformationDao extends BaseDao<Long, OrderInformation> {
      */
     List<OrderInformation> findAll() throws DaoException;
 
+    /**
+     * Find asc price list.
+     *
+     * @return the list
+     * @throws DaoException the dao exception
+     */
+    List<OrderInformation> findAscPrice() throws DaoException;
+
+    /**
+     * Find desc price list.
+     *
+     * @return the list
+     * @throws DaoException the dao exception
+     */
+    List<OrderInformation> findDescPrice() throws DaoException;
+
+    /**
+     * Find asc payment data list.
+     *
+     * @return the list
+     * @throws DaoException the dao exception
+     */
+    List<OrderInformation> findAscPaymentData() throws DaoException;
+
+    /**
+     * Find desc payment data list.
+     *
+     * @return the list
+     * @throws DaoException the dao exception
+     */
+    List<OrderInformation> findDescPaymentData() throws DaoException;
 }

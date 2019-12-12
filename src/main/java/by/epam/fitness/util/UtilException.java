@@ -15,7 +15,7 @@ public class UtilException extends Exception {
      *
      * @param message the message
      */
-    public UtilException(String message) {
+    UtilException(String message) {
         super(message);
     }
 
@@ -25,7 +25,7 @@ public class UtilException extends Exception {
      * @param message the message
      * @param cause   the cause
      */
-    public UtilException(String message, Throwable cause) {
+    UtilException(String message, Throwable cause) {
         super(message, cause);
     }
 

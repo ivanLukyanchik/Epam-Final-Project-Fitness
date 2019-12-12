@@ -28,7 +28,7 @@ public class CoachDaoImpl implements CoachDao {
         Coach coach = null;
         try (
                 Connection connection = ConnectionPool.getInstance().takeConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_CHECK_COACH_BY_LOGIN_PASSWORD);
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_CHECK_COACH_BY_LOGIN_PASSWORD)
         ) {
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, password);
@@ -47,7 +47,7 @@ public class CoachDaoImpl implements CoachDao {
         Coach coach = null;
         try (
                 Connection connection = ConnectionPool.getInstance().takeConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_CLIENT_ID);
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_CLIENT_ID)
         ) {
             preparedStatement.setLong(1, clientId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -62,8 +62,8 @@ public class CoachDaoImpl implements CoachDao {
 
     @Override
     public Long save(Coach coach) throws DaoException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+        Connection connection;
+        PreparedStatement preparedStatement;
         String name = coach.getName();
         String surname = coach.getSurname();
         String patronymic = coach.getPatronymic();
@@ -106,7 +106,7 @@ public class CoachDaoImpl implements CoachDao {
         Coach coach = null;
         try (
                 Connection connection = ConnectionPool.getInstance().takeConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_COACH_ID);
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_COACH_ID)
         ) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -122,10 +122,10 @@ public class CoachDaoImpl implements CoachDao {
     @Override
     public List<Coach> findAll() throws DaoException {
         List<Coach> coachesList = new ArrayList<>();
-        Coach coach = null;
+        Coach coach;
         try (
                 Connection connection = ConnectionPool.getInstance().takeConnection();
-                Statement statement = connection.createStatement();
+                Statement statement = connection.createStatement()
         ) {
             ResultSet resultSet = statement.executeQuery(SQL_FIND_ALL);
             while (resultSet.next()) {

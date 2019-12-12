@@ -67,7 +67,7 @@
                 <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=home_page">${home} <span class="sr-only">(current)</span></a>
             </li>
             <c:choose>
-                <c:when test="${not empty sessionScope.client}">
+                <c:when test="${sessionScope.role eq 'client'}">
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=gym_photos">${photos}</a>
                     </li>
@@ -87,7 +87,7 @@
                         <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=show_client_nutrition">${nutrition_nav}</a>
                     </li>
                 </c:when>
-                <c:when test="${not empty sessionScope.coach}">
+                <c:when test="${sessionScope.role eq 'coach'}">
                     <li>
                         <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=coach_clients">${coach_clients_nav}</a>
                     </li>
@@ -95,7 +95,7 @@
                         <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=coach_comments">${comments_about_me}</a>
                     </li>
                 </c:when>
-                <c:when test="${not empty sessionScope.admin}">
+                <c:when test="${sessionScope.role eq 'admin'}">
                     <li>
                         <a class="nav-link" href="${pageContext.servletContext.contextPath}/controller?command=admin_coaches">${admin_coaches_nav}</a>
                     </li>
@@ -135,7 +135,7 @@
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
                     <c:choose>
-                        <c:when test="${not empty sessionScope.client}">
+                        <c:when test="${sessionScope.role eq 'client'}">
                             <c:choose>
                                 <c:when test="${not empty sessionScope.client.image}">
                                     <img src="data:image/jpg;base64,${sessionScope.client.image}" alt="no image" class="mr-1 rounded-circle" style="width:38px;">
@@ -149,10 +149,10 @@
                         <c:otherwise>
                             <i class="fas fa-user" style="font-size: 25px"></i>
                             <c:choose>
-                                <c:when test="${not empty sessionScope.coach}">
+                                <c:when test="${sessionScope.role eq 'coach'}">
                                     ${coach} ${sessionScope.user}
                                 </c:when>
-                                <c:when test="${not empty sessionScope.admin}">
+                                <c:when test="${sessionScope.role eq 'admin'}">
                                     ${admin} ${sessionScope.user}
                                 </c:when>
                                 <c:otherwise>
@@ -163,7 +163,7 @@
                     </c:choose>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
-                    <c:if test="${not empty sessionScope.client}">
+                    <c:if test="${sessionScope.role eq 'client'}">
                         <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/controller?command=client_profile">${profile}</a>
                         <div class="dropdown-divider"></div>
                     </c:if>

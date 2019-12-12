@@ -40,7 +40,7 @@ public class ModifyProfileServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        CommandResult commandResult = execute(request); // FIXME: 06.12.2019
+        CommandResult commandResult = execute(request);
         String page;
         if (commandResult.getPage() != null) {
             page = commandResult.getPage();
@@ -56,7 +56,7 @@ public class ModifyProfileServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req, resp); // FIXME: 05.12.2019
+        doPost(req, resp);
     }
 
     /**

@@ -18,7 +18,7 @@ public class DataValidator {
     private static final Pattern SHA512_PATTERN = Pattern.compile("[a-f0-9]{128}");
     private static final Pattern INPUT_IDENTIFIABLE_ID_PATTERN = Pattern.compile("[\\d]{1,20}");
     private static final Pattern SET_REPEATS_NUMBER_PATTERN = Pattern.compile("[1-9][0-9]?");
-    private static final Pattern COST_PATTERN = Pattern.compile("[\\d.]{1,20}");
+    private static final Pattern COST_PATTERN = Pattern.compile("^\\d{1,4}(\\.\\d{3})?$");
 
     /**
      * Is login valid boolean.

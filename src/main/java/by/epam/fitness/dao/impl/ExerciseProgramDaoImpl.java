@@ -26,7 +26,7 @@ public class ExerciseProgramDaoImpl implements ExerciseProgramDao {
 
     @Override
     public Long save(ExerciseProgram exerciseProgram) throws DaoException {
-        Connection connection = null;
+        Connection connection;
         PreparedStatement preparedStatement = null;
         Long programId = exerciseProgram.getProgramId();
         Long exerciseId = exerciseProgram.getExercise().getId();
@@ -75,7 +75,7 @@ public class ExerciseProgramDaoImpl implements ExerciseProgramDao {
         ExerciseProgram exerciseProgram;
         try (
                 Connection connection = ConnectionPool.getInstance().takeConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_PROGRAM_ID);
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_PROGRAM_ID)
         ) {
             preparedStatement.setLong(1, programId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -94,7 +94,7 @@ public class ExerciseProgramDaoImpl implements ExerciseProgramDao {
         ExerciseProgram exerciseProgram = null;
         try (
                 Connection connection = ConnectionPool.getInstance().takeConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID)
         ) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -112,7 +112,7 @@ public class ExerciseProgramDaoImpl implements ExerciseProgramDao {
         boolean result = false;
         try (
                 Connection connection = ConnectionPool.getInstance().takeConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_EXERCISE_ID);
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_EXERCISE_ID)
         ) {
             preparedStatement.setLong(1, exerciseId);
             preparedStatement.setLong(2, programId);
@@ -128,10 +128,10 @@ public class ExerciseProgramDaoImpl implements ExerciseProgramDao {
 
     @Override
     public int deleteExercise(long exerciseId) throws DaoException {
-        int result = 0;
+        int result;
         try (
                 Connection connection = ConnectionPool.getInstance().takeConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE);
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE)
         ) {
             try {
                 connection.setAutoCommit(false);

@@ -8,9 +8,6 @@ import by.epam.fitness.util.page.Page;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static by.epam.fitness.util.JspConst.CHANGED_LOCALE;
-import static by.epam.fitness.util.JspConst.MESSAGE;
-
 /**
  * The type Locale command.
  */
@@ -21,8 +18,6 @@ public class LocaleCommand implements ActionCommand {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String lang = request.getParameter(JspConst.LANGUAGE);
         request.getSession().setAttribute(JspConst.LOCAL, lang);
-        request.getSession().setAttribute(MESSAGE, CHANGED_LOCALE); // FIXME: 25.11.2019 удалить 2 след строки
-        request.setAttribute(MESSAGE, CHANGED_LOCALE);
         String page = request.getParameter(JspConst.CURRENT_PAGE);
         if (page == null || page.isEmpty()) {
             return new CommandResult(Page.LOGIN_PAGE);

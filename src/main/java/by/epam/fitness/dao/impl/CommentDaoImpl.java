@@ -25,7 +25,7 @@ public class CommentDaoImpl implements CommentDao {
 
     @Override
     public Long save(Comment comment) throws DaoException {
-        Connection connection = null;
+        Connection connection;
         PreparedStatement preparedStatement = null;
         Long coachId = comment.getCoachId();
         Long clientId = comment.getClientId();
@@ -67,17 +67,17 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public Optional<Comment> findById(Long id) throws DaoException {
+    public Optional<Comment> findById(Long id) {
         return Optional.empty();
     }
 
     @Override
     public List<Comment> findByCoachId(long coachId) throws DaoException {
         List<Comment> comments = new ArrayList<>();
-        Comment comment = null;
+        Comment comment;
         try (
                 Connection connection = ConnectionPool.getInstance().takeConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_COACH_ID);
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_COACH_ID)
         ) {
             preparedStatement.setLong(1, coachId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -94,10 +94,10 @@ public class CommentDaoImpl implements CommentDao {
     @Override
     public List<Comment> findAll() throws DaoException {
         List<Comment> comments = new ArrayList<>();
-        Comment comment = null;
+        Comment comment;
         try (
                 Connection connection = ConnectionPool.getInstance().takeConnection();
-                Statement statement = connection.createStatement();
+                Statement statement = connection.createStatement()
         ) {
             ResultSet resultSet = statement.executeQuery(SQL_FIND_ALL);
             while (resultSet.next()) {
@@ -112,10 +112,10 @@ public class CommentDaoImpl implements CommentDao {
 
     @Override
     public int delete(long id) throws DaoException {
-        int result = 0;
+        int result;
         try (
                 Connection connection = ConnectionPool.getInstance().takeConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE);
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE)
         ) {
             try {
                 connection.setAutoCommit(false);

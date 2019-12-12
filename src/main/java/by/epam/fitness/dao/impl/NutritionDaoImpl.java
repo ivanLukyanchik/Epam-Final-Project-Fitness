@@ -22,7 +22,7 @@ public class NutritionDaoImpl implements NutritionDao {
 
     @Override
     public Long save(Nutrition nutrition) throws DaoException {
-        Connection connection = null;
+        Connection connection;
         PreparedStatement preparedStatement = null;
         String name = nutrition.getName();
         String morning_nutrition = nutrition.getMorningNutrition();
@@ -69,7 +69,7 @@ public class NutritionDaoImpl implements NutritionDao {
         Nutrition nutrition = null;
         try (
                 Connection connection = ConnectionPool.getInstance().takeConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_CLIENT_ID);
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_CLIENT_ID)
         ) {
             preparedStatement.setLong(1, clientId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -87,7 +87,7 @@ public class NutritionDaoImpl implements NutritionDao {
         Nutrition nutrition = null;
         try (
                 Connection connection = ConnectionPool.getInstance().takeConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID)
         ) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();

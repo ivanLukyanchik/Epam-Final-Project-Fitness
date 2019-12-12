@@ -70,7 +70,7 @@ public class CommandTypeFilter implements Filter {
                         roleOptional = Optional.of(UserRole.CLIENT);
                     }
                 }
-            } else { // FIXME: 20.11.2019 ask
+            } else {
                 if (getClientByCookie(request).isPresent()) {
                     Client client = getClientByCookie(request).get();
                     setClientToSession(request, client);

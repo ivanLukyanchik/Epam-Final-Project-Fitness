@@ -28,10 +28,6 @@ public class LogoutCommand implements ActionCommand {
         if (session.getAttribute(SessionAttributes.CLIENT) != null) {
             session.removeAttribute(SessionAttributes.CLIENT);
             clearCookie(CookieConst.CLIENT_LOGIN, request, response);
-        } else if (session.getAttribute(SessionAttributes.COACH) != null){
-            session.removeAttribute(SessionAttributes.COACH);
-        } else {
-            session.removeAttribute(SessionAttributes.ADMIN);
         }
         session.invalidate();
         log.info("user with id = " + userId + " and role = " + userRole + " log out");

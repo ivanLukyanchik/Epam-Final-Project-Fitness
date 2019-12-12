@@ -31,7 +31,7 @@
             <h3><c:out value="${no_orders}"/></h3>
         </c:when>
         <c:otherwise>
-            <table class="table table-striped table-hover">
+            <table class="table table-striped table-hover mt-2">
                 <tr>
                     <c:if test="${not empty sessionScope.client}">
                         <th>${cost}</th>

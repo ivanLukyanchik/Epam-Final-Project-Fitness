@@ -16,10 +16,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * The type Admin orders command.
@@ -32,10 +29,25 @@ public class AdminOrdersCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String page;
+        List<OrderInformation> orders;
+        String sortOrderString = request.getParameter("sortOrder");
         try {
-            List<OrderInformation> orders = orderInformationService.findAll();
-            Map<OrderInformation, Client> orderClientMap =  makeOrderMapForAdmin(orders);
-            request.setAttribute(JspConst.ORDERS, orderClientMap);
+            if (sortOrderString != null && sortOrderString.equals("priceAsc")) {
+                orders = orderInformationService.findAscPrice();
+            } else if (sortOrderString != null && sortOrderString.equals("priceDesc")) {
+                orders = orderInformationService.findDescPrice();
+            } else if (sortOrderString != null && sortOrderString.equals("paymentDataAsc")) {
+                orders = orderInformationService.findAscPaymentData();
+            } else if (sortOrderString != null && sortOrderString.equals("paymentDataDesc")) {
+                orders = orderInformationService.findDescPaymentData();
+            } else {
+                orders = orderInformationService.findAll();
+            }
+            List<Client> clients = makeClientsListForAdmin(orders);
+            if (clients.size() == orders.size()) {
+                request.setAttribute(JspConst.ORDERS, orders);
+                request.setAttribute(JspConst.CLIENTS, clients);
+            }
             page = Page.ADMIN_ORDERS;
         } catch (ServiceException e) {
             log.error("Problem with service occurred!", e);
@@ -44,12 +56,12 @@ public class AdminOrdersCommand implements ActionCommand {
         return new CommandResult(page);
     }
 
-    private Map<OrderInformation, Client> makeOrderMapForAdmin(List<OrderInformation> orders) throws ServiceException {
-        Map<OrderInformation, Client> orderClientMap = new HashMap<>();
+    private List<Client> makeClientsListForAdmin(List<OrderInformation> orders) throws ServiceException {
+        List<Client> clients = new ArrayList<>();
         for (OrderInformation order : orders) {
             Optional<Client> optionalUser = clientService.findById(order.getClientId());
-            optionalUser.ifPresent(user -> orderClientMap.put(order, user));
+            optionalUser.ifPresent(clients::add);
         }
-        return orderClientMap;
+        return clients;
     }
 }

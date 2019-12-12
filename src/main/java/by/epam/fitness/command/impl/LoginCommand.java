@@ -77,7 +77,6 @@ public class LoginCommand implements ActionCommand {
                 page = Page.WELCOME_PAGE;
             } else if (coachService.checkCoachByLoginPassword(login, password).isPresent()) {
                 coach = coachService.checkCoachByLoginPassword(login, password).get();
-                request.getSession().setAttribute(SessionAttributes.COACH, coach);
                 request.getSession().setAttribute(SessionAttributes.USER, login);
                 request.getSession().setAttribute(SessionAttributes.ROLE, UserRole.COACH);
                 request.getSession().setAttribute(SessionAttributes.ID, coach.getId());
@@ -85,7 +84,6 @@ public class LoginCommand implements ActionCommand {
                 page = Page.WELCOME_PAGE;
             } else if (adminService.checkAdminByLoginPassword(login, password).isPresent()) {
                 admin = adminService.checkAdminByLoginPassword(login, password).get();
-                request.getSession().setAttribute(SessionAttributes.ADMIN, admin);
                 request.getSession().setAttribute(SessionAttributes.USER, login);
                 request.getSession().setAttribute(SessionAttributes.ROLE, UserRole.ADMIN);
                 request.getSession().setAttribute(SessionAttributes.ID, admin.getId());

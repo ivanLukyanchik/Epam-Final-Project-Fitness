@@ -21,7 +21,7 @@ public class ProgramDaoImpl implements ProgramDao {
 
     @Override
     public Long save(Program program) throws DaoException {
-        Connection connection = null;
+        Connection connection;
         PreparedStatement preparedStatement = null;
         Long nutrition_id = program.getNutritionId();
         int trains_per_week = program.getTrainsPerWeek();
@@ -59,7 +59,7 @@ public class ProgramDaoImpl implements ProgramDao {
     }
 
     @Override
-    public Optional<Program> findById(Long id) throws DaoException {
+    public Optional<Program> findById(Long id) {
         return Optional.empty();
     }
 
@@ -68,7 +68,7 @@ public class ProgramDaoImpl implements ProgramDao {
         Program program = null;
         try (
                 Connection connection = ConnectionPool.getInstance().takeConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID)
         ) {
             preparedStatement.setLong(1, programId);
             ResultSet resultSet = preparedStatement.executeQuery();

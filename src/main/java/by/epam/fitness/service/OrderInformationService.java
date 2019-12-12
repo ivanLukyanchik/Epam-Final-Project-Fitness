@@ -43,4 +43,36 @@ public interface OrderInformationService {
      * @throws ServiceException the service exception
      */
     List<OrderInformation> findAll() throws ServiceException;
+
+    /**
+     * Find asc price list.
+     *
+     * @return the list
+     * @throws ServiceException the service exception
+     */
+    List<OrderInformation> findAscPrice() throws ServiceException;
+
+    /**
+     * Find desc price list.
+     *
+     * @return the list
+     * @throws ServiceException the service exception
+     */
+    List<OrderInformation> findDescPrice() throws ServiceException;
+
+    /**
+     * Find asc payment data list.
+     *
+     * @return the list
+     * @throws ServiceException the service exception
+     */
+    List<OrderInformation> findAscPaymentData() throws ServiceException;
+
+    /**
+     * Find desc payment data list.
+     *
+     * @return the list
+     * @throws ServiceException the service exception
+     */
+    List<OrderInformation> findDescPaymentData() throws ServiceException;
 }

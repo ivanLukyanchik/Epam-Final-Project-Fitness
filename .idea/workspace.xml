@@ -111,20 +111,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="by.epam.fitness.util.validation" />
       <recent name="by.epam.fitness.service.impl" />
       <recent name="by.epam.fitness.util" />
       <recent name="by.epam.fitness.pool" />
       <recent name="by.epam.fitness.dao.impl" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\test\java\resources" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\main" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\favicon" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources" />
-    </key>
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\test" />
@@ -132,6 +123,16 @@
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\gym" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\jsp" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\test\java\resources" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\main" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\favicon" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -147,37 +148,6 @@
     </option>
   </component>
   <component name="RunManager" selected="Tomcat Server.Tomcat 9.0.27">
-    <configuration name="ClientDaoImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="trainingWeb" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="by.epam.fitness.dao.impl.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="by.epam.fitness.dao.impl" />
-      <option name="MAIN_CLASS_NAME" value="by.epam.fitness.dao.impl.ClientDaoImplTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ClientDaoImplTest.checkUserByLoginPasswordPositiveTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="trainingWeb" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="by.epam.fitness.dao.impl.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="by.epam.fitness.dao.impl" />
-      <option name="MAIN_CLASS_NAME" value="by.epam.fitness.dao.impl.ClientDaoImplTest" />
-      <option name="METHOD_NAME" value="checkUserByLoginPasswordPositiveTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ClientServiceImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="trainingWeb" />
       <extension name="coverage">
@@ -193,6 +163,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="CommentServiceImplTest" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="trainingWeb" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="by.epam.fitness.service.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="by.epam.fitness.service.impl" />
+      <option name="MAIN_CLASS_NAME" value="by.epam.fitness.service.impl.CommentServiceImplTest" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ConnectionPoolTest" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="trainingWeb" />
       <extension name="coverage">
@@ -203,6 +190,23 @@
       </extension>
       <option name="PACKAGE_NAME" value="by.epam.fitness.pool" />
       <option name="MAIN_CLASS_NAME" value="by.epam.fitness.pool.ConnectionPoolTest" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DataValidatorTest" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="trainingWeb" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="by.epam.fitness.util.validation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="by.epam.fitness.util.validation" />
+      <option name="MAIN_CLASS_NAME" value="by.epam.fitness.util.validation.DataValidatorTest" />
       <option name="TEST_OBJECT" value="CLASS" />
       <properties />
       <listeners />
@@ -302,11 +306,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="TestNG.CommentServiceImplTest" />
         <item itemvalue="TestNG.ConnectionPoolTest" />
+        <item itemvalue="TestNG.DataValidatorTest" />
         <item itemvalue="TestNG.PropertyLoaderTest" />
         <item itemvalue="JUnit.ClientServiceImplTest" />
-        <item itemvalue="JUnit.ClientDaoImplTest.checkUserByLoginPasswordPositiveTest" />
-        <item itemvalue="JUnit.ClientDaoImplTest" />
       </list>
     </recent_temporary>
   </component>
@@ -430,7 +434,9 @@
       <workItem from="1575996803553" duration="1909000" />
       <workItem from="1576007429845" duration="161000" />
       <workItem from="1576054453822" duration="1774000" />
-      <workItem from="1576089162150" duration="4068000" />
+      <workItem from="1576089162150" duration="4994000" />
+      <workItem from="1576140828668" duration="16087000" />
+      <workItem from="1576171652943" duration="7375000" />
     </task>
     <servers />
   </component>
@@ -446,11 +452,6 @@
           <option name="timeStamp" value="48" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/admin/FindClientsByFilterCommand.java</url>
-          <line>29</line>
-          <option name="timeStamp" value="55" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/RestoreCommand.java</url>
           <line>30</line>
           <option name="timeStamp" value="56" />
@@ -462,5 +463,10 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
+        <watch expression="orders" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
