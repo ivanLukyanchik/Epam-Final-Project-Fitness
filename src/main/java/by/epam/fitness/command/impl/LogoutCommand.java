@@ -2,6 +2,7 @@ package by.epam.fitness.command.impl;
 
 import by.epam.fitness.command.ActionCommand;
 import by.epam.fitness.command.CommandResult;
+import by.epam.fitness.entity.UserRole;
 import by.epam.fitness.util.CookieConst;
 import by.epam.fitness.util.SessionAttributes;
 import by.epam.fitness.util.page.Page;
@@ -24,10 +25,10 @@ public class LogoutCommand implements ActionCommand {
         session.removeAttribute(SessionAttributes.USER);
         session.removeAttribute(SessionAttributes.ROLE);
         session.removeAttribute(SessionAttributes.ID);
-        clearCookie(CookieConst.TOKEN, request, response);
-        if (session.getAttribute(SessionAttributes.CLIENT) != null) {
-            session.removeAttribute(SessionAttributes.CLIENT);
+        if (userRole.equals(UserRole.CLIENT)) {
+            session.removeAttribute(SessionAttributes.PROFILE_IMAGE);
             clearCookie(CookieConst.CLIENT_LOGIN, request, response);
+            clearCookie(CookieConst.TOKEN, request, response);
         }
         session.invalidate();
         log.info("user with id = " + userId + " and role = " + userRole + " log out");

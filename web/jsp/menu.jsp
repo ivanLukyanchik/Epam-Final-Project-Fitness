@@ -137,8 +137,8 @@
                     <c:choose>
                         <c:when test="${sessionScope.role eq 'client'}">
                             <c:choose>
-                                <c:when test="${not empty sessionScope.client.image}">
-                                    <img src="data:image/jpg;base64,${sessionScope.client.image}" alt="no image" class="mr-1 rounded-circle" style="width:38px;">
+                                <c:when test="${not empty sessionScope.image}">
+                                    <img src="data:image/jpg;base64,${sessionScope.image}" alt="no image" class="mr-1 rounded-circle" style="width:38px;">
                                 </c:when>
                                 <c:otherwise>
                                     <i class="fas fa-user" style="font-size: 25px"></i>

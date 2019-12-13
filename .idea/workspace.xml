@@ -436,7 +436,8 @@
       <workItem from="1576054453822" duration="1774000" />
       <workItem from="1576089162150" duration="4994000" />
       <workItem from="1576140828668" duration="16087000" />
-      <workItem from="1576171652943" duration="7375000" />
+      <workItem from="1576171652943" duration="8052000" />
+      <workItem from="1576249270603" duration="5262000" />
     </task>
     <servers />
   </component>
@@ -461,11 +462,17 @@
           <line>33</line>
           <option name="timeStamp" value="59" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/by/epam/fitness/command/impl/LogoutCommand.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
         <watch expression="orders" />
+        <watch expression="e" />
       </configuration>
     </watches-manager>
   </component>

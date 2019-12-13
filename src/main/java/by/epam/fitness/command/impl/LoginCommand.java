@@ -59,7 +59,7 @@ public class LoginCommand implements ActionCommand {
         try {
             if (clientService.checkUserByLoginPassword(login, password).isPresent()) {
                 client = clientService.checkUserByLoginPassword(login, password).get();
-                request.getSession().setAttribute(SessionAttributes.CLIENT, client);
+                request.getSession().setAttribute(SessionAttributes.PROFILE_IMAGE, client.getImage());
                 request.getSession().setAttribute(SessionAttributes.USER, login);
                 request.getSession().setAttribute(SessionAttributes.ROLE, UserRole.CLIENT);
                 request.getSession().setAttribute(SessionAttributes.ID, client.getId());

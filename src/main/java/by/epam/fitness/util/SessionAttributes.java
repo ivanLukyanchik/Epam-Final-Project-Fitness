@@ -9,17 +9,9 @@ public class SessionAttributes {
      */
     public static final String ROLE = "role";
     /**
-     * The constant CLIENT.
+     * The constant PROFILE_IMAGE.
      */
-    public static final String CLIENT = "client";
-    /**
-     * The constant COACH.
-     */
-    public static final String COACH = "coach";
-    /**
-     * The constant ADMIN.
-     */
-    public static final String ADMIN = "admin";
+    public static final String PROFILE_IMAGE = "image";
     /**
      * The constant USER.
      */

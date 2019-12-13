@@ -32,7 +32,7 @@ public class ShowOrderPageCommand implements ActionCommand {
                 request.setAttribute(JspConst.CLIENT_PERSONAL_SALE, clientOptional.get().getPersonalDiscount());
             }
         } catch (ServiceException e) {
-            e.printStackTrace();
+            log.error("Problem with service occurred!", e);
         }
         return new CommandResult(Page.ORDER_PAGE);
     }

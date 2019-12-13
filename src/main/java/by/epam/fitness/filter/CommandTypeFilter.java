@@ -105,7 +105,7 @@ public class CommandTypeFilter implements Filter {
     }
 
     private void setClientToSession(HttpServletRequest request, Client client) {
-        request.getSession().setAttribute(SessionAttributes.CLIENT, client);
+        request.getSession().setAttribute(SessionAttributes.PROFILE_IMAGE, client.getImage());
         request.getSession().setAttribute(SessionAttributes.USER, client.getLogin());
         request.getSession().setAttribute(SessionAttributes.ROLE, UserRole.CLIENT);
         request.getSession().setAttribute(SessionAttributes.ID, client.getId());

@@ -55,7 +55,7 @@ public class ChooseCoachCommand implements ActionCommand {
                 if (!membershipValidChecker.isCurrentMembershipValid(clientId)) {
                     log.info("Membership isn't valid");
                     request.setAttribute(JspConst.MEMBERSHIP_VALID, false);
-                    return new CommandResult(Page.ALL_COACHES_COMMAND);
+                    return new CommandResult(Page.ALL_COACHES);
                 } else {
                     request.setAttribute(MAX_NUMBER_SYMBOLS_ATTRIBUTE, MAX_NUMBER_SYMBOLS_VALUE);
                     request.setAttribute(JspConst.MEMBERSHIP_VALID, true);

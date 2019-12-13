@@ -30,15 +30,15 @@ public class AdminOrdersCommand implements ActionCommand {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String page;
         List<OrderInformation> orders;
-        String sortOrderString = request.getParameter("sortOrder");
+        String sortOrderString = request.getParameter(JspConst.SORT_ORDER);
         try {
-            if (sortOrderString != null && sortOrderString.equals("priceAsc")) {
+            if (sortOrderString != null && sortOrderString.equals(JspConst.PRISE_ASC)) {
                 orders = orderInformationService.findAscPrice();
-            } else if (sortOrderString != null && sortOrderString.equals("priceDesc")) {
+            } else if (sortOrderString != null && sortOrderString.equals(JspConst.PRISE_DESC)) {
                 orders = orderInformationService.findDescPrice();
-            } else if (sortOrderString != null && sortOrderString.equals("paymentDataAsc")) {
+            } else if (sortOrderString != null && sortOrderString.equals(JspConst.PAYMENT_DATA_ASC)) {
                 orders = orderInformationService.findAscPaymentData();
-            } else if (sortOrderString != null && sortOrderString.equals("paymentDataDesc")) {
+            } else if (sortOrderString != null && sortOrderString.equals(JspConst.PAYMENT_DATA_DESC)) {
                 orders = orderInformationService.findDescPaymentData();
             } else {
                 orders = orderInformationService.findAll();

@@ -205,6 +205,31 @@ public class JspConst {
      * The constant COACH_NAME.
      */
     public static final String COACH_NAME = "coach_name";
+
+    /**
+     * The constant SORT_ORDER.
+     */
+    public static final String SORT_ORDER = "sortOrder";
+
+    /**
+     * The constant PRISE_ASC.
+     */
+    public static final String PRISE_ASC = "priceAsc";
+
+    /**
+     * The constant PRISE_DESC.
+     */
+    public static final String PRISE_DESC = "priceDesc";
+
+    /**
+     * The constant PAYMENT_DATA_ASC.
+     */
+    public static final String PAYMENT_DATA_ASC = "paymentDataAsc";
+
+    /**
+     * The constant PAYMENT_DATA_DESC.
+     */
+    public static final String PAYMENT_DATA_DESC = "paymentDataDesc";
     /**
      * The constant COACH_SURNAME.
      */
