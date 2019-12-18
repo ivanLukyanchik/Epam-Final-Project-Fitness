@@ -21,7 +21,7 @@
 </head>
 <body class="d-flex flex-column">
 <c:choose>
-    <c:when test="${not empty sessionScope.coach}">
+    <c:when test="${sessionScope.role eq 'coach'}">
         <jsp:include page="../menu.jsp">
             <jsp:param name="pageTopic" value="coachComments"/>
             <jsp:param name="currentPage" value="coach_comments"/>
@@ -38,7 +38,7 @@
 <c:choose>
     <c:when test="${fn:length(comments) eq 0}">
         <c:choose>
-            <c:when test="${not empty sessionScope.coach}">
+            <c:when test="${sessionScope.role eq 'coach'}">
                 <h3><c:out value="${no_comments}"/></h3>
             </c:when>
             <c:otherwise>

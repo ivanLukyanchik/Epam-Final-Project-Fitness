@@ -101,7 +101,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.TestNG" value="" />
     <property name="findjar.last.used.dir" value="$PROJECT_DIR$/web/WEB-INF/lib" />
     <property name="last.edited.regexp" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/java/resources" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ProjectPreparation2" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
@@ -440,7 +440,8 @@
       <workItem from="1576249270603" duration="6473000" />
       <workItem from="1576318120182" duration="703000" />
       <workItem from="1576484610527" duration="214000" />
-      <workItem from="1576655115004" duration="3686000" />
+      <workItem from="1576655115004" duration="10060000" />
+      <workItem from="1576678680488" duration="1360000" />
     </task>
     <servers />
   </component>

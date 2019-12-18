@@ -41,13 +41,13 @@
     <jsp:param name="currentPage" value="show_client_nutrition"/>
 </jsp:include>
 
-<c:if test="${not empty sessionScope.client}">
+<c:if test="${sessionScope.role eq 'client'}">
     <c:if test="${no_nutrition == true}">
         <h3>${cant_nutrition}</h3>
     </c:if>
 </c:if>
 
-<c:if test="${not empty sessionScope.coach}">
+<c:if test="${sessionScope.role eq 'coach'}">
     <c:if test="${no_nutrition == true}">
         <h3>${client_no_nutrition}</h3>
         <form action="${pageContext.servletContext.contextPath}/controller?command=add_nutrition" method="post">

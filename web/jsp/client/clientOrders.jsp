@@ -33,18 +33,18 @@
         <c:otherwise>
             <table class="table table-striped table-hover mt-2">
                 <tr>
-                    <c:if test="${not empty sessionScope.client}">
+                    <c:if test="${sessionScope.role eq 'client'}">
                         <th>${cost}</th>
                     </c:if>
                     <th>${payment_data}</th>
                     <th>${end_date}</th>
-                    <c:if test="${not empty sessionScope.client}">
+                    <c:if test="${sessionScope.role eq 'client'}">
                         <th>${credit_card}</th>
                     </c:if>
                 </tr>
                 <c:forEach items="${orders}" var="order">
                     <tr>
-                        <c:if test="${not empty sessionScope.client}">
+                        <c:if test="${sessionScope.role eq 'client'}">
                             <td>${order.cost}</td>
                         </c:if>
                         <td >
@@ -67,7 +67,7 @@
                                 </c:otherwise>
                             </c:choose>
                         </td>
-                        <c:if test="${not empty sessionScope.client}">
+                        <c:if test="${sessionScope.role eq 'client'}">
                             <td>${fn:substring(order.cardNumber, 0, 4)}  ${fn:substring(order.cardNumber, 4, 6)}**  ****  ${fn:substring(order.cardNumber, 12, 16)}</td>
                         </c:if>
                     </tr>

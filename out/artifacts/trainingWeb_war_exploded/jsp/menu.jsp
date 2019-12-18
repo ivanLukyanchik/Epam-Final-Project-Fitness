@@ -198,10 +198,10 @@
     </c:when>
 
     <c:when test="${param.pageTopic eq 'orders'}">
-        <c:if test="${not empty sessionScope.client}">
+        <c:if test="${not empty sessionScope.role eq 'client'}">
             <h1>${my_orders}</h1>
         </c:if>
-        <c:if test="${not empty sessionScope.coach}">
+        <c:if test="${not empty sessionScope.role eq 'coach'}">
             <h1>${my_clients_orders}</h1>
         </c:if>
     </c:when>
@@ -211,19 +211,19 @@
     </c:when>
 
     <c:when test="${param.pageTopic eq 'exercises'}">
-        <c:if test="${not empty sessionScope.client}">
+        <c:if test="${sessionScope.role eq 'client'}">
             <h1>${exercises}</h1>
         </c:if>
-        <c:if test="${not empty sessionScope.coach}">
+        <c:if test="${sessionScope.role eq 'coach'}">
             <h1>${my_clients_exercises}</h1>
         </c:if>
     </c:when>
 
     <c:when test="${param.pageTopic eq 'nutrition'}">
-        <c:if test="${not empty sessionScope.client}">
+        <c:if test="${sessionScope.role eq 'client'}">
             <h1>${nutrition}</h1>
         </c:if>
-        <c:if test="${not empty sessionScope.coach}">
+        <c:if test="${sessionScope.role eq 'coach'}">
             <h1>${my_clients_nutrition}</h1>
         </c:if>
     </c:when>
