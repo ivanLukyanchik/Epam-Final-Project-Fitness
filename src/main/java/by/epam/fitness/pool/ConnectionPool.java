@@ -15,6 +15,7 @@ import java.util.Properties;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * The type Connection pool.
@@ -28,6 +29,7 @@ public class ConnectionPool {
     private static final String NUMBER_OF_CONNECTIONS_KEY = "number.of.connections";
 
     private static AtomicBoolean isCreated = new AtomicBoolean(false);
+    private static ReentrantLock lock = new ReentrantLock();
     private static ConnectionPool instance;
 
     private int numberOfConnections;
@@ -82,7 +84,15 @@ public class ConnectionPool {
      */
     public static void initPool() {
         if (!isCreated.get()) {
-            instance = new ConnectionPool();
+            lock.lock();
+            try {
+                if (instance == null) {
+                    instance = new ConnectionPool();
+                    isCreated.set(true);
+                }
+            } finally {
+                lock.unlock();
+            }
         }
     }
 

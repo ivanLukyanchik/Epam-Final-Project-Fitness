@@ -8,6 +8,7 @@ import by.epam.fitness.service.ServiceException;
 import by.epam.fitness.service.impl.CoachServiceImpl;
 import by.epam.fitness.util.page.Page;
 import by.epam.fitness.util.validation.DataValidator;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -75,6 +76,7 @@ public class AddCoachCommand implements ActionCommand {
         String patronymic = request.getParameter(PARAM_PATRONYMIC);
         String login = request.getParameter(PARAM_LOGIN);
         String password = request.getParameter(PARAM_PASSWORD);
+        password = DigestUtils.sha512Hex(password);
         return new Coach(null, name, surname, patronymic, login, password);
     }
 }

@@ -69,7 +69,7 @@
         <c:when test="${noCoach == true}">
             <h3>${no_coach}</h3>
             <form action="${pageContext.servletContext.contextPath}/controller?command=find_coaches" method="post">
-                <input type="submit" class="button" value="${show_coaches}">
+                <input type="submit" class="btn btn-info" value="${show_coaches}">
             </form>
         </c:when>
 

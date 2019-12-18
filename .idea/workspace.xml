@@ -117,22 +117,22 @@
       <recent name="by.epam.fitness.pool" />
       <recent name="by.epam.fitness.dao.impl" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\test" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources\db" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\gym" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\jsp" />
-      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web" />
-    </key>
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\test\java\resources" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\main" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\favicon" />
       <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\test" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\src\main\resources\db" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\img\gym" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web\jsp" />
+      <recent name="C:\Users\Ваня\IdeaProjects\trainingWeb\web" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -437,7 +437,10 @@
       <workItem from="1576089162150" duration="4994000" />
       <workItem from="1576140828668" duration="16087000" />
       <workItem from="1576171652943" duration="8052000" />
-      <workItem from="1576249270603" duration="5262000" />
+      <workItem from="1576249270603" duration="6473000" />
+      <workItem from="1576318120182" duration="703000" />
+      <workItem from="1576484610527" duration="214000" />
+      <workItem from="1576655115004" duration="3686000" />
     </task>
     <servers />
   </component>

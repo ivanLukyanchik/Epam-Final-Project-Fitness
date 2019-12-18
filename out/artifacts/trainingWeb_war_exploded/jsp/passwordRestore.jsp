@@ -62,7 +62,7 @@
         </c:when>
     </c:choose>
     <input onclick="checkRegisterPassword()" class="btn btn-info my-4 btn-block" type="submit" value="OK"/>
-    <c:if test="${not empty sessionScope.client}">
+    <c:if test="${sessionScope.role eq 'client'}">
         <a href="${pageContext.request.contextPath}/controller?command=client_profile">${return_to_profile}</a>
     </c:if>
 </form>

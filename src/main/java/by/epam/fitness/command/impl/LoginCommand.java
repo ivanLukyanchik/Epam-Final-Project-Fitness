@@ -24,6 +24,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import static by.epam.fitness.util.JspConst.PARAM_LOGIN;
 import static by.epam.fitness.util.JspConst.PARAM_PASSWORD;
@@ -56,13 +57,14 @@ public class LoginCommand implements ActionCommand {
             return new CommandResult(Page.LOGIN_PAGE);
         }
         boolean rememberMe = Boolean.parseBoolean(request.getParameter(JspConst.REMEMBER_ME));
+        HttpSession session = request.getSession();
         try {
             if (clientService.checkUserByLoginPassword(login, password).isPresent()) {
                 client = clientService.checkUserByLoginPassword(login, password).get();
-                request.getSession().setAttribute(SessionAttributes.PROFILE_IMAGE, client.getImage());
-                request.getSession().setAttribute(SessionAttributes.USER, login);
-                request.getSession().setAttribute(SessionAttributes.ROLE, UserRole.CLIENT);
-                request.getSession().setAttribute(SessionAttributes.ID, client.getId());
+                session.setAttribute(SessionAttributes.PROFILE_IMAGE, client.getImage());
+                session.setAttribute(SessionAttributes.USER, login);
+                session.setAttribute(SessionAttributes.ROLE, UserRole.CLIENT);
+                session.setAttribute(SessionAttributes.ID, client.getId());
                 if (rememberMe) {
                     Cookie cookieLogin = new Cookie(CookieConst.CLIENT_LOGIN, login);
                     cookieLogin.setMaxAge(CookieConst.EXPIRY);
@@ -77,16 +79,16 @@ public class LoginCommand implements ActionCommand {
                 page = Page.WELCOME_PAGE;
             } else if (coachService.checkCoachByLoginPassword(login, password).isPresent()) {
                 coach = coachService.checkCoachByLoginPassword(login, password).get();
-                request.getSession().setAttribute(SessionAttributes.USER, login);
-                request.getSession().setAttribute(SessionAttributes.ROLE, UserRole.COACH);
-                request.getSession().setAttribute(SessionAttributes.ID, coach.getId());
+                session.setAttribute(SessionAttributes.USER, login);
+                session.setAttribute(SessionAttributes.ROLE, UserRole.COACH);
+                session.setAttribute(SessionAttributes.ID, coach.getId());
                 log.info("coach with id = " + coach.getId() + " log in");
                 page = Page.WELCOME_PAGE;
             } else if (adminService.checkAdminByLoginPassword(login, password).isPresent()) {
                 admin = adminService.checkAdminByLoginPassword(login, password).get();
-                request.getSession().setAttribute(SessionAttributes.USER, login);
-                request.getSession().setAttribute(SessionAttributes.ROLE, UserRole.ADMIN);
-                request.getSession().setAttribute(SessionAttributes.ID, admin.getId());
+                session.setAttribute(SessionAttributes.USER, login);
+                session.setAttribute(SessionAttributes.ROLE, UserRole.ADMIN);
+                session.setAttribute(SessionAttributes.ID, admin.getId());
                 log.info("admin with id = " + admin.getId() + " log in");
                 page = Page.WELCOME_PAGE;
             } else {

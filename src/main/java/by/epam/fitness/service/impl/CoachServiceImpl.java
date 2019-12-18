@@ -6,6 +6,7 @@ import by.epam.fitness.dao.impl.CoachDaoImpl;
 import by.epam.fitness.entity.Coach;
 import by.epam.fitness.service.CoachService;
 import by.epam.fitness.service.ServiceException;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +20,7 @@ public class CoachServiceImpl implements CoachService {
     @Override
     public Optional<Coach> checkCoachByLoginPassword(String login, String password) throws ServiceException {
         try {
-            return coachDao.checkCoachByLoginPassword(login, password);
+            return coachDao.checkCoachByLoginPassword(login, DigestUtils.sha512Hex(password));
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

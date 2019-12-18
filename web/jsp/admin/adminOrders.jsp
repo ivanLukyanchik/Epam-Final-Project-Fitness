@@ -17,6 +17,7 @@
 <fmt:message bundle="${locale}" key="sort_by" var="sort_by"/>
 <fmt:message bundle="${locale}" key="price_sort" var="price_sort"/>
 <fmt:message bundle="${locale}" key="time_sort" var="time_sort"/>
+<fmt:message bundle="${locale}" key="footer.copyright" var="footer"/>
 
 <html>
 <head>
